@@ -6,7 +6,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "bhpmjsa2e57a0ba2e57a0b",
+          "resourceName": "bhpmjs10bca66010bca660",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -16,13 +16,13 @@
         }
       ]
     },
-    "bhpmjsa2e57a0ba2e57a0b": {
+    "bhpmjs10bca66010bca660": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "bhpmjsa2e57a0ba2e57a0bPostConfirmation",
+          "resourceName": "bhpmjs10bca66010bca660PostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -55,7 +55,12 @@
     }
   },
   "function": {
-    "bhpmjsa2e57a0ba2e57a0bPostConfirmation": {
+    "bhpmjs7985bcb47985bcb4PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "bhpmjs10bca66010bca660PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -70,7 +75,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authbhpmjsa2e57a0ba2e57a0b"
+              "userPoolId": "authbhpmjs10bca66010bca660"
             }
           },
           "additionalAuthenticationProviders": [
@@ -83,39 +88,10 @@
     }
   },
   "storage": {
-    "s3c45d0a9e": {
+    "s3d991d862": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "bhpmjsa2e57a0ba2e57a0b",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "userPoolGroups",
-          "attributes": [
-            "anyoneGroupRole"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "userPoolGroups",
-          "attributes": [
-            "staffGroupRole"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "userPoolGroups",
-          "attributes": [
-            "adminGroupRole"
-          ]
-        }
-      ]
+      "dependsOn": []
     }
   }
 }
