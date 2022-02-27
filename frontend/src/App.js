@@ -1,13 +1,23 @@
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
 
-import { Typography } from "@mui/material";
+import Amplify from "aws-amplify";
+import AuctionsRouter from "./pages/auctions/AuctionsRouter";
+import AuthRouter from "./pages/auth/AuthRouter";
+import Home from "./pages/home/Home";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import awsconfig from "./aws-exports";
+
+Amplify.configure(awsconfig);
 
 export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Typography variant="h6">Welcome</Typography>
-      </header>
-    </div>
+    <>
+      <ResponsiveAppBar />
+      <Routes>
+        <Route exact path="" element={<Home />} />
+        <Route path="auctions/*" element={<AuctionsRouter />} />
+        <Route path="auth/*" element={<AuthRouter />} />
+      </Routes>
+    </>
   );
 }

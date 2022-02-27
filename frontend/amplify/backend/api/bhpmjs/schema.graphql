@@ -1,22 +1,139 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-type Blog @model {
+# sudo amplify api gql-compile && amplify codegen
+type Blog
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: owner }
+    ]
+  ) {
   id: ID!
   name: String!
   posts: [Post] @hasMany
 }
 
-type Post @model {
+type Post
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: owner }
+    ]
+  ) {
   id: ID!
   title: String!
   blog: Blog @belongsTo
   comments: [Comment] @hasMany
 }
 
-type Comment @model {
+type Comment
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: owner }
+    ]
+  ) {
   id: ID!
   post: Post @belongsTo
   content: String!
+}
+
+type Category
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID!
+  categoryName: String!
+  auctionItems: [AuctionItem] @hasMany(indexName: "byCategory", fields: ["id"])
+}
+
+type Auctions
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID! # uuid
+  company: String
+  description: String
+  auctionStartDate: AWSDateTime
+  auctionEndDate: AWSDateTime
+  lots: [Lots] @hasMany(indexName: "byAuctions", fields: ["id"])
+  bidItemHistories: [BidItemHistory]
+    @hasMany(indexName: "byAuctions", fields: ["id"])
+}
+
+type Lots
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID! # uuid
+  lot: Int #拍卖顺序
+  startingPrice: Int
+  estimatedPriceMin: Int
+  estimatedPriceMax: Int
+  status: String
+  auctionItemID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+  auctionItem: Lots! @hasOne(fields: ["auctionItemID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+# 东西会不会流拍，流拍的会不会再拍
+
+type AuctionItem
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID! # uuid
+  name: String
+  title: String
+  description: String
+  categoryID: ID! @index(name: "byCategory", sortKeyFields: ["createdAt"])
+  category: Category! @belongsTo(fields: ["categoryID"])
+  imgURL: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type BidItemHistory
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: owner, operations: [create, read, update] }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID!
+  bidPrice: String!
+  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: ID
 }
