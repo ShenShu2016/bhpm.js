@@ -10,6 +10,16 @@
       "StackName": "amplify-bhpmjs-dev-212212",
       "StackId": "arn:aws:cloudformation:us-west-1:852970143715:stack/amplify-bhpmjs-dev-212212/145d44a0-9774-11ec-a454-0624de8e254f",
       "AmplifyAppId": "d2cnh1l52sxoo2"
+    },
+    "categories": {
+      "auth": {
+        "bhpmjsa2e57a0ba2e57a0b": {}
+      },
+      "function": {
+        "bhpmjsa2e57a0ba2e57a0bPostConfirmation": {
+          "GROUP": "anyone"
+        }
+      }
     }
   }
 }
