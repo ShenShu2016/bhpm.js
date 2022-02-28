@@ -12,7 +12,6 @@ type Category
   ) {
   id: ID!
   categoryName: String!
-
   auctionItems: [AuctionItem] @hasMany(indexName: "byCategory", fields: ["id"])
 }
 
@@ -32,6 +31,13 @@ type Auctions
   lots: [Lots] @hasMany(indexName: "byAuctions", fields: ["id"])
   bidItemHistories: [BidItemHistory]
     @hasMany(indexName: "byAuctions", fields: ["id"])
+  auctionStatus: AuctionStatus
+}
+enum AuctionStatus {
+  ComingSoon
+  InProgress
+  Finished
+  Canceled
 }
 
 type Lots
@@ -48,8 +54,18 @@ type Lots
   estimatedPriceMin: Int
   estimatedPriceMax: Int
   status: String
-  auctionItemID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
-  auctionItem: Lots! @hasOne(fields: ["auctionItemID"])
+
+  auctionsID: ID!
+    @index(
+      name: "lotsSortByAuctionsIDWithLot"
+      queryField: "lotsSortByAuctionsIDWithLot"
+      sortKeyFields: ["lot", "createdAt"]
+    )
+    @index(name: "byAuctions", sortKeyFields: ["lot"])
+  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+
+  auctionItemID: ID!
+  auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -69,7 +85,7 @@ type AuctionItem
   description: String
   categoryID: ID! @index(name: "byCategory", sortKeyFields: ["createdAt"])
   category: Category! @belongsTo(fields: ["categoryID"])
-  imgURL: String
+  imgUrl: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }

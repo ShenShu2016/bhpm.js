@@ -50,10 +50,6 @@ export const fetchCategories = createAsyncThunk(
       console.log("开始 fetch categories");
       const response = await API.graphql({
         query: listCategories,
-        variables: {
-          sortKey: "SortKey",
-          sortDirection: "DESC",
-        },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
       return response.data.listCategories.items;
