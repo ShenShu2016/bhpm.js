@@ -1,11 +1,11 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import Section1 from "../../components/fashion-shop/Section1";
 
 export default function Home() {
   console.log("Home");
   return (
-    <div>
-      <Typography variant="h5">Home page</Typography>
-    </div>
+    <>
+      <Section1 />
+    </>
   );
 }
