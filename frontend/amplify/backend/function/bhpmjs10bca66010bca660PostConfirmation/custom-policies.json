@@ -1,7 +1,6 @@
 [
   {
-    "Action": ["cognito-idp:*"],
-    "Resource": "*",
-    "Effect": "Allow"
+    "Action": [],
+    "Resource": []
   }
 ]

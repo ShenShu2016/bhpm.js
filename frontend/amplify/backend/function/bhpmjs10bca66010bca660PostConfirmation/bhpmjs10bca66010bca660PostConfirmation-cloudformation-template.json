@@ -193,6 +193,13 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:*"
+              ],
+              "Resource": "*"
             }
           ]
         }
