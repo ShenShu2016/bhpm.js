@@ -59,7 +59,7 @@ export const getAuctions = /* GraphQL */ `
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          status
+          lotsStatus
           auctionsID
           auctionItemID
           createdAt
@@ -119,7 +119,7 @@ export const getLots = /* GraphQL */ `
       startingPrice
       estimatedPriceMin
       estimatedPriceMax
-      status
+      lotsStatus
       auctionsID
       auctions {
         id
@@ -172,7 +172,7 @@ export const listLots = /* GraphQL */ `
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
-        status
+        lotsStatus
         auctionsID
         auctions {
           id
@@ -202,18 +202,18 @@ export const listLots = /* GraphQL */ `
     }
   }
 `;
-export const lotsSortByAuctionsIDWithLot = /* GraphQL */ `
-  query LotsSortByAuctionsIDWithLot(
+export const lotsSortByLot = /* GraphQL */ `
+  query LotsSortByLot(
     $auctionsID: ID!
-    $lotCreatedAt: ModelLotsLotsSortByAuctionsIDWithLotCompositeKeyConditionInput
+    $lot: ModelIntKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelLotsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    lotsSortByAuctionsIDWithLot(
+    lotsSortByLot(
       auctionsID: $auctionsID
-      lotCreatedAt: $lotCreatedAt
+      lot: $lot
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -225,7 +225,7 @@ export const lotsSortByAuctionsIDWithLot = /* GraphQL */ `
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
-        status
+        lotsStatus
         auctionsID
         auctions {
           id

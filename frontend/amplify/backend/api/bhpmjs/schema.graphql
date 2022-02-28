@@ -53,23 +53,28 @@ type Lots
   startingPrice: Int
   estimatedPriceMin: Int
   estimatedPriceMax: Int
-  status: String
-
+  lotsStatus: LotsStatus!
   auctionsID: ID!
     @index(
-      name: "lotsSortByAuctionsIDWithLot"
-      queryField: "lotsSortByAuctionsIDWithLot"
-      sortKeyFields: ["lot", "createdAt"]
+      name: "lotsSortByLot"
+      queryField: "lotsSortByLot"
+      sortKeyFields: ["lot"]
     )
     @index(name: "byAuctions", sortKeyFields: ["lot"])
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
-
   auctionItemID: ID!
   auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
   createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  updatedAt: AWSDateTime
 }
 # 东西会不会流拍，流拍的会不会再拍
+
+enum LotsStatus {
+  ComingSoon
+  InProgress
+  Finished
+  Canceled
+}
 
 type AuctionItem
   @model

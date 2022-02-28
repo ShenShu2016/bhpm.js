@@ -97,7 +97,7 @@ export const createAuctions = /* GraphQL */ `
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          status
+          lotsStatus
           auctionsID
           auctionItemID
           createdAt
@@ -140,7 +140,7 @@ export const updateAuctions = /* GraphQL */ `
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          status
+          lotsStatus
           auctionsID
           auctionItemID
           createdAt
@@ -183,7 +183,7 @@ export const deleteAuctions = /* GraphQL */ `
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          status
+          lotsStatus
           auctionsID
           auctionItemID
           createdAt
@@ -219,7 +219,7 @@ export const createLots = /* GraphQL */ `
       startingPrice
       estimatedPriceMin
       estimatedPriceMax
-      status
+      lotsStatus
       auctionsID
       auctions {
         id
@@ -270,7 +270,7 @@ export const updateLots = /* GraphQL */ `
       startingPrice
       estimatedPriceMin
       estimatedPriceMax
-      status
+      lotsStatus
       auctionsID
       auctions {
         id
@@ -321,7 +321,7 @@ export const deleteLots = /* GraphQL */ `
       startingPrice
       estimatedPriceMin
       estimatedPriceMax
-      status
+      lotsStatus
       auctionsID
       auctions {
         id
