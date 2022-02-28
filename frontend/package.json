@@ -16,6 +16,7 @@
     "aws-amplify": "^4.3.14",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.34",
+    "pure-react-carousel": "^1.28.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.1",

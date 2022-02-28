@@ -56,7 +56,7 @@ const Footer = () => {
 
                 <div>
                   {aboutLinks.map((item, ind) => (
-                    <StyledLink>{item}</StyledLink>
+                    <StyledLink key={ind}>{item}</StyledLink>
                   ))}
                 </div>
               </Grid>
@@ -74,7 +74,7 @@ const Footer = () => {
 
                 <div>
                   {customerCareLinks.map((item, ind) => (
-                    <StyledLink>{item}</StyledLink>
+                    <StyledLink key={ind}>{item}</StyledLink>
                   ))}
                 </div>
               </Grid>
