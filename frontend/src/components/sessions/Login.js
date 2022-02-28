@@ -1,17 +1,19 @@
-import * as yup from "yup";
+//import * as yup from "yup";
 
-import { Box, Card, Divider, IconButton } from "@mui/material";
+import { Box, Card, IconButton } from "@mui/material";
 import { H3, H6, Small } from "../Typography";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useState } from "react";
 
 import BazarButton from "../BazarButton";
 import BazarTextField from "../BazarTextField";
 import FlexBox from "../FlexBox";
-import Image from "../BazarImage";
-import { Link } from "react-router-dom";
+//import Image from "../BazarImage";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { signIn } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
 const fbStyle = {
@@ -57,6 +59,8 @@ const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
 }));
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   const togglePasswordVisibility = useCallback(() => {
@@ -70,13 +74,19 @@ const Login = () => {
     // } catch (error) {
     //   console.log(error.response.data.message);
     // }
+    console.log(values, "values");
+    const response = await dispatch(signIn(values));
+    console.log(response);
+    if (response.meta.requestStatus === "fulfilled") {
+      navigate("/", { replace: true });
+    }
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       onSubmit: handleFormSubmit,
       initialValues,
-      validationSchema: formSchema,
+      //validationSchema: formSchema,
     });
   return (
     <StyledCard elevation={3} passwordVisibility={passwordVisibility}>
@@ -225,8 +235,8 @@ const initialValues = {
   email: "",
   password: "",
 };
-const formSchema = yup.object().shape({
-  email: yup.string().email("invalid email").required("${path} is required"),
-  password: yup.string().required("${path} is required"),
-});
+// const formSchema = yup.object().shape({
+//   email: yup.string().email("invalid email").required("${path} is required"),
+//   password: yup.string().required("${path} is required"),
+// });
 export default Login;

@@ -1,60 +1,18 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 # sudo amplify api gql-compile && amplify codegen
-type Blog
-  @model
-  @auth(
-    rules: [
-      { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
-      { allow: owner }
-    ]
-  ) {
-  id: ID!
-  name: String!
-  posts: [Post] @hasMany
-}
-
-type Post
-  @model
-  @auth(
-    rules: [
-      { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
-      { allow: owner }
-    ]
-  ) {
-  id: ID!
-  title: String!
-  blog: Blog @belongsTo
-  comments: [Comment] @hasMany
-}
-
-type Comment
-  @model
-  @auth(
-    rules: [
-      { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
-      { allow: owner }
-    ]
-  ) {
-  id: ID!
-  post: Post @belongsTo
-  content: String!
-}
 
 type Category
   @model
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
   id: ID!
   categoryName: String!
+
   auctionItems: [AuctionItem] @hasMany(indexName: "byCategory", fields: ["id"])
 }
 
@@ -63,7 +21,6 @@ type Auctions
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -82,7 +39,6 @@ type Lots
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -104,7 +60,6 @@ type AuctionItem
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
-      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -125,7 +80,6 @@ type BidItemHistory
     rules: [
       { allow: public, operations: [read], provider: iam }
       { allow: owner, operations: [create, read, update] }
-      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {

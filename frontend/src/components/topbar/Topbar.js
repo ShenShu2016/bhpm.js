@@ -1,17 +1,20 @@
 //import { Box, palette } from "@mui/system";
 import { Container, MenuItem } from "@mui/material";
+//import Image from "../BazarImage";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import BazarButton from "../BazarButton";
 import BazarMenu from "../BazarMenu";
 import CallOutlined from "@mui/icons-material/CallOutlined";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import FlexBox from "../FlexBox";
-//import Image from "../BazarImage";
-import { Link } from "react-router-dom";
 import MailOutline from "@mui/icons-material/MailOutline";
 import { Span } from "../Typography";
 // import TopbarStyle from "./TopbarStyle";
 import TouchRipple from "@mui/material/ButtonBase";
+import { signOut } from "../../redux/slice/authSlice";
 // import { layoutConstant } from "../../utils/constants";
 import { styled } from "@mui/material/styles";
 
@@ -71,6 +74,9 @@ const TopbarWrapper = styled("div")(({ theme }) => ({
 }));
 
 const Topbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.userAuth);
   // const [currency, setCurrency] = useState(currencyList[0]);
   const [language, setLanguage] = useState(languageList[0]);
 
@@ -87,6 +93,13 @@ const Topbar = () => {
     // get language from browser
     // console.log(navigator.language);
   }, []);
+
+  const signOut_user = async () => {
+    const response = await dispatch(signOut());
+    if (response.meta.requestStatus === "fulfilled") {
+      navigate("/", { replace: true });
+    }
+  };
   return (
     <TopbarWrapper>
       <Container
@@ -120,12 +133,22 @@ const Topbar = () => {
         </FlexBox>
 
         <FlexBox className="topbarRight" alignItems="center">
-          <Link className="link" to="/auth/login">
-            Login
-          </Link>
-          <Link className="link" to="/help">
-            Register
-          </Link>
+          {isAuthenticated ? (
+            <BazarButton
+              variant="contained"
+              color="primary"
+              sx={{}}
+              onClick={signOut_user}
+            >
+              Logout
+            </BazarButton>
+          ) : (
+            <>
+              <Link className="link" to="/auth/login">
+                Login/Register
+              </Link>
+            </>
+          )}
 
           <BazarMenu
             handler={

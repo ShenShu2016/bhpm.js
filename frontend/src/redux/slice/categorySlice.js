@@ -45,15 +45,16 @@ const initialState = categoryAdapter.getInitialState({
 
 export const fetchCategories = createAsyncThunk(
   "category/fetchCategories",
-  async () => {
+  async (isAuthenticated) => {
     try {
+      console.log("开始 fetch categories");
       const response = await API.graphql({
         query: listCategories,
         variables: {
           sortKey: "SortKey",
           sortDirection: "DESC",
         },
-        authMode: "AWS_IAM",
+        authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
       return response.data.listCategories.items;
     } catch (error) {
