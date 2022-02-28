@@ -8,10 +8,17 @@ import Home from "./pages/home/Home";
 import MuiTheme from "./theme/MuiTheme";
 import Topbar from "./components/topbar/Topbar";
 import awsconfig from "./aws-exports";
+import { loadUser } from "./redux/slice/authSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 Amplify.configure(awsconfig);
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
     <MuiTheme>
       <Topbar />

@@ -6,15 +6,13 @@ const initialState = {
   isAuthenticated: null,
   user: { username: "", attributes: { email: "" } },
   cognitoGroup: [null],
-  userProfile: { username: "", badges: [] },
+
   //  Status: "idle",
   //  Error: null,
   loadUserStatus: "idle",
   loadUserError: null,
   signInStatus: "idle",
   signInError: null,
-  fetchUserProfileStatus: "idle",
-  fetchUserProfileError: null,
   signUpStatus: "idle",
   signUpError: null,
   checkEmailExistStatus: "idle",
@@ -124,7 +122,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = { username: "", attributes: { email: "" } };
         state.cognitoGroup = ["unAuthenticated"];
-        state.userProfile = { username: "", badges: [] };
+
         state.signInError = action.error.message;
       })
       // Cases for status of signIn (pending, fulfilled, and rejected)
@@ -145,7 +143,6 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = { username: "", attributes: { email: "" } };
         state.cognitoGroup = ["unAuthenticated"];
-        state.userProfile = { username: "", badges: [] };
         state.signInError = action.error.message;
       })
 
@@ -218,14 +215,12 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = { username: "", attributes: { email: "" } };
         state.cognitoGroup = ["unAuthenticated"];
-        state.userProfile = { username: "", badges: [] };
       })
       .addCase(signOut.rejected, (state, action) => {
         state.signOutStatus = "failed";
         state.isAuthenticated = false;
         state.user = { username: "", attributes: { email: "" } };
         state.cognitoGroup = ["unAuthenticated"];
-        state.userProfile = { username: "", badges: [] };
       });
   },
 });
