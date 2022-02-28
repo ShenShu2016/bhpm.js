@@ -120,7 +120,7 @@ const Topbar = () => {
         </FlexBox>
 
         <FlexBox className="topbarRight" alignItems="center">
-          <Link className="link" to="/faq">
+          <Link className="link" to="/auth/login">
             Login
           </Link>
           <Link className="link" to="/help">
