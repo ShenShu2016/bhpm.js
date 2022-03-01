@@ -7,6 +7,7 @@ type Category
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -20,6 +21,7 @@ type Auctions
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -31,7 +33,6 @@ type Auctions
   lots: [Lots] @hasMany(indexName: "byAuctions", fields: ["id"])
   bidItemHistories: [BidItemHistory]
     @hasMany(indexName: "byAuctions", fields: ["id"])
-  auctionStatus: AuctionStatus
 }
 enum AuctionStatus {
   ComingSoon
@@ -45,6 +46,7 @@ type Lots
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -64,6 +66,10 @@ type Lots
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
   auctionItemID: ID!
   auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
+
+  bidItemHistories: [BidItemHistory]
+    @hasMany(indexName: "byLots", fields: ["id"])
+  auctionStatus: AuctionStatus
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 }
@@ -81,6 +87,7 @@ type AuctionItem
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
@@ -101,15 +108,26 @@ type BidItemHistory
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
-      { allow: owner, operations: [create, read, update] }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: owner, operations: [create, read] }
       { allow: groups, groups: ["admin"] }
     ]
   ) {
   id: ID!
   bidPrice: String!
-  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+  auctionsID: ID!
+    @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+    @index(
+      name: "BidItemHistorySortByCreatedAt"
+      queryField: "BidItemHistorySortByCreatedAt"
+      sortKeyFields: ["createdAt"]
+    )
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+
+  lotsID: ID! @index(name: "byLots", sortKeyFields: ["createdAt"])
+  lots: Lots! @belongsTo(fields: ["lotsID"])
+
   createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  updatedAt: AWSDateTime
   owner: ID
 }

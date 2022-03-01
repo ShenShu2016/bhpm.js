@@ -14,6 +14,7 @@ export const getCategory = /* GraphQL */ `
           description
           categoryID
           imgUrl
+          imgUrls
           createdAt
           updatedAt
         }
@@ -62,6 +63,7 @@ export const getAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
+          auctionStatus
           createdAt
           updatedAt
         }
@@ -72,13 +74,13 @@ export const getAuctions = /* GraphQL */ `
           id
           bidPrice
           auctionsID
+          lotsID
           createdAt
           updatedAt
           owner
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -103,7 +105,6 @@ export const listAuctions = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -133,7 +134,6 @@ export const getLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -151,9 +151,23 @@ export const getLots = /* GraphQL */ `
           updatedAt
         }
         imgUrl
+        imgUrls
         createdAt
         updatedAt
       }
+      bidItemHistories {
+        items {
+          id
+          bidPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      auctionStatus
       createdAt
       updatedAt
     }
@@ -180,7 +194,6 @@ export const listLots = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -192,9 +205,14 @@ export const listLots = /* GraphQL */ `
           description
           categoryID
           imgUrl
+          imgUrls
           createdAt
           updatedAt
         }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
         createdAt
         updatedAt
       }
@@ -233,7 +251,6 @@ export const lotsSortByLot = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -245,9 +262,14 @@ export const lotsSortByLot = /* GraphQL */ `
           description
           categoryID
           imgUrl
+          imgUrls
           createdAt
           updatedAt
         }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
         createdAt
         updatedAt
       }
@@ -273,6 +295,7 @@ export const getAuctionItem = /* GraphQL */ `
         updatedAt
       }
       imgUrl
+      imgUrls
       createdAt
       updatedAt
     }
@@ -298,6 +321,7 @@ export const listAuctionItems = /* GraphQL */ `
           updatedAt
         }
         imgUrl
+        imgUrls
         createdAt
         updatedAt
       }
@@ -319,6 +343,42 @@ export const getBidItemHistory = /* GraphQL */ `
         auctionEndDate
         lots {
           nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
         }
         bidItemHistories {
           nextToken
@@ -354,6 +414,71 @@ export const listBidItemHistories = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          auctionStatus
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
+  query BidItemHistorySortByCreatedAt(
+    $auctionsID: ID!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBidItemHistoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    BidItemHistorySortByCreatedAt(
+      auctionsID: $auctionsID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
           auctionStatus
           createdAt
           updatedAt

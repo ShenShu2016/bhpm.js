@@ -17,6 +17,7 @@ export const createCategory = /* GraphQL */ `
           description
           categoryID
           imgUrl
+          imgUrls
           createdAt
           updatedAt
         }
@@ -43,6 +44,7 @@ export const updateCategory = /* GraphQL */ `
           description
           categoryID
           imgUrl
+          imgUrls
           createdAt
           updatedAt
         }
@@ -69,6 +71,7 @@ export const deleteCategory = /* GraphQL */ `
           description
           categoryID
           imgUrl
+          imgUrls
           createdAt
           updatedAt
         }
@@ -100,6 +103,7 @@ export const createAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
+          auctionStatus
           createdAt
           updatedAt
         }
@@ -110,13 +114,13 @@ export const createAuctions = /* GraphQL */ `
           id
           bidPrice
           auctionsID
+          lotsID
           createdAt
           updatedAt
           owner
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -143,6 +147,7 @@ export const updateAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
+          auctionStatus
           createdAt
           updatedAt
         }
@@ -153,13 +158,13 @@ export const updateAuctions = /* GraphQL */ `
           id
           bidPrice
           auctionsID
+          lotsID
           createdAt
           updatedAt
           owner
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -186,6 +191,7 @@ export const deleteAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
+          auctionStatus
           createdAt
           updatedAt
         }
@@ -196,13 +202,13 @@ export const deleteAuctions = /* GraphQL */ `
           id
           bidPrice
           auctionsID
+          lotsID
           createdAt
           updatedAt
           owner
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -233,7 +239,6 @@ export const createLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -251,9 +256,23 @@ export const createLots = /* GraphQL */ `
           updatedAt
         }
         imgUrl
+        imgUrls
         createdAt
         updatedAt
       }
+      bidItemHistories {
+        items {
+          id
+          bidPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      auctionStatus
       createdAt
       updatedAt
     }
@@ -284,7 +303,6 @@ export const updateLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -302,9 +320,23 @@ export const updateLots = /* GraphQL */ `
           updatedAt
         }
         imgUrl
+        imgUrls
         createdAt
         updatedAt
       }
+      bidItemHistories {
+        items {
+          id
+          bidPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      auctionStatus
       createdAt
       updatedAt
     }
@@ -335,7 +367,6 @@ export const deleteLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -353,9 +384,23 @@ export const deleteLots = /* GraphQL */ `
           updatedAt
         }
         imgUrl
+        imgUrls
         createdAt
         updatedAt
       }
+      bidItemHistories {
+        items {
+          id
+          bidPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      auctionStatus
       createdAt
       updatedAt
     }
@@ -382,6 +427,7 @@ export const createAuctionItem = /* GraphQL */ `
         updatedAt
       }
       imgUrl
+      imgUrls
       createdAt
       updatedAt
     }
@@ -408,6 +454,7 @@ export const updateAuctionItem = /* GraphQL */ `
         updatedAt
       }
       imgUrl
+      imgUrls
       createdAt
       updatedAt
     }
@@ -434,6 +481,7 @@ export const deleteAuctionItem = /* GraphQL */ `
         updatedAt
       }
       imgUrl
+      imgUrls
       createdAt
       updatedAt
     }
@@ -456,6 +504,42 @@ export const createBidItemHistory = /* GraphQL */ `
         auctionEndDate
         lots {
           nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
         }
         bidItemHistories {
           nextToken
@@ -491,6 +575,42 @@ export const updateBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
         auctionStatus
         createdAt
         updatedAt
@@ -518,6 +638,42 @@ export const deleteBidItemHistory = /* GraphQL */ `
         auctionEndDate
         lots {
           nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
         }
         bidItemHistories {
           nextToken
