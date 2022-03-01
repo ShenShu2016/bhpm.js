@@ -1,6 +1,7 @@
 import { Box, Button, Grid, styled } from "@mui/material";
 
 import BazarImage from "../BazarImage";
+import { Link } from "react-router-dom";
 import { Paragraph } from "../Typography";
 import React from "react"; // component props interface
 
@@ -56,21 +57,21 @@ const CarouselCard1 = ({ carousel }) => {
           <Paragraph color="secondary.main" mb={2.7}>
             {carousel.description}
           </Paragraph>
-          <a href={carousel.buttonLik}>
-            <Button
-              className="button-link"
-              variant="contained"
-              color="primary"
-              disableElevation
-              sx={{
-                px: "1.75rem",
-                height: "44px",
-                borderRadius: "8px",
-              }}
-            >
-              {carousel.buttonText}
-            </Button>
-          </a>
+          <Button
+            className="button-link"
+            variant="contained"
+            color="primary"
+            disableElevation
+            sx={{
+              px: "1.75rem",
+              height: "44px",
+              borderRadius: "8px",
+            }}
+            component={Link}
+            to={carousel.buttonLik}
+          >
+            {carousel.buttonText}
+          </Button>
         </Grid>
         <Grid item sm={5} xs={12}>
           <BazarImage

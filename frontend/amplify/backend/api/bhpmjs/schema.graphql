@@ -91,6 +91,7 @@ type AuctionItem
   categoryID: ID! @index(name: "byCategory", sortKeyFields: ["createdAt"])
   category: Category! @belongsTo(fields: ["categoryID"])
   imgUrl: String
+  imgUrls: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
