@@ -1,7 +1,6 @@
 import "react-image-gallery/styles/css/image-gallery.css";
 
 import {
-  Box,
   Button,
   FormControl,
   InputAdornment,
@@ -59,7 +58,7 @@ const styles = {
   },
 };
 
-const useStyles = makeStyles(styles);
+// const useStyles = makeStyles(styles);
 
 const images = [
   {
@@ -130,51 +129,51 @@ const styles3 = {
   },
 };
 
-const bid2 = () => {
-  return [
-    <div className={[styles.productContainer]}>
-      <Grid
-        item
-        xs={5}
-        sm={5}
-        Container
-        direction={"row"}
-        justifyContent={"left"}
-        alignItems={"left"}
-        rowSpacing={1}
-        columnSpacing={{ xs: 0, sm: 0, md: 0 }}
-        columns={12}
-      >
-        <Grid>
-          <ImageGallery
-            showFullscreenButton={true}
-            showPlayButton={false}
-            showIndex={true}
-            startIndex={3}
-            thumbnailPosition={"left"}
-            items={images}
-          ></ImageGallery>
-        </Grid>
-        <div>
-          <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-            <Box gridColumn="span 8">
-              <item>xs=8</item>
-            </Box>
-            <Box gridColumn="span 4">
-              <item>xs=4</item>
-            </Box>
-            <Box gridColumn="span 4">
-              <item>xs=4</item>
-            </Box>
-            <Box gridColumn="span 8">
-              <item>xs=8</item>
-            </Box>
-          </Box>
-        </div>
-      </Grid>
-    </div>,
-  ];
-};
+// const bid2 = () => {
+//   return [
+//     <div className={[styles.productContainer]}>
+//       <Grid
+//         item
+//         xs={5}
+//         sm={5}
+//         Container
+//         direction={"row"}
+//         justifyContent={"left"}
+//         alignItems={"left"}
+//         rowSpacing={1}
+//         columnSpacing={{ xs: 0, sm: 0, md: 0 }}
+//         columns={12}
+//       >
+//         <Grid>
+//           <ImageGallery
+//             showFullscreenButton={true}
+//             showPlayButton={false}
+//             showIndex={true}
+//             startIndex={3}
+//             thumbnailPosition={"left"}
+//             items={images}
+//           ></ImageGallery>
+//         </Grid>
+//         <div>
+//           <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+//             <Box gridColumn="span 8">
+//               <item>xs=8</item>
+//             </Box>
+//             <Box gridColumn="span 4">
+//               <item>xs=4</item>
+//             </Box>
+//             <Box gridColumn="span 4">
+//               <item>xs=4</item>
+//             </Box>
+//             <Box gridColumn="span 8">
+//               <item>xs=8</item>
+//             </Box>
+//           </Box>
+//         </div>
+//       </Grid>
+//     </div>,
+//   ];
+// };
 
 export default function Bidding() {
   const [showMe, setShowMe] = useState(false);
@@ -183,8 +182,8 @@ export default function Bidding() {
     var div = document.getElementById("msgbox1");
     div.innerHTML +=
       '<Button variant="outlined" color="success">Click me</Button><br />';
-    var div = document.getElementById("msgbox1");
-    div.scrollTop = div.scrollHeight - div.clientHeight;
+    var div1 = document.getElementById("msgbox1");
+    div1.scrollTop = div1.scrollHeight - div1.clientHeight;
   }
 
   function secondcall() {
@@ -204,14 +203,14 @@ export default function Bidding() {
     div.scrollTop = div.scrollHeight - div.clientHeight;
   }
 
-  function toggle() {
-    setShowMe(!showMe);
-    var div = document.getElementById("msgbox1");
-    div.innerHTML +=
-      '<div style="color:blue">Here is some more data appended</div>';
-    var div = document.getElementById("msgbox1");
-    div.scrollTop = div.scrollHeight - div.clientHeight;
-  }
+  //   function toggle() {
+  //     setShowMe(!showMe);
+  //     var div = document.getElementById("msgbox1");
+  //     div.innerHTML +=
+  //       '<div style="color:blue">Here is some more data appended</div>';
+  //     var div = document.getElementById("msgbox1");
+  //     div.scrollTop = div.scrollHeight - div.clientHeight;
+  //   }
   return [
     <div className={[styles.productContainer]}>
       <Grid container spacing={1}>
