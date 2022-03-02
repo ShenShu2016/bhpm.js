@@ -126,7 +126,6 @@ export const createAuctions = /* GraphQL */ `
           id
           bidIncrementPrice
           auctionsID
-          lotsID
           createdAt
           updatedAt
         }
@@ -193,7 +192,6 @@ export const updateAuctions = /* GraphQL */ `
           id
           bidIncrementPrice
           auctionsID
-          lotsID
           createdAt
           updatedAt
         }
@@ -260,7 +258,6 @@ export const deleteAuctions = /* GraphQL */ `
           id
           bidIncrementPrice
           auctionsID
-          lotsID
           createdAt
           updatedAt
         }
@@ -823,43 +820,6 @@ export const createBidIncrement = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        auctionStatus
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -895,43 +855,6 @@ export const updateBidIncrement = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        auctionStatus
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -964,43 +887,6 @@ export const deleteBidIncrement = /* GraphQL */ `
         auctionUserLimitations {
           nextToken
         }
-        createdAt
-        updatedAt
-      }
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        auctionStatus
         createdAt
         updatedAt
       }

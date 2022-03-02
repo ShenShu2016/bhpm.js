@@ -153,7 +153,6 @@ export const getAuctions = /* GraphQL */ `
           id
           bidIncrementPrice
           auctionsID
-          lotsID
           createdAt
           updatedAt
         }
@@ -626,43 +625,6 @@ export const getBidIncrement = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        auctionStatus
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -685,71 +647,6 @@ export const listBidIncrements = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
-          createdAt
-          updatedAt
-        }
-        lotsID
-        lots {
-          id
-          lot
-          startingPrice
-          estimatedPriceMin
-          estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
-          auctionStatus
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const bidIncrementSortByBidIncrementPrice = /* GraphQL */ `
-  query BidIncrementSortByBidIncrementPrice(
-    $auctionsID: ID!
-    $bidIncrementPrice: ModelIntKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelBidIncrementFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    BidIncrementSortByBidIncrementPrice(
-      auctionsID: $auctionsID
-      bidIncrementPrice: $bidIncrementPrice
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        bidIncrementPrice
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          createdAt
-          updatedAt
-        }
-        lotsID
-        lots {
-          id
-          lot
-          startingPrice
-          estimatedPriceMin
-          estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
