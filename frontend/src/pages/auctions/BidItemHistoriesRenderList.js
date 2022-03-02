@@ -1,29 +1,50 @@
-import { Box, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import React from "react";
+import { useSelector } from "react-redux";
 
 export default function BidItemHistoriesRenderList({ bitItemHistories }) {
+  const { username } = useSelector((state) => state.userAuth.user);
+  console.log(username);
   return (
     <div>
-      <Container
+      <Stack
+        spacing={2}
         sx={{
           borderStyle: "solid",
-          display: "flex",
-          flexWrap: "wrap",
+          // display: "flex",
+          // flexWrap: "wrap",
           margin: "auto",
           justifyContent: "space-around",
         }}
       >
         {bitItemHistories &&
           bitItemHistories.map((history) => {
+            console.log(history.owner);
             return (
-              <Box sx={{ width: "400px" }} key={history.id}>
-                <Typography variant="h5" sx={{ whiteSpace: "pre-wrap" }}>
+              <Box sx={{ width: "200px" }} key={history.id}>
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Typography variant="h5" color="primary">
+                      Live ${history.bidPrice} :
+                      {history.owner === null ? "现场" : "Internet"}
+                    </Typography>
+                    {history.owner === username && "You"}
+                  </CardContent>
+                </Card>
+                {/* <Typography variant="h5" sx={{ whiteSpace: "pre-wrap" }}>
                   history ID: {history.id}
                 </Typography>
                 <Typography variant="body1">
                   {JSON.stringify(history, 1, 2)}
-                </Typography>
+                </Typography> */}
                 {/* </Typography> */}
                 {/* <Typography variant="body1">
                     startingPrice: {lotItem.startingPrice}
@@ -52,7 +73,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
               </Box>
             );
           })}
-      </Container>
+      </Stack>
     </div>
   );
 }

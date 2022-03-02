@@ -37,6 +37,7 @@ const bidItemHistoryAdapter = createEntityAdapter({
 });
 
 const initialState = bidItemHistoryAdapter.getInitialState({
+  insertBidItemHistoryStatus: "idle",
   fetchBidItemHistoriesStatus: "idle",
   fetchBidItemHistoriesError: null,
   selectedBidItemHistoryStatus: "idle",
@@ -45,7 +46,7 @@ const initialState = bidItemHistoryAdapter.getInitialState({
   postBidItemHistoryError: null,
   postBidItemHistoryImgStatus: "idle",
   postBidItemHistoryImgError: null,
-  updateBidItemHistoryDetailStatus: "idle",
+  //updateBidItemHistoryDetailStatus: "idle",
   updateBidItemHistoryDetailError: null,
 });
 
@@ -87,16 +88,17 @@ export const selectedBidItemHistory = createAsyncThunk(
 export const postBidItemHistory = createAsyncThunk(
   "bidItemHistory/postBidItemHistory",
   async ({ createBidItemHistoryInput }) => {
-    try {
-      const response = await API.graphql(
-        graphqlOperation(createBidItemHistory, {
-          input: createBidItemHistoryInput,
-        })
-      );
-      return response.data.createBidItemHistory;
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    const response = await API.graphql(
+      graphqlOperation(createBidItemHistory, {
+        input: createBidItemHistoryInput,
+      })
+    );
+    console.log(response);
+    return response.data.createBidItemHistory;
+    // } catch (error) {
+    //   return error;
+    // }
   }
 );
 
@@ -115,7 +117,16 @@ export const updateBidItemHistoryDetail = createAsyncThunk(
 const bidItemHistorySlice = createSlice({
   name: "bidItemHistory",
   initialState,
-  reducers: {},
+  reducers: {
+    insertBidItemHistory(state, data) {
+      bidItemHistoryAdapter.upsertOne(state, data);
+      state.insertBidItemHistoryStatus = "succeeded";
+    },
+    removeAllBidItemHistories(state, data) {
+      bidItemHistoryAdapter.removeAll(state);
+      console.log("移除全部bidItemHistory");
+    },
+  },
   extraReducers(builder) {
     builder
       // Cases for status of fetchBidItemHistorys (pending, fulfilled, and rejected)
@@ -150,7 +161,7 @@ const bidItemHistorySlice = createSlice({
       .addCase(postBidItemHistory.fulfilled, (state, action) => {
         state.postBidItemHistoryStatus = "succeeded";
         // state.bidItemHistorys.unshift(action.payload.data.createBidItemHistory);
-        bidItemHistoryAdapter.addOne(state, action.payload);
+        bidItemHistoryAdapter.upsertOne(state, action.payload);
         // state.postBidItemHistoryStatus = "idle";
       })
       .addCase(postBidItemHistory.rejected, (state, action) => {
@@ -174,8 +185,8 @@ const bidItemHistorySlice = createSlice({
   },
 });
 
-export const { removeSelectedBidItemHistory } = bidItemHistorySlice.actions;
-
+export const { removeAllBidItemHistories } = bidItemHistorySlice.actions;
+export const { insertBidItemHistory } = bidItemHistorySlice.actions;
 export const {
   selectAll: selectAllBidItemHistories,
   selectById: selectBidItemHistoryById,
