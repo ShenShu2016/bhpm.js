@@ -74,7 +74,6 @@ type Lots
 
   bidItemHistories: [BidItemHistory]
     @hasMany(indexName: "byLots", fields: ["id"])
-  auctionStatus: AuctionStatus
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 }
@@ -85,6 +84,7 @@ enum LotsStatus {
   InProgress
   Finished
   Canceled
+  Pause
 }
 
 type AuctionItem
