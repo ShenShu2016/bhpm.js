@@ -137,6 +137,7 @@ type BidItemHistory
   owner: ID
 }
 
+# 每个BidIncrement 对于单独auctionID 的 每个lots 都是通用的
 type BidIncrement
   @model
   @auth(
@@ -147,21 +148,14 @@ type BidIncrement
     ]
   ) {
   id: ID!
-  bidIncrementPrice: Int!
-  auctionsID: ID!
-    @index(name: "byAuctions", sortKeyFields: ["createdAt"])
-    @index(
-      name: "BidIncrementSortByBidIncrementPrice"
-      queryField: "BidIncrementSortByBidIncrementPrice"
-      sortKeyFields: ["bidIncrementPrice"]
-    )
+  bidIncrementPrice: [Int]
+  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
-  lotsID: ID!
-  lots: Lots! @hasOne(fields: ["lotsID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 }
 
+# 每个客户在每次auction里面 能成交的总数
 type AuctionUserLimitation
   @model
   @auth(
