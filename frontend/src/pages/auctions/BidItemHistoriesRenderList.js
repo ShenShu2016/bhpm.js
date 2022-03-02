@@ -27,7 +27,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
       >
         {bitItemHistories &&
           bitItemHistories.map((history) => {
-            console.log(history.owner);
+            //console.log(history.owner);
             return (
               <Box sx={{ width: "200px" }} key={history.id}>
                 <Card sx={{ minWidth: 275 }}>

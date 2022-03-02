@@ -1,6 +1,108 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateAuctionUserLimitation = /* GraphQL */ `
+  subscription OnCreateAuctionUserLimitation($owner: String) {
+    onCreateAuctionUserLimitation(owner: $owner) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateAuctionUserLimitation = /* GraphQL */ `
+  subscription OnUpdateAuctionUserLimitation($owner: String) {
+    onUpdateAuctionUserLimitation(owner: $owner) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteAuctionUserLimitation = /* GraphQL */ `
+  subscription OnDeleteAuctionUserLimitation($owner: String) {
+    onDeleteAuctionUserLimitation(owner: $owner) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateCategory = /* GraphQL */ `
   subscription OnCreateCategory {
     onCreateCategory {
@@ -109,6 +211,29 @@ export const onCreateAuctions = /* GraphQL */ `
         }
         nextToken
       }
+      bidIncrements {
+        items {
+          id
+          bidIncrementPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      auctionUserLimitations {
+        items {
+          id
+          maxUserBidPrice
+          limitStatus
+          auctionsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -144,6 +269,29 @@ export const onUpdateAuctions = /* GraphQL */ `
           bidPrice
           auctionsID
           lotsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      bidIncrements {
+        items {
+          id
+          bidIncrementPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      auctionUserLimitations {
+        items {
+          id
+          maxUserBidPrice
+          limitStatus
+          auctionsID
           createdAt
           updatedAt
           owner
@@ -191,6 +339,29 @@ export const onDeleteAuctions = /* GraphQL */ `
         }
         nextToken
       }
+      bidIncrements {
+        items {
+          id
+          bidIncrementPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      auctionUserLimitations {
+        items {
+          id
+          maxUserBidPrice
+          limitStatus
+          auctionsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -216,6 +387,12 @@ export const onCreateLots = /* GraphQL */ `
           nextToken
         }
         bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
           nextToken
         }
         createdAt
@@ -279,6 +456,12 @@ export const onUpdateLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -338,6 +521,12 @@ export const onDeleteLots = /* GraphQL */ `
           nextToken
         }
         bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
           nextToken
         }
         createdAt
@@ -452,15 +641,68 @@ export const onDeleteAuctionItem = /* GraphQL */ `
   }
 `;
 export const onCreateBidItemHistory = /* GraphQL */ `
-  subscription OnCreateBidItemHistory {
-    onCreateBidItemHistory {
+  subscription OnCreateBidItemHistory($owner: String) {
+    onCreateBidItemHistory(owner: $owner) {
       id
       bidPrice
       auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       lotsID
       lots {
         id
         lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -484,6 +726,12 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
           nextToken
         }
         bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
           nextToken
         }
         createdAt
@@ -550,6 +798,12 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -593,6 +847,213 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+    }
+  }
+`;
+export const onCreateBidIncrement = /* GraphQL */ `
+  subscription OnCreateBidIncrement {
+    onCreateBidIncrement {
+      id
+      bidIncrementPrice
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateBidIncrement = /* GraphQL */ `
+  subscription OnUpdateBidIncrement {
+    onUpdateBidIncrement {
+      id
+      bidIncrementPrice
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteBidIncrement = /* GraphQL */ `
+  subscription OnDeleteBidIncrement {
+    onDeleteBidIncrement {
+      id
+      bidIncrementPrice
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

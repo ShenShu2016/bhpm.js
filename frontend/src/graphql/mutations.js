@@ -121,6 +121,29 @@ export const createAuctions = /* GraphQL */ `
         }
         nextToken
       }
+      bidIncrements {
+        items {
+          id
+          bidIncrementPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      auctionUserLimitations {
+        items {
+          id
+          maxUserBidPrice
+          limitStatus
+          auctionsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -159,6 +182,29 @@ export const updateAuctions = /* GraphQL */ `
           bidPrice
           auctionsID
           lotsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      bidIncrements {
+        items {
+          id
+          bidIncrementPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      auctionUserLimitations {
+        items {
+          id
+          maxUserBidPrice
+          limitStatus
+          auctionsID
           createdAt
           updatedAt
           owner
@@ -209,6 +255,29 @@ export const deleteAuctions = /* GraphQL */ `
         }
         nextToken
       }
+      bidIncrements {
+        items {
+          id
+          bidIncrementPrice
+          auctionsID
+          lotsID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      auctionUserLimitations {
+        items {
+          id
+          maxUserBidPrice
+          limitStatus
+          auctionsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -237,6 +306,12 @@ export const createLots = /* GraphQL */ `
           nextToken
         }
         bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
           nextToken
         }
         createdAt
@@ -303,6 +378,12 @@ export const updateLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -365,6 +446,12 @@ export const deleteLots = /* GraphQL */ `
           nextToken
         }
         bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
           nextToken
         }
         createdAt
@@ -508,6 +595,12 @@ export const createBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -573,6 +666,12 @@ export const updateBidItemHistory = /* GraphQL */ `
           nextToken
         }
         bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
           nextToken
         }
         createdAt
@@ -642,6 +741,12 @@ export const deleteBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -679,6 +784,333 @@ export const deleteBidItemHistory = /* GraphQL */ `
           nextToken
         }
         auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createBidIncrement = /* GraphQL */ `
+  mutation CreateBidIncrement(
+    $input: CreateBidIncrementInput!
+    $condition: ModelBidIncrementConditionInput
+  ) {
+    createBidIncrement(input: $input, condition: $condition) {
+      id
+      bidIncrementPrice
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateBidIncrement = /* GraphQL */ `
+  mutation UpdateBidIncrement(
+    $input: UpdateBidIncrementInput!
+    $condition: ModelBidIncrementConditionInput
+  ) {
+    updateBidIncrement(input: $input, condition: $condition) {
+      id
+      bidIncrementPrice
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteBidIncrement = /* GraphQL */ `
+  mutation DeleteBidIncrement(
+    $input: DeleteBidIncrementInput!
+    $condition: ModelBidIncrementConditionInput
+  ) {
+    deleteBidIncrement(input: $input, condition: $condition) {
+      id
+      bidIncrementPrice
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        auctionStatus
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAuctionUserLimitation = /* GraphQL */ `
+  mutation CreateAuctionUserLimitation(
+    $input: CreateAuctionUserLimitationInput!
+    $condition: ModelAuctionUserLimitationConditionInput
+  ) {
+    createAuctionUserLimitation(input: $input, condition: $condition) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateAuctionUserLimitation = /* GraphQL */ `
+  mutation UpdateAuctionUserLimitation(
+    $input: UpdateAuctionUserLimitationInput!
+    $condition: ModelAuctionUserLimitationConditionInput
+  ) {
+    updateAuctionUserLimitation(input: $input, condition: $condition) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteAuctionUserLimitation = /* GraphQL */ `
+  mutation DeleteAuctionUserLimitation(
+    $input: DeleteAuctionUserLimitationInput!
+    $condition: ModelAuctionUserLimitationConditionInput
+  ) {
+    deleteAuctionUserLimitation(input: $input, condition: $condition) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrements {
+          nextToken
+        }
+        auctionUserLimitations {
+          nextToken
+        }
         createdAt
         updatedAt
       }
