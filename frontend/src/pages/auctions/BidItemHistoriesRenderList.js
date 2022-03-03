@@ -2,21 +2,23 @@ import {
   Box,
   Card,
   CardContent,
+  CardMedia,
   Container,
   Stack,
   Typography,
 } from "@mui/material";
 
 import React from "react";
+import moment from "moment";
 import { useSelector } from "react-redux";
 
 export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   const { username } = useSelector((state) => state.userAuth.user);
-  console.log(username);
+  //console.log(username);
   return (
     <div>
       <Stack
-        spacing={2}
+        spacing={1}
         sx={{
           borderStyle: "solid",
           // display: "flex",
@@ -28,15 +30,25 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
         {bitItemHistories &&
           bitItemHistories.map((history) => {
             //console.log(history.owner);
+            //console.log(history.lots.auctionItem.imgUrl);
             return (
               <Box sx={{ width: "200px" }} key={history.id}>
                 <Card sx={{ minWidth: 275 }}>
                   <CardContent>
-                    <Typography variant="h5" color="primary">
-                      Live ${history.bidPrice} :
-                      {history.owner === null ? "现场" : "Internet"}
-                    </Typography>
+                    {/* <CardMedia
+                      component="img"
+                      // sx={{ maxHeight: "100" }}
+                      image={history.lots.auctionItem.imgUrl}
+                      alt="Paella dish"
+                    /> */}
+                    {/* <Typography variant="h5" color="primary"> */}
+                    Live ${history.bidPrice} :
+                    {history.owner === null ? "现场" : "Internet"}
+                    {/* </Typography> */}
                     {history.owner === username && "You"}
+                    <Typography variant="body1">
+                      {moment(history.createdAt).fromNow()}
+                    </Typography>
                   </CardContent>
                 </Card>
                 {/* <Typography variant="h5" sx={{ whiteSpace: "pre-wrap" }}>

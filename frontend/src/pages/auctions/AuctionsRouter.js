@@ -6,7 +6,7 @@ import BiddingTest from "./BiddingTest";
 import React from "react";
 
 export default function AuctionsRouter() {
-  console.log("AuctionsRouter");
+  //console.log("AuctionsRouter");
   return (
     <>
       <Routes>

@@ -106,7 +106,12 @@ export const updateLotsDetail = createAsyncThunk(
 const lotsSlice = createSlice({
   name: "lots",
   initialState,
-  reducers: {},
+  reducers: {
+    updateLotsDetailBySub(state, data) {
+      lotsAdapter.upsertOne(state, data);
+      state.insertBidItemHistoryStatus = "succeeded";
+    },
+  },
   extraReducers(builder) {
     builder
       // Cases for status of fetchLotss (pending, fulfilled, and rejected)
@@ -166,7 +171,7 @@ const lotsSlice = createSlice({
 });
 
 export const { removeSelectedLots } = lotsSlice.actions;
-
+export const { updateLotsDetailBySub } = lotsSlice.actions;
 export const {
   selectAll: selectAllLotss,
   selectById: selectLotsById,

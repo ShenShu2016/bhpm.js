@@ -20,9 +20,7 @@ export const onCreateAuctionUserLimitation = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -54,9 +52,7 @@ export const onUpdateAuctionUserLimitation = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -88,9 +84,7 @@ export const onDeleteAuctionUserLimitation = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -193,7 +187,6 @@ export const onCreateAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -211,16 +204,7 @@ export const onCreateAuctions = /* GraphQL */ `
         }
         nextToken
       }
-      bidIncrements {
-        items {
-          id
-          bidIncrementPrice
-          auctionsID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      bidIncrementPriceList
       auctionUserLimitations {
         items {
           id
@@ -256,7 +240,6 @@ export const onUpdateAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -274,16 +257,7 @@ export const onUpdateAuctions = /* GraphQL */ `
         }
         nextToken
       }
-      bidIncrements {
-        items {
-          id
-          bidIncrementPrice
-          auctionsID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      bidIncrementPriceList
       auctionUserLimitations {
         items {
           id
@@ -319,7 +293,6 @@ export const onDeleteAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -337,16 +310,7 @@ export const onDeleteAuctions = /* GraphQL */ `
         }
         nextToken
       }
-      bidIncrements {
-        items {
-          id
-          bidIncrementPrice
-          auctionsID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      bidIncrementPriceList
       auctionUserLimitations {
         items {
           id
@@ -386,9 +350,7 @@ export const onCreateLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -425,7 +387,6 @@ export const onCreateLots = /* GraphQL */ `
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -453,9 +414,7 @@ export const onUpdateLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -492,7 +451,6 @@ export const onUpdateLots = /* GraphQL */ `
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -520,9 +478,7 @@ export const onDeleteLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -559,7 +515,6 @@ export const onDeleteLots = /* GraphQL */ `
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -655,9 +610,7 @@ export const onCreateBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -679,6 +632,7 @@ export const onCreateBidItemHistory = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -697,7 +651,6 @@ export const onCreateBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -725,9 +678,7 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -749,6 +700,7 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -767,7 +719,6 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -795,9 +746,7 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -819,6 +768,7 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -837,109 +787,12 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
       createdAt
       updatedAt
       owner
-    }
-  }
-`;
-export const onCreateBidIncrement = /* GraphQL */ `
-  subscription OnCreateBidIncrement {
-    onCreateBidIncrement {
-      id
-      bidIncrementPrice
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrements {
-          nextToken
-        }
-        auctionUserLimitations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateBidIncrement = /* GraphQL */ `
-  subscription OnUpdateBidIncrement {
-    onUpdateBidIncrement {
-      id
-      bidIncrementPrice
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrements {
-          nextToken
-        }
-        auctionUserLimitations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteBidIncrement = /* GraphQL */ `
-  subscription OnDeleteBidIncrement {
-    onDeleteBidIncrement {
-      id
-      bidIncrementPrice
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrements {
-          nextToken
-        }
-        auctionUserLimitations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
     }
   }
 `;

@@ -20,9 +20,7 @@ export const getAuctionUserLimitation = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -57,6 +55,7 @@ export const listAuctionUserLimitations = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -130,7 +129,6 @@ export const getAuctions = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -148,16 +146,7 @@ export const getAuctions = /* GraphQL */ `
         }
         nextToken
       }
-      bidIncrements {
-        items {
-          id
-          bidIncrementPrice
-          auctionsID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      bidIncrementPriceList
       auctionUserLimitations {
         items {
           id
@@ -194,9 +183,7 @@ export const listAuctions = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -229,9 +216,7 @@ export const getLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -268,7 +253,6 @@ export const getLots = /* GraphQL */ `
         }
         nextToken
       }
-      auctionStatus
       createdAt
       updatedAt
     }
@@ -295,6 +279,7 @@ export const listLots = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -313,7 +298,6 @@ export const listLots = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -352,6 +336,7 @@ export const lotsSortByLot = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -370,7 +355,6 @@ export const lotsSortByLot = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -448,9 +432,7 @@ export const getBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        bidIncrements {
-          nextToken
-        }
+        bidIncrementPriceList
         auctionUserLimitations {
           nextToken
         }
@@ -472,6 +454,7 @@ export const getBidItemHistory = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -490,7 +473,6 @@ export const getBidItemHistory = /* GraphQL */ `
         bidItemHistories {
           nextToken
         }
-        auctionStatus
         createdAt
         updatedAt
       }
@@ -521,6 +503,7 @@ export const listBidItemHistories = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -534,7 +517,6 @@ export const listBidItemHistories = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
@@ -573,6 +555,7 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
@@ -586,72 +569,12 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           lotsStatus
           auctionsID
           auctionItemID
-          auctionStatus
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
         owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getBidIncrement = /* GraphQL */ `
-  query GetBidIncrement($id: ID!) {
-    getBidIncrement(id: $id) {
-      id
-      bidIncrementPrice
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrements {
-          nextToken
-        }
-        auctionUserLimitations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listBidIncrements = /* GraphQL */ `
-  query ListBidIncrements(
-    $filter: ModelBidIncrementFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listBidIncrements(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        bidIncrementPrice
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
       }
       nextToken
     }

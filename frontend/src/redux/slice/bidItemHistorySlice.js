@@ -15,12 +15,9 @@ bidItemHistory: bidItemHistoryReducer,
 */
 
 import {
-  bidItemHistorySortByCreatedAt,
-  getBidItemHistory,
-} from "../../graphql/queries";
-import {
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import {
@@ -29,11 +26,13 @@ import {
 } from "../../graphql/mutations";
 
 import API from "@aws-amplify/api";
+import { bidItemHistorySortByCreatedAt } from "../../graphql_custom/_queries";
+import { getBidItemHistory } from "../../graphql/queries";
 import { graphqlOperation } from "@aws-amplify/api-graphql";
 
 const bidItemHistoryAdapter = createEntityAdapter({
   // selectId: (item) => item.id,
-  sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
+  sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
 });
 
 const initialState = bidItemHistoryAdapter.getInitialState({
@@ -58,7 +57,7 @@ export const fetchBidItemHistories = createAsyncThunk(
         query: bidItemHistorySortByCreatedAt,
         variables: {
           auctionsID: auctionsID,
-          sortDirection: "ASC",
+          sortDirection: "DESC",
         },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
@@ -94,7 +93,7 @@ export const postBidItemHistory = createAsyncThunk(
         input: createBidItemHistoryInput,
       })
     );
-    console.log(response);
+    console.log("postBidItemHistory", response);
     return response.data.createBidItemHistory;
     // } catch (error) {
     //   return error;
@@ -192,5 +191,22 @@ export const {
   selectById: selectBidItemHistoryById,
   selectIds: selectBidItemHistoryIds,
 } = bidItemHistoryAdapter.getSelectors((state) => state.bidItemHistory);
+
+// export const selectMaxBidPriceByCurrentLot = createSelector(
+//   selectAllBidItemHistories,
+//   (bidItemHistory) => {
+//     return bidItemHistory
+//       .filter((x) => x.active === true)
+//       .sort((a, b) => b.leader - a.leader);
+//   }
+// );
+
+export const selectMaxBidPriceByCurrentLot = ({ lotID }) =>
+  createSelector(selectAllBidItemHistories, (bidItemHistory) => {
+    console.log();
+    return bidItemHistory
+      .filter((x) => x.lotsID === lotID)
+      .sort((a, b) => b.bidPrice - a.bidPrice)[0];
+  });
 
 export default bidItemHistorySlice.reducer;
