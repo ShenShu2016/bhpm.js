@@ -9,9 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Select from "@mui/material/Select";
-import { Typography } from "@mui/material";
 import { updateLotsDetail } from "../../redux/slice/lotsSlice";
 import { useDispatch } from "react-redux";
 

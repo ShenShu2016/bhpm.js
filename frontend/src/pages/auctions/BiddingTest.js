@@ -1,20 +1,16 @@
 import "react-image-gallery/styles/css/image-gallery.css";
+import "./slideCSS.css";
 
-import { API, graphqlOperation } from "aws-amplify";
 import {
   Alert,
-  AlertTitle,
-  Backdrop,
   Box,
-  Button,
-  CircularProgress,
   Container,
   Grid,
   Paper,
   Snackbar,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   fetchBidItemHistories,
   insertBidItemHistory,
@@ -24,69 +20,43 @@ import {
 } from "../../redux/slice/bidItemHistorySlice";
 import {
   fetchLotss,
-  selectAllLotss,
-  updateLotsDetail,
+  selectLotByInProgress,
   updateLotsDetailBySub,
 } from "../../redux/slice/lotsSlice";
 import {
-  selectAllAuctionss,
   selectAuctionsById,
   selectedAuctions,
 } from "../../redux/slice/auctionsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import AdminLotsGrid from "./AdminLotsGrid";
+import { API } from "aws-amplify";
 import AdminTable from "./AdminTable";
 import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import ImageGallery from "react-image-gallery";
-import LotssRenderList from "./LotssRenderList";
 import { onCreateBidItemHistory } from "../../graphql_custom/_subscriptions";
 import { onUpdateLots } from "../../graphql/subscriptions";
 import { useParams } from "react-router-dom";
 
-const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-];
 export default function BiddingTest() {
   const dispatch = useDispatch();
   const { auctionsID } = useParams();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
+  const bitItemHistories = useSelector(selectAllBidItemHistories);
+  const { fetchBidItemHistoriesStatus } = useSelector(
+    (state) => state.bidItemHistory
+  );
+  const messageRef = useRef();
+
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [bitItemHistories]);
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
     isSuccess: null,
@@ -101,11 +71,13 @@ export default function BiddingTest() {
   };
   //console.log(isAuthenticated);
 
-  const lotss = useSelector(selectAllLotss);
+  //const lotss = useSelector(selectAllLotss);
+  const lotInProgress = useSelector(selectLotByInProgress());
+  console.log("lotInProgress", lotInProgress);
 
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
-      lotID: "b1b9732c-5172-4f14-9da8-cb99e73be2ea",
+      lotID: lotInProgress.length === 1 && lotInProgress[0].id,
     })
   );
   console.log("maxBidPriceByCurrentLot", maxBidPriceByCurrentLot);
@@ -116,9 +88,9 @@ export default function BiddingTest() {
     }
   }, [dispatch, isAuthenticated, auctionsID]);
   //console.log("lotss", lotss);
-  const auction = useSelector(selectAllAuctionss)[0];
-  console.log("auction", auction);
-  console.log(auction && auction.bidIncrementPriceList);
+  const auction = useSelector((state) => selectAuctionsById(state, auctionsID));
+  //console.log("auction", auction);
+  //console.log(auction && auction.bidIncrementPriceList);
 
   const nextBid =
     auction &&
@@ -132,10 +104,6 @@ export default function BiddingTest() {
   //   auction.bidIncrementPriceList.sort((a, b) => a - b);
   console.log("nextBid", nextBid);
 
-  const bitItemHistories = useSelector(selectAllBidItemHistories);
-  const { fetchBidItemHistoriesStatus } = useSelector(
-    (state) => state.bidItemHistory
-  );
   useEffect(() => {
     if (
       isAuthenticated !== null &&
@@ -191,10 +159,14 @@ export default function BiddingTest() {
 
   const handleBitClick = async () => {
     const createBidItemHistoryInput = {
-      //id: "999",
-      bidPrice: nextBid,
+      id:
+        lotInProgress.length === 1 &&
+        `${lotInProgress[0].id}-${
+          nextBid ? nextBid : lotInProgress[0].startingPrice
+        }`,
+      bidPrice: nextBid ? nextBid : lotInProgress[0].startingPrice,
       auctionsID: auctionsID,
-      lotsID: "b1b9732c-5172-4f14-9da8-cb99e73be2ea",
+      lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
     };
     const response = await dispatch(
       postBidItemHistory({ createBidItemHistoryInput })
@@ -206,47 +178,64 @@ export default function BiddingTest() {
       setAlertStatus({ isOpen: true, isSuccess: false, sentence: "投标失败" });
   };
 
+  // console.log("imgUrls", lotInProgress[0].auctionItem.imgUrls);
+
+  const imgListInProgress =
+    lotInProgress.length === 1 &&
+    lotInProgress[0].auctionItem.imgUrls.map((url) => {
+      return { original: url, thumbnail: url };
+    });
+  console.log(imgListInProgress);
   return (
     <>
       {/* <AdminLotsGrid /> */}
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <ImageGallery
-            showFullscreenButton={true}
-            showPlayButton={false}
-            showIndex={true}
-            startIndex={1}
-            thumbnailPosition={"left"}
-            items={[
-              {
-                original: "https://picsum.photos/id/1018/1000/600/",
-                thumbnail: "https://picsum.photos/id/1018/1000/600/",
-              },
-              {
-                original: "https://picsum.photos/id/1015/1000/600/",
-                thumbnail: "https://picsum.photos/id/1015/1000/600/",
-              },
-            ]}
-          />
+          {lotInProgress.length === 1 ? (
+            <Box>
+              <ImageGallery
+                showFullscreenButton={true}
+                showPlayButton={false}
+                showIndex={true}
+                startIndex={0}
+                thumbnailPosition={"left"}
+                items={imgListInProgress}
+                originalHeight={"500px"}
+                thumbnailHeight={"500px"}
+              />
+              <Box sx={{ textAlign: "center" }}>
+                <Typography variant="h3">
+                  Next Bid is:
+                  {nextBid ? nextBid : lotInProgress[0].startingPrice}
+                </Typography>
+                <BazarButton
+                  variant="contained"
+                  onClick={handleBitClick}
+                  color="primary"
+                  size="large"
+                  fullWidth={true}
+                  disabled={isAuthenticated !== true}
+                >
+                  Bid
+                </BazarButton>
+              </Box>
+            </Box>
+          ) : (
+            <Typography variant="h3">Waiting For admin to start</Typography>
+          )}
         </Grid>
         <Grid item xs={4}>
           <Container sx={{ maxHeight: "500px", overflow: "auto" }}>
-            <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
+            <div ref={messageRef}>
+              <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
+            </div>
           </Container>
         </Grid>
       </Grid>
-      <Container component={Paper} sx={{ my: 2, textAlign: "center" }}>
-        <Typography variant="h3">Next Bid is:{nextBid}</Typography>
-        <BazarButton
-          variant="contained"
-          onClick={handleBitClick}
-          color="primary"
-          size="large"
-          disabled={isAuthenticated !== true}
-        >
-          Bid
-        </BazarButton>
-      </Container>
+      <Container
+        component={Paper}
+        sx={{ my: 2, textAlign: "center" }}
+      ></Container>
 
       <AdminTable />
 

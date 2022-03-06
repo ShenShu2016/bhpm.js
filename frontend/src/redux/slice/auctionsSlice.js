@@ -64,7 +64,7 @@ export const selectedAuctions = createAsyncThunk(
 
   async ({ isAuthenticated, auctionsID }) => {
     try {
-      console.log("isAuthenticated", isAuthenticated);
+      //console.log("isAuthenticated", isAuthenticated);
       const response = await API.graphql({
         query: getAuctions,
         variables: { id: auctionsID },
@@ -73,7 +73,7 @@ export const selectedAuctions = createAsyncThunk(
       // console.log("what?", response);
       return response.data.getAuctions;
     } catch (error) {
-      console.log("妈的出错啦", error);
+      //console.log("出错啦", error);
       return error.data.getAuctions;
     }
   }

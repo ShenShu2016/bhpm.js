@@ -17,6 +17,7 @@ lots: lotsReducer,
 import {
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import { createLots, updateLots } from "../../graphql/mutations";
@@ -46,7 +47,7 @@ const initialState = lotsAdapter.getInitialState({
 export const fetchLotss = createAsyncThunk(
   "lots/fetchLotss",
   async ({ isAuthenticated, auctionsID }) => {
-    console.log("isAuthenticated, auctionsID", isAuthenticated, auctionsID);
+    //console.log("isAuthenticated, auctionsID", isAuthenticated, auctionsID);
     try {
       const LotssData = await API.graphql({
         query: lotsSortByLot,
@@ -177,5 +178,11 @@ export const {
   selectById: selectLotsById,
   selectIds: selectLotsIds,
 } = lotsAdapter.getSelectors((state) => state.lots);
+
+export const selectLotByInProgress = () =>
+  createSelector(selectAllLotss, (lots) => {
+    console.log();
+    return lots.filter((x) => x.lotsStatus === "InProgress");
+  });
 
 export default lotsSlice.reducer;

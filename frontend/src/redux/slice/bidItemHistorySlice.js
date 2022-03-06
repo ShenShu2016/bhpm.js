@@ -203,10 +203,10 @@ export const {
 
 export const selectMaxBidPriceByCurrentLot = ({ lotID }) =>
   createSelector(selectAllBidItemHistories, (bidItemHistory) => {
-    console.log();
-    return bidItemHistory
-      .filter((x) => x.lotsID === lotID)
-      .sort((a, b) => b.bidPrice - a.bidPrice)[0];
+    const lotHistories = bidItemHistory.filter((x) => x.lotsID === lotID);
+    const maxBidPrice = lotHistories.sort((a, b) => b.bidPrice - a.bidPrice)[0];
+
+    return maxBidPrice;
   });
 
 export default bidItemHistorySlice.reducer;
