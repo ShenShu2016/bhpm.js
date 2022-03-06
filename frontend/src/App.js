@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
 
-function App() {
+import Amplify from "aws-amplify";
+import AuctionsRouter from "./pages/auctions/AuctionsRouter";
+import AuthRouter from "./pages/auth/AuthRouter";
+import Footer from "./components/footer/Footer";
+import Home from "./pages/home/Home";
+import MuiTheme from "./theme/MuiTheme";
+import Topbar from "./components/topbar/Topbar";
+import awsconfig from "./aws-exports";
+import { loadUser } from "./redux/slice/authSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+Amplify.configure(awsconfig);
+
+export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [dispatch]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiTheme>
+      <Topbar />
+      <Routes>
+        <Route exact path="" element={<Home />} />
+        <Route path="auctions/*" element={<AuctionsRouter />} />
+        <Route path="auth/*" element={<AuthRouter />} />
+      </Routes>
+      <Footer />
+    </MuiTheme>
   );
 }
-
-export default App;
