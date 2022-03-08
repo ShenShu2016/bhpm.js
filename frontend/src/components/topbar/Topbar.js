@@ -124,11 +124,13 @@ const Topbar = () => {
 
           <FlexBox alignItems="center">
             <CallOutlined fontSize="medium" />
-            <Span style={{ marginLeft: "10px" }}>+(01) 416 123 456</Span>
+            <Span style={{ marginLeft: "10px" }}>+(01) 416 900 2877</Span>
           </FlexBox>
           <FlexBox alignItems="center" ml={2.5}>
             <MailOutline fontSize="medium" />
-            <Span style={{ marginLeft: "10px" }}>support@bhpm.com</Span>
+            <Span style={{ marginLeft: "10px" }}>
+              bowell.gemology@gmail.com
+            </Span>
           </FlexBox>
         </FlexBox>
 

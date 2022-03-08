@@ -1,58 +1,90 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import Section1 from "../../components/fashion-shop/Section1";
+import Section11 from "../../components/fashion-shop/Section11";
 
 const mainCarouselData = [
   {
-    title: "aaaaMarch 26th Auction",
+    title: "March 26th Auction",
     photoUrl:
-      "https://uwcssabucket53243-master.s3.us-east-2.amazonaws.com/public/article/qrCode/2248b9ef-2575-4119-8348-6cd6b35a4a83.jpg",
+      "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/image25.jpeg",
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
     buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
-    title: "aaaaMarch 26th Auction",
+    title: "March 26th Auction",
     photoUrl:
-      "https://uwcssabucket53243-master.s3.us-east-2.amazonaws.com/public/article/qrCode/2248b9ef-2575-4119-8348-6cd6b35a4a83.jpg",
+      "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/image26.jpeg",
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions",
+    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
-    title: "aaaaMarch 26th Auction",
+    title: "March 26th Auction",
     photoUrl:
-      "https://uwcssabucket53243-master.s3.us-east-2.amazonaws.com/public/article/qrCode/2248b9ef-2575-4119-8348-6cd6b35a4a83.jpg",
+      "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/image27.jpeg",
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions",
+    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
-    title: "aaaaMarch 26th Auction",
+    title: "March 26th Auction",
     photoUrl:
-      "https://uwcssabucket53243-master.s3.us-east-2.amazonaws.com/public/article/qrCode/2248b9ef-2575-4119-8348-6cd6b35a4a83.jpg",
+      "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/image12.jpeg",
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions",
+    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
-    title: "aaaaMarch 26th Auction",
+    title: "March 26th Auction",
     photoUrl:
-      "https://uwcssabucket53243-master.s3.us-east-2.amazonaws.com/public/article/qrCode/2248b9ef-2575-4119-8348-6cd6b35a4a83.jpg",
+      "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/image3.jpeg",
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions",
+    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
 ];
 export default function Home() {
-  console.log("Home");
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.userAuth);
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      dispatch(
+        fetchLotss({
+          isAuthenticated,
+          auctionsID: "fdfa3b15-1731-43fc-b23e-30c1707b954c",
+        })
+      );
+    }
+  }, [dispatch, isAuthenticated]);
+  const lotss = useSelector(selectAllLotss);
+
+  const moreItemsRenderList = lotss.map((lot) => {
+    return {
+      price: lot.estimatedPriceMax,
+      title: lot.auctionItem.title,
+      imgUrl: lot.auctionItem.imgUrl,
+      category: lot.auctionItem.categoryID,
+      unit: "kg",
+      discount: 8,
+      id: lot.id,
+      rating: 5,
+    };
+  });
+
+  console.log(moreItemsRenderList);
   return (
     <>
       <Section1 carouselData={mainCarouselData} />
+      <Section11 moreItems={moreItemsRenderList} />
     </>
   );
 }

@@ -36,9 +36,9 @@ const Footer = () => {
             <Grid container spacing={3}>
               <Grid item lg={4} md={6} sm={6} xs={12}>
                 <Paragraph mb={2.5} color="grey.500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   Auctor libero id et, in gravida. Sit diam duis mauris nulla
-                  cursus. Erat et lectus vel ut sollicitudin elit at amet.
+                  cursus. Erat et lectus vel ut sollicitudin elit at amet. */}
                 </Paragraph>
 
                 <AppStore />
@@ -89,13 +89,13 @@ const Footer = () => {
                   Contact Us
                 </Box>
                 <Box py={0.6} color="grey.500">
-                  70 Washington Square South, New York, NY 10012, United States
+                  160 E Beaver Creek Rd, Unit18, Richmond Hill, Ontario. Canada
                 </Box>
                 <Box py={0.6} color="grey.500">
-                  Email: uilib.help@gmail.com
+                  Email: bowell.gemology@gmail.com
                 </Box>
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: +1 1123 456 780
+                  Phone: 416-900-2877
                 </Box>
 
                 <FlexBox className="flex" mx={-0.625}>
@@ -126,20 +126,14 @@ const Footer = () => {
   );
 };
 
-const aboutLinks = [
-  "Careers",
-  "Our Stores",
-  "Our Cares",
-  "Terms & Conditions",
-  "Privacy Policy",
-];
+const aboutLinks = ["宝华介绍", "团队介绍", "服务项目", "服务规则", "隐私条款"];
 
 const customerCareLinks = [
-  "Help Center",
-  "How to Buy",
-  "Track Your Order",
-  "Corporate & Bulk Purchasing",
-  "Returns & Refunds",
+  "How to register",
+  "Consignment",
+  "How to buy",
+  "Terms & Conditions",
+  "Contact us",
 ];
 
 const iconList = [
