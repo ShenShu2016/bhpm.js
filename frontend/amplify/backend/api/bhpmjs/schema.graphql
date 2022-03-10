@@ -36,6 +36,9 @@ type Auctions
   bidIncrementPriceList: [Int]
   auctionUserLimitations: [AuctionUserLimitation]
     @hasMany(indexName: "byAuctions", fields: ["id"])
+
+  auctionUserNumbers: [AuctionUserNumber]
+    @hasMany(indexName: "byAuctions", fields: ["id"])
 }
 
 enum AuctionStatus {
@@ -130,10 +133,33 @@ type BidItemHistory
 
   lotsID: ID! @index(name: "byLots", sortKeyFields: ["createdAt"])
   lots: Lots! @belongsTo(fields: ["lotsID"])
+  userNumber: Int!
+  bidItemHistoryStatus: BidItemHistoryStatus
+    @auth(
+      rules: [
+        { allow: public, operations: [read], provider: iam }
+        { allow: groups, operations: [read], groups: ["anyone"] }
+        { allow: owner, operations: [read] }
+        { allow: groups, groups: ["admin"] }
+      ]
+    )
+  bidForm: BidForm
 
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID
+}
+
+enum BidForm {
+  Room
+  Internet
+  Phone
+}
+
+enum BidItemHistoryStatus {
+  Success
+  FirstCall
+  SecondCall
 }
 
 # 每个客户在每次auction里面 能成交的总数
@@ -153,11 +179,29 @@ type AuctionUserLimitation
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID!
+  owner: ID
 }
 
 enum LimitStatus {
   Unlimited
   Limited
   Undefined
+}
+
+type AuctionUserNumber  #别人看不到，自己能看到，但是公开的能看到但是并不知道是谁的
+  @model
+  @auth(
+    rules: [
+      #{ allow: public, operations: [read], provider: iam }
+      { allow: owner, operations: [read] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID!
+  number: Int!
+  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+  owner: ID
 }

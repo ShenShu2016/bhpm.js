@@ -42,6 +42,8 @@ export default function BiddingTest() {
   const dispatch = useDispatch();
   const { auctionsID } = useParams();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
+  const { cognitoGroup } = useSelector((state) => state.userAuth);
+  console.log(cognitoGroup);
   const bitItemHistories = useSelector(selectAllBidItemHistories);
   const { fetchBidItemHistoriesStatus } = useSelector(
     (state) => state.bidItemHistory
@@ -167,6 +169,7 @@ export default function BiddingTest() {
       bidPrice: nextBid ? nextBid : lotInProgress[0].startingPrice,
       auctionsID: auctionsID,
       lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+      bidForm: "Internet",
     };
     const response = await dispatch(
       postBidItemHistory({ createBidItemHistoryInput })
@@ -189,8 +192,8 @@ export default function BiddingTest() {
   return (
     <>
       {/* <AdminLotsGrid /> */}
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
+      <Grid container spacing={2} sx={{ my: "2rem", p: "1rem" }}>
+        <Grid item xs={9}>
           {lotInProgress.length === 1 ? (
             <Box>
               <ImageGallery
@@ -224,7 +227,7 @@ export default function BiddingTest() {
             <Typography variant="h3">Waiting For admin to start</Typography>
           )}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Container sx={{ maxHeight: "500px", overflow: "auto" }}>
             <div ref={messageRef}>
               <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
@@ -232,12 +235,7 @@ export default function BiddingTest() {
           </Container>
         </Grid>
       </Grid>
-      <Container
-        component={Paper}
-        sx={{ my: 2, textAlign: "center" }}
-      ></Container>
-
-      <AdminTable />
+      {cognitoGroup.includes("admin") && <AdminTable />}
 
       {/* <LotssRenderList lotss={lotss} /> */}
 

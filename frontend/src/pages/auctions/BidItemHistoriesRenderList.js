@@ -4,6 +4,7 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -18,13 +19,13 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   return (
     <div>
       <Stack
-        spacing={1}
+        spacing={3}
         sx={{
-          borderStyle: "solid",
+          // borderStyle: "solid",
           // display: "flex",
           // flexWrap: "wrap",
           margin: "auto",
-          justifyContent: "space-around",
+          textAlign: "center",
         }}
       >
         {bitItemHistories &&
