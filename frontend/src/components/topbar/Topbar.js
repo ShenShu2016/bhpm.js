@@ -1,5 +1,5 @@
 //import { Box, palette } from "@mui/system";
-import { Container, MenuItem } from "@mui/material";
+import { Box, Container, MenuItem } from "@mui/material";
 //import Image from "../BazarImage";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -111,16 +111,15 @@ const Topbar = () => {
         }}
       >
         <FlexBox alignItems="center">
-          {/* <div className="logo">
-            <Link href="/">
-              <Image
-                display="block"
-                height="28px"
-                src="/assets/images/logo-white.svg"
+          <Box className="logo" sx={{ mr: "1rem" }}>
+            <Link to="/">
+              <img
+                height="45px"
+                src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
                 alt="logo"
               />
             </Link>
-          </div> */}
+          </Box>
 
           <FlexBox alignItems="center">
             <CallOutlined fontSize="medium" />

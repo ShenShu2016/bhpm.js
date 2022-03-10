@@ -16,14 +16,6 @@ import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
-const fbStyle = {
-  background: "#3B5998",
-  color: "white",
-};
-const googleStyle = {
-  background: "#4285F4",
-  color: "white",
-};
 const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
   <Card {...rest}>{children}</Card>
 ))(({ theme, passwordVisibility }) => ({
@@ -43,15 +35,7 @@ const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
       ? theme.palette.grey[600]
       : theme.palette.grey[400],
   },
-  ".facebookButton": {
-    marginBottom: 10,
-    "&:hover": fbStyle,
-    ...fbStyle,
-  },
-  ".googleButton": {
-    "&:hover": googleStyle,
-    ...googleStyle,
-  },
+
   ".agreement": {
     marginTop: 12,
     marginBottom: 24,
@@ -92,7 +76,7 @@ const Login = () => {
     <StyledCard elevation={3} passwordVisibility={passwordVisibility}>
       <form className="content" onSubmit={handleSubmit}>
         <H3 textAlign="center" mb={1}>
-          宝华注册
+          宝华 登录
         </H3>
         <Small
           fontWeight="600"
@@ -108,7 +92,7 @@ const Login = () => {
         <BazarTextField
           mb={1.5}
           name="email"
-          label="Email or Phone Number"
+          label="Email"
           placeholder="exmple@mail.com"
           variant="outlined"
           size="small"
@@ -219,14 +203,14 @@ const Login = () => {
         </FlexBox>
       </form>
 
-      <FlexBox justifyContent="center" bgcolor="grey.200" py={2.5}>
+      {/* <FlexBox justifyContent="center" bgcolor="grey.200" py={2.5}>
         Forgot your password?
         <Link to="/">
           <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
             Reset It
           </H6>
         </Link>
-      </FlexBox>
+      </FlexBox> */}
     </StyledCard>
   );
 };

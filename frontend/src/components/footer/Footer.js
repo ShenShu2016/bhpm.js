@@ -7,7 +7,7 @@ import FlexBox from "../FlexBox";
 import Google from "../icons/Google";
 //import Image from "../BazarImage";
 import Instagram from "../icons/Instagram";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Paragraph } from "../Typography";
 import React from "react";
 import Twitter from "../icons/Twitter";
@@ -41,7 +41,14 @@ const Footer = () => {
                   cursus. Erat et lectus vel ut sollicitudin elit at amet. */}
                 </Paragraph>
 
-                <AppStore />
+                {/* <AppStore /> */}
+                <Link to="/">
+                  <img
+                    height="200px"
+                    src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
+                    alt="logo"
+                  />
+                </Link>
               </Grid>
               <Grid item lg={2} md={6} sm={6} xs={12}>
                 <Box

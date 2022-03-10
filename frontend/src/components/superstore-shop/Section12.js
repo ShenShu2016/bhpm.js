@@ -8,7 +8,6 @@ import CustomerService from "../icons/CustomerService";
 import React from "react";
 import Shield from "../icons/Shield";
 import Truck from "../icons/Truck";
-import appIcons from "../icons";
 
 const Section12 = () => {
   const serviceList = [
