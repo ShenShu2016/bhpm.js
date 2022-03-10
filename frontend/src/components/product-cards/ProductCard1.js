@@ -116,9 +116,9 @@ const ProductCard1 = ({
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
-        {discount !== 0 && (
+        {/* {discount !== 0 && (
           <StyledChip color="primary" size="small" label={`${discount}% off`} />
-        )}
+        )} */}
 
         <HoverIconWrapper>
           <IconButton
@@ -182,17 +182,17 @@ const ProductCard1 = ({
 
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.main">
-                ${(price - (price * discount) / 100).toFixed(2)}
+                ${price.toFixed(2)}
               </Box>
-              {!!discount && (
+              {/* {!!discount && (
                 <Box color="grey.600" fontWeight="600">
                   <del>{price?.toFixed(2)}</del>
                 </Box>
-              )}
+              )} */}
             </FlexBox>
           </Box>
 
-          <FlexBox
+          {/* <FlexBox
             className="add-cart"
             flexDirection="column-reverse"
             alignItems="center"
@@ -209,7 +209,7 @@ const ProductCard1 = ({
             >
               <Add fontSize="small" />
             </Button>
-          </FlexBox>
+          </FlexBox> */}
         </FlexBox>
       </ContentWrapper>
 

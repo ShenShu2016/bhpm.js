@@ -138,7 +138,7 @@ const Topbar = () => {
             <BazarButton
               variant="contained"
               color="primary"
-              sx={{}}
+              sx={{ mr: "1rem" }}
               onClick={signOut_user}
             >
               Logout
@@ -201,12 +201,8 @@ const languageList = [
     imgUrl: "/assets/images/flags/usa.png",
   },
   {
-    title: "BN",
+    title: "中文",
     imgUrl: "/assets/images/flags/bd.png",
-  },
-  {
-    title: "HN",
-    imgUrl: "/assets/images/flags/in.png",
   },
 ];
 // const currencyList = [
