@@ -44,12 +44,12 @@ export const signIn = createAsyncThunk(
 
 export const signUp = createAsyncThunk(
   "auth/signUp",
-  async ({ username, password, email }) => {
+  async ({ username, password, email, phone }) => {
     const emailLowerCase = email && email.toLowerCase && email.toLowerCase();
     const response = await Auth.signUp({
       username,
       password,
-      attributes: { email: emailLowerCase },
+      attributes: { email: emailLowerCase, "custom:Phone": phone },
     });
     return response;
   }

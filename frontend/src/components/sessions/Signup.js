@@ -1,19 +1,23 @@
-//import * as yup from "yup";
+import * as yup from "yup";
 
-import { Box, Card, IconButton } from "@mui/material";
+import {
+  Box,
+  Card,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  IconButton,
+} from "@mui/material";
 import { H3, H6, Small } from "../Typography";
-import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useState } from "react";
 
 import BazarButton from "../BazarButton";
 import BazarTextField from "../BazarTextField";
 import FlexBox from "../FlexBox";
-//import Image from "../BazarImage";
+import { Link } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { signIn } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
-import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
 const fbStyle = {
@@ -32,7 +36,6 @@ const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
     width: "100%",
   },
   ".content": {
-    textAlign: "center",
     padding: "3rem 3.75rem 0px",
     [theme.breakpoints.down("xs")]: {
       padding: "1.5rem 1rem 0px",
@@ -58,9 +61,7 @@ const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
   },
 }));
 
-const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const Signup = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   const togglePasswordVisibility = useCallback(() => {
@@ -68,31 +69,31 @@ const Login = () => {
   }, []);
 
   const handleFormSubmit = async (values) => {
-    // try {
-    //   const { data } = await axios.post(`${SERVER_URL}/auth/login`, values); // router.push("/profile");
-    //   console.log(data);
-    // } catch (error) {
-    //   console.log(error.response.data.message);
-    // }
-    console.log(values, "values");
-    const response = await dispatch(signIn(values));
-    console.log(response);
-    if (response.meta.requestStatus === "fulfilled") {
-      navigate("/", { replace: true });
+    try {
+      const name = values.name.split(" ");
+      // const { data } = await axios.post(`${SERVER_URL}/auth/register`, {
+      //   first_name: name[0],
+      //   last_name: name[1],
+      //   email: values.email,
+      //   password: values.password,
+      // });
+      // console.log(data);
+    } catch (error) {
+      console.log(error.response.data.message);
     }
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      onSubmit: handleFormSubmit,
       initialValues,
-      //validationSchema: formSchema,
+      onSubmit: handleFormSubmit,
+      validationSchema: formSchema,
     });
   return (
     <StyledCard elevation={3} passwordVisibility={passwordVisibility}>
       <form className="content" onSubmit={handleSubmit}>
         <H3 textAlign="center" mb={1}>
-          Welcome To Ecommerce
+          Create Your Account
         </H3>
         <Small
           fontWeight="600"
@@ -102,13 +103,28 @@ const Login = () => {
           mb={4.5}
           display="block"
         >
-          Log in with email & password
+          Please fill all fields to continue
         </Small>
 
         <BazarTextField
           mb={1.5}
+          name="name"
+          label="Username"
+          placeholder="Mike666"
+          variant="outlined"
+          size="small"
+          fullWidth
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.name || ""}
+          error={!!touched.name && !!errors.name}
+          helperText={touched.name && errors.name}
+        />
+
+        <BazarTextField
+          mb={1.5}
           name="email"
-          label="Email or Phone Number"
+          label="Email"
           placeholder="exmple@mail.com"
           variant="outlined"
           size="small"
@@ -122,7 +138,7 @@ const Login = () => {
         />
 
         <BazarTextField
-          mb={2}
+          mb={1.5}
           name="password"
           label="Password"
           placeholder="*********"
@@ -153,20 +169,77 @@ const Login = () => {
           helperText={touched.password && errors.password}
         />
 
+        <BazarTextField
+          name="re_password"
+          label="Retype Password"
+          placeholder="*********"
+          autoComplete="on"
+          type={passwordVisibility ? "text" : "password"}
+          variant="outlined"
+          size="small"
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                size="small"
+                type="button"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisibility ? (
+                  <Visibility className="passwordEye" fontSize="small" />
+                ) : (
+                  <VisibilityOff className="passwordEye" fontSize="small" />
+                )}
+              </IconButton>
+            ),
+          }}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.re_password || ""}
+          error={!!touched.re_password && !!errors.re_password}
+          helperText={touched.re_password && errors.re_password}
+        />
+
+        <FormControlLabel
+          className="agreement"
+          name="agreement"
+          onChange={handleChange}
+          control={
+            <Checkbox
+              size="small"
+              color="secondary"
+              checked={values.agreement || false}
+            />
+          }
+          label={
+            <FlexBox
+              flexWrap="wrap"
+              alignItems="center"
+              justifyContent="flex-start"
+            >
+              By signing up, you agree to
+              <a href="/" target="_blank" rel="noreferrer noopener">
+                <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
+                  Terms & Condtion
+                </H6>
+              </a>
+            </FlexBox>
+          }
+        />
+
         <BazarButton
           variant="contained"
           color="primary"
           type="submit"
           fullWidth
           sx={{
-            mb: "1.65rem",
             height: 44,
           }}
         >
-          Login
+          Create Account
         </BazarButton>
 
-        {/* <Box mb={2}>
+        <Box mb={2} mt={3.3}>
           <Box width="200px" mx="auto">
             <Divider />
           </Box>
@@ -176,44 +249,13 @@ const Login = () => {
               on
             </Box>
           </FlexBox>
-        </Box> */}
-
-        {/* <BazarButton
-          className="facebookButton"
-          size="medium"
-          fullWidth
-          sx={{
-            mb: "10px",
-            height: 44,
-          }}
-        >
-          <Image
-            src="/assets/images/icons/facebook-filled-white.svg"
-            alt="facebook"
-          />
-          <Box fontSize="12px" ml={1}>
-            Continue with Facebook
-          </Box>
-        </BazarButton>
-        <BazarButton
-          className="googleButton"
-          size="medium"
-          fullWidth
-          sx={{
-            height: 44,
-          }}
-        >
-          <Image src="/assets/images/icons/google-1.svg" alt="facebook" />
-          <Box fontSize="12px" ml={1}>
-            Continue with Google
-          </Box>
-        </BazarButton> */}
+        </Box>
 
         <FlexBox justifyContent="center" alignItems="center" my="1.25rem">
           <Box>Don’t have account?</Box>
-          <Link to="/auth/signUp">
+          <Link to="auth/login">
             <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-              Sign Up
+              Log In
             </H6>
           </Link>
         </FlexBox>
@@ -232,11 +274,27 @@ const Login = () => {
 };
 
 const initialValues = {
+  name: "",
   email: "",
   password: "",
+  re_password: "",
+  agreement: false,
 };
-// const formSchema = yup.object().shape({
-//   email: yup.string().email("invalid email").required("${path} is required"),
-//   password: yup.string().required("${path} is required"),
-// });
-export default Login;
+const formSchema = yup.object().shape({
+  name: yup.string().required("${path} is required"),
+  email: yup.string().email("invalid email").required("${path} is required"),
+  password: yup.string().required("${path} is required"),
+  re_password: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Please re-type password"),
+  agreement: yup
+    .bool()
+    .test(
+      "agreement",
+      "You have to agree with our Terms and Conditions!",
+      (value) => value === true
+    )
+    .required("You have to agree with our Terms and Conditions!"),
+});
+export default Signup;
