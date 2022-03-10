@@ -92,7 +92,7 @@ const Login = () => {
     <StyledCard elevation={3} passwordVisibility={passwordVisibility}>
       <form className="content" onSubmit={handleSubmit}>
         <H3 textAlign="center" mb={1}>
-          Welcome To Ecommerce
+          宝华注册
         </H3>
         <Small
           fontWeight="600"

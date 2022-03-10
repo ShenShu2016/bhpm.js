@@ -62,33 +62,31 @@ const StyledImage = styled(BazarImage)(({ theme }) => ({
 const ShowcaseCard1 = () => {
   return (
     <Link to="/home-3">
-      <a>
-        <StyledBox>
-          <StyledImage
-            src="/assets/images/products/shoes-1.png"
-            alt="apple-watch-1"
-          />
+      <StyledBox>
+        <StyledImage
+          src="/assets/images/products/shoes-1.png"
+          alt="apple-watch-1"
+        />
 
-          <Box p="25px">
-            <Paragraph color="grey.600" mb="0.5rem">
-              SPECIAL OFFER
-            </Paragraph>
-            <H1 lineHeight={1.3}>
-              <Span color="primary.600" lineHeight={1.3}>
-                Comfortable
-              </Span>{" "}
-              Original <br /> Cotton Sneaker
-            </H1>
+        <Box p="25px">
+          <Paragraph color="grey.600" mb="0.5rem">
+            SPECIAL OFFER
+          </Paragraph>
+          <H1 lineHeight={1.3}>
+            <Span color="primary.600" lineHeight={1.3}>
+              Comfortable
+            </Span>{" "}
+            Original <br /> Cotton Sneaker
+          </H1>
 
-            <Paragraph color="grey.600" mt="0.5rem" mb="1rem">
-              Handcrafted from genuine Italian leather. One inner compartment
-              with black satin lining
-            </Paragraph>
+          <Paragraph color="grey.600" mt="0.5rem" mb="1rem">
+            Handcrafted from genuine Italian leather. One inner compartment with
+            black satin lining
+          </Paragraph>
 
-            <NavLink2 title="SHOP NOW" />
-          </Box>
-        </StyledBox>
-      </a>
+          <NavLink2 title="SHOP NOW" />
+        </Box>
+      </StyledBox>
     </Link>
   );
 };

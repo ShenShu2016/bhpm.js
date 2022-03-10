@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import CreditCardVerified from "../../components/icons/CreditCardVerified";
+import CustomerService from "../../components/icons/CustomerService";
 import Section1 from "../../components/fashion-shop/Section1";
 import Section11 from "../../components/fashion-shop/Section11";
+import Section12 from "../../components/superstore-shop/Section12";
+import Shield from "../../components/icons/Shield";
+import Truck from "../../components/icons/Truck";
 
 const mainCarouselData = [
   {
@@ -52,6 +57,7 @@ const mainCarouselData = [
     buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
 ];
+
 export default function Home() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
@@ -81,10 +87,12 @@ export default function Home() {
   });
 
   console.log(moreItemsRenderList);
+
   return (
     <>
       <Section1 carouselData={mainCarouselData} />
       <Section11 moreItems={moreItemsRenderList} />
+      <Section12 />
     </>
   );
 }
