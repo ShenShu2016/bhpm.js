@@ -1,6 +1,5 @@
 import { Box, Container, Grid, styled } from "@mui/material";
 
-import AppStore from "../AppStore";
 import BazarIconButton from "../BazarIconButton";
 import Facebook from "../icons/Facebook";
 import FlexBox from "../FlexBox";

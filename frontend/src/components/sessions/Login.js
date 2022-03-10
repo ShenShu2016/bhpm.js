@@ -1,9 +1,9 @@
 //import * as yup from "yup";
 
-import { Box, Card, IconButton } from "@mui/material";
+import { Alert, Box, Card, CircularProgress, IconButton } from "@mui/material";
 import { H3, H6, Small } from "../Typography";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import BazarButton from "../BazarButton";
 import BazarTextField from "../BazarTextField";
@@ -11,11 +11,18 @@ import FlexBox from "../FlexBox";
 //import Image from "../BazarImage";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { green } from "@mui/material/colors";
+import { makeStyles } from "@mui/styles";
 import { signIn } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
+const useStyles = makeStyles(() => ({
+  alert: {
+    marginTop: "1.5rem",
+  },
+}));
 const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
   <Card {...rest}>{children}</Card>
 ))(({ theme, passwordVisibility }) => ({
@@ -43,14 +50,17 @@ const StyledCard = styled(({ children, passwordVisibility, ...rest }) => (
 }));
 
 const Login = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const togglePasswordVisibility = useCallback(() => {
     setPasswordVisibility((visible) => !visible);
   }, []);
-
+  const timer = useRef();
+  const [alert, setAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
   const handleFormSubmit = async (values) => {
     // try {
     //   const { data } = await axios.post(`${SERVER_URL}/auth/login`, values); // router.push("/profile");
@@ -58,11 +68,21 @@ const Login = () => {
     // } catch (error) {
     //   console.log(error.response.data.message);
     // }
+    setLoading(true);
     console.log(values, "values");
     const response = await dispatch(signIn(values));
     console.log(response);
     if (response.meta.requestStatus === "fulfilled") {
+      setLoading(false);
       navigate("/", { replace: true });
+    } else {
+      timer.current = window.setTimeout(() => {
+        setLoading(false);
+        setAlertContent(response.error.message);
+        setAlert(true);
+        console.log(response.error.message);
+      }, 1000);
+      console.log(response.error.message);
     }
   };
 
@@ -88,7 +108,13 @@ const Login = () => {
         >
           Log in with email & password
         </Small>
-
+        {alert ? (
+          <Alert className={classes.alert} severity="error">
+            {alertContent}
+          </Alert>
+        ) : (
+          <></>
+        )}
         <BazarTextField
           mb={1.5}
           name="email"
@@ -141,13 +167,27 @@ const Login = () => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={loading}
           fullWidth
           sx={{
             mb: "1.65rem",
             height: 44,
           }}
         >
-          Login
+          Login{" "}
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color: green[500],
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-0.75rem",
+                marginLeft: "-0.75rem",
+              }}
+            />
+          )}
         </BazarButton>
 
         {/* <Box mb={2}>

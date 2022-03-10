@@ -1,7 +1,5 @@
 import {
   Box,
-  Button,
-  Chip,
   Dialog,
   DialogContent,
   IconButton,
@@ -11,7 +9,6 @@ import {
 import { H3, Span } from "../Typography";
 import React, { useCallback, useState } from "react";
 
-import Add from "@mui/icons-material/Add";
 import BazarCard from "../BazarCard";
 import BazarRating from "../BazarRating";
 import Close from "@mui/icons-material/Close";
@@ -44,16 +41,7 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
     display: "block",
   },
 }));
-const StyledChip = styled(Chip)(() => ({
-  position: "absolute",
-  fontSize: "10px",
-  fontWeight: 600,
-  paddingLeft: 3,
-  paddingRight: 3,
-  top: "10px",
-  left: "10px",
-  zIndex: 11,
-}));
+
 const HoverIconWrapper = styled(Box)(({ theme }) => ({
   display: "none",
   flexDirection: "column",
