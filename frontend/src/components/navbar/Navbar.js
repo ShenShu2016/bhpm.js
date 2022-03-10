@@ -44,8 +44,8 @@ const ParentNavItem = styled(Box)(() => ({
 const NavBarWrapper = styled(BazarCard)(({ theme }) => ({
   display: "block",
   position: "relative",
-  height: "60px",
-  borderRadius: "0px",
+  height: "140px",
+  borderRadius: "2px",
   [theme.breakpoints.down("md")]: {
     display: "none",
   },
@@ -80,7 +80,11 @@ const Navbar = ({ navListOpen, hideCategories }) => {
           );
         else if (nav.url)
           return (
-            <StyledNavLink href={nav.url} key={nav.title}>
+            <StyledNavLink
+              href={nav.url}
+              key={nav.title}
+              sx={{ fontSize: 25, pr: "2rem" }}
+            >
               {nav.title}
             </StyledNavLink>
           );
@@ -92,6 +96,8 @@ const Navbar = ({ navListOpen, hideCategories }) => {
               alignItems="center"
               key={nav.title}
               sx={{
+                fontSize: 25,
+                // ml: "3rem",
                 "&:hover": {
                   "& > .child-nav-item": {
                     display: "block",
@@ -159,8 +165,12 @@ const Navbar = ({ navListOpen, hideCategories }) => {
   return (
     <NavBarWrapper elevation={2} hoverEffect={false}>
       {!hideCategories ? (
-        <InnerContainer>
-          <CategoryMenu open={navListOpen}>
+        <InnerContainer
+          sx={{
+            justifyContent: "left",
+          }}
+        >
+          {/* <CategoryMenu open={navListOpen}>
             <CategoryMenuButton variant="text">
               <Category fontSize="small" />
               <Paragraph
@@ -174,16 +184,30 @@ const Navbar = ({ navListOpen, hideCategories }) => {
               </Paragraph>
               <ChevronRight className="dropdown-icon" fontSize="small" />
             </CategoryMenuButton>
-          </CategoryMenu>
+          </CategoryMenu> */}
+          <Box sx={{ mr: "15rem" }}>
+            <img
+              height={130}
+              src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
+              alt="logo"
+            />
+          </Box>
           <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
         </InnerContainer>
       ) : (
         <InnerContainer
           sx={{
-            justifyContent: "flex-end",
+            justifyContent: "left",
           }}
         >
-          <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
+          <img
+            height={130}
+            src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
+            alt="logo"
+          />
+          <FlexBox sx={{ fontSize: 25 }}>
+            {renderNestedNav(navbarNavigations, true)}
+          </FlexBox>
         </InnerContainer>
       )}
     </NavBarWrapper>

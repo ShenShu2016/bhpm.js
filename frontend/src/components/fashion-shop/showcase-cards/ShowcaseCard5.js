@@ -21,36 +21,34 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 const ShowcaseCard5 = () => {
   return (
     <Link to="/home-3">
-      <a>
-        <StyledGrid container>
-          <Grid item xs={7} p="2rem">
-            <Paragraph color="grey.600" mb="0.5rem">
-              SPECIAL OFFER
-            </Paragraph>
-            <H1 lineHeight={1.3}>
-              <Span color="primary.600" lineHeight={1.3}>
-                $100 Off
-              </Span>{" "}
-              Over $1200
-            </H1>
+      <StyledGrid container>
+        <Grid item xs={7} p="2rem">
+          <Paragraph color="grey.600" mb="0.5rem">
+            SPECIAL OFFER
+          </Paragraph>
+          <H1 lineHeight={1.3}>
+            <Span color="primary.600" lineHeight={1.3}>
+              $100 Off
+            </Span>{" "}
+            Over $1200
+          </H1>
 
-            <Paragraph color="grey.600" mt="0.5rem">
-              Handcrafted from genuine Italian. One inner compartment
-            </Paragraph>
-          </Grid>
+          <Paragraph color="grey.600" mt="0.5rem">
+            Handcrafted from genuine Italian. One inner compartment
+          </Paragraph>
+        </Grid>
 
-          <Grid item xs={5}>
-            <BazarImage
-              src="/assets/images/products/paper-bag.png"
-              alt="apple-watch-1"
-              sx={{
-                mx: "auto",
-                maxHeight: "200px",
-              }}
-            />
-          </Grid>
-        </StyledGrid>
-      </a>
+        <Grid item xs={5}>
+          <BazarImage
+            src="/assets/images/products/paper-bag.png"
+            alt="apple-watch-1"
+            sx={{
+              mx: "auto",
+              maxHeight: "200px",
+            }}
+          />
+        </Grid>
+      </StyledGrid>
     </Link>
   );
 };
