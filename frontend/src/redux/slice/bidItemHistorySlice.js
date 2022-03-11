@@ -103,10 +103,10 @@ export const postBidItemHistory = createAsyncThunk(
 
 export const updateBidItemHistoryDetail = createAsyncThunk(
   "bidItemHistory/updateBidItemHistoryDetail",
-  async (updateBidItemHistoryDetail) => {
+  async (updateBidItemHistoryDetailInput) => {
     const response = await API.graphql(
       graphqlOperation(updateBidItemHistory, {
-        input: updateBidItemHistoryDetail,
+        input: updateBidItemHistoryDetailInput,
       })
     );
     return response.data.updateBidItemHistory;

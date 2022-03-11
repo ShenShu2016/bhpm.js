@@ -1,88 +1,94 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
+import { H1, H4 } from "../../components/Typography";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import React from "react";
+import BazarButton from "../../components/BazarButton";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { updateBidItemHistoryDetail } from "../../redux/slice/bidItemHistorySlice";
 
 export default function BidItemHistoriesRenderList({ bitItemHistories }) {
+  const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
+  const { cognitoGroup } = useSelector((state) => state.userAuth);
+  const [loading, setLoading] = useState(false);
+
+  const handleBidSuccess = async (history) => {
+    setLoading(true);
+    const updateBidItemHistoryDetailInput = {
+      id: history.id,
+      bidItemHistoryStatus: "Success",
+    };
+    console.log(updateBidItemHistoryDetailInput);
+    const response = await dispatch(
+      updateBidItemHistoryDetail(updateBidItemHistoryDetailInput)
+    );
+    //console.log(response.meta.requestStatus);
+    if (response.meta.requestStatus === "fulfilled") {
+      setLoading(false);
+      alert("成功");
+    } else {
+      setLoading(false);
+      alert("失败");
+    }
+    setLoading(false);
+  };
   //console.log(username);
   return (
     <div>
       <Stack
-        spacing={3}
+        spacing={2}
         sx={{
-          // borderStyle: "solid",
-          // display: "flex",
-          // flexWrap: "wrap",
           margin: "auto",
           textAlign: "center",
         }}
       >
         {bitItemHistories &&
           bitItemHistories.map((history) => {
-            //console.log(history.owner);
-            //console.log(history.lots.auctionItem.imgUrl);
             return (
               <Box sx={{ width: "200px" }} key={history.id}>
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    {/* <CardMedia
-                      component="img"
-                      // sx={{ maxHeight: "100" }}
-                      image={history.lots.auctionItem.imgUrl}
-                      alt="Paella dish"
-                    /> */}
-                    {/* <Typography variant="h5" color="primary"> */}
-                    Live ${history.bidPrice} :
-                    {history.owner === null ? "现场" : "Internet"}
-                    {/* </Typography> */}
-                    {history.owner === username && "You"}
-                    <Typography variant="body1">
-                      {moment(history.createdAt).fromNow()}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                {/* <Typography variant="h5" sx={{ whiteSpace: "pre-wrap" }}>
-                  history ID: {history.id}
-                </Typography>
-                <Typography variant="body1">
-                  {JSON.stringify(history, 1, 2)}
-                </Typography> */}
-                {/* </Typography> */}
-                {/* <Typography variant="body1">
-                    startingPrice: {lotItem.startingPrice}
-                  </Typography>
-                  <Typography variant="body1">
-                    estimatedPriceMin: {lotItem.estimatedPriceMin}
-                  </Typography>
-                  <Typography variant="body1">
-                    estimatedPriceMax: {lotItem.estimatedPriceMax}
-                  </Typography>
-                  <Typography variant="body1">
-                    status: {lotItem.lotsStatus}
-                  </Typography>
-                  <Typography variant="body1">
-                    name: {lotItem.auctionItem.name}
-                  </Typography>
-                  <Typography variant="body1">
-                    title: {lotItem.auctionItem.title}
-                  </Typography>
-                  <Typography variant="body1">
-                    description: {lotItem.auctionItem.description}
-                  </Typography>
-                  <Typography variant="body1">
-                    categoryID: {lotItem.auctionItem.categoryID}
-                  </Typography>  */}
+                {history.bidItemHistoryStatus ? (
+                  <Card sx={{ minWidth: 275, backgroundColor: "" }}>
+                    <CardContent>
+                      <H4>
+                        Lot:{history.lots.lot}: ${history.bidPrice}(
+                        {history.bidForm})
+                      </H4>
+                      <H1 color="red">{history.bidItemHistoryStatus}</H1>
+                      <Typography variant="body1">
+                        {moment(history.createdAt).fromNow()}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card sx={{ minWidth: 275 }}>
+                    <CardContent>
+                      <H4>
+                        Lot:{history.lots.lot}: ${history.bidPrice}(
+                        {history.bidForm})
+                      </H4>
+                      {history.owner === username && "You"}
+
+                      <Typography variant="body1">
+                        {moment(history.createdAt).fromNow()}
+                      </Typography>
+
+                      {cognitoGroup.includes("admin") && (
+                        <BazarButton
+                          color="primary"
+                          variant="contained"
+                          size="small"
+                          disabled={loading}
+                          onClick={() => {
+                            handleBidSuccess(history);
+                          }}
+                        >
+                          成功交易
+                        </BazarButton>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
               </Box>
             );
           })}
