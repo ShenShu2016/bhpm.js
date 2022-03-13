@@ -58,6 +58,28 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
           </H2>
         </>
       );
+    }
+    if (history.bidItemHistoryStatus === "FirstCall") {
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H2 color="blue">First Call</H2>
+        </>
+      );
+    }
+    if (history.bidItemHistoryStatus === "SecondCall") {
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H2 color="blue">Second Call</H2>
+        </>
+      );
     } else
       return (
         <>

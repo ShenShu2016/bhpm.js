@@ -161,6 +161,7 @@ enum BidItemHistoryStatus {
   Success
   FirstCall
   SecondCall
+  AuctionEnd
 }
 
 # 每个客户在每次auction里面 能成交的总数
