@@ -44,7 +44,7 @@ const Footer = () => {
                 <Link to="/">
                   <img
                     height="200px"
-                    src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
+                    src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
                     alt="logo"
                   />
                 </Link>

@@ -54,6 +54,7 @@ export const fetchLotss = createAsyncThunk(
         variables: {
           auctionsID: auctionsID,
           sortDirection: "ASC",
+          limit: 1000,
         },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
@@ -185,4 +186,8 @@ export const selectLotByInProgress = () =>
     return lots.filter((x) => x.lotsStatus === "InProgress");
   });
 
+export const selectLotByNextLotNumber = (lot) =>
+  createSelector(selectAllLotss, (lots) => {
+    return lots.filter((x) => x.lot === lot);
+  });
 export default lotsSlice.reducer;

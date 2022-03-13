@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
-import { H1, H4 } from "../../components/Typography";
+import { H1, H2, H3, H4, H5 } from "../../components/Typography";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,6 +34,42 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     setLoading(false);
   };
   //console.log(username);
+
+  function differentStatus(history) {
+    if (history.bidItemHistoryStatus === "Success") {
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H5 color="red">
+            ${history.lots.lot} sold For CAD ${history.bidPrice} to competing
+            bid
+          </H5>
+        </>
+      );
+    }
+    if (history.bidItemHistoryStatus === "Start") {
+      return (
+        <>
+          <H2 color="green">
+            Lot {history.lots.lot} Start at Price:{history.lots.startingPrice}
+          </H2>
+        </>
+      );
+    } else
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H2 color="red">{history.bidItemHistoryStatus}</H2>
+        </>
+      );
+  }
+
   return (
     <div>
       <Stack
@@ -50,11 +86,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
                 {history.bidItemHistoryStatus ? (
                   <Card sx={{ minWidth: 275, backgroundColor: "" }}>
                     <CardContent>
-                      <H4>
-                        Lot:{history.lots.lot}: ${history.bidPrice}(
-                        {history.bidForm})
-                      </H4>
-                      <H1 color="red">{history.bidItemHistoryStatus}</H1>
+                      {differentStatus(history)}
                       <Typography variant="body1">
                         {moment(history.createdAt).fromNow()}
                       </Typography>
@@ -63,10 +95,12 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
                 ) : (
                   <Card sx={{ minWidth: 275 }}>
                     <CardContent>
-                      <H4>
-                        Lot:{history.lots.lot}: ${history.bidPrice}(
-                        {history.bidForm})
-                      </H4>
+                      <H4>Lot:{history.lots.lot}</H4>
+                      <H5>
+                        Bid Price: ${history.bidPrice}({history.bidForm})
+                        <br />
+                        From User NO. {history.userNumber}
+                      </H5>
                       {history.owner === username && "You"}
 
                       <Typography variant="body1">

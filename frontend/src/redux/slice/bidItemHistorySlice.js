@@ -32,7 +32,7 @@ import { graphqlOperation } from "@aws-amplify/api-graphql";
 
 const bidItemHistoryAdapter = createEntityAdapter({
   // selectId: (item) => item.id,
-  sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
+  sortComparer: (a, b) => a.updatedAt.localeCompare(b.updatedAt),
 });
 
 const initialState = bidItemHistoryAdapter.getInitialState({
@@ -58,6 +58,7 @@ export const fetchBidItemHistories = createAsyncThunk(
         variables: {
           auctionsID: auctionsID,
           sortDirection: "DESC",
+          limit: 2000,
         },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });

@@ -157,6 +157,7 @@ enum BidForm {
 }
 
 enum BidItemHistoryStatus {
+  Start
   Success
   FirstCall
   SecondCall

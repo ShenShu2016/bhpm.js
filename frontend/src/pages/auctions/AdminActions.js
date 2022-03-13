@@ -20,11 +20,15 @@ import {
   postBidItemHistory,
   selectMaxBidPriceByCurrentLot,
 } from "../../redux/slice/bidItemHistorySlice";
+import {
+  selectLotByInProgress,
+  selectLotByNextLotNumber,
+  updateLotsDetail,
+} from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
 import { green } from "@mui/material/colors";
-import { selectLotByInProgress } from "../../redux/slice/lotsSlice";
 import { useForm } from "react-hook-form";
 
 export default function AdminActions({ auctionsID }) {
@@ -116,6 +120,59 @@ export default function AdminActions({ auctionsID }) {
     }
   };
 
+  const nextLotArr = useSelector(
+    selectLotByNextLotNumber(lotInProgress[0] && lotInProgress[0].lot + 1)
+  );
+  console.log(nextLotArr);
+  const handleFinishAndNext = async (event) => {
+    setLoading(true);
+    const currentLot = lotInProgress[0];
+    const nextLot = nextLotArr[0];
+    const response1 = await dispatch(
+      updateLotsDetail({ id: currentLot.id, lotsStatus: "Finished" })
+    );
+    console.log(response1);
+
+    const response2 = await dispatch(
+      updateLotsDetail({ id: nextLot.id, lotsStatus: "InProgress" })
+    );
+    console.log(response2);
+    const createBidItemHistoryInput = {
+      bidPrice: 0,
+      auctionsID: auctionsID,
+      bidForm: "Room",
+      lotsID: nextLot.id,
+      userNumber: 0,
+      bidItemHistoryStatus: "Start",
+      owner: "admin",
+    };
+    const response3 = await dispatch(
+      postBidItemHistory({ createBidItemHistoryInput })
+    );
+    console.log(response3);
+    // const createBidItemHistoryInput = {
+    //   bidPrice: maxBidPriceByCurrentLot.bidPrice,
+    //   auctionsID: auctionsID,
+    //   bidForm: "Room",
+    //   lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+    //   userNumber: 0,
+    //   bidItemHistoryStatus: "SecondCall",
+    //   owner: "admin",
+    // };
+    // const response = await dispatch(
+    //   postBidItemHistory({ createBidItemHistoryInput })
+    // );
+    if (response3.meta.requestStatus === "fulfilled") {
+      setLoading(false);
+      setUserNumber(0);
+      alert(" 成功");
+    } else {
+      setLoading(false);
+      setUserNumber(0);
+      alert("失败");
+    }
+  };
+
   return (
     <Box sx={{ mx: "2rem" }}>
       <Box sx={{ my: "1rem" }}>
@@ -199,16 +256,67 @@ export default function AdminActions({ auctionsID }) {
           color="primary"
           variant="contained"
           onClick={handleFirstCall}
+          disabled={loading || !maxBidPriceByCurrentLot}
         >
-          First Call
+          First Call{" "}
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color: green[500],
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-0.75rem",
+                marginLeft: "-0.75rem",
+              }}
+            />
+          )}
         </BazarButton>
         <BazarButton
           size="large"
           color="primary"
           variant="contained"
           onClick={handleSecondCall}
+          disabled={loading || !maxBidPriceByCurrentLot}
         >
-          Second Call
+          Second Call{" "}
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color: green[500],
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-0.75rem",
+                marginLeft: "-0.75rem",
+              }}
+            />
+          )}
+        </BazarButton>{" "}
+        <BazarButton
+          size="large"
+          color="primary"
+          variant="contained"
+          onClick={handleFinishAndNext}
+          disabled={loading || !lotInProgress[0]}
+        >
+          Finish lot: {lotInProgress[0] && lotInProgress[0].lot} & Start Next
+          (if exist)
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color: green[500],
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-0.75rem",
+                marginLeft: "-0.75rem",
+              }}
+            />
+          )}
         </BazarButton>
       </Stack>
     </Box>

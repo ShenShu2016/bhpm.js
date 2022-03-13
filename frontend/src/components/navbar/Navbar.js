@@ -188,7 +188,7 @@ const Navbar = ({ navListOpen, hideCategories }) => {
           <Box sx={{ mr: "15rem" }}>
             <img
               height={130}
-              src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
+              src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
               alt="logo"
             />
           </Box>
@@ -202,7 +202,7 @@ const Navbar = ({ navListOpen, hideCategories }) => {
         >
           <img
             height={130}
-            src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.png"
+            src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
             alt="logo"
           />
           <FlexBox sx={{ fontSize: 25 }}>

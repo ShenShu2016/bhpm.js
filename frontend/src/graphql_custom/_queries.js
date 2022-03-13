@@ -36,6 +36,7 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           id
           lot
           auctionItemID
+          startingPrice
           auctionItem {
             id
             name

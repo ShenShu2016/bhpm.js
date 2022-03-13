@@ -11,6 +11,7 @@ import {
   Grid,
   Paper,
   Snackbar,
+  Stack,
   Typography,
 } from "@mui/material";
 import { H1, H2, H3 } from "../../components/Typography";
@@ -247,20 +248,31 @@ export default function BiddingTest() {
                 <H2>
                   <Card sx={{ minWidth: 275 }}>
                     <CardContent>
-                      <Typography
-                        sx={{ fontSize: 14 }}
-                        color="text.secondary"
-                        gutterBottom
-                      >
-                        Lot: {lotInProgress[0].lot}
-                      </Typography>
-                      <Typography variant="h5" component="div"></Typography>
-                      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Title: {lotInProgress[0].auctionItem.title}
-                      </Typography>
-                      <Typography variant="body2">
-                        Description: {lotInProgress[0].auctionItem.description}
-                      </Typography>
+                      <Stack spacing={2}>
+                        <Typography
+                          sx={{ fontSize: 14 }}
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          Lot: {lotInProgress[0].lot}
+                        </Typography>
+                        <Typography color="text.secondary">
+                          Title: {lotInProgress[0].auctionItem.title}
+                        </Typography>
+                        <Typography color="text.secondary">
+                          Name: {lotInProgress[0].auctionItem.name}
+                        </Typography>
+                        <Typography variant="body2">
+                          Starting Price: {lotInProgress[0].startingPrice}
+                        </Typography>
+                        <Typography variant="body2">
+                          Category: {lotInProgress[0].auctionItem.categoryID}
+                        </Typography>
+                        <Typography variant="body2">
+                          Description:{" "}
+                          {lotInProgress[0].auctionItem.description}
+                        </Typography>
+                      </Stack>
                     </CardContent>
                   </Card>
                 </H2>
@@ -327,12 +339,12 @@ export default function BiddingTest() {
           </Container>
         </Grid>
       </Grid>
-      <Box sx={{ my: "2rem" }}>
-        {cognitoGroup.includes("admin") && (
+      {cognitoGroup.includes("admin") && (
+        <Box sx={{ my: "2rem" }}>
           <AdminActions auctionsID={auctionsID} />
-        )}
-      </Box>
-      {cognitoGroup.includes("admin") && <AdminTable />}
+          <AdminTable />
+        </Box>
+      )}
 
       {/* <LotssRenderList lotss={lotss} /> */}
 
