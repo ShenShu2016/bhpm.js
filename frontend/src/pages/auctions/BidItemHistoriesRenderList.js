@@ -44,7 +44,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
             ${history.bidPrice} ({history.bidForm})
           </H3>
           <H5 color="red">
-            ${history.lots.lot} sold For CAD ${history.bidPrice} to competing
+            Lot {history.lots.lot} sold For CAD ${history.bidPrice} to competing
             bid
           </H5>
         </>
