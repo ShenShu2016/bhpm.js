@@ -8,7 +8,6 @@ import {
   CardContent,
   CircularProgress,
   Container,
-  Grid,
   Paper,
   Snackbar,
   Stack,
@@ -45,10 +44,20 @@ import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import ImageGallery from "react-image-gallery";
 import { green } from "@mui/material/colors";
+import { makeStyles } from "@mui/styles";
 import { onUpdateLots } from "../../graphql/subscriptions";
 import { useParams } from "react-router-dom";
 
+const useStyles = makeStyles((theme) => ({
+  glary: {
+    width: "900px",
+    [theme.breakpoints.down("900")]: {
+      width: "100%",
+    },
+  },
+}));
 export default function BiddingTest() {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { auctionsID } = useParams();
@@ -230,10 +239,10 @@ export default function BiddingTest() {
   return (
     <>
       {/* <AdminLotsGrid /> */}
-      <Grid container spacing={2} sx={{ my: "2rem", p: "1rem" }}>
-        <Grid item xs={9}>
-          {lotInProgress.length === 1 ? (
-            <Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        {lotInProgress.length === 1 ? (
+          <Box sx={{ m: "1rem" }}>
+            <Box className={classes.glary}>
               <ImageGallery
                 showFullscreenButton={true}
                 showPlayButton={false}
@@ -244,101 +253,107 @@ export default function BiddingTest() {
                 originalHeight={"500px"}
                 thumbnailHeight={"500px"}
               />
-              <Box sx={{ my: "2rem" }}>
-                <H2>
-                  <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                      <Stack spacing={2}>
-                        <Typography
-                          sx={{ fontSize: 14 }}
-                          color="text.secondary"
-                          gutterBottom
-                        >
-                          Lot: {lotInProgress[0].lot}
-                        </Typography>
-                        <Typography color="text.secondary">
-                          Title: {lotInProgress[0].auctionItem.title}
-                        </Typography>
-                        <Typography color="text.secondary">
-                          Name: {lotInProgress[0].auctionItem.name}
-                        </Typography>
-                        <Typography variant="body2">
-                          Starting Price: {lotInProgress[0].startingPrice}
-                        </Typography>
-                        <Typography variant="body2">
-                          Category: {lotInProgress[0].auctionItem.categoryID}
-                        </Typography>
-                        <Typography variant="body2">
-                          Description:{" "}
-                          {lotInProgress[0].auctionItem.description}
-                        </Typography>
-                      </Stack>
-                    </CardContent>
-                  </Card>
-                </H2>
-              </Box>
-              <Box sx={{ textAlign: "center", my: "2rem" }}>
-                <H1 color="secondary.500" mb="0.2rem">
-                  Next Bid is:{" "}
-                  {nextBid ? nextBid : lotInProgress[0].startingPrice}
-                </H1>
-                {!cognitoGroup.includes("admin") && (
-                  <BazarButton
-                    variant="contained"
-                    onClick={handleBitClick}
-                    color="primary"
-                    size="large"
-                    fullWidth={true}
-                    disabled={isAuthenticated !== true || loading}
-                  >
-                    Bid
-                    {loading && (
-                      <CircularProgress
-                        size={24}
-                        sx={{
-                          color: green[500],
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          marginTop: "-0.75rem",
-                          marginLeft: "-0.75rem",
-                        }}
-                      />
-                    )}
-                  </BazarButton>
-                )}
-              </Box>
-              {isAuthenticated && !cognitoGroup.includes("admin") && (
-                <Paper>
-                  <H3>My Status:</H3>
-                  <Box sx={{ pl: "2rem" }}>
-                    My Limitation:{" "}
-                    {auction &&
-                      auction.auctionUserLimitations &&
-                      auction.auctionUserLimitations.items.length !== 0 &&
-                      auction.auctionUserLimitations.items[0].maxUserBidPrice}
-                    <br />
-                    My Auction User Number:{" "}
-                    {auction &&
-                      auction.auctionUserNumbers &&
-                      auction.auctionUserNumbers.items.length !== 0 &&
-                      auction.auctionUserNumbers.items[0].number}
-                  </Box>
-                </Paper>
+            </Box>
+            <Box>
+              <H2>
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Stack spacing={2}>
+                      <Typography
+                        sx={{ fontSize: 14 }}
+                        color="text.secondary"
+                        gutterBottom
+                      >
+                        Lot: {lotInProgress[0].lot}
+                      </Typography>
+                      <Typography color="text.secondary">
+                        Title: {lotInProgress[0].auctionItem.title}
+                      </Typography>
+                      <Typography color="text.secondary">
+                        Name: {lotInProgress[0].auctionItem.name}
+                      </Typography>
+                      <Typography variant="body2">
+                        Starting Price: {lotInProgress[0].startingPrice}
+                      </Typography>
+                      <Typography variant="body2">
+                        Category: {lotInProgress[0].auctionItem.categoryID}
+                      </Typography>
+                      <Typography variant="body2">
+                        Description: {lotInProgress[0].auctionItem.description}
+                      </Typography>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </H2>
+            </Box>
+            <Box sx={{ textAlign: "center", my: "2rem" }}>
+              <H1 color="secondary.500" mb="0.2rem">
+                Next Bid is:{" "}
+                {nextBid ? nextBid : lotInProgress[0].startingPrice}
+              </H1>
+              {!cognitoGroup.includes("admin") && (
+                <BazarButton
+                  variant="contained"
+                  onClick={handleBitClick}
+                  color="primary"
+                  size="large"
+                  fullWidth={true}
+                  disabled={isAuthenticated !== true || loading}
+                >
+                  Bid
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      sx={{
+                        color: green[500],
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        marginTop: "-0.75rem",
+                        marginLeft: "-0.75rem",
+                      }}
+                    />
+                  )}
+                </BazarButton>
               )}
             </Box>
-          ) : (
-            <Typography variant="h3">Waiting</Typography>
-          )}
-        </Grid>
-        <Grid item xs={3}>
-          <Container sx={{ maxHeight: "500px", overflow: "auto" }}>
-            <div ref={messageRef}>
-              <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
-            </div>
-          </Container>
-        </Grid>
-      </Grid>
+            {isAuthenticated && !cognitoGroup.includes("admin") && (
+              <Paper sx={{ p: "2rem", m: "1rem" }}>
+                <H3>My Status:</H3>
+                <Box sx={{ pl: "2rem" }}>
+                  My Limitation:{" "}
+                  {auction &&
+                    auction.auctionUserLimitations &&
+                    auction.auctionUserLimitations.items.length !== 0 &&
+                    auction.auctionUserLimitations.items[0].maxUserBidPrice}
+                  <br />
+                  My Auction User Number:{" "}
+                  {auction &&
+                    auction.auctionUserNumbers &&
+                    auction.auctionUserNumbers.items.length !== 0 &&
+                    auction.auctionUserNumbers.items[0].number}
+                </Box>
+              </Paper>
+            )}
+          </Box>
+        ) : (
+          <Typography variant="h3">Waiting</Typography>
+        )}
+
+        <Box
+          sx={{
+            width: "300px",
+            maxHeight: "500px",
+            overflow: "auto",
+            mx: "2rem",
+            py: "2rem",
+          }}
+        >
+          <div ref={messageRef}>
+            <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
+          </div>
+        </Box>
+      </Box>
       {cognitoGroup.includes("admin") && (
         <Box sx={{ my: "2rem" }}>
           <AdminActions
