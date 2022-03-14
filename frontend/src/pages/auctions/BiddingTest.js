@@ -214,7 +214,7 @@ export default function BiddingTest() {
       setAlertStatus({ isOpen: true, isSuccess: true, sentence: "投标成功" });
     } else {
       setLoading(false);
-      setAlertStatus({ isOpen: true, isSuccess: false, sentence: "投标失败" });
+      setAlertStatus({ isOpen: true, isSuccess: false, sentence: "投标失敗" });
     }
   };
 
@@ -341,7 +341,14 @@ export default function BiddingTest() {
       </Grid>
       {cognitoGroup.includes("admin") && (
         <Box sx={{ my: "2rem" }}>
-          <AdminActions auctionsID={auctionsID} />
+          <AdminActions
+            auctionsID={auctionsID}
+            nextBid={
+              nextBid
+                ? nextBid
+                : lotInProgress[0] && lotInProgress[0].startingPrice
+            }
+          />
           <AdminTable />
         </Box>
       )}

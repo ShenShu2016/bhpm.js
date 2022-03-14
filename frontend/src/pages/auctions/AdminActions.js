@@ -15,7 +15,7 @@ import {
   Stack,
 } from "@mui/material";
 import { H1, H2 } from "../../components/Typography";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   postBidItemHistory,
   selectMaxBidPriceByCurrentLot,
@@ -31,13 +31,19 @@ import BazarButton from "../../components/BazarButton";
 import { green } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
 
-export default function AdminActions({ auctionsID }) {
+export default function AdminActions({ auctionsID, nextBid }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [bidForm, setBidForm] = useState("Room");
   const [userNumber, setUserNumber] = useState(0);
   const [bidAmount, setBidAmount] = useState(0);
   console.log(bidAmount);
+
+  useEffect(() => {
+    if (nextBid) {
+      setBidAmount(nextBid);
+    }
+  }, [nextBid]);
 
   const lotInProgress = useSelector(selectLotByInProgress());
   const maxBidPriceByCurrentLot = useSelector(
@@ -66,7 +72,7 @@ export default function AdminActions({ auctionsID }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("bid失败");
+      alert("bid失敗");
     }
   };
 
@@ -91,7 +97,7 @@ export default function AdminActions({ auctionsID }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("First Call 失败");
+      alert("First Call 失敗");
     }
   };
 
@@ -116,7 +122,7 @@ export default function AdminActions({ auctionsID }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("First Call 失败");
+      alert("First Call 失敗");
     }
   };
 
@@ -165,11 +171,11 @@ export default function AdminActions({ auctionsID }) {
     if (response3.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
-      alert(" 成功");
+      alert("成功");
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("失败");
+      alert("失敗");
     }
   };
 

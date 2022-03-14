@@ -29,7 +29,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
       alert("成功");
     } else {
       setLoading(false);
-      alert("失败");
+      alert("失敗");
     }
     setLoading(false);
   };
