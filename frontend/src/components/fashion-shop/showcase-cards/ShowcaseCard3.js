@@ -32,40 +32,38 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 const ShowcaseCard3 = () => {
   return (
     <Link to="/home-3">
-      <a>
-        <StyledGrid container>
-          <Grid item sm={6} xs={12}>
-            <BazarImage
-              src="/assets/images/products/t-shirt2.png"
-              alt="apple-watch-1"
-              sx={{
-                mx: "auto",
-                maxWidth: "100%",
-                maxHeight: "225px",
-              }}
-            />
-          </Grid>
+      <StyledGrid container>
+        <Grid item sm={6} xs={12}>
+          <BazarImage
+            src="/assets/images/products/t-shirt2.png"
+            alt="apple-watch-1"
+            sx={{
+              mx: "auto",
+              maxWidth: "100%",
+              maxHeight: "225px",
+            }}
+          />
+        </Grid>
 
-          <Grid item sm={6} xs={12} py="2rem">
-            <Paragraph color="grey.600" mb="0.5rem">
-              MEN'S SHOE
-            </Paragraph>
-            <H1 lineHeight={1.3}>
-              <Span color="primary.600" lineHeight={1.3}>
-                Stylish
-              </Span>{" "}
-              Genuine <br /> Comfy T-shirts
-            </H1>
+        <Grid item sm={6} xs={12} py="2rem">
+          <Paragraph color="grey.600" mb="0.5rem">
+            MEN'S SHOE
+          </Paragraph>
+          <H1 lineHeight={1.3}>
+            <Span color="primary.600" lineHeight={1.3}>
+              Stylish
+            </Span>
+            Genuine <br /> Comfy T-shirts
+          </H1>
 
-            <Paragraph color="grey.600" mt="0.5rem" mb="1rem">
-              Handcrafted from genuine Italian leather. One inner compartment
-              with black satin lining
-            </Paragraph>
+          <Paragraph color="grey.600" mt="0.5rem" mb="1rem">
+            Handcrafted from genuine Italian leather. One inner compartment with
+            black satin lining
+          </Paragraph>
 
-            <NavLink2 title="SHOP NOW" />
-          </Grid>
-        </StyledGrid>
-      </a>
+          <NavLink2 title="SHOP NOW" />
+        </Grid>
+      </StyledGrid>
     </Link>
   );
 };

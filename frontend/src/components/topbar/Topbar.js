@@ -1,5 +1,5 @@
 //import { Box, palette } from "@mui/system";
-import { Container, MenuItem } from "@mui/material";
+import { Box, Container, MenuItem } from "@mui/material";
 //import Image from "../BazarImage";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -19,6 +19,7 @@ import { signOut } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 
 // import logowhite from '../../assets/images/logo-white.svg'
+
 const TopbarWrapper = styled("div")(({ theme }) => ({
   background: theme.palette.secondary.main,
   color: theme.palette.secondary.contrastText,
@@ -30,7 +31,6 @@ const TopbarWrapper = styled("div")(({ theme }) => ({
     },
     "& .title": {
       marginLeft: "10px",
-      marginRight: "15px",
     },
     "@media only screen and (max-width: 900px)": {
       "& .logo": {
@@ -61,7 +61,7 @@ const TopbarWrapper = styled("div")(({ theme }) => ({
     height: 50,
   },
   "& .menuTitle": {
-    fontSize: 16,
+    fontSize: 12,
     marginLeft: "0.5rem",
     fontWeight: 600,
   },
@@ -110,44 +110,44 @@ const Topbar = () => {
           height: "100%",
         }}
       >
-        <FlexBox alignItems="center">
-          {/* <div className="logo">
-            <Link href="/">
-              <Image
+        <FlexBox className="topbarLeft" alignItems="center">
+          <div className="logo">
+            <Link to="/">
+              <img
                 display="block"
-                height="28px"
-                src="/assets/images/logo-white.svg"
+                height="38px"
+                src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
                 alt="logo"
               />
             </Link>
-          </div> */}
+          </div>
 
           <FlexBox alignItems="center">
-            <CallOutlined fontSize="medium" />
-            <Span style={{ marginLeft: "10px" }}>+(01) 416 123 456</Span>
+            <CallOutlined fontSize="small" />
+            <Span className="title">+(01) 416 900 2877</Span>
           </FlexBox>
           <FlexBox alignItems="center" ml={2.5}>
-            <MailOutline fontSize="medium" />
-            <Span style={{ marginLeft: "10px" }}>support@bhpm.com</Span>
+            <MailOutline fontSize="small" />
+            <Span className="title">bowell.gemology@gmail.com</Span>
           </FlexBox>
         </FlexBox>
 
-        <FlexBox className="topbarRight" alignItems="center">
+        <FlexBox className="" alignItems="center">
           {isAuthenticated ? (
             <BazarButton
               variant="contained"
               color="primary"
-              sx={{}}
+              sx={{ mr: "2rem" }}
               onClick={signOut_user}
             >
               Logout
             </BazarButton>
           ) : (
-            <>
+            <Box sx={{ mx: "2rem" }}>
               <Link className="link" to="/auth/login">
                 Login/Register
               </Link>
-            </>
+            </Box>
           )}
 
           <BazarMenu
@@ -200,12 +200,8 @@ const languageList = [
     imgUrl: "/assets/images/flags/usa.png",
   },
   {
-    title: "BN",
+    title: "中文",
     imgUrl: "/assets/images/flags/bd.png",
-  },
-  {
-    title: "HN",
-    imgUrl: "/assets/images/flags/in.png",
   },
 ];
 // const currencyList = [

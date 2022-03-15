@@ -31,40 +31,38 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 const ShowcaseCard2 = () => {
   return (
     <Link to="/home-3">
-      <a>
-        <StyledGrid container>
-          <Grid item sm={7} xs={12} p="30px">
-            <Paragraph color="grey.600" mb="0.5rem">
-              JACKETS
-            </Paragraph>
-            <H1 lineHeight={1.3}>
-              <Span color="primary.600" lineHeight={1.3}>
-                Minimalist
-              </Span>{" "}
-              Genuine <br /> Cotton Jacket
-            </H1>
+      <StyledGrid container>
+        <Grid item sm={7} xs={12} p="30px">
+          <Paragraph color="grey.600" mb="0.5rem">
+            JACKETS
+          </Paragraph>
+          <H1 lineHeight={1.3}>
+            <Span color="primary.600" lineHeight={1.3}>
+              Minimalist
+            </Span>{" "}
+            Genuine <br /> Cotton Jacket
+          </H1>
 
-            <Paragraph color="grey.600" mt="0.5rem" mb="1rem">
-              Handcrafted from genuine Italian leather. One inner compartment
-              with black satin lining
-            </Paragraph>
+          <Paragraph color="grey.600" mt="0.5rem" mb="1rem">
+            Handcrafted from genuine Italian leather. One inner compartment with
+            black satin lining
+          </Paragraph>
 
-            <NavLink2 title="SHOP NOW" />
-          </Grid>
+          <NavLink2 title="SHOP NOW" />
+        </Grid>
 
-          <Grid item sm={5} xs={12}>
-            <BazarImage
-              src="/assets/images/products/jacket.png"
-              alt="apple-watch-1"
-              sx={{
-                mx: "auto",
-                maxWidth: "100%",
-                maxHeight: "225px",
-              }}
-            />
-          </Grid>
-        </StyledGrid>
-      </a>
+        <Grid item sm={5} xs={12}>
+          <BazarImage
+            src="/assets/images/products/jacket.png"
+            alt="apple-watch-1"
+            sx={{
+              mx: "auto",
+              maxWidth: "100%",
+              maxHeight: "225px",
+            }}
+          />
+        </Grid>
+      </StyledGrid>
     </Link>
   );
 };

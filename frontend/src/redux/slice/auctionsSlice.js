@@ -17,6 +17,7 @@ auctions: auctionsReducer,
 import {
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import { createAuctions, updateAuctions } from "../../graphql/mutations";
@@ -172,5 +173,13 @@ export const {
   selectById: selectAuctionsById,
   selectIds: selectAuctionsIds,
 } = auctionsAdapter.getSelectors((state) => state.auctions);
+
+export const selectMyAuctionLimitation = ({ auctionsID }) =>
+  createSelector(selectAllAuctionss, (auctions) => {
+    const auction = auctions.filter((x) => x.id === auctionsID)[0];
+    console.log(auction);
+
+    return auction;
+  });
 
 export default auctionsSlice.reducer;

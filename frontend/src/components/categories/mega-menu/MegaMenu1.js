@@ -44,13 +44,13 @@ const MegaMenu1 = ({
           {rightImage && (
             <Box mt={1.5}>
               <Link to={rightImage.href}>
-                <img
+                {/* <img
                   alt={rightImage.imgUrl}
                   src={rightImage.imgUrl}
-                  objectFit="contain"
-                  width={137}
-                  height={318}
-                />
+                  // objectFit="contain"
+                  // width={137}
+                  // height={318}
+                /> */}
               </Link>
             </Box>
           )}
@@ -59,12 +59,12 @@ const MegaMenu1 = ({
         {bottomImage && (
           <Link to={bottomImage.href}>
             <Box position="relative" height="170px">
-              <img
+              {/* <img
                 alt={rightImage.imgUrl}
                 src={bottomImage.imgUrl}
-                layout="fill"
-                objectFit="cover"
-              />
+                // layout="fill"
+                // objectFit="cover"
+              /> */}
             </Box>
           </Link>
         )}

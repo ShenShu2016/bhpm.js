@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import Carousel from "../carousel/Carousel";
 import CarouselCard1 from "../carousel-cards/CarouselCard1";
 import { Container } from "@mui/material";
+import Navbar from "../navbar/Navbar";
 
 // import CreditCardVerifiedIcon from "../../components/icons/CreditCardVerified";
 // import FeedbackThumbsUpIcon from "../../components/icons/FeedbackThumbsUp";
@@ -19,7 +20,7 @@ const Section1 = ({ carouselData }) => {
   console.log(carouselData, carouselData);
   return (
     <Fragment>
-      {/* <Navbar /> */}
+      <Navbar />
       <Box bgcolor="white" mb={7.5}>
         <Container sx={{ py: "2rem" }}>
           <Carousel

@@ -19,6 +19,9 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
         id
         bidPrice
         auctionsID
+        bidItemHistoryStatus
+        userNumber
+        bidForm
         auctions {
           id
           company
@@ -33,6 +36,7 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           id
           lot
           auctionItemID
+          startingPrice
           auctionItem {
             id
             name

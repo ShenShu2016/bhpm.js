@@ -1,16 +1,24 @@
 import { Box, Container, MenuItem, styled } from "@mui/material";
 
 import ArrowRight from "@mui/icons-material/ArrowRight";
-import BazarButton from "../BazarButton";
 import BazarCard from "../BazarCard";
-import Category from "../icons/Category";
-import CategoryMenu from "../categories/CategoryMenu";
-import ChevronRight from "@mui/icons-material/ChevronRight";
 import FlexBox from "../FlexBox";
 import NavLink from "../nav-link/NavLink";
-import { Paragraph } from "../Typography";
 import React from "react"; // component props interface
 import navbarNavigations from "../../data/navbarNavigations";
+
+//import BazarButton from "../BazarButton";
+
+
+
+
+
+
+// import Category from "../icons/Category";
+// import CategoryMenu from "../categories/CategoryMenu";
+// import ChevronRight from "@mui/icons-material/ChevronRight";
+
+//import { Paragraph } from "../Typography";
 
 // const common css style
 const navLinkStyle = {
@@ -44,8 +52,8 @@ const ParentNavItem = styled(Box)(() => ({
 const NavBarWrapper = styled(BazarCard)(({ theme }) => ({
   display: "block",
   position: "relative",
-  height: "60px",
-  borderRadius: "0px",
+  height: "140px",
+  borderRadius: "2px",
   [theme.breakpoints.down("md")]: {
     display: "none",
   },
@@ -56,12 +64,12 @@ const InnerContainer = styled(Container)(() => ({
   alignItems: "center",
   height: "100%",
 }));
-const CategoryMenuButton = styled(BazarButton)(({ theme }) => ({
-  width: "278px",
-  height: "40px",
-  px: "1rem",
-  backgroundColor: theme.palette.grey[100],
-}));
+// const CategoryMenuButton = styled(BazarButton)(({ theme }) => ({
+//   width: "278px",
+//   height: "40px",
+//   px: "1rem",
+//   backgroundColor: theme.palette.grey[100],
+// }));
 
 const Navbar = ({ navListOpen, hideCategories }) => {
   const renderNestedNav = (list, isRoot = false) => {
@@ -80,7 +88,11 @@ const Navbar = ({ navListOpen, hideCategories }) => {
           );
         else if (nav.url)
           return (
-            <StyledNavLink href={nav.url} key={nav.title}>
+            <StyledNavLink
+              href={nav.url}
+              key={nav.title}
+              sx={{ fontSize: 25, pr: "2rem" }}
+            >
               {nav.title}
             </StyledNavLink>
           );
@@ -92,6 +104,8 @@ const Navbar = ({ navListOpen, hideCategories }) => {
               alignItems="center"
               key={nav.title}
               sx={{
+                fontSize: 25,
+                // ml: "3rem",
                 "&:hover": {
                   "& > .child-nav-item": {
                     display: "block",
@@ -159,8 +173,12 @@ const Navbar = ({ navListOpen, hideCategories }) => {
   return (
     <NavBarWrapper elevation={2} hoverEffect={false}>
       {!hideCategories ? (
-        <InnerContainer>
-          <CategoryMenu open={navListOpen}>
+        <InnerContainer
+          sx={{
+            justifyContent: "left",
+          }}
+        >
+          {/* <CategoryMenu open={navListOpen}>
             <CategoryMenuButton variant="text">
               <Category fontSize="small" />
               <Paragraph
@@ -174,16 +192,30 @@ const Navbar = ({ navListOpen, hideCategories }) => {
               </Paragraph>
               <ChevronRight className="dropdown-icon" fontSize="small" />
             </CategoryMenuButton>
-          </CategoryMenu>
+          </CategoryMenu> */}
+          <Box sx={{ mr: "15rem" }}>
+            <img
+              height={130}
+              src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
+              alt="logo"
+            />
+          </Box>
           <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
         </InnerContainer>
       ) : (
         <InnerContainer
           sx={{
-            justifyContent: "flex-end",
+            justifyContent: "left",
           }}
         >
-          <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
+          <img
+            height={130}
+            src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
+            alt="logo"
+          />
+          <FlexBox sx={{ fontSize: 25 }}>
+            {renderNestedNav(navbarNavigations, true)}
+          </FlexBox>
         </InnerContainer>
       )}
     </NavBarWrapper>

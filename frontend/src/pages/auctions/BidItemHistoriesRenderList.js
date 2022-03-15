@@ -1,87 +1,150 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
+import { H2, H3, H4, H5 } from "../../components/Typography";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import React from "react";
+import BazarButton from "../../components/BazarButton";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { updateBidItemHistoryDetail } from "../../redux/slice/bidItemHistorySlice";
 
 export default function BidItemHistoriesRenderList({ bitItemHistories }) {
+  const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
+  const { cognitoGroup } = useSelector((state) => state.userAuth);
+  const [loading, setLoading] = useState(false);
+
+  const handleBidSuccess = async (history) => {
+    setLoading(true);
+    const updateBidItemHistoryDetailInput = {
+      id: history.id,
+      bidItemHistoryStatus: "Success",
+    };
+    console.log(updateBidItemHistoryDetailInput);
+    const response = await dispatch(
+      updateBidItemHistoryDetail(updateBidItemHistoryDetailInput)
+    );
+    //console.log(response.meta.requestStatus);
+    if (response.meta.requestStatus === "fulfilled") {
+      setLoading(false);
+      alert("成功");
+    } else {
+      setLoading(false);
+      alert("失敗");
+    }
+    setLoading(false);
+  };
   //console.log(username);
+
+  function differentStatus(history) {
+    if (history.bidItemHistoryStatus === "Success") {
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H5 color="red">
+            Lot {history.lots.lot} sold For CAD ${history.bidPrice} to competing
+            bid
+          </H5>
+        </>
+      );
+    }
+    if (history.bidItemHistoryStatus === "Start") {
+      return (
+        <>
+          <H2 color="green">
+            Lot {history.lots.lot} Start at Price:{history.lots.startingPrice}
+          </H2>
+        </>
+      );
+    }
+    if (history.bidItemHistoryStatus === "FirstCall") {
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H2 color="blue">First Call</H2>
+        </>
+      );
+    }
+    if (history.bidItemHistoryStatus === "SecondCall") {
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H2 color="blue">Second Call</H2>
+        </>
+      );
+    } else
+      return (
+        <>
+          <H4>Lot: {history.lots.lot}</H4>
+          <H3>
+            ${history.bidPrice} ({history.bidForm})
+          </H3>
+          <H2 color="red">{history.bidItemHistoryStatus}</H2>
+        </>
+      );
+  }
+
   return (
     <div>
       <Stack
-        spacing={1}
+        spacing={2}
         sx={{
-          borderStyle: "solid",
-          // display: "flex",
-          // flexWrap: "wrap",
           margin: "auto",
-          justifyContent: "space-around",
+          textAlign: "center",
         }}
       >
         {bitItemHistories &&
           bitItemHistories.map((history) => {
-            //console.log(history.owner);
-            //console.log(history.lots.auctionItem.imgUrl);
             return (
               <Box sx={{ width: "200px" }} key={history.id}>
-                <Card sx={{ minWidth: 275 }}>
-                  <CardContent>
-                    {/* <CardMedia
-                      component="img"
-                      // sx={{ maxHeight: "100" }}
-                      image={history.lots.auctionItem.imgUrl}
-                      alt="Paella dish"
-                    /> */}
-                    {/* <Typography variant="h5" color="primary"> */}
-                    Live ${history.bidPrice} :
-                    {history.owner === null ? "现场" : "Internet"}
-                    {/* </Typography> */}
-                    {history.owner === username && "You"}
-                    <Typography variant="body1">
-                      {moment(history.createdAt).fromNow()}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                {/* <Typography variant="h5" sx={{ whiteSpace: "pre-wrap" }}>
-                  history ID: {history.id}
-                </Typography>
-                <Typography variant="body1">
-                  {JSON.stringify(history, 1, 2)}
-                </Typography> */}
-                {/* </Typography> */}
-                {/* <Typography variant="body1">
-                    startingPrice: {lotItem.startingPrice}
-                  </Typography>
-                  <Typography variant="body1">
-                    estimatedPriceMin: {lotItem.estimatedPriceMin}
-                  </Typography>
-                  <Typography variant="body1">
-                    estimatedPriceMax: {lotItem.estimatedPriceMax}
-                  </Typography>
-                  <Typography variant="body1">
-                    status: {lotItem.lotsStatus}
-                  </Typography>
-                  <Typography variant="body1">
-                    name: {lotItem.auctionItem.name}
-                  </Typography>
-                  <Typography variant="body1">
-                    title: {lotItem.auctionItem.title}
-                  </Typography>
-                  <Typography variant="body1">
-                    description: {lotItem.auctionItem.description}
-                  </Typography>
-                  <Typography variant="body1">
-                    categoryID: {lotItem.auctionItem.categoryID}
-                  </Typography>  */}
+                {history.bidItemHistoryStatus ? (
+                  <Card sx={{ minWidth: 275, backgroundColor: "" }}>
+                    <CardContent>
+                      {differentStatus(history)}
+                      <Typography variant="body1">
+                        {moment(history.createdAt).fromNow()}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card sx={{ minWidth: 275 }}>
+                    <CardContent>
+                      <H4>Lot:{history.lots.lot}</H4>
+                      <H5>
+                        Bid Price: ${history.bidPrice}({history.bidForm})
+                        <br />
+                        From User NO. {history.userNumber}
+                      </H5>
+                      {history.owner === username && "You"}
+
+                      <Typography variant="body1">
+                        {moment(history.createdAt).fromNow()}
+                      </Typography>
+
+                      {cognitoGroup.includes("admin") && (
+                        <BazarButton
+                          color="primary"
+                          variant="contained"
+                          size="small"
+                          disabled={loading}
+                          onClick={() => {
+                            handleBidSuccess(history);
+                          }}
+                        >
+                          成功交易
+                        </BazarButton>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
               </Box>
             );
           })}

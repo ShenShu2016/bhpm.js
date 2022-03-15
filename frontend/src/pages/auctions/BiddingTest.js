@@ -4,12 +4,15 @@ import "./slideCSS.css";
 import {
   Alert,
   Box,
-  Container,
-  Grid,
+  Card,
+  CardContent,
+  CircularProgress,
   Paper,
   Snackbar,
+  Stack,
   Typography,
 } from "@mui/material";
+import { H1, H2, H3 } from "../../components/Typography";
 import React, { useEffect, useRef, useState } from "react";
 import {
   fetchBidItemHistories,
@@ -24,24 +27,42 @@ import {
   updateLotsDetailBySub,
 } from "../../redux/slice/lotsSlice";
 import {
+  onCreateBidItemHistory,
+  onUpdateBidItemHistory,
+} from "../../graphql_custom/_subscriptions";
+import {
   selectAuctionsById,
   selectedAuctions,
 } from "../../redux/slice/auctionsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { API } from "aws-amplify";
+import AdminActions from "./AdminActions";
 import AdminTable from "./AdminTable";
 import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import ImageGallery from "react-image-gallery";
-import { onCreateBidItemHistory } from "../../graphql_custom/_subscriptions";
+import { green } from "@mui/material/colors";
+import { makeStyles } from "@mui/styles";
 import { onUpdateLots } from "../../graphql/subscriptions";
 import { useParams } from "react-router-dom";
 
+const useStyles = makeStyles((theme) => ({
+  glary: {
+    width: "900px",
+    [theme.breakpoints.down("900")]: {
+      width: "100%",
+    },
+  },
+}));
 export default function BiddingTest() {
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const { auctionsID } = useParams();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
+  const { cognitoGroup } = useSelector((state) => state.userAuth);
+  //console.log(cognitoGroup);
   const bitItemHistories = useSelector(selectAllBidItemHistories);
   const { fetchBidItemHistoriesStatus } = useSelector(
     (state) => state.bidItemHistory
@@ -73,14 +94,14 @@ export default function BiddingTest() {
 
   //const lotss = useSelector(selectAllLotss);
   const lotInProgress = useSelector(selectLotByInProgress());
-  console.log("lotInProgress", lotInProgress);
+  //console.log("lotInProgress", lotInProgress);
 
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
       lotID: lotInProgress.length === 1 && lotInProgress[0].id,
     })
   );
-  console.log("maxBidPriceByCurrentLot", maxBidPriceByCurrentLot);
+  //console.log("maxBidPriceByCurrentLot", maxBidPriceByCurrentLot);
   useEffect(() => {
     if (isAuthenticated !== null && auctionsID) {
       dispatch(selectedAuctions({ isAuthenticated, auctionsID }));
@@ -89,7 +110,7 @@ export default function BiddingTest() {
   }, [dispatch, isAuthenticated, auctionsID]);
   //console.log("lotss", lotss);
   const auction = useSelector((state) => selectAuctionsById(state, auctionsID));
-  //console.log("auction", auction);
+  //console.log("auction", auction && auction.auctionUserLimitations.items[0]);
   //console.log(auction && auction.bidIncrementPriceList);
 
   const nextBid =
@@ -102,7 +123,7 @@ export default function BiddingTest() {
     );
 
   //   auction.bidIncrementPriceList.sort((a, b) => a - b);
-  console.log("nextBid", nextBid);
+  //console.log("nextBid", nextBid);
 
   useEffect(() => {
     if (
@@ -117,13 +138,13 @@ export default function BiddingTest() {
 
   useEffect(() => {
     if (isAuthenticated !== null) {
-      console.log("start subscription++++++");
+      //console.log("start subscription++++++");
       const onCreateBidItemHistorySub = API.graphql({
         query: onCreateBidItemHistory,
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       }).subscribe({
         next: ({ value }) => {
-          console.log(value);
+          //console.log(value);
           dispatch(insertBidItemHistory(value.data.onCreateBidItemHistory));
         },
         error: (error) => console.warn(error),
@@ -138,7 +159,28 @@ export default function BiddingTest() {
 
   useEffect(() => {
     if (isAuthenticated !== null) {
-      console.log("start update lots subscription++++++");
+      //console.log("start subscription++++++");
+      const onUpdateBidItemHistorySub = API.graphql({
+        query: onUpdateBidItemHistory,
+        authMode: isAuthenticated ? undefined : "AWS_IAM",
+      }).subscribe({
+        next: ({ value }) => {
+          //console.log(value);
+          dispatch(insertBidItemHistory(value.data.onUpdateBidItemHistory));
+        },
+        error: (error) => console.warn(error),
+      });
+
+      return () => {
+        onUpdateBidItemHistorySub.unsubscribe();
+        console.log("close subscription");
+      };
+    }
+  }, [isAuthenticated, dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      //console.log("start update lots subscription++++++");
       const onUpdateLotsSub = API.graphql({
         query: onUpdateLots,
         authMode: isAuthenticated ? undefined : "AWS_IAM",
@@ -158,6 +200,7 @@ export default function BiddingTest() {
   }, [isAuthenticated, dispatch]);
 
   const handleBitClick = async () => {
+    setLoading(true);
     const createBidItemHistoryInput = {
       id:
         lotInProgress.length === 1 &&
@@ -167,15 +210,20 @@ export default function BiddingTest() {
       bidPrice: nextBid ? nextBid : lotInProgress[0].startingPrice,
       auctionsID: auctionsID,
       lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+      bidForm: "Internet",
+      userNumber: auction.auctionUserNumbers.items[0].number,
     };
     const response = await dispatch(
       postBidItemHistory({ createBidItemHistoryInput })
     );
     //console.log(response.meta.requestStatus);
     if (response.meta.requestStatus === "fulfilled") {
+      setLoading(false);
       setAlertStatus({ isOpen: true, isSuccess: true, sentence: "投标成功" });
-    } else
-      setAlertStatus({ isOpen: true, isSuccess: false, sentence: "投标失败" });
+    } else {
+      setLoading(false);
+      setAlertStatus({ isOpen: true, isSuccess: false, sentence: "投标失敗" });
+    }
   };
 
   // console.log("imgUrls", lotInProgress[0].auctionItem.imgUrls);
@@ -185,14 +233,15 @@ export default function BiddingTest() {
     lotInProgress[0].auctionItem.imgUrls.map((url) => {
       return { original: url, thumbnail: url };
     });
-  console.log(imgListInProgress);
+  //console.log(imgListInProgress);
+
   return (
     <>
       {/* <AdminLotsGrid /> */}
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          {lotInProgress.length === 1 ? (
-            <Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+        {lotInProgress.length === 1 ? (
+          <Box sx={{ m: "1rem" }}>
+            <Box className={classes.glary}>
               <ImageGallery
                 showFullscreenButton={true}
                 showPlayButton={false}
@@ -203,41 +252,120 @@ export default function BiddingTest() {
                 originalHeight={"500px"}
                 thumbnailHeight={"500px"}
               />
-              <Box sx={{ textAlign: "center" }}>
-                <Typography variant="h3">
-                  Next Bid is:
-                  {nextBid ? nextBid : lotInProgress[0].startingPrice}
-                </Typography>
+            </Box>
+            <Box>
+              <H2>
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Stack spacing={2}>
+                      <Typography
+                        sx={{ fontSize: 14 }}
+                        color="text.secondary"
+                        gutterBottom
+                      >
+                        Lot: {lotInProgress[0].lot}
+                      </Typography>
+                      <Typography color="text.secondary">
+                        Title: {lotInProgress[0].auctionItem.title}
+                      </Typography>
+                      <Typography color="text.secondary">
+                        Name: {lotInProgress[0].auctionItem.name}
+                      </Typography>
+                      <Typography variant="body2">
+                        Starting Price: {lotInProgress[0].startingPrice}
+                      </Typography>
+                      <Typography variant="body2">
+                        Category: {lotInProgress[0].auctionItem.categoryID}
+                      </Typography>
+                      <Typography variant="body2">
+                        Description: {lotInProgress[0].auctionItem.description}
+                      </Typography>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </H2>
+            </Box>
+            <Box sx={{ textAlign: "center", my: "2rem" }}>
+              <H1 color="secondary.500" mb="0.2rem">
+                Next Bid is:{" "}
+                {nextBid ? nextBid : lotInProgress[0].startingPrice}
+              </H1>
+              {!cognitoGroup.includes("admin") && (
                 <BazarButton
                   variant="contained"
                   onClick={handleBitClick}
                   color="primary"
                   size="large"
                   fullWidth={true}
-                  disabled={isAuthenticated !== true}
+                  disabled={isAuthenticated !== true || loading}
                 >
                   Bid
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      sx={{
+                        color: green[500],
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        marginTop: "-0.75rem",
+                        marginLeft: "-0.75rem",
+                      }}
+                    />
+                  )}
                 </BazarButton>
-              </Box>
+              )}
             </Box>
-          ) : (
-            <Typography variant="h3">Waiting For admin to start</Typography>
-          )}
-        </Grid>
-        <Grid item xs={4}>
-          <Container sx={{ maxHeight: "500px", overflow: "auto" }}>
-            <div ref={messageRef}>
-              <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
-            </div>
-          </Container>
-        </Grid>
-      </Grid>
-      <Container
-        component={Paper}
-        sx={{ my: 2, textAlign: "center" }}
-      ></Container>
+            {isAuthenticated && !cognitoGroup.includes("admin") && (
+              <Paper sx={{ p: "2rem", m: "1rem" }}>
+                <H3>My Status:</H3>
+                <Box sx={{ pl: "2rem" }}>
+                  My Limitation:{" "}
+                  {auction &&
+                    auction.auctionUserLimitations &&
+                    auction.auctionUserLimitations.items.length !== 0 &&
+                    auction.auctionUserLimitations.items[0].maxUserBidPrice}
+                  <br />
+                  My Auction User Number:{" "}
+                  {auction &&
+                    auction.auctionUserNumbers &&
+                    auction.auctionUserNumbers.items.length !== 0 &&
+                    auction.auctionUserNumbers.items[0].number}
+                </Box>
+              </Paper>
+            )}
+          </Box>
+        ) : (
+          <Typography variant="h3">Waiting</Typography>
+        )}
 
-      <AdminTable />
+        <Box
+          sx={{
+            width: "300px",
+            maxHeight: "500px",
+            overflow: "auto",
+            mx: "2rem",
+            py: "2rem",
+          }}
+        >
+          <div ref={messageRef}>
+            <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
+          </div>
+        </Box>
+      </Box>
+      {cognitoGroup.includes("admin") && (
+        <Box sx={{ my: "2rem" }}>
+          <AdminActions
+            auctionsID={auctionsID}
+            nextBid={
+              nextBid
+                ? nextBid
+                : lotInProgress[0] && lotInProgress[0].startingPrice
+            }
+          />
+          <AdminTable />
+        </Box>
+      )}
 
       {/* <LotssRenderList lotss={lotss} /> */}
 

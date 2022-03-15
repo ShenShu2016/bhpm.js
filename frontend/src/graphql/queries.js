@@ -24,6 +24,9 @@ export const getAuctionUserLimitation = /* GraphQL */ `
         auctionUserLimitations {
           nextToken
         }
+        auctionUserNumbers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -48,6 +51,73 @@ export const listAuctionUserLimitations = /* GraphQL */ `
         id
         maxUserBidPrice
         limitStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getAuctionUserNumber = /* GraphQL */ `
+  query GetAuctionUserNumber($id: ID!) {
+    getAuctionUserNumber(id: $id) {
+      id
+      number
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listAuctionUserNumbers = /* GraphQL */ `
+  query ListAuctionUserNumbers(
+    $filter: ModelAuctionUserNumberFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAuctionUserNumbers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        number
         auctionsID
         auctions {
           id
@@ -140,6 +210,9 @@ export const getAuctions = /* GraphQL */ `
           bidPrice
           auctionsID
           lotsID
+          userNumber
+          bidItemHistoryStatus
+          bidForm
           createdAt
           updatedAt
           owner
@@ -152,6 +225,17 @@ export const getAuctions = /* GraphQL */ `
           id
           maxUserBidPrice
           limitStatus
+          auctionsID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      auctionUserNumbers {
+        items {
+          id
+          number
           auctionsID
           createdAt
           updatedAt
@@ -187,6 +271,9 @@ export const listAuctions = /* GraphQL */ `
         auctionUserLimitations {
           nextToken
         }
+        auctionUserNumbers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -220,6 +307,9 @@ export const getLots = /* GraphQL */ `
         auctionUserLimitations {
           nextToken
         }
+        auctionUserNumbers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -247,6 +337,9 @@ export const getLots = /* GraphQL */ `
           bidPrice
           auctionsID
           lotsID
+          userNumber
+          bidItemHistoryStatus
+          bidForm
           createdAt
           updatedAt
           owner
@@ -436,6 +529,9 @@ export const getBidItemHistory = /* GraphQL */ `
         auctionUserLimitations {
           nextToken
         }
+        auctionUserNumbers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -476,6 +572,9 @@ export const getBidItemHistory = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      userNumber
+      bidItemHistoryStatus
+      bidForm
       createdAt
       updatedAt
       owner
@@ -520,6 +619,9 @@ export const listBidItemHistories = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
         createdAt
         updatedAt
         owner
@@ -572,6 +674,9 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
         createdAt
         updatedAt
         owner
