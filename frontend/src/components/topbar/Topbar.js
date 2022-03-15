@@ -1,6 +1,6 @@
 //import { Box, palette } from "@mui/system";
+
 import { Box, Container, MenuItem } from "@mui/material";
-//import Image from "../BazarImage";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,11 +12,15 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FlexBox from "../FlexBox";
 import MailOutline from "@mui/icons-material/MailOutline";
 import { Span } from "../Typography";
-// import TopbarStyle from "./TopbarStyle";
 import TouchRipple from "@mui/material/ButtonBase";
 import { signOut } from "../../redux/slice/authSlice";
-// import { layoutConstant } from "../../utils/constants";
 import { styled } from "@mui/material/styles";
+
+//import Image from "../BazarImage";
+
+// import TopbarStyle from "./TopbarStyle";
+
+// import { layoutConstant } from "../../utils/constants";
 
 // import logowhite from '../../assets/images/logo-white.svg'
 
@@ -27,7 +31,8 @@ const TopbarWrapper = styled("div")(({ theme }) => ({
   fontSize: 16,
   "& .topbarLeft": {
     "& .logo": {
-      display: "none",
+      // display: "none",
+      marginRight: "10px",
     },
     "& .title": {
       marginLeft: "10px",

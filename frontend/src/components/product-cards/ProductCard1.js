@@ -12,10 +12,13 @@ import React, { useCallback, useState } from "react";
 import BazarCard from "../BazarCard";
 import BazarRating from "../BazarRating";
 import Close from "@mui/icons-material/Close";
-import Favorite from "@mui/icons-material/Favorite";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FlexBox from "../FlexBox";
-import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+
+//import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+
+//import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+
+// import Favorite from "@mui/icons-material/Favorite";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
   position: "relative",
@@ -42,18 +45,18 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const HoverIconWrapper = styled(Box)(({ theme }) => ({
-  display: "none",
-  flexDirection: "column",
-  position: "absolute",
-  top: "7px",
-  right: "15px",
-  cursor: "pointer",
-  zIndex: 2,
-  [theme.breakpoints.down("md")]: {
-    display: "flex",
-  },
-}));
+// const HoverIconWrapper = styled(Box)(({ theme }) => ({
+//   display: "none",
+//   flexDirection: "column",
+//   position: "absolute",
+//   top: "7px",
+//   right: "15px",
+//   cursor: "pointer",
+//   zIndex: 2,
+//   [theme.breakpoints.down("md")]: {
+//     display: "flex",
+//   },
+// }));
 const ContentWrapper = styled(Box)(() => ({
   padding: "1rem",
   "& .title, & .categories": {
@@ -74,7 +77,7 @@ const ProductCard1 = ({
   hoverEffect,
   showProductSize,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  //const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = useState(false);
   // const { state, dispatch } = useAppContext();
   // const cartItem = state.cart.cartList.find((item) => item.id === id);
@@ -82,9 +85,9 @@ const ProductCard1 = ({
     setOpen((open) => !open);
   }, []);
 
-  const toggleIsFavorite = async () => {
-    setIsFavorite((fav) => !fav);
-  };
+  // const toggleIsFavorite = async () => {
+  //   setIsFavorite((fav) => !fav);
+  // };
 
   // const handleCartAmountChange = useCallback(
   //   (amount) => () => {
@@ -107,7 +110,7 @@ const ProductCard1 = ({
         {/* {discount !== 0 && (
           <StyledChip color="primary" size="small" label={`${discount}% off`} />
         )} */}
-
+        {/* 
         <HoverIconWrapper>
           <IconButton
             sx={{
@@ -129,7 +132,7 @@ const ProductCard1 = ({
               <FavoriteBorder fontSize="small" />
             )}
           </IconButton>
-        </HoverIconWrapper>
+        </HoverIconWrapper> */}
 
         <Link to={``}>
           <img
