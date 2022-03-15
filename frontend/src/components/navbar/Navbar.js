@@ -1,16 +1,24 @@
 import { Box, Container, MenuItem, styled } from "@mui/material";
 
 import ArrowRight from "@mui/icons-material/ArrowRight";
-import BazarButton from "../BazarButton";
 import BazarCard from "../BazarCard";
-import Category from "../icons/Category";
-import CategoryMenu from "../categories/CategoryMenu";
-import ChevronRight from "@mui/icons-material/ChevronRight";
 import FlexBox from "../FlexBox";
 import NavLink from "../nav-link/NavLink";
-import { Paragraph } from "../Typography";
 import React from "react"; // component props interface
 import navbarNavigations from "../../data/navbarNavigations";
+
+//import BazarButton from "../BazarButton";
+
+
+
+
+
+
+// import Category from "../icons/Category";
+// import CategoryMenu from "../categories/CategoryMenu";
+// import ChevronRight from "@mui/icons-material/ChevronRight";
+
+//import { Paragraph } from "../Typography";
 
 // const common css style
 const navLinkStyle = {
@@ -56,12 +64,12 @@ const InnerContainer = styled(Container)(() => ({
   alignItems: "center",
   height: "100%",
 }));
-const CategoryMenuButton = styled(BazarButton)(({ theme }) => ({
-  width: "278px",
-  height: "40px",
-  px: "1rem",
-  backgroundColor: theme.palette.grey[100],
-}));
+// const CategoryMenuButton = styled(BazarButton)(({ theme }) => ({
+//   width: "278px",
+//   height: "40px",
+//   px: "1rem",
+//   backgroundColor: theme.palette.grey[100],
+// }));
 
 const Navbar = ({ navListOpen, hideCategories }) => {
   const renderNestedNav = (list, isRoot = false) => {

@@ -1,20 +1,14 @@
 import {
   Box,
-  Button,
   CircularProgress,
   FormControl,
-  FormControlLabel,
-  FormLabel,
   InputAdornment,
   InputLabel,
   MenuItem,
   OutlinedInput,
-  Radio,
-  RadioGroup,
   Select,
   Stack,
 } from "@mui/material";
-import { H1, H2 } from "../../components/Typography";
 import React, { useEffect, useState } from "react";
 import {
   postBidItemHistory,
@@ -28,8 +22,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
+import { H1 } from "../../components/Typography";
 import { green } from "@mui/material/colors";
-import { useForm } from "react-hook-form";
 
 export default function AdminActions({ auctionsID, nextBid }) {
   const dispatch = useDispatch();

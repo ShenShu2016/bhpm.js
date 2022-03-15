@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
-import { H1, H2, H3, H4, H5 } from "../../components/Typography";
+import { H2, H3, H4, H5 } from "../../components/Typography";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
