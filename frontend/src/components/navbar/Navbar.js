@@ -5,14 +5,10 @@ import BazarCard from "../BazarCard";
 import FlexBox from "../FlexBox";
 import NavLink from "../nav-link/NavLink";
 import React from "react"; // component props interface
+import { makeStyles } from "@mui/styles";
 import navbarNavigations from "../../data/navbarNavigations";
 
 //import BazarButton from "../BazarButton";
-
-
-
-
-
 
 // import Category from "../icons/Category";
 // import CategoryMenu from "../categories/CategoryMenu";
@@ -52,10 +48,10 @@ const ParentNavItem = styled(Box)(() => ({
 const NavBarWrapper = styled(BazarCard)(({ theme }) => ({
   display: "block",
   position: "relative",
-  height: "140px",
+  height: "150px",
   borderRadius: "2px",
   [theme.breakpoints.down("md")]: {
-    display: "none",
+    // display: "none",
   },
 }));
 const InnerContainer = styled(Container)(() => ({
@@ -70,8 +66,16 @@ const InnerContainer = styled(Container)(() => ({
 //   px: "1rem",
 //   backgroundColor: theme.palette.grey[100],
 // }));
-
+const useStyles = makeStyles((theme) => ({
+  selections: {
+    marginRight: "15rem",
+    [theme.breakpoints.down("900")]: {
+      marginRight: "1rem",
+    },
+  },
+}));
 const Navbar = ({ navListOpen, hideCategories }) => {
+  const classes = useStyles();
   const renderNestedNav = (list, isRoot = false) => {
     return list?.map((nav) => {
       if (isRoot) {
@@ -91,7 +95,7 @@ const Navbar = ({ navListOpen, hideCategories }) => {
             <StyledNavLink
               href={nav.url}
               key={nav.title}
-              sx={{ fontSize: 25, pr: "2rem" }}
+              sx={{ fontSize: 25, pr: "1rem" }}
             >
               {nav.title}
             </StyledNavLink>
@@ -193,13 +197,14 @@ const Navbar = ({ navListOpen, hideCategories }) => {
               <ChevronRight className="dropdown-icon" fontSize="small" />
             </CategoryMenuButton>
           </CategoryMenu> */}
-          <Box sx={{ mr: "15rem" }}>
+          <Box className={classes.selections}>
             <img
               height={130}
               src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
               alt="logo"
             />
           </Box>
+
           <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
         </InnerContainer>
       ) : (
