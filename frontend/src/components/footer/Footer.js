@@ -4,15 +4,13 @@ import BazarIconButton from "../BazarIconButton";
 import Facebook from "../icons/Facebook";
 import FlexBox from "../FlexBox";
 import Google from "../icons/Google";
-//import Image from "../BazarImage";
 import Instagram from "../icons/Instagram";
 import { Link } from "react-router-dom";
-import { Paragraph } from "../Typography";
 import React from "react";
 import Twitter from "../icons/Twitter";
 import Youtube from "../icons/Youtube";
+import { useTranslation } from "react-i18next";
 
-// styled component
 const StyledLink = styled("a")(({ theme }) => ({
   position: "relative",
   display: "block",
@@ -27,6 +25,14 @@ const StyledLink = styled("a")(({ theme }) => ({
 }));
 
 const Footer = () => {
+  const { t } = useTranslation();
+  const aboutLinks = [
+    `${t("description.寶華介紹")}`,
+    `${t("description.團隊介紹")}`,
+    `${t("description.服務項目")}`,
+    `${t("description.服務規則")}`,
+    `${t("description.隱私條款")}`,
+  ];
   return (
     <footer>
       <Box bgcolor="#0c0e30">
@@ -34,13 +40,6 @@ const Footer = () => {
           <Box py={10} overflow="hidden">
             <Grid container spacing={3}>
               <Grid item lg={4} md={6} sm={6} xs={12}>
-                <Paragraph mb={2.5} color="grey.500">
-                  {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor libero id et, in gravida. Sit diam duis mauris nulla
-                  cursus. Erat et lectus vel ut sollicitudin elit at amet. */}
-                </Paragraph>
-
-                {/* <AppStore /> */}
                 <Link to="/">
                   <img
                     height="200px"
@@ -131,8 +130,6 @@ const Footer = () => {
     </footer>
   );
 };
-
-const aboutLinks = ["宝华介绍", "团队介绍", "服务项目", "服务规则", "隐私条款"];
 
 const customerCareLinks = [
   "How to register",

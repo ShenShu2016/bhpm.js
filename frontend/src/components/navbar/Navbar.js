@@ -4,19 +4,10 @@ import ArrowRight from "@mui/icons-material/ArrowRight";
 import BazarCard from "../BazarCard";
 import FlexBox from "../FlexBox";
 import NavLink from "../nav-link/NavLink";
-import React from "react"; // component props interface
+import React from "react";
 import { makeStyles } from "@mui/styles";
-import navbarNavigations from "../../data/navbarNavigations";
+import { useTranslation } from "react-i18next";
 
-//import BazarButton from "../BazarButton";
-
-// import Category from "../icons/Category";
-// import CategoryMenu from "../categories/CategoryMenu";
-// import ChevronRight from "@mui/icons-material/ChevronRight";
-
-//import { Paragraph } from "../Typography";
-
-// const common css style
 const navLinkStyle = {
   cursor: "pointer",
   marginRight: "2rem",
@@ -50,9 +41,7 @@ const NavBarWrapper = styled(BazarCard)(({ theme }) => ({
   position: "relative",
   height: "150px",
   borderRadius: "2px",
-  [theme.breakpoints.down("md")]: {
-    // display: "none",
-  },
+  [theme.breakpoints.down("md")]: {},
 }));
 const InnerContainer = styled(Container)(() => ({
   display: "flex",
@@ -60,12 +49,7 @@ const InnerContainer = styled(Container)(() => ({
   alignItems: "center",
   height: "100%",
 }));
-// const CategoryMenuButton = styled(BazarButton)(({ theme }) => ({
-//   width: "278px",
-//   height: "40px",
-//   px: "1rem",
-//   backgroundColor: theme.palette.grey[100],
-// }));
+
 const useStyles = makeStyles((theme) => ({
   selections: {
     marginRight: "15rem",
@@ -76,6 +60,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Navbar = ({ navListOpen, hideCategories }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+  const navbarNavigations = [
+    {
+      title: `${t("description.最新拍賣")}`,
+      url: "/vendor/account-settings",
+    },
+    {
+      title: `${t("description.拍賣歷史")}`,
+      url: "/auction/history",
+    },
+    {
+      title: `${t("description.精品")}`,
+      child: [
+        {
+          title: "未來精品",
+          url: "/vendor/dashboard",
+        },
+        {
+          title: "當前精品",
+          url: "/vendor/dashboard",
+        },
+        {
+          title: "歷史精品",
+          url: "/vendor/dashboard",
+        },
+      ],
+    },
+    {
+      title: `${t("description.新聞中心")}`,
+      url: "/vendor/account-settings",
+    },
+  ];
+
   const renderNestedNav = (list, isRoot = false) => {
     return list?.map((nav) => {
       if (isRoot) {
@@ -182,21 +199,6 @@ const Navbar = ({ navListOpen, hideCategories }) => {
             justifyContent: "left",
           }}
         >
-          {/* <CategoryMenu open={navListOpen}>
-            <CategoryMenuButton variant="text">
-              <Category fontSize="small" />
-              <Paragraph
-                fontWeight="600"
-                textAlign="left"
-                flex="1 1 0"
-                ml={1.25}
-                color="grey.600"
-              >
-                Categories
-              </Paragraph>
-              <ChevronRight className="dropdown-icon" fontSize="small" />
-            </CategoryMenuButton>
-          </CategoryMenu> */}
           <Box className={classes.selections}>
             <img
               height={130}
