@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   selections: {
     marginRight: "15rem",
     [theme.breakpoints.down("900")]: {
-      marginRight: "1rem",
+      display: "none",
     },
   },
 }));
@@ -193,38 +193,21 @@ const Navbar = ({ navListOpen, hideCategories }) => {
 
   return (
     <NavBarWrapper elevation={2} hoverEffect={false}>
-      {!hideCategories ? (
-        <InnerContainer
-          sx={{
-            justifyContent: "left",
-          }}
-        >
-          <Box className={classes.selections}>
-            <img
-              height={130}
-              src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
-              alt="logo"
-            />
-          </Box>
-
-          <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
-        </InnerContainer>
-      ) : (
-        <InnerContainer
-          sx={{
-            justifyContent: "left",
-          }}
-        >
+      <InnerContainer
+        sx={{
+          justifyContent: "left",
+        }}
+      >
+        <Box className={classes.selections}>
           <img
             height={130}
             src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
             alt="logo"
           />
-          <FlexBox sx={{ fontSize: 25 }}>
-            {renderNestedNav(navbarNavigations, true)}
-          </FlexBox>
-        </InnerContainer>
-      )}
+        </Box>
+
+        <FlexBox>{renderNestedNav(navbarNavigations, true)}</FlexBox>
+      </InnerContainer>
     </NavBarWrapper>
   );
 };

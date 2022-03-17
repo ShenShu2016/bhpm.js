@@ -105,8 +105,8 @@ const Footer = () => {
 
                 <FlexBox className="flex" mx={-0.625}>
                   {iconList.map((item, ind) => (
-                    <a
-                      href={item.url}
+                    <Link
+                      to={item.url}
                       target="_blank"
                       rel="noreferrer noopenner"
                       key={ind}
@@ -119,7 +119,7 @@ const Footer = () => {
                       >
                         <item.icon fontSize="inherit" />
                       </BazarIconButton>
-                    </a>
+                    </Link>
                   ))}
                 </FlexBox>
               </Grid>
