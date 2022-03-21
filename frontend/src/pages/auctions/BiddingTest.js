@@ -253,7 +253,7 @@ export default function BiddingTest() {
                 thumbnailHeight={"500px"}
               />
             </Box>
-            <Box>
+            {/* <Box>
               <H2>
                 <Card sx={{ minWidth: 275 }}>
                   <CardContent>
@@ -284,12 +284,18 @@ export default function BiddingTest() {
                   </CardContent>
                 </Card>
               </H2>
-            </Box>
+            </Box> */}
             <Box sx={{ textAlign: "center", my: "2rem" }}>
+              <br />
+              <H1 color="secondary.500" mb="0.2rem">
+                Current Bid is：
+              </H1>
+              <br />
               <H1 color="secondary.500" mb="0.2rem">
                 Next Bid is:{" "}
                 {nextBid ? nextBid : lotInProgress[0].startingPrice}
               </H1>
+              <br />
               {!cognitoGroup.includes("admin") && (
                 <BazarButton
                   variant="contained"
