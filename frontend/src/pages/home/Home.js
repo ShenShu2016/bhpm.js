@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,10 +75,8 @@ export default function Home() {
       title: lot.auctionItem.title,
       imgUrl: lot.auctionItem.imgUrl,
       category: lot.auctionItem.categoryID,
-      unit: "kg",
-      discount: 8,
       id: lot.id,
-      rating: 5,
+      startingPrice: lot.startingPrice,
     };
   });
 

@@ -70,12 +70,9 @@ const ProductCard1 = ({
   id,
   title,
   price,
+  startingPrice,
   imgUrl,
-  rating,
-  discount,
-  hideRating,
   hoverEffect,
-  showProductSize,
 }) => {
   //const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = useState(false);
@@ -162,24 +159,15 @@ const ProductCard1 = ({
               </H3>
             </Link>
 
-            {!hideRating && (
-              <BazarRating value={rating || 0} color="warn" readOnly />
-            )}
-            {showProductSize && (
-              <Span color="grey.600" mb={1} display="block">
-                300ml
-              </Span>
-            )}
-
+            <FlexBox alignItems="center" mt={0.5}>
+              <Box pr={1} fontWeight="600" color="primary.second">
+                起拍價: ${startingPrice.toFixed(2)}
+              </Box>
+            </FlexBox>
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.main">
-                ${price.toFixed(2)}
+                預計成交價: ${price.toFixed(2)}
               </Box>
-              {/* {!!discount && (
-                <Box color="grey.600" fontWeight="600">
-                  <del>{price?.toFixed(2)}</del>
-                </Box>
-              )} */}
             </FlexBox>
           </Box>
 
