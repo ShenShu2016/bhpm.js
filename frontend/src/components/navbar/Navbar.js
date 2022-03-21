@@ -63,6 +63,10 @@ const Navbar = ({ navListOpen, hideCategories }) => {
   const { t } = useTranslation();
   const navbarNavigations = [
     {
+      title: `${t("description.首頁")}`,
+      url: "/",
+    },
+    {
       title: `${t("description.最新拍賣")}`,
       url: "/vendor/account-settings",
     },
