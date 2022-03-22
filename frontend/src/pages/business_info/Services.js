@@ -40,9 +40,9 @@ export default function AboutUs() {
         }}
       >
         <Box >
-         <h1>服务项目</h1>
+        <h1>服務項目</h1>
           <p>
-          古代艺术品拍卖，艺术品鉴定，估价。
+          古代藝術品拍賣，藝術品鑒定，估價。
           </p>
           <br /><br />
         </Box>
