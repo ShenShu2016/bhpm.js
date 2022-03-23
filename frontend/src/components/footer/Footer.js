@@ -11,14 +11,13 @@ import Twitter from "../icons/Twitter";
 import Youtube from "../icons/Youtube";
 import { useTranslation } from "react-i18next";
 
-const StyledLink = styled("a")(({ theme }) => ({
+const StyledLink = styled("div")(({ theme }) => ({
   position: "relative",
   display: "block",
   padding: "0.3rem 0rem",
   color: theme.palette.grey[500],
   cursor: "pointer",
   borderRadius: 4,
-
   "&:hover": {
     color: theme.palette.grey[100],
   },
@@ -26,13 +25,7 @@ const StyledLink = styled("a")(({ theme }) => ({
 
 const Footer = () => {
   const { t } = useTranslation();
-  const aboutLinks = [
-    `${t("description.寶華介紹")}`,
-    `${t("description.團隊介紹")}`,
-    `${t("description.服務項目")}`,
-    `${t("description.服務規則")}`,
-    `${t("description.隱私條款")}`,
-  ];
+
   return (
     <footer>
       <Box bgcolor="#0c0e30">
@@ -60,9 +53,25 @@ const Footer = () => {
                 </Box>
 
                 <div>
-                  {aboutLinks.map((item, ind) => (
+                  {/* {aboutLinks.map((item, ind) => (
                     <StyledLink key={ind}>{item}</StyledLink>
-                  ))}
+                  ))} */}
+
+                  <Link to="about_us">
+                    <StyledLink>{`${t("description.寶華介紹")}`}</StyledLink>
+                  </Link>
+                  <Link to="teams">
+                    <StyledLink>{`${t("description.團隊介紹")}`}</StyledLink>
+                  </Link>
+                  <Link to="services">
+                    <StyledLink>{`${t("description.服務項目")}`}</StyledLink>
+                  </Link>
+                  <Link to="rules">
+                    <StyledLink>{`${t("description.服務規則")}`}</StyledLink>
+                  </Link>
+                  <Link to="privacy">
+                    <StyledLink>{`${t("description.隱私條款")}`}</StyledLink>
+                  </Link>
                 </div>
               </Grid>
 
