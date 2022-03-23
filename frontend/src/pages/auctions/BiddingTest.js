@@ -309,6 +309,8 @@ export default function BiddingTest() {
                 </H1>
               </Paper>
               {maxBidPriceByCurrentLot &&
+                auction.auctionUserNumbers &&
+                auction.auctionUserNumbers.items.length !== 0 &&
                 maxBidPriceByCurrentLot.userNumber ===
                   auction.auctionUserNumbers.items[0].number && (
                   <Paper
