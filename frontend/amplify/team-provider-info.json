@@ -17,12 +17,12 @@
         "bhpmjs7985bcb47985bcb4PostConfirmation": {
           "GROUP": "anyone",
           "deploymentBucketName": "amplify-bhpmjs-dev-215255-deployment",
-          "s3Key": "amplify-builds/bhpmjs7985bcb47985bcb4PostConfirmation-355277456c4c35737a63-build.zip"
+          "s3Key": "amplify-builds/bhpmjs7985bcb47985bcb4PostConfirmation-302f697369636258516c-build.zip"
         },
         "bhpmjs10bca66010bca660PostConfirmation": {
           "GROUP": "anyone",
           "deploymentBucketName": "amplify-bhpmjs-dev-215255-deployment",
-          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-537330424c3759543375-build.zip"
+          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-474a642f594b64584136-build.zip"
         }
       },
       "auth": {
