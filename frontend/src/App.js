@@ -1,16 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 
+import AboutUs from "./pages/business_info/About-us";
 import Amplify from "aws-amplify";
 import AuctionsRouter from "./pages/auctions/AuctionsRouter";
 import AuthRouter from "./pages/auth/AuthRouter";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
-import AboutUs from "./pages/business_info/About-us"
-import Privacy from "./pages/business_info/Privacy"
-import Rules from "./pages/business_info/Rules"
-import Services from "./pages/business_info/Services"
-import Teams from "./pages/business_info/Teams"
 import MuiTheme from "./theme/MuiTheme";
+import Privacy from "./pages/business_info/Privacy";
+import ProfileRouter from "./pages/profile/ProfileRouter";
+import Rules from "./pages/business_info/Rules";
+import Services from "./pages/business_info/Services";
+import Teams from "./pages/business_info/Teams";
 import Topbar from "./components/topbar/Topbar";
 import awsconfig from "./aws-exports";
 import { loadUser } from "./redux/slice/authSlice";
@@ -31,6 +32,7 @@ export default function App() {
         <Route exact path="" element={<Home />} />
         <Route path="auctions/*" element={<AuctionsRouter />} />
         <Route path="auth/*" element={<AuthRouter />} />
+        <Route path="profile/*" element={<ProfileRouter />} />
         <Route path="about_us" element={<AboutUs />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="services" element={<Services />} />

@@ -127,14 +127,25 @@ const Topbar = () => {
 
         <FlexBox className="" alignItems="center">
           {isAuthenticated ? (
-            <BazarButton
-              variant="contained"
-              color="primary"
-              sx={{ mr: "2rem" }}
-              onClick={signOut_user}
-            >
-              {t("description.Logout")}
-            </BazarButton>
+            <>
+              <BazarButton
+                variant="contained"
+                color="secondary"
+                sx={{ mx: "1rem" }}
+                component={Link}
+                to="profile"
+              >
+                {t("description.Profile")}
+              </BazarButton>
+              <BazarButton
+                variant="contained"
+                color="primary"
+                sx={{ mx: "1rem" }}
+                onClick={signOut_user}
+              >
+                {t("description.Logout")}
+              </BazarButton>
+            </>
           ) : (
             <Box sx={{ mx: "2rem" }}>
               <Link className="link" to="/auth/login">
