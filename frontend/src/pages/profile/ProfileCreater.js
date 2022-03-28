@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import Card1 from "../../components/Card1";
 import { Formik } from "formik";
 import React from "react";
-import { putUserProfile } from "../../redux/slice/profileSlice";
+import { createUserProfile } from "../../redux/slice/profileSlice";
 import { useNavigate } from "react-router-dom";
 
 const ProfileCreater = () => {
@@ -15,8 +15,8 @@ const ProfileCreater = () => {
 
   const handleFormSubmit = async (values) => {
     console.log(values);
-    const updateUserInput = { id: username, ...values };
-    const response = await dispatch(putUserProfile({ updateUserInput }));
+    const createProfileInput = { id: username, ...values };
+    const response = await dispatch(createUserProfile({ createProfileInput }));
     console.log(response);
     navigate(`/profile`, {
       replace: true,
@@ -152,7 +152,7 @@ const ProfileCreater = () => {
               </Box>
 
               <Button type="submit" variant="contained" color="primary">
-                Update
+                Submit
               </Button>
             </form>
           )}
