@@ -44,17 +44,13 @@ export const createUserProfile = createAsyncThunk(
   "profile/createUserProfile",
   async ({ createProfileInput }) => {
     console.log(createProfileInput);
-    try {
-      const response = await API.graphql(
-        graphqlOperation(createProfile, {
-          input: createProfileInput,
-        })
-      );
-      console.log("response", response);
-      return response.data.createProfile;
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await API.graphql(
+      graphqlOperation(createProfile, {
+        input: createProfileInput,
+      })
+    );
+    console.log("response", response);
+    return response.data.createProfile;
   }
 );
 export const putUserProfile = createAsyncThunk(
@@ -113,25 +109,15 @@ const profileSlice = createSlice({
       })
       // Cases for status of create (pending, fulfilled, and rejected)
       .addCase(createUserProfile.pending, (state, action) => {
-        state.putUserProfileStatus = "loading";
+        state.createUserProfileStatus = "loading";
       })
       .addCase(createUserProfile.fulfilled, (state, action) => {
-        state.putUserProfileStatus = "succeeded";
-        state.user.id = action.payload.id;
-        state.user.name = action.payload.name;
-        state.user.companyName = action.payload.companyName;
-        state.user.address = action.payload.address;
-        state.user.fax = action.payload.fax;
-        state.user.idPassport = action.payload.idPassport;
-        state.user.title = action.payload.title;
-        state.user.phone = action.payload.phone;
-        state.user.phone2 = action.payload.phone2;
-        state.user.email = action.payload.email;
-        state.user.createdAt = action.payload.createdAt;
+        state.createUserProfileStatus = "succeeded";
+        state.user = action.payload;
       })
       .addCase(createUserProfile.rejected, (state, action) => {
-        state.putUserProfileStatus = "failed";
-        state.putUserProfileError = action.error.message;
+        state.createUserProfileStatus = "failed";
+        state.createUserProfileError = action.error.message;
       })
       // Cases for status of putUserProfile (pending, fulfilled, and rejected)
       .addCase(putUserProfile.pending, (state, action) => {

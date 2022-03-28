@@ -16,6 +16,7 @@ const ProfileCreater = () => {
   const handleFormSubmit = async (values) => {
     console.log(values);
     const createProfileInput = { id: username, ...values };
+    console.log(createProfileInput);
     const response = await dispatch(createUserProfile({ createProfileInput }));
     console.log(response);
     navigate(`/profile`, {
