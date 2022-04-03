@@ -6,6 +6,7 @@ import AuctionsRouter from "./pages/auctions/AuctionsRouter";
 import AuthRouter from "./pages/auth/AuthRouter";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
+import LotsRouter from "./pages/lots/LotsRouter";
 import MuiTheme from "./theme/MuiTheme";
 import Privacy from "./pages/business_info/Privacy";
 import ProfileRouter from "./pages/profile/ProfileRouter";
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="auctions/*" element={<AuctionsRouter />} />
         <Route path="auth/*" element={<AuthRouter />} />
         <Route path="profile/*" element={<ProfileRouter />} />
+        <Route path="lots/*" element={<LotsRouter />} />
         <Route path="about_us" element={<AboutUs />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="services" element={<Services />} />

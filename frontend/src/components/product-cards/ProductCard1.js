@@ -1,18 +1,11 @@
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  IconButton,
-  Link,
-  styled,
-} from "@mui/material";
-import { H3, Span } from "../Typography";
+import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
 
 import BazarCard from "../BazarCard";
-import BazarRating from "../BazarRating";
 import Close from "@mui/icons-material/Close";
 import FlexBox from "../FlexBox";
+import { H3 } from "../Typography";
+import { Link } from "react-router-dom";
 
 //import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
@@ -81,7 +74,7 @@ const ProductCard1 = ({
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
-
+  console.log();
   // const toggleIsFavorite = async () => {
   //   setIsFavorite((fav) => !fav);
   // };
@@ -104,34 +97,7 @@ const ProductCard1 = ({
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
-        {/* {discount !== 0 && (
-          <StyledChip color="primary" size="small" label={`${discount}% off`} />
-        )} */}
-        {/* 
-        <HoverIconWrapper>
-          <IconButton
-            sx={{
-              p: "6px",
-            }}
-            onClick={toggleDialog}
-          >
-            <RemoveRedEye color="secondary" fontSize="small" />
-          </IconButton>
-          <IconButton
-            sx={{
-              p: "6px",
-            }}
-            onClick={toggleIsFavorite}
-          >
-            {isFavorite ? (
-              <Favorite color="primary" fontSize="small" />
-            ) : (
-              <FavoriteBorder fontSize="small" />
-            )}
-          </IconButton>
-        </HoverIconWrapper> */}
-
-        <Link to={``}>
+        <Link to={`/lots/${id}`}>
           <img
             src={imgUrl}
             // maxWidth={300}
@@ -170,25 +136,6 @@ const ProductCard1 = ({
               </Box>
             </FlexBox>
           </Box>
-
-          {/* <FlexBox
-            className="add-cart"
-            flexDirection="column-reverse"
-            alignItems="center"
-            // justifyContent={!!cartItem?.qty ? "space-between" : "flex-start"}
-            width="30px"
-          >
-            <Button
-              variant="outlined"
-              color="primary"
-              sx={{
-                padding: "3px",
-              }}
-              // onClick={handleCartAmountChange((cartItem?.qty || 0) + 1)}
-            >
-              <Add fontSize="small" />
-            </Button>
-          </FlexBox> */}
         </FlexBox>
       </ContentWrapper>
 

@@ -71,6 +71,7 @@ export default function Home() {
 
   const moreItemsRenderList = lotss.map((lot) => {
     return {
+      auctionItemID: lot.auctionItemID,
       price: lot.estimatedPriceMax,
       title: lot.auctionItem.title,
       imgUrl: lot.auctionItem.imgUrls[0],
