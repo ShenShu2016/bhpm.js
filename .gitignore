@@ -53,3 +53,8 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+
+tools/auctionInfo/*
+
+.env
