@@ -73,7 +73,7 @@ export default function Home() {
     return {
       price: lot.estimatedPriceMax,
       title: lot.auctionItem.title,
-      imgUrl: lot.auctionItem.imgUrl,
+      imgUrl: lot.auctionItem.imgUrls[0],
       category: lot.auctionItem.categoryID,
       id: lot.id,
       startingPrice: lot.startingPrice,
