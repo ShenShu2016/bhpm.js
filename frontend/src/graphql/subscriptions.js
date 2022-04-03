@@ -1,6 +1,63 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateProfile = /* GraphQL */ `
+  subscription OnCreateProfile($owner: String) {
+    onCreateProfile(owner: $owner) {
+      id
+      name
+      companyName
+      address
+      fax
+      idPassport
+      title
+      phone
+      phone2
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProfile = /* GraphQL */ `
+  subscription OnUpdateProfile($owner: String) {
+    onUpdateProfile(owner: $owner) {
+      id
+      name
+      companyName
+      address
+      fax
+      idPassport
+      title
+      phone
+      phone2
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProfile = /* GraphQL */ `
+  subscription OnDeleteProfile($owner: String) {
+    onDeleteProfile(owner: $owner) {
+      id
+      name
+      companyName
+      address
+      fax
+      idPassport
+      title
+      phone
+      phone2
+      email
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateAuctionUserLimitation = /* GraphQL */ `
   subscription OnCreateAuctionUserLimitation($owner: String) {
     onCreateAuctionUserLimitation(owner: $owner) {

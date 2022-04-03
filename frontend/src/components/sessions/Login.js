@@ -8,7 +8,6 @@ import React, { useCallback, useRef, useState } from "react";
 import BazarButton from "../BazarButton";
 import BazarTextField from "../BazarTextField";
 import FlexBox from "../FlexBox";
-//import Image from "../BazarImage";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { green } from "@mui/material/colors";
@@ -17,6 +16,9 @@ import { signIn } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
+
+//import Image from "../BazarImage";
 
 const useStyles = makeStyles(() => ({
   alert: {
@@ -53,6 +55,7 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [loading, setLoading] = useState(false);
   const togglePasswordVisibility = useCallback(() => {
@@ -96,7 +99,7 @@ const Login = () => {
     <StyledCard elevation={3} passwordVisibility={passwordVisibility}>
       <form className="content" onSubmit={handleSubmit}>
         <H3 textAlign="center" mb={1}>
-          宝华 登录
+          {t("description.login")}
         </H3>
         <Small
           fontWeight="600"
@@ -106,7 +109,7 @@ const Login = () => {
           mb={4.5}
           display="block"
         >
-          Log in with email & password
+          {t("description.part3")}
         </Small>
         {alert ? (
           <Alert className={classes.alert} severity="error">
@@ -118,7 +121,7 @@ const Login = () => {
         <BazarTextField
           mb={1.5}
           name="email"
-          label="Email"
+          label={t("description.Email")}
           placeholder="exmple@mail.com"
           variant="outlined"
           size="small"
@@ -134,7 +137,7 @@ const Login = () => {
         <BazarTextField
           mb={2}
           name="password"
-          label="Password"
+          label={t("description.Password")}
           placeholder="*********"
           autoComplete="on"
           type={passwordVisibility ? "text" : "password"}
@@ -174,7 +177,7 @@ const Login = () => {
             height: 44,
           }}
         >
-          Login{" "}
+          {t("description.Login")}{" "}
           {loading && (
             <CircularProgress
               size={24}
@@ -190,67 +193,15 @@ const Login = () => {
           )}
         </BazarButton>
 
-        {/* <Box mb={2}>
-          <Box width="200px" mx="auto">
-            <Divider />
-          </Box>
-
-          <FlexBox justifyContent="center" mt={-1.625}>
-            <Box color="grey.600" bgcolor="background.paper" px={2}>
-              on
-            </Box>
-          </FlexBox>
-        </Box> */}
-
-        {/* <BazarButton
-          className="facebookButton"
-          size="medium"
-          fullWidth
-          sx={{
-            mb: "10px",
-            height: 44,
-          }}
-        >
-          <Image
-            src="/assets/images/icons/facebook-filled-white.svg"
-            alt="facebook"
-          />
-          <Box fontSize="12px" ml={1}>
-            Continue with Facebook
-          </Box>
-        </BazarButton>
-        <BazarButton
-          className="googleButton"
-          size="medium"
-          fullWidth
-          sx={{
-            height: 44,
-          }}
-        >
-          <Image src="/assets/images/icons/google-1.svg" alt="facebook" />
-          <Box fontSize="12px" ml={1}>
-            Continue with Google
-          </Box>
-        </BazarButton> */}
-
         <FlexBox justifyContent="center" alignItems="center" my="1.25rem">
-          <Box>Don’t have account?</Box>
+          <Box>{t("description.donthaveaccount")}</Box>
           <Link to="/auth/signUp">
             <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-              Sign Up
+              {t("description.signup")}
             </H6>
           </Link>
         </FlexBox>
       </form>
-
-      {/* <FlexBox justifyContent="center" bgcolor="grey.200" py={2.5}>
-        Forgot your password?
-        <Link to="/">
-          <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
-            Reset It
-          </H6>
-        </Link>
-      </FlexBox> */}
     </StyledCard>
   );
 };

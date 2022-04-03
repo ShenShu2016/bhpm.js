@@ -1,10 +1,9 @@
-import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
-import { H2, H3, H4, H5 } from "../../components/Typography";
+import { Box, Card, Stack } from "@mui/material";
+import { H3, H4 } from "../../components/Typography";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
-import moment from "moment";
 import { updateBidItemHistoryDetail } from "../../redux/slice/bidItemHistorySlice";
 
 export default function BidItemHistoriesRenderList({ bitItemHistories }) {
@@ -39,55 +38,70 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     if (history.bidItemHistoryStatus === "Success") {
       return (
         <>
-          <H4>Lot: {history.lots.lot}</H4>
-          <H3>
-            ${history.bidPrice} ({history.bidForm})
-          </H3>
-          <H5 color="red">
-            Lot {history.lots.lot} sold For CAD ${history.bidPrice} to competing
-            bid
-          </H5>
+          <Card sx={{ minWidth: 275, backgroundColor: "#ba000d", p: "0.2rem" }}>
+            <H4 sx={{ color: "white" }}>
+              Lot {history.lots.lot} sold For CAD ${history.bidPrice} to
+              Competing Bidder
+            </H4>
+            {/* <H3>
+                ${history.bidPrice} ({history.bidForm})
+              </H3>
+              <H5 color="red">
+                Lot {history.lots.lot} 
+              </H5>
+              <Typography variant="body1">
+                {moment(history.createdAt).fromNow()}
+              </Typography> */}
+          </Card>
         </>
       );
     }
     if (history.bidItemHistoryStatus === "Start") {
       return (
         <>
-          <H2 color="green">
-            Lot {history.lots.lot} Start at Price:{history.lots.startingPrice}
-          </H2>
+          <Card sx={{ minWidth: 275, backgroundColor: "#388e3c", p: "0.2rem" }}>
+            <H4 color="white">
+              Lot {history.lots.lot} Opened - Ask ${history.lots.startingPrice}
+            </H4>
+            {/* <Typography variant="body1">
+                {moment(history.createdAt).fromNow()}
+              </Typography> */}
+          </Card>
         </>
       );
     }
     if (history.bidItemHistoryStatus === "FirstCall") {
       return (
         <>
-          <H4>Lot: {history.lots.lot}</H4>
-          <H3>
-            ${history.bidPrice} ({history.bidForm})
-          </H3>
-          <H2 color="blue">First Call</H2>
+          <Card sx={{ minWidth: 275, backgroundColor: "#ffd686", p: "0.2rem" }}>
+            <H3 sx={{ color: "blue" }}>First Warning</H3>
+            {/* <H3>
+                ${history.bidPrice} ({history.bidForm})
+              </H3>
+              <H2 color="blue">First Call</H2>
+              <Typography variant="body1">
+                {moment(history.createdAt).fromNow()}
+              </Typography> */}
+          </Card>
         </>
       );
     }
     if (history.bidItemHistoryStatus === "SecondCall") {
       return (
         <>
-          <H4>Lot: {history.lots.lot}</H4>
-          <H3>
-            ${history.bidPrice} ({history.bidForm})
-          </H3>
-          <H2 color="blue">Second Call</H2>
+          <Card sx={{ minWidth: 275, backgroundColor: "#ffd686" }}>
+            <H3 sx={{ color: "blue" }}>Second Warning</H3>
+          </Card>
         </>
       );
     } else
       return (
         <>
-          <H4>Lot: {history.lots.lot}</H4>
-          <H3>
-            ${history.bidPrice} ({history.bidForm})
-          </H3>
-          <H2 color="red">{history.bidItemHistoryStatus}</H2>
+          <Card sx={{ minWidth: 275, backgroundColor: "" }}>
+            <H4>
+              ${history.bidPrice} ({history.bidForm}): Competing Bid
+            </H4>
+          </Card>
         </>
       );
   }
@@ -106,43 +120,27 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
             return (
               <Box sx={{ width: "200px" }} key={history.id}>
                 {history.bidItemHistoryStatus ? (
-                  <Card sx={{ minWidth: 275, backgroundColor: "" }}>
-                    <CardContent>
-                      {differentStatus(history)}
-                      <Typography variant="body1">
-                        {moment(history.createdAt).fromNow()}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                  <> {differentStatus(history)}</>
                 ) : (
-                  <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                      <H4>Lot:{history.lots.lot}</H4>
-                      <H5>
-                        Bid Price: ${history.bidPrice}({history.bidForm})
-                        <br />
-                        From User NO. {history.userNumber}
-                      </H5>
-                      {history.owner === username && "You"}
+                  <Card sx={{ minWidth: 275, backgroundColor: "#c8c8c8" }}>
+                    <H4 sx={{ color: "blue" }}>
+                      ${history.bidPrice} ({history.bidForm}): Competing Bid
+                    </H4>
+                    {history.owner === username && "You"}
 
-                      <Typography variant="body1">
-                        {moment(history.createdAt).fromNow()}
-                      </Typography>
-
-                      {cognitoGroup.includes("admin") && (
-                        <BazarButton
-                          color="primary"
-                          variant="contained"
-                          size="small"
-                          disabled={loading}
-                          onClick={() => {
-                            handleBidSuccess(history);
-                          }}
-                        >
-                          成功交易
-                        </BazarButton>
-                      )}
-                    </CardContent>
+                    {cognitoGroup.includes("admin") && (
+                      <BazarButton
+                        color="primary"
+                        variant="contained"
+                        size="small"
+                        disabled={loading}
+                        onClick={() => {
+                          handleBidSuccess(history);
+                        }}
+                      >
+                        成功交易
+                      </BazarButton>
+                    )}
                   </Card>
                 )}
               </Box>

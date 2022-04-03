@@ -71,14 +71,13 @@ export default function Home() {
 
   const moreItemsRenderList = lotss.map((lot) => {
     return {
+      auctionItemID: lot.auctionItemID,
       price: lot.estimatedPriceMax,
       title: lot.auctionItem.title,
-      imgUrl: lot.auctionItem.imgUrl,
+      imgUrl: lot.auctionItem.imgUrls[0],
       category: lot.auctionItem.categoryID,
-      unit: "kg",
-      discount: 8,
       id: lot.id,
-      rating: 5,
+      startingPrice: lot.startingPrice,
     };
   });
 

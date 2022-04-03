@@ -1,6 +1,4 @@
-//import { Box, palette } from "@mui/system";
 import { Box, Container, MenuItem } from "@mui/material";
-//import Image from "../BazarImage";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,13 +10,10 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FlexBox from "../FlexBox";
 import MailOutline from "@mui/icons-material/MailOutline";
 import { Span } from "../Typography";
-// import TopbarStyle from "./TopbarStyle";
 import TouchRipple from "@mui/material/ButtonBase";
 import { signOut } from "../../redux/slice/authSlice";
-// import { layoutConstant } from "../../utils/constants";
 import { styled } from "@mui/material/styles";
-
-// import logowhite from '../../assets/images/logo-white.svg'
+import { useTranslation } from "react-i18next";
 
 const TopbarWrapper = styled("div")(({ theme }) => ({
   background: theme.palette.secondary.main,
@@ -27,7 +22,8 @@ const TopbarWrapper = styled("div")(({ theme }) => ({
   fontSize: 16,
   "& .topbarLeft": {
     "& .logo": {
-      display: "none",
+      // display: "none",
+      marginRight: "10px",
     },
     "& .title": {
       marginLeft: "10px",
@@ -77,16 +73,13 @@ const Topbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
-  // const [currency, setCurrency] = useState(currencyList[0]);
+
   const [language, setLanguage] = useState(languageList[0]);
-
-  // const handleCurrencyClick = (curr) => () => {
-  //   setCurrency(curr);
-  // };
-
+  const { t, i18n } = useTranslation();
   const handleLanguageClick = (lang) => () => {
     console.log(lang);
     setLanguage(lang);
+    i18n.changeLanguage(lang.title);
   };
 
   useEffect(() => {
@@ -134,18 +127,29 @@ const Topbar = () => {
 
         <FlexBox className="" alignItems="center">
           {isAuthenticated ? (
-            <BazarButton
-              variant="contained"
-              color="primary"
-              sx={{ mr: "2rem" }}
-              onClick={signOut_user}
-            >
-              Logout
-            </BazarButton>
+            <>
+              <BazarButton
+                variant="contained"
+                color="secondary"
+                sx={{ mx: "1rem" }}
+                component={Link}
+                to="profile"
+              >
+                {t("description.Profile")}
+              </BazarButton>
+              <BazarButton
+                variant="contained"
+                color="primary"
+                sx={{ mx: "1rem" }}
+                onClick={signOut_user}
+              >
+                {t("description.Logout")}
+              </BazarButton>
+            </>
           ) : (
             <Box sx={{ mx: "2rem" }}>
               <Link className="link" to="/auth/login">
-                Login/Register
+                {t("description.part1")}
               </Link>
             </Box>
           )}
@@ -168,26 +172,6 @@ const Topbar = () => {
               </MenuItem>
             ))}
           </BazarMenu>
-
-          {/* <BazarMenu
-            direction="right"
-            handler={
-              <TouchRipple className="handler">
-                <Span className="menuTitle">{currency.title}</Span>
-                <ExpandMore fontSize="inherit" />
-              </TouchRipple>
-            }
-          >
-            {currencyList.map((item) => (
-              <MenuItem
-                className="menuItem"
-                key={item.title}
-                onClick={handleCurrencyClick(item)}
-              >
-                <Span className="menuTitle">{item.title}</Span>
-              </MenuItem>
-            ))}
-          </BazarMenu> */}
         </FlexBox>
       </Container>
     </TopbarWrapper>
@@ -196,7 +180,7 @@ const Topbar = () => {
 
 const languageList = [
   {
-    title: "EN",
+    title: "en",
     imgUrl: "/assets/images/flags/usa.png",
   },
   {
@@ -204,22 +188,5 @@ const languageList = [
     imgUrl: "/assets/images/flags/bd.png",
   },
 ];
-// const currencyList = [
-//   {
-//     title: "USD",
-//     imgUrl: "/assets/images/flags/usa.png",
-//   },
-//   {
-//     title: "EUR",
-//     imgUrl: "/assets/images/flags/uk.png",
-//   },
-//   {
-//     title: "BDT",
-//     imgUrl: "/assets/images/flags/bd.png",
-//   },
-//   {
-//     title: "INR",
-//     imgUrl: "/assets/images/flags/in.png",
-//   },
-// ];
+
 export default Topbar;

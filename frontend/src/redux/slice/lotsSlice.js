@@ -67,15 +67,15 @@ export const fetchLotss = createAsyncThunk(
 
 export const selectedLots = createAsyncThunk(
   "lots/selectedLots",
-  async (id) => {
+  async ({ isAuthenticated, lotsID }) => {
     const response = await API.graphql({
       query: getLots,
-      variables: { id: id },
-      authMode: "AWS_IAM",
+      variables: { id: lotsID },
+      authMode: isAuthenticated ? undefined : "AWS_IAM",
     });
     // console.log("what?", response);
     if (response.data.getLots === null) {
-      return { id: id, description: "not-found" };
+      return { id: lotsID, description: "not-found" };
     }
     return response.data.getLots;
   }

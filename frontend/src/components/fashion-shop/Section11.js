@@ -5,6 +5,7 @@ import ProductCard1 from "../product-cards/ProductCard1";
 import React from "react";
 
 const Section11 = ({ moreItems }) => {
+  console.log(moreItems);
   return (
     <Container
       sx={{

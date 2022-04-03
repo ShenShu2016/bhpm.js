@@ -1,21 +1,17 @@
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  IconButton,
-  Link,
-  styled,
-} from "@mui/material";
-import { H3, Span } from "../Typography";
+import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
 
 import BazarCard from "../BazarCard";
-import BazarRating from "../BazarRating";
 import Close from "@mui/icons-material/Close";
-import Favorite from "@mui/icons-material/Favorite";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FlexBox from "../FlexBox";
-import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+import { H3 } from "../Typography";
+import { Link } from "react-router-dom";
+
+//import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+
+//import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
+
+// import Favorite from "@mui/icons-material/Favorite";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
   position: "relative",
@@ -42,18 +38,18 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const HoverIconWrapper = styled(Box)(({ theme }) => ({
-  display: "none",
-  flexDirection: "column",
-  position: "absolute",
-  top: "7px",
-  right: "15px",
-  cursor: "pointer",
-  zIndex: 2,
-  [theme.breakpoints.down("md")]: {
-    display: "flex",
-  },
-}));
+// const HoverIconWrapper = styled(Box)(({ theme }) => ({
+//   display: "none",
+//   flexDirection: "column",
+//   position: "absolute",
+//   top: "7px",
+//   right: "15px",
+//   cursor: "pointer",
+//   zIndex: 2,
+//   [theme.breakpoints.down("md")]: {
+//     display: "flex",
+//   },
+// }));
 const ContentWrapper = styled(Box)(() => ({
   padding: "1rem",
   "& .title, & .categories": {
@@ -67,24 +63,21 @@ const ProductCard1 = ({
   id,
   title,
   price,
+  startingPrice,
   imgUrl,
-  rating,
-  discount,
-  hideRating,
   hoverEffect,
-  showProductSize,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  //const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = useState(false);
   // const { state, dispatch } = useAppContext();
   // const cartItem = state.cart.cartList.find((item) => item.id === id);
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
-
-  const toggleIsFavorite = async () => {
-    setIsFavorite((fav) => !fav);
-  };
+  console.log();
+  // const toggleIsFavorite = async () => {
+  //   setIsFavorite((fav) => !fav);
+  // };
 
   // const handleCartAmountChange = useCallback(
   //   (amount) => () => {
@@ -104,34 +97,7 @@ const ProductCard1 = ({
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
-        {/* {discount !== 0 && (
-          <StyledChip color="primary" size="small" label={`${discount}% off`} />
-        )} */}
-
-        <HoverIconWrapper>
-          <IconButton
-            sx={{
-              p: "6px",
-            }}
-            onClick={toggleDialog}
-          >
-            <RemoveRedEye color="secondary" fontSize="small" />
-          </IconButton>
-          <IconButton
-            sx={{
-              p: "6px",
-            }}
-            onClick={toggleIsFavorite}
-          >
-            {isFavorite ? (
-              <Favorite color="primary" fontSize="small" />
-            ) : (
-              <FavoriteBorder fontSize="small" />
-            )}
-          </IconButton>
-        </HoverIconWrapper>
-
-        <Link to={``}>
+        <Link to={`/lots/${id}`}>
           <img
             src={imgUrl}
             // maxWidth={300}
@@ -159,45 +125,17 @@ const ProductCard1 = ({
               </H3>
             </Link>
 
-            {!hideRating && (
-              <BazarRating value={rating || 0} color="warn" readOnly />
-            )}
-            {showProductSize && (
-              <Span color="grey.600" mb={1} display="block">
-                300ml
-              </Span>
-            )}
-
+            <FlexBox alignItems="center" mt={0.5}>
+              <Box pr={1} fontWeight="600" color="primary.second">
+                起拍價: ${startingPrice.toFixed(2)}
+              </Box>
+            </FlexBox>
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.main">
-                ${price.toFixed(2)}
+                預計成交價: ${price.toFixed(2)}
               </Box>
-              {/* {!!discount && (
-                <Box color="grey.600" fontWeight="600">
-                  <del>{price?.toFixed(2)}</del>
-                </Box>
-              )} */}
             </FlexBox>
           </Box>
-
-          {/* <FlexBox
-            className="add-cart"
-            flexDirection="column-reverse"
-            alignItems="center"
-            // justifyContent={!!cartItem?.qty ? "space-between" : "flex-start"}
-            width="30px"
-          >
-            <Button
-              variant="outlined"
-              color="primary"
-              sx={{
-                padding: "3px",
-              }}
-              // onClick={handleCartAmountChange((cartItem?.qty || 0) + 1)}
-            >
-              <Add fontSize="small" />
-            </Button>
-          </FlexBox> */}
         </FlexBox>
       </ContentWrapper>
 

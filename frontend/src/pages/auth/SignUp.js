@@ -1,14 +1,8 @@
 import {
   Alert,
   Box,
-  Button,
   Card,
   CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormControl,
   Grid,
   IconButton,
@@ -31,6 +25,7 @@ import { makeStyles } from "@mui/styles";
 import { signUp } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   alert: {
@@ -63,14 +58,14 @@ const StyledCard = styled(({ children, ...rest }) => (
 }));
 export default function SignUp() {
   const classes = useStyles();
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const [alertContent, setAlertContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [open, setOpen] = useState(false);
+
   const timer = useRef();
 
   const {
@@ -113,34 +108,6 @@ export default function SignUp() {
     setLoading(false);
   };
 
-  const onForceSubmit = async (data) => {
-    setLoading(true);
-    const response = await dispatch(signUp(data));
-    console.log("onSignUp", response);
-    if (response.meta.requestStatus === "fulfilled") {
-      navigate(`/auth/emailConfirm/${getValues("username")}`, {
-        replace: true,
-      });
-    } else {
-      timer.current = window.setTimeout(() => {
-        setLoading(false);
-        setOpen(false);
-        setAlertContent(response.error.message);
-        setAlert(true);
-        console.log(response.error.message);
-      }, 1000);
-      console.log(response.error.message);
-    }
-  };
-
-  // if (isAuthenticated) {
-  //   return <Redirect to="/" />;
-  // }
-
-  const handleClose = () => {
-    setOpen(false);
-    setLoading(false);
-  };
   return (
     <FlexBox
       flexDirection="column"
@@ -151,7 +118,7 @@ export default function SignUp() {
       <StyledCard elevation={3}>
         <Box className="content">
           <H3 textAlign="center" mb={1}>
-            宝华 注册
+            {t("description.bowellsignup")}
           </H3>
           <Small
             fontWeight="600"
@@ -161,8 +128,8 @@ export default function SignUp() {
             mb={4.5}
             display="block"
           >
-            已经有账户了？
-            <Link to="/auth/signIn">登入</Link>
+            {t("description.AlreadyHaveAccount")}
+            <Link to="/auth/signIn">{t("description.Login")}</Link>
           </Small>
           {alert ? (
             <Alert className={classes.alert} severity="error">
@@ -190,7 +157,7 @@ export default function SignUp() {
                   render={({ field: { onChange, value } }) => (
                     <BazarTextField
                       required
-                      label="邮箱"
+                      label={t("description.Email")}
                       variant="outlined"
                       placeholder=""
                       fullWidth
@@ -213,7 +180,7 @@ export default function SignUp() {
                   render={({ field: { onChange, value } }) => (
                     <BazarTextField
                       required
-                      label="phone"
+                      label={t("description.Phone")}
                       variant="outlined"
                       placeholder=""
                       fullWidth
@@ -237,7 +204,7 @@ export default function SignUp() {
                   render={({ field: { onChange, value } }) => (
                     <FormControl fullWidth variant="outlined">
                       <InputLabel htmlFor="outlined-adornment-password">
-                        密码
+                        {t("description.Password")}
                       </InputLabel>
                       <OutlinedInput
                         id="password"
@@ -275,7 +242,7 @@ export default function SignUp() {
               disabled={loading}
               sx={{ my: 4 }}
             >
-              注册
+              {t("description.signup")}
               {loading && (
                 <CircularProgress
                   size={24}
@@ -290,28 +257,6 @@ export default function SignUp() {
                 />
               )}
             </BazarButton>
-            <Dialog
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {`确认使用${getValues("email")} 来注册吗？`}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  如果您有温莎大学
-                  xxx@uwindsor.ca的邮箱，无论您毕业与否，请先使用他，会有额外学生/校友福利哦！
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} autoFocus>
-                  取消
-                </Button>
-                <Button onClick={handleSubmit(onForceSubmit)}>注册</Button>
-              </DialogActions>
-            </Dialog>
           </Box>
         </Box>
       </StyledCard>
