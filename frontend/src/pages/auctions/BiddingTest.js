@@ -4,15 +4,12 @@ import "./slideCSS.css";
 import {
   Alert,
   Box,
-  Card,
-  CardContent,
   CircularProgress,
   Paper,
   Snackbar,
-  Stack,
   Typography,
 } from "@mui/material";
-import { H1, H2, H3 } from "../../components/Typography";
+import { H1, H3 } from "../../components/Typography";
 import React, { useEffect, useRef, useState } from "react";
 import {
   fetchBidItemHistories,

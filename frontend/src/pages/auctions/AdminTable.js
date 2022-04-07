@@ -1,14 +1,6 @@
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TablePagination,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Button, TablePagination } from "@mui/material";
+import React, { useState } from "react";
 
-import { Box } from "@mui/system";
 import ChangeLotsStatusDialog from "./ChangeLotsStatusDialog";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";

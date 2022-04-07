@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
 import { Box } from "@mui/system";
 import FlexBox from "../../components/FlexBox";
 import { Link } from "react-router-dom";
+import ProfileEditor from "./ProfileEditor";
 import { Small } from "../../components/Typography";
 import TableRow from "../../components/TableRow";
 import { getUserProfile } from "../../redux/slice/profileSlice";
@@ -19,6 +20,16 @@ const Profile = () => {
       dispatch(getUserProfile({ username }));
     }
   }, [dispatch, username]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Box sx={{ p: "1rem" }}>
@@ -37,8 +48,7 @@ const Profile = () => {
             sx={{
               p: "0.75rem 1.5rem",
             }}
-            component={Link}
-            to="/profile/edit"
+            onClick={handleClickOpen}
           >
             <FlexBox flexDirection="column" p={1}>
               <Small color="grey.600" mb={0.5} textAlign="left">
@@ -99,13 +109,13 @@ const Profile = () => {
           <BazarButton
             color="primary"
             variant="contained"
-            component={Link}
-            to="/profile/edit"
+            onClick={handleClickOpen}
           >
             Edit
           </BazarButton>
         </>
       )}
+      <ProfileEditor open={open} handleClose={handleClose} user={user} />
     </Box>
   );
 };

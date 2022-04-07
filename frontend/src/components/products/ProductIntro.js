@@ -1,10 +1,11 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, IconButton } from "@mui/material";
 import { H1, H2, H6 } from "../../components/Typography";
 import React, { useCallback, useState } from "react";
 
 import BazarAvatar from "../../components/BazarAvatar";
 import FlexBox from "../FlexBox";
 import ImageViewer from "react-simple-image-viewer";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
 
 const ProductIntro = ({ product }) => {
   const { title } = product;
@@ -62,6 +63,18 @@ const ProductIntro = ({ product }) => {
                     }}
                   />
                 )}
+                <IconButton
+                  aria-label="Example"
+                  onClick={() =>
+                    openImageViewer(
+                      product.auctionItem.imgUrls.indexOf(
+                        product.auctionItem.imgUrls[selectedImage]
+                      )
+                    )
+                  }
+                >
+                  <ZoomInIcon fontSize="large" />
+                </IconButton>
               </FlexBox>
               <FlexBox overflow="auto">
                 {product.auctionItem.imgUrls.map((url, ind) => (
