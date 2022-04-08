@@ -46,6 +46,83 @@ export const listProfiles = /* GraphQL */ `
     }
   }
 `;
+export const getMyCollection = /* GraphQL */ `
+  query GetMyCollection($id: ID!) {
+    getMyCollection(id: $id) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listMyCollections = /* GraphQL */ `
+  query ListMyCollections(
+    $filter: ModelMyCollectionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMyCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getAuctionUserLimitation = /* GraphQL */ `
   query GetAuctionUserLimitation($id: ID!) {
     getAuctionUserLimitation(id: $id) {

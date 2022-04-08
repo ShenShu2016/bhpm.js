@@ -358,6 +358,156 @@ export const deleteAuctions = /* GraphQL */ `
     }
   }
 `;
+export const createMyCollection = /* GraphQL */ `
+  mutation CreateMyCollection(
+    $input: CreateMyCollectionInput!
+    $condition: ModelMyCollectionConditionInput
+  ) {
+    createMyCollection(input: $input, condition: $condition) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateMyCollection = /* GraphQL */ `
+  mutation UpdateMyCollection(
+    $input: UpdateMyCollectionInput!
+    $condition: ModelMyCollectionConditionInput
+  ) {
+    updateMyCollection(input: $input, condition: $condition) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteMyCollection = /* GraphQL */ `
+  mutation DeleteMyCollection(
+    $input: DeleteMyCollectionInput!
+    $condition: ModelMyCollectionConditionInput
+  ) {
+    deleteMyCollection(input: $input, condition: $condition) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          categoryID
+          imgUrl
+          imgUrls
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const createLots = /* GraphQL */ `
   mutation CreateLots(
     $input: CreateLotsInput!
