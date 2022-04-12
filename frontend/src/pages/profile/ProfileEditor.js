@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Dialog, Grid, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Box } from "@mui/system";
@@ -6,11 +6,22 @@ import Card1 from "../../components/Card1";
 import { Formik } from "formik";
 import React from "react";
 import { putUserProfile } from "../../redux/slice/profileSlice";
-import { useNavigate } from "react-router-dom";
 
-const ProfileCreater = () => {
+const ProfileEditor = ({ open, handleClose, user }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const initialValues = {
+    name: user.name,
+    companyName: user.companyName,
+    address: user.address,
+    fax: user.fax,
+    idPassport: user.idPassport,
+    title: user.title,
+    phone: user.phone,
+    phone2: user.phone2,
+    email: user.email,
+  };
+
   const { username } = useSelector((state) => state.userAuth.user);
 
   const handleFormSubmit = async (values) => {
@@ -18,13 +29,16 @@ const ProfileCreater = () => {
     const updateUserInput = { id: username, ...values };
     const response = await dispatch(putUserProfile({ updateUserInput }));
     console.log(response);
-    navigate(`/profile`, {
-      replace: true,
-    });
+    handleClose();
   };
 
   return (
-    <>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
       <Card1>
         <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
           {({
@@ -154,24 +168,20 @@ const ProfileCreater = () => {
               <Button type="submit" variant="contained" color="primary">
                 Update
               </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                onClick={handleClose}
+                sx={{ mx: "1rem" }}
+              >
+                Close
+              </Button>
             </form>
           )}
         </Formik>
       </Card1>
-    </>
+    </Dialog>
   );
 };
 
-const initialValues = {
-  name: "",
-  companyName: "",
-  address: "",
-  fax: "",
-  idPassport: "",
-  title: "",
-  phone: "",
-  phone2: "",
-  email: "",
-};
-
-export default ProfileCreater;
+export default ProfileEditor;

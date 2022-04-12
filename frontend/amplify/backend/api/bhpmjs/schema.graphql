@@ -63,6 +63,21 @@ enum AuctionStatus {
   Canceled
 }
 
+type MyCollection
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID! # uuid
+  lotsID: ID! @index(name: "myCollectionByLots", sortKeyFields: ["createdAt"])
+  lots: Lots! @hasOne(fields: ["lotsID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+}
+
 type Lots
   @model
   @auth(
