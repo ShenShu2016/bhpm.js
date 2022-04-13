@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "../../redux/slice/profileSlice";
+
 import { H2 } from "../../components/Typography";
 import SectionMyLot  from "../../components/fashion-shop/SectionMyLot";
+import { getUserProfile } from "../../redux/slice/profileSlice";
 
-export default function MyLot() {
+export default function MyCollection() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
   const { username } = useSelector((state) => state.userAuth.user);
