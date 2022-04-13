@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { H1, H2, H3 } from "../../components/Typography";
 import React, { useEffect, useRef, useState } from "react";
+import { blue, green } from "@mui/material/colors";
 import {
   fetchBidItemHistories,
   insertBidItemHistory,
@@ -36,14 +37,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { API } from "aws-amplify";
 import AdminActions from "./AdminActions";
 import AdminTable from "./AdminTable";
-import BiddingTitle from "./BiddingTitle";
 import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
+import BiddingTitle from "./BiddingTitle";
 import ImageGallery from "react-image-gallery";
-import { green, blue } from "@mui/material/colors";
-// import { makeStyles } from "@mui/styles";
 import { onUpdateLots } from "../../graphql/subscriptions";
 import { useParams } from "react-router-dom";
+
+// import { makeStyles } from "@mui/styles";
+
+
 
 // const useStyles = makeStyles((theme) => ({
 //   glary: {
@@ -67,15 +70,15 @@ export default function BiddingTest() {
   );
   const messageRef = useRef();
 
-  // useEffect(() => {
-  //   if (messageRef.current) {
-  //     messageRef.current.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "end",
-  //       inline: "nearest",
-  //     });
-  //   }
-  // }, [bitItemHistories]);
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [bitItemHistories]);
   
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
@@ -403,19 +406,24 @@ export default function BiddingTest() {
               </Paper>
             )}
           </Box>
-          <Paper sx={{
-             flex: 1,
-             minWidth: "300px",
-             marginLeft: "8px",
-             padding: "0 16px",
-             height: "500px",
-             overflow: "auto",
-             maxWidth: "70%"
-           }}>
-            <div ref={messageRef} style={{height: '500px' }}>
-                <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
-            </div>
-         </Paper>
+          <Box
+          sx={{
+            flex: 1,
+            maxWidth: "70%",
+            minWidth: "310px",
+            maxHeight: "500px",
+            overflow: "auto",
+            marginLeft: "8px",
+            padding: "0 16px",
+
+          }}
+          component={Paper}
+        >
+          <div ref={messageRef}>
+            <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
+          </div>
+        </Box>
+
         </>
         ) : (
           // <Typography variant="h3"><CircularProgress />Waiting</Typography>
