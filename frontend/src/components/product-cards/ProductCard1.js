@@ -1,4 +1,11 @@
-import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogContent,
+  IconButton,
+  styled,
+  Button,
+} from "@mui/material";
 import React, { useCallback, useState } from "react";
 
 import BazarCard from "../BazarCard";
@@ -136,6 +143,22 @@ const ProductCard1 = ({
               </Box>
             </FlexBox>
           </Box>
+          <Box minWidth="0px" ml={1} mt={3}>
+          <Button
+              className="button-link"
+              variant="contained"
+              color="primary"
+              disableElevation
+              sx={{
+                px: "1.25rem",
+                height: "44px",
+                borderRadius: "8px",
+              }}
+              component={Link}
+              to={'/profile/myLot'}
+            >
+              收藏
+            </Button></Box>
         </FlexBox>
       </ContentWrapper>
 
