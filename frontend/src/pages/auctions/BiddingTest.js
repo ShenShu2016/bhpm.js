@@ -41,20 +41,20 @@ import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import ImageGallery from "react-image-gallery";
 import { green, blue } from "@mui/material/colors";
-import { makeStyles } from "@mui/styles";
+// import { makeStyles } from "@mui/styles";
 import { onUpdateLots } from "../../graphql/subscriptions";
 import { useParams } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  glary: {
-    width: "100%",
-    [theme.breakpoints.down("900")]: {
-      width: "100%",
-    },
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   glary: {
+//     width: "100%",
+//     // [theme.breakpoints.down("900")]: {
+//     //   width: "100%",
+//     // },
+//   },
+// }));
 export default function BiddingTest() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { auctionsID } = useParams();
@@ -67,15 +67,16 @@ export default function BiddingTest() {
   );
   const messageRef = useRef();
 
-  useEffect(() => {
-    if (messageRef.current) {
-      messageRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-    }
-  }, [bitItemHistories]);
+  // useEffect(() => {
+  //   if (messageRef.current) {
+  //     messageRef.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "end",
+  //       inline: "nearest",
+  //     });
+  //   }
+  // }, [bitItemHistories]);
+  
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
     isSuccess: null,
@@ -235,37 +236,41 @@ export default function BiddingTest() {
    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lotInProgress.length]);
+  const [thumbnailPosition, setThumbnailPosition] = useState('left');
     
   return (
-    <div style={{padding: "0px 10%" }}>
+    <div style={{padding: "0px 10%", display: "flex", flexDirection: "column" ,justifyContent: "center"}}>
       {/* <AdminLotsGrid /> */}
-      <Box sx={{width: "100%", minWidth: "400px", margin: "1rem 0"}}>
-        <BiddingTitle
-          title={lotInProgress[0]?.auctionItem?.title}
-          description={lotInProgress[0]?.auctionItem?.description}
-          createdAt={lotInProgress[0]?.auctionItem?.createdAt}
-          >
-        </BiddingTitle>
-      </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {lotInProgress.length === 1 ? (
           <>
+          <Box sx={{width: "100%", margin: "1rem 0", minWidth: "400px"}}>
+            <BiddingTitle
+              title={lotInProgress[0]?.auctionItem?.title}
+              description={lotInProgress[0]?.auctionItem?.description}
+              createdAt={lotInProgress[0]?.auctionItem?.createdAt}
+              >
+            </BiddingTitle>
+          </Box>
           <Box sx={{ width: "70%", minWidth: "400px" }}>
             <Paper>
-              <Box className={classes.glary}>
+              <Box>
                 <ImageGallery
                   showFullscreenButton={true}
                   showPlayButton={false}
                   showIndex={true}
-                  startIndex={0}
+                  startIndex={0} 
                   useBrowserFullscreen={true}
-                  thumbnailPosition={"left"}
+                  thumbnailPosition={thumbnailPosition}
                   items={imgListInProgress}
                   onScreenChange={(isFullScreen) => {
                     setImgListInProgress((prev) => prev.map((item) => {
                       item.originalHeight = isFullScreen ? "100%" : "500px";
                       return item;
                     }))
+                    setThumbnailPosition(() => isFullScreen && window.outerWidth < 600 ? "bottom" : "left");
+                    const imgContainer = document.querySelectorAll(".image-gallery-image");
+                    imgContainer.forEach((item) => item.style.height = isFullScreen ? "100vh" : "")
                   }}
                 />
               </Box>
@@ -303,8 +308,18 @@ export default function BiddingTest() {
               </H2>
             </Box> */}
             <Box sx={{ textAlign: "center", my: "1rem" }}>
-              <Box sx={{ textAlign: "center", my: "1rem", display: "flex", justifyContent: "space-between" }}>
-                <Paper sx={{ width: "49.5%" }}>
+              <Box sx={{ 
+                textAlign: "center",
+                my: window.outerWidth < 600 ? 0 : "1rem",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                
+              }}>
+                <Paper sx={{ width: "49.5%",
+                  minWidth: window.outerWidth < 600 ? "400px" : "",
+                  marginBottom: window.outerWidth < 600 ? "16px" : ""
+                }}>
                   <H2 color="secondary.500">
                     Current Bid is: $
                     {maxBidPriceByCurrentLot
@@ -315,7 +330,10 @@ export default function BiddingTest() {
                     (CAD)
                   </H2>
                 </Paper>
-                <Paper sx={{ width: "49.5%" }}>
+                <Paper sx={{ width: "49.5%",
+                  minWidth: window.outerWidth < 600 ? "400px" : "",
+                  marginBottom: window.outerWidth < 600 ? "16px" : ""
+                }}>
                   <H2 color="secondary.500">
                     Next Bid is: $
                     {nextBid
@@ -343,10 +361,6 @@ export default function BiddingTest() {
                       sx={{
                         color: green[500],
                         position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        marginTop: "-0.75rem",
-                        marginLeft: "-0.75rem",
                       }}
                     />
                   )}
