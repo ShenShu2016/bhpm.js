@@ -237,7 +237,7 @@ export default function BiddingTest() {
   }, [lotInProgress.length]);
     
   return (
-    <div style={{padding: "0px 15%" }}>
+    <div style={{padding: "0px 10%" }}>
       {/* <AdminLotsGrid /> */}
       <Box sx={{width: "100%", minWidth: "400px", margin: "1rem 0"}}>
         <BiddingTitle
@@ -250,7 +250,7 @@ export default function BiddingTest() {
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {lotInProgress.length === 1 ? (
           <>
-          <Box sx={{ width: "75%", minWidth: "400px" }}>
+          <Box sx={{ width: "70%", minWidth: "400px" }}>
             <Paper>
               <Box className={classes.glary}>
                 <ImageGallery
@@ -396,8 +396,9 @@ export default function BiddingTest() {
              padding: "0 16px",
              height: "500px",
              overflow: "auto",
+             maxWidth: "70%"
            }}>
-            <div ref={messageRef} style={{height: '500px'}}>
+            <div ref={messageRef} style={{height: '500px' }}>
                 <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
             </div>
          </Paper>
