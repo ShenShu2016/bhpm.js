@@ -355,7 +355,7 @@ export default function BiddingTest() {
                   color="primary"
                   size="large"
                   fullWidth={true}
-                  disabled={isAuthenticated !== true || loading}
+                  disabled={isAuthenticated !== true || loading ||!auction?.auctionUserNumbers?.items[0]?.number}
                 >
                   Bid
                   {loading && (
