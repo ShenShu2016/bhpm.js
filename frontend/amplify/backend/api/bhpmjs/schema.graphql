@@ -65,12 +65,7 @@ enum AuctionStatus {
 
 type MyCollection
   @model
-  @auth(
-    rules: [
-      { allow: owner, operations: [create, read] }
-      { allow: groups, groups: ["admin"] }
-    ]
-  ) {
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
   id: ID! # uuid
   lotsID: ID! @index(name: "myCollectionByLots", sortKeyFields: ["createdAt"])
   lots: Lots! @hasOne(fields: ["lotsID"])
@@ -209,6 +204,25 @@ type AuctionUserLimitation
   limitStatus: LimitStatus!
   auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+  owner: ID
+}
+type MySucceedBid
+  @model
+  @auth(
+    rules: [
+      # { allow: public, operations: [read], provider: iam }
+      { allow: owner, operations: [read] }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin", "staff"] }
+    ]
+  ) {
+  id: ID!
+  auctionsID: ID!
+  auctions: Auctions! @hasOne(fields: ["auctionsID"])
+  bidItemHistoryID: ID!
+  bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID

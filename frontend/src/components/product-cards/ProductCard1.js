@@ -1,4 +1,11 @@
-import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  DialogContent,
+  IconButton,
+  styled,
+  Button,
+} from "@mui/material";
 import React, { useCallback, useState } from "react";
 
 import BazarCard from "../BazarCard";
@@ -6,7 +13,11 @@ import Close from "@mui/icons-material/Close";
 import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
-
+import { graphqlOperation } from "@aws-amplify/api-graphql";
+import API from "@aws-amplify/api";
+import {
+  createMyCollection,
+} from "../../graphql/mutations";
 //import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
 //import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
@@ -77,7 +88,7 @@ const ProductCard1 = ({
   console.log();
   // const toggleIsFavorite = async () => {
   //   setIsFavorite((fav) => !fav);
-  // };
+  // };ƒ
 
   // const handleCartAmountChange = useCallback(
   //   (amount) => () => {
@@ -94,6 +105,23 @@ const ProductCard1 = ({
   //   },
   //   []
   // );
+  const postMyCollection = async (id) => {
+    console.log(id);
+    const createMyCollectionInput = {
+      lotsID: id,
+    };
+    try {
+      const response = await API.graphql(
+        graphqlOperation(createMyCollection, {
+          input: createMyCollectionInput,
+        })
+      );
+      console.log("response", response);
+      return response.data.createMyCollection;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
@@ -136,6 +164,24 @@ const ProductCard1 = ({
               </Box>
             </FlexBox>
           </Box>
+          <Box minWidth="0px" ml={1} mt={3}>
+          <Button
+              className="button-link"
+              variant="contained"
+              color="primary"
+              disableElevation
+              sx={{
+                px: "1.25rem",
+                height: "44px",
+                borderRadius: "8px",
+              }}
+              onClick={(e)=>postMyCollection(id)}
+              component={Link}
+              to={'/profile/myCollection'}
+              //to={''}
+            >
+              收藏
+            </Button></Box>
         </FlexBox>
       </ContentWrapper>
 
