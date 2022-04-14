@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BazarButton from "../BazarButton";
 import BazarMenu from "../BazarMenu";
 import CallOutlined from "@mui/icons-material/CallOutlined";
@@ -128,23 +129,38 @@ const Topbar = () => {
         <FlexBox className="" alignItems="center">
           {isAuthenticated ? (
             <>
-              <BazarButton
-                variant="contained"
-                color="secondary"
-                sx={{ mx: "1rem" }}
-                component={Link}
-                to="profile"
+              <BazarMenu
+                handler={
+                  <TouchRipple className="handler marginRight">
+                    <AccountCircleIcon />
+                    <Span className="menuTitle">
+                      {t("description.Profile")}
+                    </Span>
+                    <ExpandMore fontSize="inherit" />
+                  </TouchRipple>
+                }
               >
-                {t("description.Profile")}
-              </BazarButton>
-              <BazarButton
-                variant="contained"
-                color="primary"
-                sx={{ mx: "1rem" }}
-                onClick={signOut_user}
-              >
-                {t("description.Logout")}
-              </BazarButton>
+                <MenuItem className="menuItem" component={Link} to="profile">
+                  <Span className="menuTitle">Profile</Span>
+                </MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  component={Link}
+                  to="profile/myCollection"
+                >
+                  <Span className="menuTitle">My Collection</Span>
+                </MenuItem>
+                <MenuItem className="menuItem">
+                  <BazarButton
+                    variant="contained"
+                    color="primary"
+                    sx={{ mx: "1rem" }}
+                    onClick={signOut_user}
+                  >
+                    {t("description.Logout")}
+                  </BazarButton>{" "}
+                </MenuItem>
+              </BazarMenu>
             </>
           ) : (
             <Box sx={{ mx: "2rem" }}>

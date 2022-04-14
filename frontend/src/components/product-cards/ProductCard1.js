@@ -1,23 +1,24 @@
 import {
   Box,
+  Button,
   Dialog,
   DialogContent,
   IconButton,
   styled,
-  Button,
 } from "@mui/material";
 import React, { useCallback, useState } from "react";
 
+import API from "@aws-amplify/api";
 import BazarCard from "../BazarCard";
 import Close from "@mui/icons-material/Close";
+import Favorite from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
+import { createMyCollection } from "../../graphql/mutations";
 import { graphqlOperation } from "@aws-amplify/api-graphql";
-import API from "@aws-amplify/api";
-import {
-  createMyCollection,
-} from "../../graphql/mutations";
+
 //import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
 //import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
@@ -49,24 +50,24 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-// const HoverIconWrapper = styled(Box)(({ theme }) => ({
-//   display: "none",
-//   flexDirection: "column",
-//   position: "absolute",
-//   top: "7px",
-//   right: "15px",
-//   cursor: "pointer",
-//   zIndex: 2,
-//   [theme.breakpoints.down("md")]: {
-//     display: "flex",
-//   },
-// }));
 const ContentWrapper = styled(Box)(() => ({
   padding: "1rem",
   "& .title, & .categories": {
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+  },
+}));
+const HoverIconWrapper = styled(Box)(({ theme }) => ({
+  // display: "none",
+  flexDirection: "column",
+  position: "absolute",
+  top: "7px",
+  right: "15px",
+  cursor: "pointer",
+  zIndex: 2,
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
   },
 }));
 
@@ -86,25 +87,11 @@ const ProductCard1 = ({
     setOpen((open) => !open);
   }, []);
   console.log();
-  // const toggleIsFavorite = async () => {
-  //   setIsFavorite((fav) => !fav);
-  // };ƒ
+  const [isFavorite, setIsFavorite] = useState(true);
+  const toggleIsFavorite = async () => {
+    setIsFavorite((fav) => !fav);
+  };
 
-  // const handleCartAmountChange = useCallback(
-  //   (amount) => () => {
-  //     dispatch({
-  //       type: "CHANGE_CART_AMOUNT",
-  //       payload: {
-  //         name: title,
-  //         qty: amount,
-  //         price,
-  //         imgUrl,
-  //         id,
-  //       },
-  //     });
-  //   },
-  //   []
-  // );
   const postMyCollection = async (id) => {
     console.log(id);
     const createMyCollectionInput = {
@@ -121,10 +108,25 @@ const ProductCard1 = ({
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
+        <HoverIconWrapper>
+          <IconButton
+            sx={{
+              p: "6px",
+            }}
+            onClick={toggleIsFavorite}
+          >
+            {isFavorite ? (
+              <Favorite color="primary" fontSize="small" />
+            ) : (
+              <FavoriteBorder fontSize="small" />
+            )}
+          </IconButton>
+        </HoverIconWrapper>
         <Link to={`/lots/${id}`}>
           <img
             src={imgUrl}
@@ -164,24 +166,6 @@ const ProductCard1 = ({
               </Box>
             </FlexBox>
           </Box>
-          <Box minWidth="0px" ml={1} mt={3}>
-          <Button
-              className="button-link"
-              variant="contained"
-              color="primary"
-              disableElevation
-              sx={{
-                px: "1.25rem",
-                height: "44px",
-                borderRadius: "8px",
-              }}
-              onClick={(e)=>postMyCollection(id)}
-              component={Link}
-              to={'/profile/myCollection'}
-              //to={''}
-            >
-              收藏
-            </Button></Box>
         </FlexBox>
       </ContentWrapper>
 
