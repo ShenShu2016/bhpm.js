@@ -7,6 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import lotsReducer from "./slice/lotsSlice";
 import mySucceedBidReducer from "./slice/mySucceedBidSlice";
 import profileReducer from "./slice/profileSlice";
+import myCollectionReducer from "./slice/myCollectionSlice";
 
 export default configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export default configureStore({
     auctionUserLimitation: auctionUserLimitationReducer,
     mySucceedBid: mySucceedBidReducer,
     lots: lotsReducer,
+    myCollection: myCollectionReducer,
     bidItemHistory: bidItemHistoryReducer,
     category: categoryReducer,
   },

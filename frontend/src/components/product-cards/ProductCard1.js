@@ -13,7 +13,11 @@ import Close from "@mui/icons-material/Close";
 import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
-
+import { graphqlOperation } from "@aws-amplify/api-graphql";
+import API from "@aws-amplify/api";
+import {
+  createMyCollection,
+} from "../../graphql/mutations";
 //import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
 //import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
@@ -84,7 +88,7 @@ const ProductCard1 = ({
   console.log();
   // const toggleIsFavorite = async () => {
   //   setIsFavorite((fav) => !fav);
-  // };
+  // };ƒ
 
   // const handleCartAmountChange = useCallback(
   //   (amount) => () => {
@@ -101,6 +105,23 @@ const ProductCard1 = ({
   //   },
   //   []
   // );
+  const postMyCollection = async (id) => {
+    console.log(id);
+    const createMyCollectionInput = {
+      lotsID: id,
+    };
+    try {
+      const response = await API.graphql(
+        graphqlOperation(createMyCollection, {
+          input: createMyCollectionInput,
+        })
+      );
+      console.log("response", response);
+      return response.data.createMyCollection;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
@@ -154,8 +175,10 @@ const ProductCard1 = ({
                 height: "44px",
                 borderRadius: "8px",
               }}
+              onClick={(e)=>postMyCollection(id)}
               component={Link}
-              to={'/profile/myLot'}
+              to={'/profile/myCollection'}
+              //to={''}
             >
               收藏
             </Button></Box>

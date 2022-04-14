@@ -4,7 +4,7 @@ import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
 import React from "react";
 
-const SectionMyLot = ({ moreItems }) => {
+const SectionMyCollection = ({ moreItems }) => {
   console.log(moreItems);
   return (
     <Container
@@ -25,4 +25,4 @@ const SectionMyLot = ({ moreItems }) => {
   );
 };
 
-export default SectionMyLot;
+export default SectionMyCollection;
