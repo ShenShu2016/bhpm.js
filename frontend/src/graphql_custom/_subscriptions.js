@@ -8,29 +8,6 @@ export const onCreateBidItemHistory = /* GraphQL */ `
       userNumber
       bidForm
       lotsID
-      auctionUserLimitationID
-      auctionUserLimitation {
-        id
-        maxUserBidPrice
-        limitStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        mySucceedBids {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
       lots {
         id
         lot
@@ -38,29 +15,6 @@ export const onCreateBidItemHistory = /* GraphQL */ `
         estimatedPriceMin
         estimatedPriceMax
         lotsStatus
-        auctionUserLimitationID
-        auctionUserLimitation {
-          id
-          maxUserBidPrice
-          limitStatus
-          auctionsID
-          auctions {
-            id
-            company
-            description
-            auctionStartDate
-            auctionEndDate
-            bidIncrementPriceList
-            createdAt
-            updatedAt
-          }
-          mySucceedBids {
-            nextToken
-          }
-          createdAt
-          updatedAt
-          owner
-        }
         auctionItemID
         auctionItem {
           id

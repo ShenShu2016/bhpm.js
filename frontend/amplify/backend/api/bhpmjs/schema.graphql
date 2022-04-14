@@ -173,11 +173,6 @@ type BidItemHistory
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID
-
-  auctionUserLimitationID: ID
-    @index(name: "byAuctionUserLimitation", sortKeyFields: ["createdAt"])
-  auctionUserLimitation: AuctionUserLimitation
-    @belongsTo(fields: ["auctionUserLimitationID"])
 }
 
 enum BidForm {
@@ -209,8 +204,25 @@ type AuctionUserLimitation
   limitStatus: LimitStatus!
   auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
-  mySucceedBids: [BidItemHistory]
-    @hasMany(indexName: "byAuctionUserLimitation", fields: ["id"])
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+  owner: ID
+}
+type MySucceedBid
+  @model
+  @auth(
+    rules: [
+      # { allow: public, operations: [read], provider: iam }
+      { allow: owner, operations: [read] }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin", "staff"] }
+    ]
+  ) {
+  id: ID!
+  auctionsID: ID!
+  auctions: Auctions! @hasOne(fields: ["auctionsID"])
+  bidItemHistoryID: ID!
+  bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID

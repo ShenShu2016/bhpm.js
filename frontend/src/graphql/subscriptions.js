@@ -228,22 +228,6 @@ export const onCreateAuctionUserLimitation = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      mySucceedBids {
-        items {
-          id
-          bidPrice
-          auctionsID
-          lotsID
-          userNumber
-          bidItemHistoryStatus
-          bidForm
-          createdAt
-          updatedAt
-          owner
-          auctionUserLimitationID
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -278,22 +262,6 @@ export const onUpdateAuctionUserLimitation = /* GraphQL */ `
         }
         createdAt
         updatedAt
-      }
-      mySucceedBids {
-        items {
-          id
-          bidPrice
-          auctionsID
-          lotsID
-          userNumber
-          bidItemHistoryStatus
-          bidForm
-          createdAt
-          updatedAt
-          owner
-          auctionUserLimitationID
-        }
-        nextToken
       }
       createdAt
       updatedAt
@@ -330,21 +298,209 @@ export const onDeleteAuctionUserLimitation = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      mySucceedBids {
-        items {
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateMySucceedBid = /* GraphQL */ `
+  subscription OnCreateMySucceedBid($owner: String) {
+    onCreateMySucceedBid(owner: $owner) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
           id
-          bidPrice
-          auctionsID
-          lotsID
-          userNumber
-          bidItemHistoryStatus
-          bidForm
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
-          owner
-          auctionUserLimitationID
         }
-        nextToken
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateMySucceedBid = /* GraphQL */ `
+  subscription OnUpdateMySucceedBid($owner: String) {
+    onUpdateMySucceedBid(owner: $owner) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteMySucceedBid = /* GraphQL */ `
+  subscription OnDeleteMySucceedBid($owner: String) {
+    onDeleteMySucceedBid(owner: $owner) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
       }
       createdAt
       updatedAt
@@ -561,7 +717,6 @@ export const onCreateAuctions = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          auctionUserLimitationID
         }
         nextToken
       }
@@ -629,7 +784,6 @@ export const onUpdateAuctions = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          auctionUserLimitationID
         }
         nextToken
       }
@@ -697,7 +851,6 @@ export const onDeleteAuctions = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          auctionUserLimitationID
         }
         nextToken
       }
@@ -792,7 +945,6 @@ export const onCreateLots = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          auctionUserLimitationID
         }
         nextToken
       }
@@ -863,7 +1015,6 @@ export const onUpdateLots = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          auctionUserLimitationID
         }
         nextToken
       }
@@ -934,7 +1085,6 @@ export const onDeleteLots = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          auctionUserLimitationID
         }
         nextToken
       }
@@ -1086,29 +1236,6 @@ export const onCreateBidItemHistory = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      auctionUserLimitationID
-      auctionUserLimitation {
-        id
-        maxUserBidPrice
-        limitStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        mySucceedBids {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
     }
   }
 `;
@@ -1183,29 +1310,6 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      auctionUserLimitationID
-      auctionUserLimitation {
-        id
-        maxUserBidPrice
-        limitStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        mySucceedBids {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
     }
   }
 `;
@@ -1280,29 +1384,6 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      auctionUserLimitationID
-      auctionUserLimitation {
-        id
-        maxUserBidPrice
-        limitStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        mySucceedBids {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
     }
   }
 `;

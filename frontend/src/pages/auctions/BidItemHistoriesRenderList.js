@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
+import { postMySucceedBid } from "../../redux/slice/mySucceedBidSlice";
 import { updateBidItemHistoryDetail } from "../../redux/slice/bidItemHistorySlice";
 
 export default function BidItemHistoriesRenderList({ bitItemHistories }) {
@@ -14,6 +15,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
 
   const handleBidSuccess = async (history) => {
     setLoading(true);
+    console.log(history);
     const updateBidItemHistoryDetailInput = {
       id: history.id,
       bidItemHistoryStatus: "Success",
@@ -23,7 +25,20 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
       updateBidItemHistoryDetail(updateBidItemHistoryDetailInput)
     );
     //console.log(response.meta.requestStatus);
-    if (response.meta.requestStatus === "fulfilled") {
+
+    const createMySucceedBidInput = {
+      auctionsID: history.auctionsID,
+      bidItemHistoryID: history.id,
+      owner: history.owner,
+    };
+    console.log(createMySucceedBidInput);
+    const response2 = await dispatch(
+      postMySucceedBid({ createMySucceedBidInput })
+    );
+    if (
+      response?.meta?.requestStatus === "fulfilled" &&
+      response2?.meta?.requestStatus === "fulfilled"
+    ) {
       setLoading(false);
       alert("成功");
     } else {
