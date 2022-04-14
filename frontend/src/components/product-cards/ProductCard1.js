@@ -1,14 +1,11 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  IconButton,
-  styled,
-} from "@mui/material";
+import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
+import {
+  postMyCollection,
+  removeMyCollection,
+} from "../../redux/slice/myCollectionSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-import API from "@aws-amplify/api";
 import BazarCard from "../BazarCard";
 import Close from "@mui/icons-material/Close";
 import Favorite from "@mui/icons-material/Favorite";
@@ -16,8 +13,6 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
-import { createMyCollection } from "../../graphql/mutations";
-import { graphqlOperation } from "@aws-amplify/api-graphql";
 
 //import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
@@ -79,36 +74,48 @@ const ProductCard1 = ({
   imgUrl,
   hoverEffect,
 }) => {
-  //const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   // const { state, dispatch } = useAppContext();
   // const cartItem = state.cart.cartList.find((item) => item.id === id);
+  const { username } = useSelector((state) => state.userAuth.user);
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
   console.log();
-  const [isFavorite, setIsFavorite] = useState(true);
+
   const toggleIsFavorite = async () => {
     setIsFavorite((fav) => !fav);
-  };
-
-  const postMyCollection = async (id) => {
-    console.log(id);
-    const createMyCollectionInput = {
-      lotsID: id,
-    };
-    try {
-      const response = await API.graphql(
-        graphqlOperation(createMyCollection, {
-          input: createMyCollectionInput,
-        })
-      );
-      console.log("response", response);
-      return response.data.createMyCollection;
-    } catch (error) {
-      console.log(error);
+    console.log(isFavorite);
+    if (isFavorite === false) {
+      const createMyCollectionInput = {
+        id: username + id,
+        lotsID: id,
+      };
+      dispatch(postMyCollection({ createMyCollectionInput }));
+    } else {
+      dispatch(removeMyCollection({ id: username + id }));
     }
   };
+
+  // const postMyCollection = async (id) => {
+  //   console.log(id);
+  //   const createMyCollectionInput = {
+  //     lotsID: id,
+  //   };
+  //   try {
+  //     const response = await API.graphql(
+  //       graphqlOperation(createMyCollection, {
+  //         input: createMyCollectionInput,
+  //       })
+  //     );
+  //     console.log("response", response);
+  //     return response.data.createMyCollection;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
