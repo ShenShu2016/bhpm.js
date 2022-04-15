@@ -81,6 +81,8 @@ export const createCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -108,6 +110,8 @@ export const updateCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -135,6 +139,8 @@ export const deleteCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -390,6 +396,8 @@ export const createMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -440,6 +448,8 @@ export const updateMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -490,6 +500,8 @@ export const deleteMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -549,6 +561,8 @@ export const createLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -622,6 +636,8 @@ export const updateLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -695,6 +711,8 @@ export const deleteLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -737,6 +755,8 @@ export const createAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -764,6 +784,8 @@ export const updateAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -791,6 +813,8 @@ export const deleteAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -864,6 +888,8 @@ export const createBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -941,6 +967,8 @@ export const updateBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -1018,6 +1046,8 @@ export const deleteBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls

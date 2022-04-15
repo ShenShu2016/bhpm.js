@@ -75,6 +75,8 @@ export const getMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -379,6 +381,8 @@ export const getCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -550,6 +554,8 @@ export const getLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -613,6 +619,8 @@ export const listLots = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -670,6 +678,8 @@ export const lotsSortByLot = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -693,6 +703,8 @@ export const getAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -722,6 +734,8 @@ export const listAuctionItems = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -791,6 +805,8 @@ export const getBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
