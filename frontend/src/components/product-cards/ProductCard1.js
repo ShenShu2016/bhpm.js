@@ -72,9 +72,10 @@ const ProductCard1 = ({
   price,
   startingPrice,
   imgUrl,
+  isFav,
   hoverEffect,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isFav||false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   // const { state, dispatch } = useAppContext();
@@ -98,24 +99,6 @@ const ProductCard1 = ({
       dispatch(removeMyCollection({ id: username + id }));
     }
   };
-
-  // const postMyCollection = async (id) => {
-  //   console.log(id);
-  //   const createMyCollectionInput = {
-  //     lotsID: id,
-  //   };
-  //   try {
-  //     const response = await API.graphql(
-  //       graphqlOperation(createMyCollection, {
-  //         input: createMyCollectionInput,
-  //       })
-  //     );
-  //     console.log("response", response);
-  //     return response.data.createMyCollection;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>

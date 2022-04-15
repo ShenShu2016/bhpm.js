@@ -114,7 +114,7 @@ const myCollectionSlice = createSlice({
         state.postMyCollectionStatus = "failed";
         state.postMyCollectionError = action.error.message;
       })
-      // Cases for status of postMyCollection (pending, fulfilled, and rejected)
+      // Cases for status of removeMyCollection (pending, fulfilled, and rejected)
       .addCase(removeMyCollection.pending, (state, action) => {
         state.removeMyCollectionStatus = "loading";
       })
