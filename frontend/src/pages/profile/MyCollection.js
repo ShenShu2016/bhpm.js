@@ -36,6 +36,7 @@ export default function MyCollection() {
       category: lot.lots.auctionItem.categoryID,
       id: lot.lots.id,
       startingPrice: lot.lots.startingPrice,
+      isFav: true,
     };
   });
 
