@@ -2,19 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
-import { Box } from "@mui/system";
+import { styled } from '@mui/material/styles';
+import PersonIcon from '@mui/icons-material/Person';
+import NoAccountsIcon from '@mui/icons-material/NoAccounts';
+import { Box, Typography, Avatar, Card, } from "@mui/material";
+import Loading from "../../components/Loading";
 import FlexBox from "../../components/FlexBox";
 import { Link } from "react-router-dom";
 import ProfileEditor from "./ProfileEditor";
+import EditIcon from '@mui/icons-material/Edit';
 import { Small } from "../../components/Typography";
 import TableRow from "../../components/TableRow";
 import { getUserProfile } from "../../redux/slice/profileSlice";
 
+
 const Profile = () => {
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
-  const { user } = useSelector((state) => state.profile);
-  console.log(user);
+  const { user, getProfileStatus } = useSelector((state) => {
+    console.log(state, 7777);
+    return state.profile;
+  });
+
+  const EditProfileButton = styled(BazarButton)({
+    background: 'rgba(239,83,80,0.1)',
+    border: 'none',
+    '&:hover': {
+      background: 'rgba(239,83,80,0.2)',
+      border: 'none',
+    },
+   })
+
   useEffect(() => {
     if (!!username === true) {
       dispatch(getUserProfile({ username }));
@@ -32,90 +50,147 @@ const Profile = () => {
   };
 
   return (
-    <Box sx={{ p: "1rem" }}>
+    <Box sx={{ p: "24px 8%" }}>
       {user === null ? (
-        <BazarButton
-          color="primary"
-          variant="contained"
-          component={Link}
-          to="/profile/create"
-        >
-          Create new profile
-        </BazarButton>
+        <Box sx={{
+          height: '500px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+            <NoAccountsIcon sx={{ height: 100, width: 100 }} color="error"></NoAccountsIcon>
+            <Typography sx={{ my: "2rem", fontSize: "20px", fontWeight: "bold", textAlign: 'center' }}>
+              You have no profile infomation yet, please create !
+            </Typography>
+            <EditProfileButton
+              color="primary"
+              variant="outlined"
+              component={Link}
+              to="/profile/create"
+            >
+            Create new profile
+          </EditProfileButton>
+        </Box>
       ) : (
-        <>
+        getProfileStatus === 'succeeded' ?
+        (<>
+          <Box sx={{ 
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between' 
+          }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <PersonIcon sx={{ fontSize: 30 }} color="primary"></PersonIcon>
+              <Typography sx={{ fontSize: 25, fontWeight: 600, marginLeft: '20px' }}>
+                My Profile
+              </Typography>
+            </Box>
+            <EditProfileButton
+              color="primary"
+              variant="outlined"
+              startIcon={<EditIcon />}
+              onClick={handleClickOpen}
+            >
+              Edit Profile
+            </EditProfileButton>
+          </Box>
+          <Box sx={{m: '12px 0'}}>
+            <Card sx={{p: '12px 16px', display: 'flex'}}>
+                <Avatar
+                  alt={user.name}
+                  src=""
+                  sx={{ width: '60px', height: '60px' }}
+                />
+              <Box sx={{ 
+                display: 'flex',
+                p: '0 16px',
+                flexDirection: "column",
+                justifyContent: 'center' 
+              }}>
+                <Typography sx={{ fontSize: 25, fontWeight: 600, lineHeight: "30px" }}>
+                  {user.name || 'user name'}
+                </Typography>
+                <Typography sx={{ fontSize: 12, fontWeight: 600, color: '#808080' }}>
+                  {user.email || 'user_123@test.com'}
+                </Typography>
+              </Box>
+            </Card>
+          </Box>
           <TableRow
             sx={{
               p: "0.75rem 1.5rem",
+              m: '12px 0'
             }}
             onClick={handleClickOpen}
           >
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                姓名
-              </Small>
-              <span>{user.name}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                公司名稱
-              </Small>
-              <span>{user.companyName}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                地址
-              </Small>
-              <span>{user.address}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                傳真
-              </Small>
-              <span>{user.fax}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                身份證/護照號碼
-              </Small>
-              <span>{user.idPassport}</span>
-            </FlexBox>
+            <Box>
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  姓名
+                </Small>
+                <span>{user.name}</span>
+              </FlexBox>
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  公司名稱
+                </Small>
+                <span>{user.companyName}</span>
+              </FlexBox>
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  地址
+                </Small>
+                <span>{user.address}</span>
+              </FlexBox>
+            </Box>
+            <Box>
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  傳真
+                </Small>
+                <span>{user.fax}</span>
+              </FlexBox>
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  身份證/護照號碼
+                </Small>
+                <span>{user.idPassport}</span>
+              </FlexBox>
 
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  職稱
+                </Small>
+                <span>{user.title}</span>
+              </FlexBox>
+             
+            </Box>
+           <Box>
             <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                職稱
-              </Small>
-              <span>{user.title}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                聯絡電話
-              </Small>
-              <span>{user.phone}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                聯絡電話2
-              </Small>
-              <span>{user.phone2}</span>
-            </FlexBox>
-            <FlexBox flexDirection="column" p={1}>
-              <Small color="grey.600" mb={0.5} textAlign="left">
-                電子信箱
-              </Small>
-              <span>{user.email}</span>
-            </FlexBox>
+                  <Small color="grey.600" mb={0.5} textAlign="left">
+                    聯絡電話
+                  </Small>
+                  <span>{user.phone}</span>
+                </FlexBox>
+                <FlexBox flexDirection="column" p={1}>
+                  <Small color="grey.600" mb={0.5} textAlign="left">
+                    聯絡電話2
+                  </Small>
+                  <span>{user.phone2}</span>
+                </FlexBox>
+              <FlexBox flexDirection="column" p={1}>
+                <Small color="grey.600" mb={0.5} textAlign="left">
+                  電子信箱
+                </Small>
+                <span>{user.email}</span>
+              </FlexBox>
+           </Box>
+            
           </TableRow>
-          <BazarButton
-            color="primary"
-            variant="contained"
-            onClick={handleClickOpen}
-          >
-            Edit
-          </BazarButton>
-        </>
+          <ProfileEditor open={open} handleClose={handleClose} user={user} />
+        </>) : (<Loading></Loading>)
       )}
-      <ProfileEditor open={open} handleClose={handleClose} user={user} />
     </Box>
   );
 };
