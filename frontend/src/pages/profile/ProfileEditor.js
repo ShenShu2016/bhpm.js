@@ -6,6 +6,7 @@ import Card1 from "../../components/Card1";
 import { Formik } from "formik";
 import React from "react";
 import { putUserProfile } from "../../redux/slice/profileSlice";
+import ProfileUser from "./profileUser";
 
 const ProfileEditor = ({ open, handleClose, user }) => {
   const dispatch = useDispatch();
@@ -41,7 +42,10 @@ const ProfileEditor = ({ open, handleClose, user }) => {
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-    >
+    > 
+      <Box sx={{ p: '12px 24px' }}>
+        <ProfileUser user={initialValues} editable={true}></ProfileUser>
+      </Box>
       <Card1>
         <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
           {({
