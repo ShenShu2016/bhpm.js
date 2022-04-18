@@ -1,17 +1,9 @@
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./slideCSS.css";
 
-import {
-  Alert,
-  Box,
-  CircularProgress,
-  Paper,
-  Snackbar,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, CircularProgress, Paper, Snackbar } from "@mui/material";
 import { H1, H2, H3 } from "../../components/Typography";
 import React, { useEffect, useRef, useState } from "react";
-import { blue, green } from "@mui/material/colors";
 import {
   fetchBidItemHistories,
   insertBidItemHistory,
@@ -49,10 +41,10 @@ import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import BiddingTitle from "./BiddingTitle";
 import ImageGallery from "react-image-gallery";
+import Loading from "../../components/Loading";
 import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimitationSlice";
+import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
-
-// import { makeStyles } from "@mui/styles";
 
 // const useStyles = makeStyles((theme) => ({
 //   glary: {
@@ -62,6 +54,7 @@ import { useParams } from "react-router-dom";
 //     // },
 //   },
 // }));
+
 export default function BiddingTest() {
   // const classes = useStyles();
   const dispatch = useDispatch();
@@ -264,7 +257,6 @@ export default function BiddingTest() {
       setAlertStatus({ isOpen: true, isSuccess: false, sentence: "投标失敗" });
     }
   };
-
   // console.log("imgUrls", lotInProgress[0].auctionItem.imgUrls);
   const [imgListInProgress, setImgListInProgress] = useState([]);
   useEffect(() => {
@@ -466,6 +458,7 @@ export default function BiddingTest() {
                 </Paper>
               )}
             </Box>
+
             <Box
               sx={{
                 flex: 1,
@@ -488,22 +481,7 @@ export default function BiddingTest() {
         ) : (
           // <Typography variant="h3"><CircularProgress />Waiting</Typography>
           <>
-            <Box
-              sx={{
-                height: "500px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <CircularProgress sx={{ color: blue[600] }} size={60} />
-              <Typography
-                sx={{ my: "2rem", fontSize: "20px", fontWeight: "bold" }}
-              >
-                Waiting...
-              </Typography>
-            </Box>
+            <Loading />
           </>
         )}
       </Box>

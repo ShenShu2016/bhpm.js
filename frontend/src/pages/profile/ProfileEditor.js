@@ -9,18 +9,21 @@ import { putUserProfile } from "../../redux/slice/profileSlice";
 
 const ProfileEditor = ({ open, handleClose, user }) => {
   const dispatch = useDispatch();
-
-  const initialValues = {
-    name: user.name,
-    companyName: user.companyName,
-    address: user.address,
-    fax: user.fax,
-    idPassport: user.idPassport,
-    title: user.title,
-    phone: user.phone,
-    phone2: user.phone2,
-    email: user.email,
-  };
+  // console.log(user, 9999)
+  let initialValues = {};
+  if (user !== null) {
+    initialValues = {
+      name: user.name,
+      companyName: user.companyName,
+      address: user.address,
+      fax: user.fax,
+      idPassport: user.idPassport,
+      title: user.title,
+      phone: user.phone,
+      phone2: user.phone2,
+      email: user.email,
+    };
+  }
 
   const { username } = useSelector((state) => state.userAuth.user);
 
