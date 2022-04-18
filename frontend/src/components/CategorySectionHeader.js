@@ -1,7 +1,5 @@
-import ArrowRight from "@mui/icons-material/ArrowRight";
 import FlexBox from "./FlexBox";
 import { H2 } from "./Typography";
-import { Link } from "@mui/material";
 import React from "react";
 
 const CategorySectionHeader = ({ title, seeMoreLink, icon }) => {
@@ -18,14 +16,14 @@ const CategorySectionHeader = ({ title, seeMoreLink, icon }) => {
         </H2>
       </FlexBox>
 
-      {seeMoreLink && (
+      {/* {seeMoreLink && (
         <Link to={seeMoreLink}>
           <FlexBox alignItems="center" ml={1} color="grey.600">
             View all
             <ArrowRight fontSize="small" color="inherit" />
           </FlexBox>
         </Link>
-      )}
+      )} */}
     </FlexBox>
   );
 };
