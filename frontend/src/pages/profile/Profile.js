@@ -82,7 +82,7 @@ const Profile = () => {
       ) : (
         getProfileStatus === 'succeeded' ?
         (<>
-        <Box sx={{ display: 'flex', width: '85%', minWidth: '400px' }}>
+        <Box sx={{ display: 'flex', width: '90%', minWidth: '360px'}}>
           {
             // 当屏幕宽度小于600的时候 不在左边展示navigator 而是点击按钮后弹出
             window.outerWidth >= 600 ? (

@@ -10,7 +10,6 @@ import ProfileUser from "./profileUser";
 
 const ProfileEditor = ({ open, handleClose, user }) => {
   const dispatch = useDispatch();
-  // console.log(user, 9999)
   let initialValues = {};
   if (user !== null) {
     initialValues = {
@@ -46,7 +45,7 @@ const ProfileEditor = ({ open, handleClose, user }) => {
       <Box sx={{ p: '12px 24px' }}>
         <ProfileUser user={initialValues} editable={true}></ProfileUser>
       </Box>
-      <Card1>
+      <Card1 sx={{ overflow: 'auto' }}>
         <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
           {({
             values,
