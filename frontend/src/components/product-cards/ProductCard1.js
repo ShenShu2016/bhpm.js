@@ -75,7 +75,7 @@ const ProductCard1 = ({
   isFav,
   hoverEffect,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(isFav||false);
+  const [isFavorite, setIsFavorite] = useState(isFav || false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   // const { state, dispatch } = useAppContext();
@@ -106,7 +106,7 @@ const ProductCard1 = ({
         <HoverIconWrapper>
           <IconButton
             sx={{
-              p: "6px",
+              p: "0px",
             }}
             onClick={toggleIsFavorite}
           >
@@ -121,7 +121,7 @@ const ProductCard1 = ({
           <img
             src={imgUrl}
             // maxWidth={300}
-            height={300}
+            height={275}
             layout="responsive"
             alt={title}
           />
@@ -147,14 +147,14 @@ const ProductCard1 = ({
 
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.second">
-                起拍價: ${startingPrice.toFixed(2)}
+                估價: ${startingPrice.toFixed(2)} - ${price.toFixed(2)}
               </Box>
             </FlexBox>
-            <FlexBox alignItems="center" mt={0.5}>
+            {/* <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.main">
                 預計成交價: ${price.toFixed(2)}
               </Box>
-            </FlexBox>
+            </FlexBox> */}
           </Box>
         </FlexBox>
       </ContentWrapper>
