@@ -41,22 +41,24 @@ import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import BiddingTitle from "./BiddingTitle";
 import ImageGallery from "react-image-gallery";
+import ImageSlider from "./ImageSlider";
 import Loading from "../../components/Loading";
 import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimitationSlice";
 import { green } from "@mui/material/colors";
+import { makeStyles } from "@mui/styles";
 import { useParams } from "react-router-dom";
 
-// const useStyles = makeStyles((theme) => ({
-//   glary: {
-//     width: "100%",
-//     // [theme.breakpoints.down("900")]: {
-//     //   width: "100%",
-//     // },
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  slider: {
+    display: "block",
+    [theme.breakpoints.down("900")]: {
+      display: "none",
+    },
+  },
+}));
 
 export default function BiddingTest() {
-  // const classes = useStyles();
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { auctionsID } = useParams();
@@ -291,16 +293,20 @@ export default function BiddingTest() {
                 createdAt={lotInProgress[0]?.auctionItem?.createdAt}
               ></BiddingTitle>
             </Box>
+            <Box sx={{ mx: "1rem" }} className={classes.slider}>
+              <ImageSlider lotNumber={lotInProgress[0].lot} />
+            </Box>
             <Box sx={{ width: "70%", minWidth: "400px" }}>
               <Paper>
                 <Box>
                   <ImageGallery
+                    //showThumbnails={false}
                     showFullscreenButton={true}
                     showPlayButton={false}
                     showIndex={true}
                     startIndex={0}
                     useBrowserFullscreen={true}
-                    thumbnailPosition={thumbnailPosition}
+                    thumbnailPosition={"bottom"}
                     items={imgListInProgress}
                     onScreenChange={(isFullScreen) => {
                       setImgListInProgress((prev) =>
