@@ -11,10 +11,8 @@ import SectionMyCollection from "../../components/fashion-shop/SectionMyCollecti
 export default function MyCollection() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
-
-  const { user } = useSelector((state) => state.profile);
-  console.log(user);
-
+  //const { user } = useSelector((state) => state.profile);
+  //console.log(user);
   useEffect(() => {
     if (isAuthenticated === true) {
       dispatch(
@@ -25,7 +23,7 @@ export default function MyCollection() {
     }
   }, [dispatch, isAuthenticated]);
   const myCollections = useSelector(selectAllMyCollection);
-  console.log(myCollections);
+  //console.log(myCollections);
 
   const moreItemsRenderList = myCollections?.map((lot) => {
     return {
@@ -40,7 +38,7 @@ export default function MyCollection() {
     };
   });
 
-  console.log(moreItemsRenderList);
+  //console.log(moreItemsRenderList);
   return (
     <>
       {moreItemsRenderList ? (
