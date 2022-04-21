@@ -289,7 +289,7 @@ export default function BiddingTest() {
             </BiddingTitle>
           </Box>
           <Box sx={{ width: "70%", minWidth: "350px" }}>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', width: '100%' }}>
               {
                 window.outerWidth > 600 ?
                 <Paper sx={{ height: '533px', width: '125px', marginRight: '8px', p: '12px' }}>
@@ -300,7 +300,7 @@ export default function BiddingTest() {
                   }
                 </Paper> : null
               }
-              <Paper sx={{ flex: 1 }}>
+              <Paper sx={{ flex: 1, width: 'calc(100% - 125px)' }}>
                 <Box>
                   <ImageGallery
                     showFullscreenButton={true}
