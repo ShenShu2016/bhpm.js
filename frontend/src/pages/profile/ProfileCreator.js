@@ -8,7 +8,7 @@ import React from "react";
 import { createUserProfile } from "../../redux/slice/profileSlice";
 import { useNavigate } from "react-router-dom";
 
-const ProfileCreater = () => {
+const ProfileCreator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username } = useSelector((state) => state.userAuth.user);
@@ -175,4 +175,4 @@ const initialValues = {
   email: "",
 };
 
-export default ProfileCreater;
+export default ProfileCreator;

@@ -75,6 +75,8 @@ export const getMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -192,6 +194,115 @@ export const listAuctionUserLimitations = /* GraphQL */ `
     }
   }
 `;
+export const getMySucceedBid = /* GraphQL */ `
+  query GetMySucceedBid($id: ID!) {
+    getMySucceedBid(id: $id) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listMySucceedBids = /* GraphQL */ `
+  query ListMySucceedBids(
+    $filter: ModelMySucceedBidFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMySucceedBids(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        bidItemHistoryID
+        bidItemHistory {
+          id
+          bidPrice
+          auctionsID
+          lotsID
+          userNumber
+          bidItemHistoryStatus
+          bidForm
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getAuctionUserNumber = /* GraphQL */ `
   query GetAuctionUserNumber($id: ID!) {
     getAuctionUserNumber(id: $id) {
@@ -270,6 +381,8 @@ export const getCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -441,6 +554,8 @@ export const getLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -504,6 +619,8 @@ export const listLots = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -561,6 +678,8 @@ export const lotsSortByLot = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -584,6 +703,8 @@ export const getAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -613,6 +734,8 @@ export const listAuctionItems = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -682,6 +805,8 @@ export const getBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls

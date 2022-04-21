@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Section1 from "../../components/fashion-shop/Section1";
 import Section11 from "../../components/fashion-shop/Section11";
-import Section12 from "../../components/superstore-shop/Section12";
+
+//import Section12 from "../../components/superstore-shop/Section12";
 
 const mainCarouselData = [
   {
@@ -87,7 +88,7 @@ export default function Home() {
     <>
       <Section1 carouselData={mainCarouselData} />
       <Section11 moreItems={moreItemsRenderList} />
-      <Section12 />
+      {/* <Section12 /> */}
     </>
   );
 }

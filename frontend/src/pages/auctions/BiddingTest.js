@@ -1,13 +1,7 @@
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./slideCSS.css";
 
-import {
-  Alert,
-  Box,
-  CircularProgress,
-  Paper,
-  Snackbar,
-} from "@mui/material";
+import { Alert, Box, CircularProgress, Paper, Snackbar } from "@mui/material";
 import { H1, H2, H3 } from "../../components/Typography";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -24,9 +18,17 @@ import {
   updateLotsDetailBySub,
 } from "../../redux/slice/lotsSlice";
 import {
+  fetchMySucceedBids,
+  insertMySucceedBid,
+} from "../../redux/slice/mySucceedBidSlice";
+import {
   onCreateBidItemHistory,
   onUpdateBidItemHistory,
 } from "../../graphql_custom/_subscriptions";
+import {
+  onCreateMySucceedBid,
+  onUpdateLots,
+} from "../../graphql/subscriptions";
 import {
   selectAuctionsById,
   selectedAuctions,
@@ -36,14 +38,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { API } from "aws-amplify";
 import AdminActions from "./AdminActions";
 import AdminTable from "./AdminTable";
-import BiddingTitle from "./BiddingTitle";
 import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
+import BiddingTitle from "./BiddingTitle";
 import ImageGallery from "react-image-gallery";
-import { green } from "@mui/material/colors";
 import Loading from "../../components/Loading";
-// import { makeStyles } from "@mui/styles";
-import { onUpdateLots } from "../../graphql/subscriptions";
+import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimitationSlice";
+import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
 import ImageList from "../../components/ImageList";
 // const useStyles = makeStyles((theme) => ({
@@ -54,6 +55,7 @@ import ImageList from "../../components/ImageList";
 //     // },
 //   },
 // }));
+
 export default function BiddingTest() {
   // const classes = useStyles();
   const dispatch = useDispatch();
@@ -61,6 +63,7 @@ export default function BiddingTest() {
   const { auctionsID } = useParams();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
+  const { username } = useSelector((state) => state.userAuth.user);
   //console.log(cognitoGroup);
   const bitItemHistories = useSelector(selectAllBidItemHistories);
   const { fetchBidItemHistoriesStatus } = useSelector(
@@ -68,16 +71,16 @@ export default function BiddingTest() {
   );
   const messageRef = useRef();
 
-  // useEffect(() => {
-  //   if (messageRef.current) {
-  //     messageRef.current.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "end",
-  //       inline: "nearest",
-  //     });
-  //   }
-  // }, [bitItemHistories]);
-  
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [bitItemHistories]);
+
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
     isSuccess: null,
@@ -134,6 +137,36 @@ export default function BiddingTest() {
     }
   }, [dispatch, isAuthenticated, auctionsID, fetchBidItemHistoriesStatus]);
   //console.log("bitItemHistories", bitItemHistories);
+
+  useEffect(() => {
+    if (isAuthenticated === true && auctionsID) {
+      dispatch(fetchAuctionUserLimitations());
+      dispatch(fetchMySucceedBids());
+    }
+  }, [dispatch, isAuthenticated, auctionsID]);
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      //console.log("start subscription++++++");
+      const onCreateMySucceedBidSub = API.graphql({
+        query: onCreateMySucceedBid,
+        variables: {
+          owner: username,
+        },
+      }).subscribe({
+        next: ({ value }) => {
+          console.log(value);
+          dispatch(insertMySucceedBid(value.data.onCreateMySucceedBid));
+        },
+        error: (error) => console.warn(error),
+      });
+
+      return () => {
+        onCreateMySucceedBidSub.unsubscribe();
+        console.log("close subscription");
+      };
+    }
+  }, [isAuthenticated, dispatch, username]);
 
   useEffect(() => {
     if (isAuthenticated !== null) {
@@ -323,117 +356,133 @@ export default function BiddingTest() {
                 </Card>
               </H2>
             </Box> */}
-            <Box sx={{ textAlign: "center", my: "1rem" }}>
-              <Box sx={{ 
-                textAlign: "center",
-                my: window.outerWidth < 600 ? 0 : "1rem",
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                
-              }}>
-                <Paper sx={{ width: "49.5%",
-                  minWidth: window.outerWidth < 600 ? "350px" : "",
-                  marginBottom: window.outerWidth < 600 ? "16px" : ""
-                }}>
-                  <H2 color="secondary.500">
-                    Current Bid is: $
-                    {maxBidPriceByCurrentLot
-                      ? Number(maxBidPriceByCurrentLot.bidPrice)
-                          .toFixed(2)
-                          .replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                      : 0}{" "}
-                    (CAD)
-                  </H2>
-                </Paper>
-                <Paper sx={{ width: "49.5%",
-                  minWidth: window.outerWidth < 600 ? "350px" : "",
-                  marginBottom: window.outerWidth < 600 ? "16px" : ""
-                }}>
-                  <H2 color="secondary.500">
-                    Next Bid is: $
-                    {nextBid
-                      ? nextBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                      : lotInProgress[0].startingPrice
-                          .toFixed(2)
-                          .replace(/\d(?=(\d{3})+\.)/g, "$&,")}{" "}
-                    (CAD)
-                  </H2>
-                </Paper>
-              </Box>
-              {!cognitoGroup.includes("admin") && (
-                <BazarButton
-                  variant="contained"
-                  onClick={handleBitClick}
-                  color="primary"
-                  size="large"
-                  fullWidth={true}
-                  disabled={isAuthenticated !== true || loading}
+              <Box sx={{ textAlign: "center", my: "1rem" }}>
+                <Box
+                  sx={{
+                    textAlign: "center",
+                    my: window.outerWidth < 600 ? 0 : "1rem",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  Bid
-                  {loading && (
-                    <CircularProgress
-                      size={24}
-                      sx={{
-                        color: green[500],
-                        position: "absolute",
-                      }}
-                    />
-                  )}
-                </BazarButton>
-              )}
-              {maxBidPriceByCurrentLot &&
-                auction.auctionUserNumbers &&
-                auction.auctionUserNumbers.items.length !== 0 &&
-                maxBidPriceByCurrentLot.userNumber ===
-                  auction.auctionUserNumbers.items[0].number && (
                   <Paper
                     sx={{
-                      maxWidth: "500px",
-                      margin: "auto",
-                      backgroundColor: "green",
+                      width: "49.5%",
+                      minWidth: window.outerWidth < 600 ? "350px" : "",
+                      marginBottom: window.outerWidth < 600 ? "16px" : "",
                     }}
                   >
-                    <H1 color="" mb="0.2rem">
-                      You are the highest bidder now
-                    </H1>
+                    <H2 color="secondary.500">
+                      Current Bid is: $
+                      {maxBidPriceByCurrentLot
+                        ? Number(maxBidPriceByCurrentLot.bidPrice)
+                            .toFixed(2)
+                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                        : 0}{" "}
+                      (CAD)
+                    </H2>
                   </Paper>
-                )}
-            </Box>
-            {isAuthenticated && !cognitoGroup.includes("admin") && (
-              <Paper sx={{ p: "2rem", marginBottom: "1rem" }}>
-                <H3>My Status:</H3>
-                <Box sx={{ pl: "2rem" }}>
-                  My Limitation:{" "}
-                  {auction &&
-                    auction.auctionUserLimitations &&
-                    auction.auctionUserLimitations.items.length !== 0 &&
-                    auction.auctionUserLimitations.items[0].maxUserBidPrice}
-                  <br />
-                  My Auction User Number:{" "}
-                  {auction &&
-                    auction.auctionUserNumbers &&
-                    auction.auctionUserNumbers.items.length !== 0 &&
-                    auction.auctionUserNumbers.items[0].number}
+                  <Paper
+                    sx={{
+                      width: "49.5%",
+                      minWidth: window.outerWidth < 600 ? "350px" : "",
+                      marginBottom: window.outerWidth < 600 ? "16px" : "",
+                    }}
+                  >
+                    <H2 color="secondary.500">
+                      Next Bid is: $
+                      {nextBid
+                        ? nextBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
+                        : lotInProgress[0].startingPrice
+                            .toFixed(2)
+                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")}{" "}
+                      (CAD)
+                    </H2>
+                  </Paper>
                 </Box>
-              </Paper>
-            )}
-          </Box>
-          <Paper sx={{
-             flex: 1,
-             minWidth: window.outerWidth < 700 ? "350px" : "",
-             marginLeft: "8px",
-             padding: "0 16px",
-             height: "533px",
-             overflow: "auto",
-             maxWidth: "70%"
-           }}>
-            <div ref={messageRef} style={{height: '533px' }}>
-                <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
-            </div>
-         </Paper>
-        </>
-        ) : (<Loading></Loading>)}
+                {!cognitoGroup.includes("admin") && (
+                  <BazarButton
+                    variant="contained"
+                    onClick={handleBitClick}
+                    color="primary"
+                    size="large"
+                    fullWidth={true}
+                    disabled={
+                      isAuthenticated !== true ||
+                      loading ||
+                      !auction?.auctionUserNumbers?.items[0]?.number
+                    }
+                  >
+                    Bid
+                    {loading && (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          color: green[500],
+                          position: "absolute",
+                        }}
+                      />
+                    )}
+                  </BazarButton>
+                )}
+                {maxBidPriceByCurrentLot &&
+                  auction.auctionUserNumbers &&
+                  auction.auctionUserNumbers.items.length !== 0 &&
+                  maxBidPriceByCurrentLot.userNumber ===
+                    auction.auctionUserNumbers.items[0].number && (
+                    <Paper
+                      sx={{
+                        maxWidth: "500px",
+                        margin: "auto",
+                        backgroundColor: "green",
+                      }}
+                    >
+                      <H1 color="" mb="0.2rem">
+                        You are the highest bidder now
+                      </H1>
+                    </Paper>
+                  )}
+              </Box>
+              {isAuthenticated && !cognitoGroup.includes("admin") && (
+                <Paper sx={{ p: "2rem", marginBottom: "1rem" }}>
+                  <H3>My Status:</H3>
+                  <Box sx={{ pl: "2rem" }}>
+                    My Limitation:{" "}
+                    {auction?.auctionUserLimitations?.items[0]?.maxUserBidPrice}
+                    <br />
+                    My Auction User Number:{" "}
+                    {auction?.auctionUserNumbers?.items[0]?.number}
+                  </Box>
+                </Paper>
+              )}
+            </Box>
+
+            <Box
+              sx={{
+                flex: 1,
+                maxWidth: "70%",
+                minWidth: "170px",
+                maxHeight: "533px",
+                overflow: "auto",
+                marginLeft: "8px",
+                padding: "0 16px",
+              }}
+              component={Paper}
+            >
+              <div ref={messageRef}>
+                <BidItemHistoriesRenderList
+                  bitItemHistories={bitItemHistories}
+                />
+              </div>
+            </Box>
+          </>
+        ) : (
+          // <Typography variant="h3"><CircularProgress />Waiting</Typography>
+          <>
+            <Loading />
+          </>
+        )}
       </Box>
       {cognitoGroup.includes("admin") && (
         <Box sx={{ my: "2rem" }}>

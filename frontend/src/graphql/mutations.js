@@ -81,6 +81,8 @@ export const createCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -108,6 +110,8 @@ export const updateCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -135,6 +139,8 @@ export const deleteCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -390,6 +396,8 @@ export const createMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -440,6 +448,8 @@ export const updateMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -490,6 +500,8 @@ export const deleteMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -549,6 +561,8 @@ export const createLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -622,6 +636,8 @@ export const updateLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -695,6 +711,8 @@ export const deleteLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -737,6 +755,8 @@ export const createAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -764,6 +784,8 @@ export const updateAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -791,6 +813,8 @@ export const deleteAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -864,6 +888,8 @@ export const createBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -941,6 +967,8 @@ export const updateBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -1018,6 +1046,8 @@ export const deleteBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
           imgUrl
           imgUrls
@@ -1146,6 +1176,219 @@ export const deleteAuctionUserLimitation = /* GraphQL */ `
         }
         createdAt
         updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createMySucceedBid = /* GraphQL */ `
+  mutation CreateMySucceedBid(
+    $input: CreateMySucceedBidInput!
+    $condition: ModelMySucceedBidConditionInput
+  ) {
+    createMySucceedBid(input: $input, condition: $condition) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateMySucceedBid = /* GraphQL */ `
+  mutation UpdateMySucceedBid(
+    $input: UpdateMySucceedBidInput!
+    $condition: ModelMySucceedBidConditionInput
+  ) {
+    updateMySucceedBid(input: $input, condition: $condition) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteMySucceedBid = /* GraphQL */ `
+  mutation DeleteMySucceedBid(
+    $input: DeleteMySucceedBidInput!
+    $condition: ModelMySucceedBidConditionInput
+  ) {
+    deleteMySucceedBid(input: $input, condition: $condition) {
+      id
+      auctionsID
+      auctions {
+        id
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
       }
       createdAt
       updatedAt
