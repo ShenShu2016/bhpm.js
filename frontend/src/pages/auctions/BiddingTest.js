@@ -13,6 +13,7 @@ import {
 } from "../../redux/slice/bidItemHistorySlice";
 import {
   fetchLotss,
+  selectAllLotss,
   selectLotByInProgress,
   updateLotsDetailBySub,
 } from "../../redux/slice/lotsSlice";
@@ -45,7 +46,7 @@ import Loading from "../../components/Loading";
 import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimitationSlice";
 import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
-
+import ImageList from "../../components/ImageList";
 // const useStyles = makeStyles((theme) => ({
 //   glary: {
 //     width: "100%",
@@ -94,9 +95,9 @@ export default function BiddingTest() {
   };
   //console.log(isAuthenticated);
 
-  //const lotss = useSelector(selectAllLotss);
+  const lotss = useSelector(selectAllLotss);
   const lotInProgress = useSelector(selectLotByInProgress());
-  //console.log("lotInProgress", lotInProgress);
+  // console.log("lotInProgress", lotInProgress);
 
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
@@ -110,9 +111,8 @@ export default function BiddingTest() {
       dispatch(fetchLotss({ isAuthenticated, auctionsID }));
     }
   }, [dispatch, isAuthenticated, auctionsID]);
-  //console.log("lotss", lotss);
   const auction = useSelector((state) => selectAuctionsById(state, auctionsID));
-  //console.log("auction", auction && auction.auctionUserLimitations.items[0]);
+  // console.log("auction", auction && auction.auctionUserLimitations.items[0]);
   //console.log(auction && auction.bidIncrementPriceList);
 
   const nextBid =
@@ -260,72 +260,71 @@ export default function BiddingTest() {
   // console.log("imgUrls", lotInProgress[0].auctionItem.imgUrls);
   const [imgListInProgress, setImgListInProgress] = useState([]);
   useEffect(() => {
-    if (lotInProgress.length) {
-      setImgListInProgress(
-        lotInProgress[0].auctionItem.imgUrls.map((url) => {
-          return { original: url, thumbnail: url, originalHeight: 500 };
-        })
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   if (lotInProgress.length) {
+    setImgListInProgress(
+      lotInProgress[0].auctionItem.imgUrls.map((url) => {
+        return {
+          original: url,
+          thumbnail: url,
+          originalHeight: 400,
+        };
+      }))
+   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lotInProgress.length]);
-  const [thumbnailPosition, setThumbnailPosition] = useState("left");
-
+  // const [thumbnailPosition, setThumbnailPosition] = useState('bottom');
+    
   return (
-    <div
-      style={{
-        padding: "0px 10%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
+    <div style={{padding: "0px 5%", display: "flex", flexDirection: "column" ,justifyContent: "center"}}>
       {/* <AdminLotsGrid /> */}
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {lotInProgress.length === 1 ? (
           <>
-            <Box sx={{ width: "100%", margin: "1rem 0", minWidth: "400px" }}>
-              <BiddingTitle
-                title={lotInProgress[0]?.auctionItem?.title}
-                description={lotInProgress[0]?.auctionItem?.description}
-                createdAt={lotInProgress[0]?.auctionItem?.createdAt}
-              ></BiddingTitle>
-            </Box>
-            <Box sx={{ width: "70%", minWidth: "400px" }}>
-              <Paper>
+          <Box sx={{width: "100%", margin: "1rem 0", minWidth: "350px"}}>
+            <BiddingTitle
+              title={lotInProgress[0]?.auctionItem?.title}
+              description={lotInProgress[0]?.auctionItem?.description}
+              createdAt={lotInProgress[0]?.auctionItem?.createdAt}
+              >
+            </BiddingTitle>
+          </Box>
+          <Box sx={{ width: "70%", minWidth: "350px" }}>
+            <Box sx={{ display: 'flex' }}>
+              {
+                window.outerWidth > 600 ?
+                <Paper sx={{ height: '533px', width: '125px', marginRight: '8px', p: '12px' }}>
+                  {
+                    lotss?.length && lotInProgress?.length ?
+                    <ImageList images={lotss} itemId={lotInProgress[0].id}></ImageList>
+                    : null
+                  }
+                </Paper> : null
+              }
+              <Paper sx={{ flex: 1 }}>
                 <Box>
                   <ImageGallery
                     showFullscreenButton={true}
                     showPlayButton={false}
                     showIndex={true}
-                    startIndex={0}
-                    useBrowserFullscreen={true}
-                    thumbnailPosition={thumbnailPosition}
+                    startIndex={0} 
+                    thumbnailPosition={'bottom'}
                     items={imgListInProgress}
+                    useBrowserFullscreen={false}
                     onScreenChange={(isFullScreen) => {
-                      setImgListInProgress((prev) =>
-                        prev.map((item) => {
-                          item.originalHeight = isFullScreen ? "100%" : "500px";
-                          return item;
-                        })
-                      );
-                      setThumbnailPosition(() =>
-                        isFullScreen && window.outerWidth < 600
-                          ? "bottom"
-                          : "left"
-                      );
-                      const imgContainer = document.querySelectorAll(
-                        ".image-gallery-image"
-                      );
-                      imgContainer.forEach(
-                        (item) =>
-                          (item.style.height = isFullScreen ? "100vh" : "")
-                      );
+                      setImgListInProgress((prev) => prev.map((item) => {
+                        item.originalHeight = isFullScreen ? "100%" : "400px";
+                        return item;
+                      }))
+                      // setThumbnailPosition(() => isFullScreen && window.outerWidth > 600 ? "left" : "bottom");
+                      const imgContainer = document.querySelectorAll(".image-gallery-image");
+                      imgContainer.forEach((item) => item.style.height = isFullScreen ? "85vh" : "")
                     }}
                   />
                 </Box>
               </Paper>
-              {/* <Box>
+            </Box>
+            
+            {/* <Box>
               <H2>
                 <Card sx={{ minWidth: 275 }}>
                   <CardContent>
@@ -370,7 +369,7 @@ export default function BiddingTest() {
                   <Paper
                     sx={{
                       width: "49.5%",
-                      minWidth: window.outerWidth < 600 ? "400px" : "",
+                      minWidth: window.outerWidth < 600 ? "350px" : "",
                       marginBottom: window.outerWidth < 600 ? "16px" : "",
                     }}
                   >
@@ -387,7 +386,7 @@ export default function BiddingTest() {
                   <Paper
                     sx={{
                       width: "49.5%",
-                      minWidth: window.outerWidth < 600 ? "400px" : "",
+                      minWidth: window.outerWidth < 600 ? "350px" : "",
                       marginBottom: window.outerWidth < 600 ? "16px" : "",
                     }}
                   >
@@ -463,8 +462,8 @@ export default function BiddingTest() {
               sx={{
                 flex: 1,
                 maxWidth: "70%",
-                minWidth: "310px",
-                maxHeight: "500px",
+                minWidth: "170px",
+                maxHeight: "533px",
                 overflow: "auto",
                 marginLeft: "8px",
                 padding: "0 16px",
