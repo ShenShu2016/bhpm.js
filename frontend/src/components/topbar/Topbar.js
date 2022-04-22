@@ -106,7 +106,7 @@ const Topbar = () => {
       >
         <FlexBox className="topbarLeft" alignItems="center">
           <div className="logo">
-            <Link to="/">
+            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
               <img
                 display="block"
                 height="38px"

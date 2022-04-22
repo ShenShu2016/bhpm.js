@@ -1,7 +1,7 @@
 /*
  * @Author: 李佳修
  * @Date: 2022-04-18 17:13:43
- * @LastEditTime: 2022-04-18 18:33:12
+ * @LastEditTime: 2022-04-22 17:19:28
  * @LastEditors: 李佳修
  * @FilePath: /bhpmJS/frontend/src/pages/profile/Navigator.js
  */
@@ -12,11 +12,8 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Typography from '@mui/material/Typography';
-import ContentCut from '@mui/icons-material/ContentCut';
-import ContentCopy from '@mui/icons-material/ContentCopy';
-import ContentPaste from '@mui/icons-material/ContentPaste';
-import Cloud from '@mui/icons-material/Cloud';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 
 
@@ -24,58 +21,25 @@ import { Box } from "@mui/material";
 // 通过selectedName和option中每一项的name匹配，找到哪一个tab是被选中的
 const Navigator = ({ selectedName }) => {
 
-    const options = [{
+  const navigate = useNavigate();
+
+  const options = [{
         isTitle: true,
         element: (<span>DASHBOARD</span>)
     },
     {
-        name: 'cut',
+        name: 'myCollection',
         element: (
             <>
                 <ListItemIcon>
-                    <ContentCut
-                        color={selectedName === 'cut' ? 'primary' : ''}
+                    <CollectionsBookmarkIcon
+                        color={selectedName === 'myCollection' ? 'primary' : ''}
                         fontSize="small" 
                     />
                 </ListItemIcon>
-                <ListItemText>Cut</ListItemText>
-                <Typography variant="body2" color="text.secondary">
-                    ⌘X
-                </Typography>
+                <ListItemText>My Collection</ListItemText>
             </>
             
-        )
-    },{
-        name: 'copy',
-        element: (
-            <>
-                <ListItemIcon>
-                    <ContentCopy
-                        color={selectedName === 'copy' ? 'primary' : ''}
-                        fontSize="small"
-                    />
-                </ListItemIcon>
-                <ListItemText>Copy</ListItemText>
-                <Typography variant="body2" color="text.secondary">
-                    ⌘C
-                </Typography>
-            </>
-        )
-    }, {
-        name: 'paste',
-        element: (
-            <>
-                <ListItemIcon>
-                    <ContentPaste
-                        color={selectedName === 'paste' ? 'primary' : ''}
-                        fontSize="small"
-                    />
-                </ListItemIcon>
-                <ListItemText>Paste</ListItemText>
-                <Typography variant="body2" color="text.secondary">
-                    ⌘V
-                </Typography>
-            </>
         )
     }, {
         isDivider: true
@@ -95,19 +59,6 @@ const Navigator = ({ selectedName }) => {
                 <ListItemText>My Profile</ListItemText>
             </>
         )
-    }, {
-        name: 'web_clipboard',
-        element: (
-            <>
-                <ListItemIcon>
-                    <Cloud
-                        color={selectedName === 'web_clipboard' ? 'primary' : ''}
-                        fontSize="small" 
-                    />
-                </ListItemIcon>
-                <ListItemText>Web Clipboard</ListItemText>
-            </>
-        )
     }]
     const selection = options.find((item) => item.name === selectedName);
     if (selection) {
@@ -115,7 +66,12 @@ const Navigator = ({ selectedName }) => {
     }
 
     const handleItemClicked = (content, index) => {
-        console.log(content, index)
+        console.log(content, index);
+        if (content.name === 'myCollection') {
+            navigate(`/profile/myCollection`, {
+                replace: true,
+            })
+        }
     }
 
     return (
