@@ -47,14 +47,8 @@ import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimita
 import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
 import ImageList from "../../components/ImageList";
-// const useStyles = makeStyles((theme) => ({
-//   glary: {
-//     width: "100%",
-//     // [theme.breakpoints.down("900")]: {
-//     //   width: "100%",
-//     // },
-//   },
-// }));
+import { TextPaper, LeftImgList, TextPaperContainer } from './BiddingTestStyled'
+
 
 export default function BiddingTest() {
   // const classes = useStyles();
@@ -290,16 +284,13 @@ export default function BiddingTest() {
           </Box>
           <Box sx={{ width: "70%", minWidth: "350px" }}>
             <Box sx={{ display: 'flex', width: '100%' }}>
-              {
-                window.outerWidth > 600 ?
-                <Paper sx={{ height: '533px', width: '125px', marginRight: '8px', p: '12px' }}>
-                  {
-                    lotss?.length && lotInProgress?.length ?
-                    <ImageList images={lotss} itemId={lotInProgress[0].id}></ImageList>
-                    : null
-                  }
-                </Paper> : null
-              }
+              <LeftImgList>
+                {
+                  lotss?.length && lotInProgress?.length ?
+                  <ImageList images={lotss} itemId={lotInProgress[0].id}></ImageList>
+                  : null
+                }
+              </LeftImgList>
               <Paper sx={{ flex: 1, width: 'calc(100% - 125px)' }}>
                 <Box>
                   <ImageGallery
@@ -315,7 +306,6 @@ export default function BiddingTest() {
                         item.originalHeight = isFullScreen ? "100%" : "400px";
                         return item;
                       }))
-                      // setThumbnailPosition(() => isFullScreen && window.outerWidth > 600 ? "left" : "bottom");
                       const imgContainer = document.querySelectorAll(".image-gallery-image");
                       imgContainer.forEach((item) => item.style.height = isFullScreen ? "85vh" : "")
                     }}
@@ -357,22 +347,8 @@ export default function BiddingTest() {
               </H2>
             </Box> */}
               <Box sx={{ textAlign: "center", my: "1rem" }}>
-                <Box
-                  sx={{
-                    textAlign: "center",
-                    my: window.outerWidth < 600 ? 0 : "1rem",
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Paper
-                    sx={{
-                      width: "49.5%",
-                      minWidth: window.outerWidth < 600 ? "350px" : "",
-                      marginBottom: window.outerWidth < 600 ? "16px" : "",
-                    }}
-                  >
+                <TextPaperContainer>
+                  <TextPaper>
                     <H2 color="secondary.500">
                       Current Bid is: $
                       {maxBidPriceByCurrentLot
@@ -382,14 +358,8 @@ export default function BiddingTest() {
                         : 0}{" "}
                       (CAD)
                     </H2>
-                  </Paper>
-                  <Paper
-                    sx={{
-                      width: "49.5%",
-                      minWidth: window.outerWidth < 600 ? "350px" : "",
-                      marginBottom: window.outerWidth < 600 ? "16px" : "",
-                    }}
-                  >
+                  </TextPaper>
+                  <TextPaper>
                     <H2 color="secondary.500">
                       Next Bid is: $
                       {nextBid
@@ -399,8 +369,8 @@ export default function BiddingTest() {
                             .replace(/\d(?=(\d{3})+\.)/g, "$&,")}{" "}
                       (CAD)
                     </H2>
-                  </Paper>
-                </Box>
+                  </TextPaper>
+                </TextPaperContainer>
                 {!cognitoGroup.includes("admin") && (
                   <BazarButton
                     variant="contained"

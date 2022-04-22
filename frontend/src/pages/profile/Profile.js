@@ -36,6 +36,20 @@ const Profile = () => {
     },
    })
 
+  const StyledIconButton = styled(IconButton)(({ theme }) => ({
+    display: 'none',
+    [theme.breakpoints.down("sm")]: {
+      display: 'block'
+    },
+  }));
+
+  const NavBox = styled(Box)(({ theme }) => ({
+    display: 'block',
+    [theme.breakpoints.down("sm")]: {
+      display: 'none'
+    },
+  }));
+
   useEffect(() => {
     if (!!username === true) {
       dispatch(getUserProfile({ username }));
@@ -83,18 +97,12 @@ const Profile = () => {
         getProfileStatus === 'succeeded' ?
         (<>
         <Box sx={{ display: 'flex', width: '90%', minWidth: '360px'}}>
-          {
-            // 当屏幕宽度小于600的时候 不在左边展示navigator 而是点击按钮后弹出
-            window.outerWidth >= 600 ? (
-              <Box sx={{ width: 320, maxWidth: '20%' }}>
-                <Card sx={{ width: "100%", height: "100%" }}>
-                  <Navigator selectedName="profile"></Navigator>
-                </Card>
-              </Box>
-            ) : (
-              null
-            )
-          }
+          <NavBox sx={{ width: 320, maxWidth: '20%' }}>
+            <Card sx={{ width: "100%", height: "100%" }}>
+              <Navigator selectedName="profile"></Navigator>
+            </Card>
+          </NavBox>
+          
           <Box sx={{ flex: '4', p: '0px 12px' }}>
             <Box sx={{ 
               width: '100%',
@@ -116,12 +124,9 @@ const Profile = () => {
               >
                 Edit Profile
               </EditProfileButton>
-              <IconButton
-                sx={{ display: window.outerWidth < 600 ? 'block' : 'none' }}
-                onClick={() => toggleDrawer(true)}
-              >
+              <StyledIconButton onClick={() => toggleDrawer(true)}>
                 <MoreVertIcon />
-              </IconButton>
+              </StyledIconButton>
             </Box>
             <Box sx={{m: '12px 0'}}>
               <Card sx={{p: '12px 2rem'}}>
