@@ -112,17 +112,30 @@ export default function BiddingTest() {
   // console.log("auction", auction && auction.auctionUserLimitations.items[0]);
   //console.log(auction && auction.bidIncrementPriceList);
 
-  const nextBid =
-    auction &&
-    maxBidPriceByCurrentLot &&
-    Math.min(
-      ...auction.bidIncrementPriceList.filter(
-        (x) => x > maxBidPriceByCurrentLot.bidPrice
-      )
-    );
+  function getNextBid() {
+    const tempMin =
+      auction &&
+      maxBidPriceByCurrentLot &&
+      Math.min(
+        ...auction.bidIncrementPriceList.filter(
+          (x) => x > maxBidPriceByCurrentLot.bidPrice
+        )
+      );
+    console.log(tempMin);
+    if (tempMin === undefined) {
+      return lotInProgress[0]?.startingPrice;
+    } else if (
+      maxBidPriceByCurrentLot.bidPrice < lotInProgress[0]?.startingPrice
+    ) {
+      return lotInProgress[0]?.startingPrice;
+    } else {
+      return tempMin;
+    }
+  }
+  const nextBid = getNextBid();
 
   //   auction.bidIncrementPriceList.sort((a, b) => a - b);
-  //console.log("nextBid", nextBid);
+  console.log("nextBid", nextBid);
 
   useEffect(() => {
     if (
@@ -231,12 +244,8 @@ export default function BiddingTest() {
   const handleBitClick = async () => {
     setLoading(true);
     const createBidItemHistoryInput = {
-      id:
-        lotInProgress.length === 1 &&
-        `${lotInProgress[0].id}-${
-          nextBid ? nextBid : lotInProgress[0].startingPrice
-        }`,
-      bidPrice: nextBid ? nextBid : lotInProgress[0].startingPrice,
+      id: lotInProgress.length === 1 && `${lotInProgress[0].id}-${nextBid}`,
+      bidPrice: nextBid,
       auctionsID: auctionsID,
       lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
       bidForm: "Internet",
@@ -383,11 +392,7 @@ export default function BiddingTest() {
                   <TextPaper>
                     <H2 color="secondary.500">
                       Next Bid is: $
-                      {nextBid
-                        ? nextBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")
-                        : lotInProgress[0].startingPrice
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, "$&,")}{" "}
+                      {nextBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}{" "}
                       (CAD)
                     </H2>
                   </TextPaper>
@@ -477,27 +482,11 @@ export default function BiddingTest() {
       </Box>
       {cognitoGroup.includes("admin") && (
         <Box sx={{ my: "2rem" }}>
-          <AdminActions
-            auctionsID={auctionsID}
-            nextBid={
-              nextBid
-                ? nextBid
-                : lotInProgress[0] && lotInProgress[0].startingPrice
-            }
-          />
+          <AdminActions auctionsID={auctionsID} nextBid={nextBid} />
           <AdminTable />
         </Box>
       )}
-
-      {/* <LotssRenderList lotss={lotss} /> */}
-
-      {/* {lotssRenderList} */}
-      {/* <Box sx={{ height: "600px", textAlign: "center" }}>
-        <CircularProgress color="inherit" sx={{ mt: "300px" }} />
-      </Box> */}
       <Snackbar
-        //   anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        //{isOpen:true,isSuccess:true,sentence:'投标成功'}
         open={alertStatus.isOpen}
         autoHideDuration={3000}
         onClose={handleAlertClose}

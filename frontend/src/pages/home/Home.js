@@ -15,7 +15,7 @@ const mainCarouselData = [
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
+    buttonLik: "/auctions/bidding/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
     title: "March 26th Auction",
@@ -24,7 +24,7 @@ const mainCarouselData = [
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
+    buttonLik: "/auctions/bidding/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
     title: "March 26th Auction",
@@ -33,7 +33,7 @@ const mainCarouselData = [
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
+    buttonLik: "/auctions/bidding/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
     title: "March 26th Auction",
@@ -42,7 +42,7 @@ const mainCarouselData = [
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
+    buttonLik: "/auctions/bidding/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
   {
     title: "March 26th Auction",
@@ -51,7 +51,7 @@ const mainCarouselData = [
     description:
       "This product was discovered during Ming Dynasty. 2022年3月26日(星期六) 6:00pm",
     buttonText: "Bid Now",
-    buttonLik: "/auctions/biddingtest/fdfa3b15-1731-43fc-b23e-30c1707b954c",
+    buttonLik: "/auctions/bidding/fdfa3b15-1731-43fc-b23e-30c1707b954c",
   },
 ];
 

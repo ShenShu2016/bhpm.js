@@ -26,7 +26,7 @@ export default function ChangeLotsStatusDialog({
     setRowInfo(statusDialogRowInfo);
   }, [statusDialogRowInfo]);
 
-  console.log("rowInfo", rowInfo);
+  //console.log("rowInfo", rowInfo);
 
   const handleChangeStatus = async (event) => {
     console.log(event.target.value);

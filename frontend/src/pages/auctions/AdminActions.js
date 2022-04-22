@@ -31,7 +31,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
   const [bidForm, setBidForm] = useState("Room");
   const [userNumber, setUserNumber] = useState(0);
   const [bidAmount, setBidAmount] = useState(0);
-  console.log(bidAmount);
+  //console.log(bidAmount);
 
   useEffect(() => {
     if (nextBid) {
@@ -123,7 +123,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
   const nextLotArr = useSelector(
     selectLotByNextLotNumber(lotInProgress[0] && lotInProgress[0].lot + 1)
   );
-  console.log(nextLotArr);
+  //console.log(nextLotArr);
   const handleFinishAndNext = async (event) => {
     setLoading(true);
     const currentLot = lotInProgress[0];
