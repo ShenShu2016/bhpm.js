@@ -79,6 +79,7 @@ export default function Home() {
       category: lot.auctionItem.categoryID,
       id: lot.id,
       startingPrice: lot.startingPrice,
+      lotNum: lot.lot,
     };
   });
 

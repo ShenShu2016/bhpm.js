@@ -3,6 +3,11 @@ import "./slideCSS.css";
 
 import { Alert, Box, CircularProgress, Paper, Snackbar } from "@mui/material";
 import { H1, H2, H3 } from "../../components/Typography";
+import {
+  LeftImgList,
+  TextPaper,
+  TextPaperContainer,
+} from "./BiddingTestStyled";
 import React, { useEffect, useRef, useState } from "react";
 import {
   fetchBidItemHistories,
@@ -42,13 +47,11 @@ import BazarButton from "../../components/BazarButton";
 import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
 import BiddingTitle from "./BiddingTitle";
 import ImageGallery from "react-image-gallery";
+import ImageList from "../../components/ImageList";
 import Loading from "../../components/Loading";
 import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimitationSlice";
 import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
-import ImageList from "../../components/ImageList";
-import { TextPaper, LeftImgList, TextPaperContainer } from './BiddingTestStyled'
-
 
 export default function BiddingTest() {
   // const classes = useStyles();
@@ -254,67 +257,85 @@ export default function BiddingTest() {
   // console.log("imgUrls", lotInProgress[0].auctionItem.imgUrls);
   const [imgListInProgress, setImgListInProgress] = useState([]);
   useEffect(() => {
-   if (lotInProgress.length) {
-    setImgListInProgress(
-      lotInProgress[0].auctionItem.imgUrls.map((url) => {
-        return {
-          original: url,
-          thumbnail: url,
-          originalHeight: 400,
-        };
-      }))
-   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (lotInProgress.length) {
+      setImgListInProgress(
+        lotInProgress[0].auctionItem.imgUrls.map((url) => {
+          return {
+            original: url,
+            thumbnail: url,
+            originalHeight: 400,
+          };
+        })
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lotInProgress.length]);
   // const [thumbnailPosition, setThumbnailPosition] = useState('bottom');
-    
+
   return (
-    <div style={{padding: "0px 5%", display: "flex", flexDirection: "column" ,justifyContent: "center"}}>
+    <div
+      style={{
+        padding: "0px 5%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       {/* <AdminLotsGrid /> */}
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {lotInProgress.length === 1 ? (
           <>
-          <Box sx={{width: "100%", margin: "1rem 0", minWidth: "350px"}}>
-            <BiddingTitle
-              title={lotInProgress[0]?.auctionItem?.title}
-              description={lotInProgress[0]?.auctionItem?.description}
-              createdAt={lotInProgress[0]?.auctionItem?.createdAt}
-              >
-            </BiddingTitle>
-          </Box>
-          <Box sx={{ width: "70%", minWidth: "350px" }}>
-            <Box sx={{ display: 'flex', width: '100%' }}>
-              <LeftImgList>
-                {
-                  lotss?.length && lotInProgress?.length ?
-                  <ImageList images={lotss} itemId={lotInProgress[0].id}></ImageList>
-                  : null
-                }
-              </LeftImgList>
-              <Paper sx={{ flex: 1, width: 'calc(100% - 125px)' }}>
-                <Box>
-                  <ImageGallery
-                    showFullscreenButton={true}
-                    showPlayButton={false}
-                    showIndex={true}
-                    startIndex={0} 
-                    thumbnailPosition={'bottom'}
-                    items={imgListInProgress}
-                    useBrowserFullscreen={false}
-                    onScreenChange={(isFullScreen) => {
-                      setImgListInProgress((prev) => prev.map((item) => {
-                        item.originalHeight = isFullScreen ? "100%" : "400px";
-                        return item;
-                      }))
-                      const imgContainer = document.querySelectorAll(".image-gallery-image");
-                      imgContainer.forEach((item) => item.style.height = isFullScreen ? "85vh" : "")
-                    }}
-                  />
-                </Box>
-              </Paper>
+            <Box sx={{ width: "100%", margin: "1rem 0", minWidth: "350px" }}>
+              <BiddingTitle
+                lotNum={lotInProgress[0]?.lot}
+                title={lotInProgress[0]?.auctionItem?.title}
+                description={lotInProgress[0]?.auctionItem?.description}
+                createdAt={lotInProgress[0]?.auctionItem?.createdAt}
+              ></BiddingTitle>
             </Box>
-            
-            {/* <Box>
+            <Box sx={{ width: "70%", minWidth: "350px" }}>
+              <Box sx={{ display: "flex", width: "100%" }}>
+                <LeftImgList>
+                  {lotss?.length && lotInProgress?.length ? (
+                    <ImageList
+                      images={lotss}
+                      itemId={lotInProgress[0].id}
+                    ></ImageList>
+                  ) : null}
+                </LeftImgList>
+                <Paper sx={{ flex: 1, width: "calc(100% - 125px)" }}>
+                  <Box>
+                    <ImageGallery
+                      showFullscreenButton={true}
+                      showPlayButton={false}
+                      showIndex={true}
+                      startIndex={0}
+                      thumbnailPosition={"bottom"}
+                      items={imgListInProgress}
+                      useBrowserFullscreen={false}
+                      onScreenChange={(isFullScreen) => {
+                        setImgListInProgress((prev) =>
+                          prev.map((item) => {
+                            item.originalHeight = isFullScreen
+                              ? "100%"
+                              : "400px";
+                            return item;
+                          })
+                        );
+                        const imgContainer = document.querySelectorAll(
+                          ".image-gallery-image"
+                        );
+                        imgContainer.forEach(
+                          (item) =>
+                            (item.style.height = isFullScreen ? "85vh" : "")
+                        );
+                      }}
+                    />
+                  </Box>
+                </Paper>
+              </Box>
+
+              {/* <Box>
               <H2>
                 <Card sx={{ minWidth: 275 }}>
                   <CardContent>

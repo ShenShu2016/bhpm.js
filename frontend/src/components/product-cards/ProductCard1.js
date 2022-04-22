@@ -14,12 +14,6 @@ import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
 
-//import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-
-//import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
-
-// import Favorite from "@mui/icons-material/Favorite";
-
 const StyledBazarCard = styled(BazarCard)(() => ({
   position: "relative",
   display: "flex",
@@ -74,6 +68,7 @@ const ProductCard1 = ({
   imgUrl,
   isFav,
   hoverEffect,
+  lotNum,
 }) => {
   const [isFavorite, setIsFavorite] = useState(isFav || false);
   const [open, setOpen] = useState(false);
@@ -141,7 +136,7 @@ const ProductCard1 = ({
                 mb={1}
                 title={title}
               >
-                {title}
+                Lot #{lotNum} {title}
               </H3>
             </Link>
 
