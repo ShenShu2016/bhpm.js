@@ -17,6 +17,21 @@ type Profile
   email: String
 }
 
+type HomePageCarouse
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read], provider: iam }
+      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
+  id: ID!
+  title: String
+  imgUrl: AWSURL
+  description: String
+}
+
 type Category
   @model
   @auth(
@@ -41,6 +56,7 @@ type Auctions
     ]
   ) {
   id: ID! # uuid
+  active: Boolean!
   company: String
   description: String
   auctionStartDate: AWSDateTime
@@ -51,7 +67,6 @@ type Auctions
   bidIncrementPriceList: [Int]
   auctionUserLimitations: [AuctionUserLimitation]
     @hasMany(indexName: "byAuctions", fields: ["id"])
-
   auctionUserNumbers: [AuctionUserNumber]
     @hasMany(indexName: "byAuctions", fields: ["id"])
 }
@@ -131,7 +146,7 @@ type AuctionItem
   descriptionEng: String
   categoryID: ID! @index(name: "byCategory", sortKeyFields: ["createdAt"])
   category: Category! @belongsTo(fields: ["categoryID"])
-  imgUrls: [String]
+  imgUrls: [AWSURL]
   condition: String
   provenance: String
   createdAt: AWSDateTime!
@@ -172,7 +187,6 @@ type BidItemHistory
       ]
     )
   bidForm: BidForm
-
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID
