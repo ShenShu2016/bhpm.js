@@ -58,6 +58,114 @@ export const onDeleteProfile = /* GraphQL */ `
     }
   }
 `;
+export const onCreateHomePageCarouse = /* GraphQL */ `
+  subscription OnCreateHomePageCarouse {
+    onCreateHomePageCarouse {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateHomePageCarouse = /* GraphQL */ `
+  subscription OnUpdateHomePageCarouse {
+    onUpdateHomePageCarouse {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteHomePageCarouse = /* GraphQL */ `
+  subscription OnDeleteHomePageCarouse {
+    onDeleteHomePageCarouse {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateCategory = /* GraphQL */ `
   subscription OnCreateCategory {
     onCreateCategory {
@@ -143,6 +251,7 @@ export const onCreateAuctions = /* GraphQL */ `
   subscription OnCreateAuctions {
     onCreateAuctions {
       id
+      active
       company
       description
       auctionStartDate
@@ -210,6 +319,7 @@ export const onUpdateAuctions = /* GraphQL */ `
   subscription OnUpdateAuctions {
     onUpdateAuctions {
       id
+      active
       company
       description
       auctionStartDate
@@ -277,6 +387,7 @@ export const onDeleteAuctions = /* GraphQL */ `
   subscription OnDeleteAuctions {
     onDeleteAuctions {
       id
+      active
       company
       description
       auctionStartDate
@@ -355,6 +466,7 @@ export const onCreateMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -405,6 +517,7 @@ export const onUpdateMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -455,6 +568,7 @@ export const onDeleteMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -502,6 +616,7 @@ export const onCreateLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -575,6 +690,7 @@ export const onUpdateLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -648,6 +764,7 @@ export const onDeleteLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -798,6 +915,7 @@ export const onCreateBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -829,6 +947,7 @@ export const onCreateBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -875,6 +994,7 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -906,6 +1026,7 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -952,6 +1073,7 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -983,6 +1105,7 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1030,6 +1153,7 @@ export const onCreateAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1065,6 +1189,7 @@ export const onUpdateAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1100,6 +1225,7 @@ export const onDeleteAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1133,6 +1259,7 @@ export const onCreateMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1160,6 +1287,7 @@ export const onCreateMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1201,6 +1329,7 @@ export const onUpdateMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1228,6 +1357,7 @@ export const onUpdateMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1269,6 +1399,7 @@ export const onDeleteMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1296,6 +1427,7 @@ export const onDeleteMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1338,6 +1470,7 @@ export const onCreateAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1372,6 +1505,7 @@ export const onUpdateAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1406,6 +1540,7 @@ export const onDeleteAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate

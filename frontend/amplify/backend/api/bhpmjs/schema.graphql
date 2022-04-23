@@ -30,6 +30,8 @@ type HomePageCarouse
   title: String
   imgUrl: AWSURL
   description: String
+  auctionsID: ID!
+  auctions: Auctions! @hasOne(fields: ["auctionsID"])
 }
 
 type Category

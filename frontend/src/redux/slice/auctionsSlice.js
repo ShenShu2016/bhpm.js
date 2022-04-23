@@ -50,12 +50,12 @@ export const fetchAuctionss = createAsyncThunk(
     try {
       const AuctionssData = await API.graphql({
         query: listAuctions,
-
+        variables: { active: true, limit: 1 },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
       return AuctionssData.data.listAuctions.items;
     } catch (error) {
-      console.log(error);
+      return error.data.listAuctions.items;
     }
   }
 );

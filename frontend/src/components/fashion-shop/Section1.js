@@ -1,23 +1,26 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 00:22:22
+ * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section1.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
+import { Box, Container } from "@mui/material";
 import React, { Fragment } from "react";
 
-import { Box } from "@mui/system";
 import Carousel from "../carousel/Carousel";
 import CarouselCard1 from "../carousel-cards/CarouselCard1";
-import { Container } from "@mui/material";
 import Navbar from "../navbar/Navbar";
+import { selectAllHomePageCarouses } from "../../redux/slice/homePageCarouseSlice";
+import { useSelector } from "react-redux";
 
-// import CreditCardVerifiedIcon from "../../components/icons/CreditCardVerified";
-// import FeedbackThumbsUpIcon from "../../components/icons/FeedbackThumbsUp";
-// import Navbar from "../../components/navbar/Navbar";
-// import ShowcaseCard1 from "./showcase-cards/ShowcaseCard1";
-// import ShowcaseCard2 from "./showcase-cards/ShowcaseCard2";
-// import ShowcaseCard3 from "./showcase-cards/ShowcaseCard3";
-// import ShowcaseCard4 from "./showcase-cards/ShowcaseCard4";
-// import ShowcaseCard5 from "./showcase-cards/ShowcaseCard5";
-// import Spacer from "../../components/Spacer";
+const Section1 = () => {
+  const carouselData = useSelector(selectAllHomePageCarouses);
 
-const Section1 = ({ carouselData }) => {
-  console.log(carouselData, carouselData);
   return (
     <Fragment>
       <Navbar />

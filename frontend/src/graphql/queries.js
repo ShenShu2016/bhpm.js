@@ -46,6 +46,77 @@ export const listProfiles = /* GraphQL */ `
     }
   }
 `;
+export const getHomePageCarouse = /* GraphQL */ `
+  query GetHomePageCarouse($id: ID!) {
+    getHomePageCarouse(id: $id) {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listHomePageCarouses = /* GraphQL */ `
+  query ListHomePageCarouses(
+    $filter: ModelHomePageCarouseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listHomePageCarouses(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        imgUrl
+        description
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getCategory = /* GraphQL */ `
   query GetCategory($id: ID!) {
     getCategory(id: $id) {
@@ -97,6 +168,7 @@ export const getAuctions = /* GraphQL */ `
   query GetAuctions($id: ID!) {
     getAuctions(id: $id) {
       id
+      active
       company
       description
       auctionStartDate
@@ -169,6 +241,7 @@ export const listAuctions = /* GraphQL */ `
     listAuctions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        active
         company
         description
         auctionStartDate
@@ -208,6 +281,7 @@ export const getMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -285,6 +359,7 @@ export const getLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -363,6 +438,7 @@ export const listLots = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -423,6 +499,7 @@ export const lotsSortByLot = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -522,6 +599,7 @@ export const getBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -553,6 +631,7 @@ export const getBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -608,6 +687,7 @@ export const listBidItemHistories = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -663,6 +743,7 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -704,6 +785,7 @@ export const getAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -748,6 +830,7 @@ export const listAuctionUserLimitations = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -771,6 +854,7 @@ export const getMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -798,6 +882,7 @@ export const getMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -844,6 +929,7 @@ export const listMySucceedBids = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -881,6 +967,7 @@ export const getAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -924,6 +1011,7 @@ export const listAuctionUserNumbers = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
