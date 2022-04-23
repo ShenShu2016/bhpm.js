@@ -49,7 +49,8 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            imgUrl
+            condition
+            provenance
             imgUrls
             createdAt
             updatedAt
@@ -97,7 +98,8 @@ export const listMyCollections = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            imgUrl
+            condition
+            provenance
             imgUrls
             createdAt
             updatedAt

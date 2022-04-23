@@ -22,7 +22,8 @@ export const onCreateBidItemHistory = /* GraphQL */ `
           title
           description
           categoryID
-          imgUrl
+          condition
+          provenance
           imgUrls
           createdAt
           updatedAt
@@ -91,7 +92,8 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
           title
           description
           categoryID
-          imgUrl
+          condition
+          provenance
           imgUrls
           createdAt
           updatedAt
