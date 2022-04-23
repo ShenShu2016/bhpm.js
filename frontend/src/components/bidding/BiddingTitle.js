@@ -1,9 +1,9 @@
 /*
  * @Author: 李佳修
  * @Date: 2022-04-12 17:49:45
- * @LastEditTime: 2022-04-21 21:41:24
- * @LastEditors: Shen
- * @FilePath: /bhpmJS/frontend/src/pages/auctions/BiddingTitle.js
+ * @LastEditTime: 2022-04-23 01:18:46
+ * @LastEditors: Shen Shu
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\BiddingTitle.js
  */
 
 import { H2 } from "../../components/Typography";

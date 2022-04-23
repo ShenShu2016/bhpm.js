@@ -11,7 +11,7 @@ import {
 } from "@mui/material/";
 import React, { useState } from "react";
 
-import ChangeLotsStatusDialog from "./ChangeLotsStatusDialog";
+import ChangeLotsStatusDialog from "../../components/bidding/ChangeLotsStatusDialog";
 import { selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useSelector } from "react-redux";
 

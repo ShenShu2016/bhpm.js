@@ -21,8 +21,8 @@ import {
 } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import BazarButton from "../../components/BazarButton";
-import { H1 } from "../../components/Typography";
+import BazarButton from "../BazarButton";
+import { H1 } from "../Typography";
 import { green } from "@mui/material/colors";
 
 export default function AdminActions({ auctionsID, nextBid }) {

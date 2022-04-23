@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 00:22:50
+ * @LastEditTime: 2022-04-23 01:09:05
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -62,7 +62,6 @@ export default function Home() {
     <>
       <Section1 />
       <Section11 moreItems={moreItemsRenderList} />
-      {/* <Section12 /> */}
     </>
   );
 }

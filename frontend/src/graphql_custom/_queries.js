@@ -115,3 +115,79 @@ export const listMyCollections = /* GraphQL */ `
     }
   }
 `;
+
+export const listAuctions = /* GraphQL */ `
+  query ListAuctions(
+    $filter: ModelAuctionsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAuctions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          items {
+            id
+            lot
+            startingPrice
+            estimatedPriceMin
+            estimatedPriceMax
+            lotsStatus
+            auctionsID
+            auctionItemID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        bidItemHistories {
+          items {
+            id
+            bidPrice
+            auctionsID
+            lotsID
+            userNumber
+            bidItemHistoryStatus
+            bidForm
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          items {
+            id
+            maxUserBidPrice
+            limitStatus
+            auctionsID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        auctionUserNumbers {
+          items {
+            id
+            number
+            auctionsID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

@@ -1,14 +1,25 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 01:19:18
+ * @FilePath: \bhpmJS\frontend\src\pages\auctions\bidding\Bidding.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./slideCSS.css";
 
 import { Alert, Box, CircularProgress, Paper, Snackbar } from "@mui/material";
-import { H1, H2, H3 } from "../../components/Typography";
+import { H1, H2, H3 } from "../../../components/Typography";
 import {
+  HistoryList,
   LeftImgList,
   TextPaper,
-  HistoryList,
   TextPaperContainer,
-} from "./BiddingTestStyled";
+} from "./BiddingStyled";
 import React, { useEffect, useRef, useState } from "react";
 import {
   fetchBidItemHistories,
@@ -16,45 +27,45 @@ import {
   postBidItemHistory,
   selectAllBidItemHistories,
   selectMaxBidPriceByCurrentLot,
-} from "../../redux/slice/bidItemHistorySlice";
+} from "../../../redux/slice/bidItemHistorySlice";
 import {
   fetchLotss,
   selectAllLotss,
   selectLotByInProgress,
   updateLotsDetailBySub,
-} from "../../redux/slice/lotsSlice";
+} from "../../../redux/slice/lotsSlice";
 import {
   fetchMySucceedBids,
   insertMySucceedBid,
-} from "../../redux/slice/mySucceedBidSlice";
+} from "../../../redux/slice/mySucceedBidSlice";
 import {
   onCreateBidItemHistory,
   onUpdateBidItemHistory,
-} from "../../graphql_custom/_subscriptions";
+} from "../../../graphql_custom/_subscriptions";
 import {
   onCreateMySucceedBid,
   onUpdateLots,
-} from "../../graphql/subscriptions";
+} from "../../../graphql/subscriptions";
 import {
   selectAuctionsById,
   selectedAuctions,
-} from "../../redux/slice/auctionsSlice";
+} from "../../../redux/slice/auctionsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { API } from "aws-amplify";
-import AdminActions from "./AdminActions";
-import AdminTable from "./AdminTable";
-import BazarButton from "../../components/BazarButton";
-import BidItemHistoriesRenderList from "./BidItemHistoriesRenderList";
-import BiddingTitle from "./BiddingTitle";
+import AdminActions from "../../../components/bidding/AdminActions";
+import AdminTable from "../../../components/bidding/AdminTable";
+import BazarButton from "../../../components/BazarButton";
+import BidItemHistoriesRenderList from "../../../components/bidding/BidItemHistoriesRenderList";
+import BiddingTitle from "../../../components/bidding/BiddingTitle";
 import ImageGallery from "react-image-gallery";
-import ImageList from "../../components/ImageList";
-import Loading from "../../components/Loading";
-import { fetchAuctionUserLimitations } from "../../redux/slice/auctionUserLimitationSlice";
+import ImageList from "../../../components/ImageList";
+import Loading from "../../../components/Loading";
+import { fetchAuctionUserLimitations } from "../../../redux/slice/auctionUserLimitationSlice";
 import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
 
-export default function BiddingTest() {
+export default function Bidding() {
   // const classes = useStyles();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -399,47 +410,48 @@ export default function BiddingTest() {
                   </TextPaper>
                 </TextPaperContainer>
                 {!cognitoGroup.includes("admin") && (
-                  <BazarButton
-                    variant="contained"
-                    onClick={handleBitClick}
-                    color="primary"
-                    size="large"
-                    fullWidth={true}
-                    disabled={
-                      isAuthenticated !== true ||
-                      loading ||
-                      !auction?.auctionUserNumbers?.items[0]?.number
-                    }
-                  >
-                    Bid
-                    {loading && (
-                      <CircularProgress
-                        size={24}
-                        sx={{
-                          color: green[500],
-                          position: "absolute",
-                        }}
-                      />
-                    )}
-                  </BazarButton>
-                )}
-                {maxBidPriceByCurrentLot &&
-                  auction.auctionUserNumbers &&
-                  auction.auctionUserNumbers.items.length !== 0 &&
-                  maxBidPriceByCurrentLot.userNumber ===
-                    auction.auctionUserNumbers.items[0].number && (
-                    <Paper
-                      sx={{
-                        maxWidth: "500px",
-                        margin: "auto",
-                        backgroundColor: "green",
-                      }}
+                  <>
+                    <BazarButton
+                      variant="contained"
+                      onClick={handleBitClick}
+                      color="primary"
+                      size="large"
+                      fullWidth={true}
+                      disabled={
+                        isAuthenticated !== true ||
+                        loading ||
+                        !auction?.auctionUserNumbers?.items[0]?.number
+                      }
                     >
-                      <H1 color="" mb="0.2rem">
-                        You are the highest bidder now
-                      </H1>
-                    </Paper>
-                  )}
+                      Bid
+                      {loading && (
+                        <CircularProgress
+                          size={24}
+                          sx={{
+                            color: green[500],
+                            position: "absolute",
+                          }}
+                        />
+                      )}
+                    </BazarButton>
+                    {maxBidPriceByCurrentLot &&
+                      auction?.auctionUserNumbers?.items?.length !== 0 &&
+                      maxBidPriceByCurrentLot.userNumber ===
+                        auction?.auctionUserNumbers?.items[0]?.number && (
+                        <Paper
+                          sx={{
+                            maxWidth: "500px",
+                            margin: "auto",
+                            backgroundColor: "green",
+                          }}
+                        >
+                          <H1 color="" mb="0.2rem">
+                            You are the highest bidder now
+                          </H1>
+                        </Paper>
+                      )}
+                  </>
+                )}
               </Box>
               {isAuthenticated && !cognitoGroup.includes("admin") && (
                 <Paper sx={{ p: "2rem", marginBottom: "1rem" }}>
