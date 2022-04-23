@@ -84,8 +84,9 @@ export const createCategory = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -113,8 +114,9 @@ export const updateCategory = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -142,8 +144,9 @@ export const deleteCategory = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -399,8 +402,9 @@ export const createMyCollection = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -451,8 +455,9 @@ export const updateMyCollection = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -503,8 +508,9 @@ export const deleteMyCollection = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -570,8 +576,9 @@ export const createLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -645,8 +652,9 @@ export const updateLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -720,8 +728,9 @@ export const deleteLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -767,8 +776,9 @@ export const createAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -796,8 +806,9 @@ export const updateAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -825,8 +836,9 @@ export const deleteAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -891,8 +903,9 @@ export const createBidItemHistory = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -970,8 +983,9 @@ export const updateBidItemHistory = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -1049,8 +1063,9 @@ export const deleteBidItemHistory = /* GraphQL */ `
           titleEng
           descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
