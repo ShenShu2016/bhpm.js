@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 15:18:44
+ * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import {
@@ -31,6 +42,7 @@ const StyledBazarCard = styled(BazarCard)(() => ({
   },
 }));
 const ImageWrapper = styled(Box)(({ theme }) => ({
+  marginTop: "1rem",
   position: "relative",
   display: "inline-block",
   textAlign: "center",
@@ -73,8 +85,6 @@ const ProductCard1 = ({
   const [isFavorite, setIsFavorite] = useState(isFav || false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  // const { state, dispatch } = useAppContext();
-  // const cartItem = state.cart.cartList.find((item) => item.id === id);
   const { username } = useSelector((state) => state.userAuth.user);
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
@@ -119,6 +129,7 @@ const ProductCard1 = ({
             height={275}
             layout="responsive"
             alt={title}
+            style={{ borderRadius: "10px" }}
           />
         </Link>
       </ImageWrapper>
@@ -139,17 +150,11 @@ const ProductCard1 = ({
                 Lot #{lotNum} {title}
               </H3>
             </Link>
-
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.second">
                 估價: ${startingPrice.toFixed(2)} - ${price.toFixed(2)}
               </Box>
             </FlexBox>
-            {/* <FlexBox alignItems="center" mt={0.5}>
-              <Box pr={1} fontWeight="600" color="primary.main">
-                預計成交價: ${price.toFixed(2)}
-              </Box>
-            </FlexBox> */}
           </Box>
         </FlexBox>
       </ContentWrapper>

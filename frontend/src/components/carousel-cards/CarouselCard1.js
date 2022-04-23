@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 00:25:04
+ * @LastEditTime: 2022-04-23 15:40:59
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -59,8 +59,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CarouselCard1 = ({ carousel }) => {
-  console.log(carousel);
+export default function CarouselCard1({ carousel }) {
+  //console.log(carousel);
   return (
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
@@ -73,7 +73,6 @@ const CarouselCard1 = ({ carousel }) => {
             className="button-link"
             variant="contained"
             color="primary"
-            disableElevation
             sx={{
               px: "1.75rem",
               height: "44px",
@@ -94,12 +93,12 @@ const CarouselCard1 = ({ carousel }) => {
               mx: "auto",
               maxHeight: 400,
               maxWidth: "100%",
+              cursor: "pointer",
             }}
+            onClick={() => window.open(carousel.imgUrl)}
           />
         </Grid>
       </Grid>
     </StyledBox>
   );
-};
-
-export default CarouselCard1;
+}
