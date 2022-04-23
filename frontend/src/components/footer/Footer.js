@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 15:11:33
+ * @LastEditTime: 2022-04-23 16:01:16
  * @FilePath: \bhpmJS\frontend\src\components\footer\Footer.js
  * @Description:
  *
@@ -114,7 +114,7 @@ const Footer = () => {
                   160 E Beaver Creek Rd, Unit18, Richmond Hill, Ontario. Canada
                 </Box>
                 <Box py={0.6} color="grey.500">
-                  Email: bowell.gemology@gmail.com
+                  Email: info@bhpm.ca
                 </Box>
                 <Box py={0.6} mb={2} color="grey.500">
                   Phone: 416-900-2877

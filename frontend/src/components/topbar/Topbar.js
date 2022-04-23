@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 14:59:05
+ * @LastEditTime: 2022-04-23 16:01:20
  * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
  * @Description:
  *
@@ -136,7 +136,7 @@ const Topbar = () => {
           </FlexBox>
           <FlexBox alignItems="center" ml={2.5}>
             <MailOutline fontSize="small" />
-            <Span className="title">bowell.gemology@gmail.com</Span>
+            <Span className="title">info@bhpm.ca</Span>
           </FlexBox>
         </FlexBox>
 
