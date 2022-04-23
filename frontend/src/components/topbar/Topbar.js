@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 14:50:45
+ * @LastEditTime: 2022-04-23 14:59:05
  * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
  * @Description:
  *
@@ -122,9 +122,10 @@ const Topbar = () => {
             <Link to="/" style={{ display: "flex", alignItems: "center" }}>
               <img
                 display="block"
-                height="38px"
+                height="40px"
                 src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
                 alt="logo"
+                style={{ borderRadius: "10px" }}
               />
             </Link>
           </div>

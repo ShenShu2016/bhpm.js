@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 15:11:44
+ * @FilePath: \bhpmJS\frontend\src\components\navbar\Navbar.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Container, MenuItem, styled } from "@mui/material";
 
 import ArrowRight from "@mui/icons-material/ArrowRight";
@@ -58,7 +69,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const Navbar = ({ navListOpen, hideCategories }) => {
+
+const Navbar = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const navbarNavigations = [
@@ -207,6 +219,7 @@ const Navbar = ({ navListOpen, hideCategories }) => {
             height={130}
             src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
             alt="logo"
+            style={{ borderRadius: "10px" }}
           />
         </Box>
 

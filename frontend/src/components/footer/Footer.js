@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 15:11:33
+ * @FilePath: \bhpmJS\frontend\src\components\footer\Footer.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Container, Grid, styled } from "@mui/material";
 
 import BazarIconButton from "../BazarIconButton";
@@ -38,6 +49,7 @@ const Footer = () => {
                     height="200px"
                     src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
                     alt="logo"
+                    style={{ borderRadius: "10px" }}
                   />
                 </Link>
               </Grid>
@@ -53,10 +65,6 @@ const Footer = () => {
                 </Box>
 
                 <div>
-                  {/* {aboutLinks.map((item, ind) => (
-                    <StyledLink key={ind}>{item}</StyledLink>
-                  ))} */}
-
                   <Link to="about_us">
                     <StyledLink>{`${t("description.寶華介紹")}`}</StyledLink>
                   </Link>
@@ -149,14 +157,14 @@ const customerCareLinks = [
 ];
 
 const iconList = [
-  { icon: Facebook, url: "https://www.facebook.com/UILibOfficial" },
-  { icon: Twitter, url: "https://twitter.com/uilibofficial" },
+  { icon: Facebook, url: "/" },
+  { icon: Twitter, url: "/" },
   {
     icon: Youtube,
-    url: "https://www.youtube.com/channel/UCsIyD-TSO1wQFz-n2Y4i3Rg",
+    url: "/",
   },
   { icon: Google, url: "/" },
-  { icon: Instagram, url: "https://www.instagram.com/uilibofficial/" },
+  { icon: Instagram, url: "/" },
 ];
 
 export default Footer;
