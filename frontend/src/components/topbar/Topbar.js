@@ -1,6 +1,6 @@
 import { Box, Container, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -15,6 +15,7 @@ import TouchRipple from "@mui/material/ButtonBase";
 import { signOut } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
+import { setLanguage } from "../../redux/slice/generalSlice";
 
 const TopbarWrapper = styled("div")(({ theme }) => ({
   background: theme.palette.secondary.main,
@@ -74,14 +75,15 @@ const Topbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
-
-  const [language, setLanguage] = useState(languageList[0]);
+  const  languageState  = useSelector((state) => state.general.language);
+  const languageList = useSelector((state) => state.general.languageList);
   const { t, i18n } = useTranslation();
   const handleLanguageClick = (lang) => () => {
     console.log(lang);
-    setLanguage(lang);
+    dispatch(setLanguage(lang));
     i18n.changeLanguage(lang.title);
   };
+  console.log(languageState);
 
   useEffect(() => {
     // get language from browser
@@ -173,7 +175,7 @@ const Topbar = () => {
           <BazarMenu
             handler={
               <TouchRipple className="handler marginRight">
-                <Span className="menuTitle">{language.title}</Span>
+                <Span className="menuTitle">{languageState.title}</Span>
                 <ExpandMore fontSize="inherit" />
               </TouchRipple>
             }
@@ -194,15 +196,5 @@ const Topbar = () => {
   );
 };
 
-const languageList = [
-  {
-    title: "en",
-    imgUrl: "/assets/images/flags/usa.png",
-  },
-  {
-    title: "中文",
-    imgUrl: "/assets/images/flags/bd.png",
-  },
-];
 
 export default Topbar;

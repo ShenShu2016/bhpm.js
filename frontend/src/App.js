@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-
 import AboutUs from "./pages/business_info/About-us";
 import Amplify from "aws-amplify";
 import AuctionsRouter from "./pages/auctions/AuctionsRouter";
@@ -14,9 +13,10 @@ import Rules from "./pages/business_info/Rules";
 import Services from "./pages/business_info/Services";
 import Teams from "./pages/business_info/Teams";
 import Topbar from "./components/topbar/Topbar";
+import AlertTool from "./components/AlertTool";
 import awsconfig from "./aws-exports";
 import { loadUser } from "./redux/slice/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
 
 Amplify.configure(awsconfig);
@@ -29,6 +29,7 @@ export default function App() {
   return (
     <MuiTheme>
       <Topbar />
+      <AlertTool />
       <Routes>
         <Route exact path="" element={<Home />} />
         <Route path="auctions/*" element={<AuctionsRouter />} />

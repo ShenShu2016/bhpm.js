@@ -1,31 +1,23 @@
 import { Container, Grid } from "@mui/material";
-
+import { setAlert } from "../../redux/slice/generalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
 import React from "react";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
-import { removeAlert, setAlert } from "../../redux/slice/generalSlice";
+import Button from '@mui/material/Button';
 
 const SectionMyCollection = ({ moreItems }) => {
-  console.log(moreItems);
+  //console.log(moreItems);
   const alert = useSelector((state) => state.general.alert);
   const dispatch = useDispatch();
   const toggleAlert = async () => {
     if (alert === false) {
-      dispatch(setAlert());
+        dispatch(setAlert());
     }
   };
-  const deleteAlert = async () => {
-    if(alert === true){
-      dispatch(removeAlert());
-    }
-  }
-  console.log(alert);
   return (
     <Container
       sx={{
@@ -57,17 +49,15 @@ const SectionMyCollection = ({ moreItems }) => {
               Empty! Go to collect your favorites!
             </H3>
           </Link>
-          {alert ? (
-            <Alert severity="success" onClose={() => deleteAlert()}>
-              <AlertTitle>Success</AlertTitle>
-              This is a success alert — check it out!
-            </Alert>
-          ) : (
-            <Alert severity="error" onClose={() => toggleAlert()}>
-              <AlertTitle>Error</AlertTitle>
-              This is an error alert — <strong>check it out!</strong>
-            </Alert>
-          )}
+          <Button
+        disabled={alert}
+        variant="outlined"
+        onClick={() => {
+          toggleAlert();
+        }}
+      >
+        Toggle Alert
+      </Button>
         </Stack>
       )}
     </Container>
