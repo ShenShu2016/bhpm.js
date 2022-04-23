@@ -1,7 +1,7 @@
 /*
  * @Author: 李佳修
  * @Date: 2022-04-22 17:20:56
- * @LastEditTime: 2022-04-22 17:33:18
+ * @LastEditTime: 2022-04-23 08:06:07
  * @LastEditors: 李佳修
  * @FilePath: /bhpmJS/frontend/src/pages/auctions/BiddingTestStyled.js
  */
@@ -36,5 +36,19 @@ export const LeftImgList = styled(Paper)(({ theme }) => ({
     padding: '12px',
     [theme.breakpoints.down("sm")]: {
        display: 'none'
+    },
+}));
+
+export const HistoryList = styled(Box)(({ theme }) => ({
+    flex: 1,
+    maxWidth: "70%",
+    minWidth: "180px",
+    maxHeight: "533px",
+    overflow: "auto",
+    padding: "0 16px",
+    marginLeft: '8px',
+    [theme.breakpoints.down("sm")]: {
+        minWidth: "350px",
+        marginLeft: '0px',
     },
 }));

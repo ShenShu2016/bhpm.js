@@ -6,6 +6,7 @@ import { H1, H2, H3 } from "../../components/Typography";
 import {
   LeftImgList,
   TextPaper,
+  HistoryList,
   TextPaperContainer,
 } from "./BiddingTestStyled";
 import React, { useEffect, useRef, useState } from "react";
@@ -454,24 +455,13 @@ export default function BiddingTest() {
               )}
             </Box>
 
-            <Box
-              sx={{
-                flex: 1,
-                maxWidth: "70%",
-                minWidth: "170px",
-                maxHeight: "533px",
-                overflow: "auto",
-                marginLeft: "8px",
-                padding: "0 16px",
-              }}
-              component={Paper}
-            >
+            <HistoryList component={Paper}>
               <div ref={messageRef}>
                 <BidItemHistoriesRenderList
                   bitItemHistories={bitItemHistories}
                 />
               </div>
-            </Box>
+            </HistoryList>
           </>
         ) : (
           // <Typography variant="h3"><CircularProgress />Waiting</Typography>
