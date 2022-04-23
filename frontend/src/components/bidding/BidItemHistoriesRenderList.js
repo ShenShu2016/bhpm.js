@@ -1,6 +1,17 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 14:12:26
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\BidItemHistoriesRenderList.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Card, Stack } from "@mui/material";
 import { H3, H4 } from "../../components/Typography";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
@@ -13,6 +24,16 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   const { cognitoGroup } = useSelector((state) => state.userAuth);
   const [loading, setLoading] = useState(false);
 
+  const messageRef = useRef();
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [bitItemHistories]);
   const handleBidSuccess = async (history) => {
     setLoading(true);
     console.log(history);
@@ -58,15 +79,6 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
               Lot {history.lots.lot} sold For CAD ${history.bidPrice} to
               Competing Bidder
             </H4>
-            {/* <H3>
-                ${history.bidPrice} ({history.bidForm})
-              </H3>
-              <H5 color="red">
-                Lot {history.lots.lot} 
-              </H5>
-              <Typography variant="body1">
-                {moment(history.createdAt).fromNow()}
-              </Typography> */}
           </Card>
         </>
       );
@@ -78,9 +90,6 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
             <H4 color="white">
               Lot {history.lots.lot} Opened - Ask ${history.lots.startingPrice}
             </H4>
-            {/* <Typography variant="body1">
-                {moment(history.createdAt).fromNow()}
-              </Typography> */}
           </Card>
         </>
       );
@@ -90,13 +99,6 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
         <>
           <Card sx={{ backgroundColor: "#ffd686", p: "0.2rem" }}>
             <H3 sx={{ color: "blue" }}>First Warning</H3>
-            {/* <H3>
-                ${history.bidPrice} ({history.bidForm})
-              </H3>
-              <H2 color="blue">First Call</H2>
-              <Typography variant="body1">
-                {moment(history.createdAt).fromNow()}
-              </Typography> */}
           </Card>
         </>
       );
@@ -122,7 +124,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   }
 
   return (
-    <div>
+    <div ref={messageRef}>
       <Stack
         spacing={2}
         sx={{

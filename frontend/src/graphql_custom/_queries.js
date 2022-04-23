@@ -1,3 +1,13 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 13:48:47
+ * @FilePath: \bhpmJS\frontend\src\graphql_custom\_queries.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
 export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
   query BidItemHistorySortByCreatedAt(
     $auctionsID: ID!

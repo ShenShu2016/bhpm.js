@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 14:50:45
+ * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Container, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
@@ -12,10 +23,10 @@ import FlexBox from "../FlexBox";
 import MailOutline from "@mui/icons-material/MailOutline";
 import { Span } from "../Typography";
 import TouchRipple from "@mui/material/ButtonBase";
+import { setLanguage } from "../../redux/slice/generalSlice";
 import { signOut } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { setLanguage } from "../../redux/slice/generalSlice";
 
 const TopbarWrapper = styled("div")(({ theme }) => ({
   background: theme.palette.secondary.main,
@@ -75,7 +86,7 @@ const Topbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
-  const  languageState  = useSelector((state) => state.general.language);
+  const languageState = useSelector((state) => state.general.language);
   const languageList = useSelector((state) => state.general.languageList);
   const { t, i18n } = useTranslation();
   const handleLanguageClick = (lang) => () => {
@@ -83,7 +94,7 @@ const Topbar = () => {
     dispatch(setLanguage(lang));
     i18n.changeLanguage(lang.title);
   };
-  console.log(languageState);
+  //console.log(languageState);
 
   useEffect(() => {
     // get language from browser
@@ -108,7 +119,7 @@ const Topbar = () => {
       >
         <FlexBox className="topbarLeft" alignItems="center">
           <div className="logo">
-            <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+            <Link to="/" style={{ display: "flex", alignItems: "center" }}>
               <img
                 display="block"
                 height="38px"
@@ -195,6 +206,5 @@ const Topbar = () => {
     </TopbarWrapper>
   );
 };
-
 
 export default Topbar;
