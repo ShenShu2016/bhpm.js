@@ -58,156 +58,17 @@ export const onDeleteProfile = /* GraphQL */ `
     }
   }
 `;
-export const onCreateMyCollection = /* GraphQL */ `
-  subscription OnCreateMyCollection($owner: String) {
-    onCreateMyCollection(owner: $owner) {
+export const onCreateHomePageCarouse = /* GraphQL */ `
+  subscription OnCreateHomePageCarouse {
+    onCreateHomePageCarouse {
       id
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onUpdateMyCollection = /* GraphQL */ `
-  subscription OnUpdateMyCollection($owner: String) {
-    onUpdateMyCollection(owner: $owner) {
-      id
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onDeleteMyCollection = /* GraphQL */ `
-  subscription OnDeleteMyCollection($owner: String) {
-    onDeleteMyCollection(owner: $owner) {
-      id
-      lotsID
-      lots {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          categoryID
-          imgUrl
-          imgUrls
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onCreateAuctionUserLimitation = /* GraphQL */ `
-  subscription OnCreateAuctionUserLimitation($owner: String) {
-    onCreateAuctionUserLimitation(owner: $owner) {
-      id
-      maxUserBidPrice
-      limitStatus
+      title
+      imgUrl
+      description
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -230,19 +91,20 @@ export const onCreateAuctionUserLimitation = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
-export const onUpdateAuctionUserLimitation = /* GraphQL */ `
-  subscription OnUpdateAuctionUserLimitation($owner: String) {
-    onUpdateAuctionUserLimitation(owner: $owner) {
+export const onUpdateHomePageCarouse = /* GraphQL */ `
+  subscription OnUpdateHomePageCarouse {
+    onUpdateHomePageCarouse {
       id
-      maxUserBidPrice
-      limitStatus
+      title
+      imgUrl
+      description
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -265,19 +127,20 @@ export const onUpdateAuctionUserLimitation = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
     }
   }
 `;
-export const onDeleteAuctionUserLimitation = /* GraphQL */ `
-  subscription OnDeleteAuctionUserLimitation($owner: String) {
-    onDeleteAuctionUserLimitation(owner: $owner) {
+export const onDeleteHomePageCarouse = /* GraphQL */ `
+  subscription OnDeleteHomePageCarouse {
+    onDeleteHomePageCarouse {
       id
-      maxUserBidPrice
-      limitStatus
+      title
+      imgUrl
+      description
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -300,313 +163,6 @@ export const onDeleteAuctionUserLimitation = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
-    }
-  }
-`;
-export const onCreateMySucceedBid = /* GraphQL */ `
-  subscription OnCreateMySucceedBid($owner: String) {
-    onCreateMySucceedBid(owner: $owner) {
-      id
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrementPriceList
-        auctionUserLimitations {
-          nextToken
-        }
-        auctionUserNumbers {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      bidItemHistoryID
-      bidItemHistory {
-        id
-        bidPrice
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        lotsID
-        lots {
-          id
-          lot
-          startingPrice
-          estimatedPriceMin
-          estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
-          createdAt
-          updatedAt
-        }
-        userNumber
-        bidItemHistoryStatus
-        bidForm
-        createdAt
-        updatedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onUpdateMySucceedBid = /* GraphQL */ `
-  subscription OnUpdateMySucceedBid($owner: String) {
-    onUpdateMySucceedBid(owner: $owner) {
-      id
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrementPriceList
-        auctionUserLimitations {
-          nextToken
-        }
-        auctionUserNumbers {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      bidItemHistoryID
-      bidItemHistory {
-        id
-        bidPrice
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        lotsID
-        lots {
-          id
-          lot
-          startingPrice
-          estimatedPriceMin
-          estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
-          createdAt
-          updatedAt
-        }
-        userNumber
-        bidItemHistoryStatus
-        bidForm
-        createdAt
-        updatedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onDeleteMySucceedBid = /* GraphQL */ `
-  subscription OnDeleteMySucceedBid($owner: String) {
-    onDeleteMySucceedBid(owner: $owner) {
-      id
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrementPriceList
-        auctionUserLimitations {
-          nextToken
-        }
-        auctionUserNumbers {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      bidItemHistoryID
-      bidItemHistory {
-        id
-        bidPrice
-        auctionsID
-        auctions {
-          id
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        lotsID
-        lots {
-          id
-          lot
-          startingPrice
-          estimatedPriceMin
-          estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
-          createdAt
-          updatedAt
-        }
-        userNumber
-        bidItemHistoryStatus
-        bidForm
-        createdAt
-        updatedAt
-        owner
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onCreateAuctionUserNumber = /* GraphQL */ `
-  subscription OnCreateAuctionUserNumber($owner: String) {
-    onCreateAuctionUserNumber(owner: $owner) {
-      id
-      number
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrementPriceList
-        auctionUserLimitations {
-          nextToken
-        }
-        auctionUserNumbers {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onUpdateAuctionUserNumber = /* GraphQL */ `
-  subscription OnUpdateAuctionUserNumber($owner: String) {
-    onUpdateAuctionUserNumber(owner: $owner) {
-      id
-      number
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrementPriceList
-        auctionUserLimitations {
-          nextToken
-        }
-        auctionUserNumbers {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
-export const onDeleteAuctionUserNumber = /* GraphQL */ `
-  subscription OnDeleteAuctionUserNumber($owner: String) {
-    onDeleteAuctionUserNumber(owner: $owner) {
-      id
-      number
-      auctionsID
-      auctions {
-        id
-        company
-        description
-        auctionStartDate
-        auctionEndDate
-        lots {
-          nextToken
-        }
-        bidItemHistories {
-          nextToken
-        }
-        bidIncrementPriceList
-        auctionUserLimitations {
-          nextToken
-        }
-        auctionUserNumbers {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;
@@ -621,9 +177,12 @@ export const onCreateCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -645,9 +204,12 @@ export const onUpdateCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -669,9 +231,12 @@ export const onDeleteCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -686,6 +251,7 @@ export const onCreateAuctions = /* GraphQL */ `
   subscription OnCreateAuctions {
     onCreateAuctions {
       id
+      active
       company
       description
       auctionStartDate
@@ -753,6 +319,7 @@ export const onUpdateAuctions = /* GraphQL */ `
   subscription OnUpdateAuctions {
     onUpdateAuctions {
       id
+      active
       company
       description
       auctionStartDate
@@ -820,6 +387,7 @@ export const onDeleteAuctions = /* GraphQL */ `
   subscription OnDeleteAuctions {
     onDeleteAuctions {
       id
+      active
       company
       description
       auctionStartDate
@@ -883,6 +451,159 @@ export const onDeleteAuctions = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMyCollection = /* GraphQL */ `
+  subscription OnCreateMyCollection($owner: String) {
+    onCreateMyCollection(owner: $owner) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          titleEng
+          descriptionEng
+          categoryID
+          imgUrls
+          condition
+          provenance
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateMyCollection = /* GraphQL */ `
+  subscription OnUpdateMyCollection($owner: String) {
+    onUpdateMyCollection(owner: $owner) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          titleEng
+          descriptionEng
+          categoryID
+          imgUrls
+          condition
+          provenance
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteMyCollection = /* GraphQL */ `
+  subscription OnDeleteMyCollection($owner: String) {
+    onDeleteMyCollection(owner: $owner) {
+      id
+      lotsID
+      lots {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          titleEng
+          descriptionEng
+          categoryID
+          imgUrls
+          condition
+          provenance
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateLots = /* GraphQL */ `
   subscription OnCreateLots {
     onCreateLots {
@@ -895,6 +616,7 @@ export const onCreateLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -921,6 +643,8 @@ export const onCreateLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -928,8 +652,9 @@ export const onCreateLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -965,6 +690,7 @@ export const onUpdateLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -991,6 +717,8 @@ export const onUpdateLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -998,8 +726,9 @@ export const onUpdateLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -1035,6 +764,7 @@ export const onDeleteLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1061,6 +791,8 @@ export const onDeleteLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -1068,8 +800,9 @@ export const onDeleteLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -1100,6 +833,8 @@ export const onCreateAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -1110,8 +845,9 @@ export const onCreateAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -1124,6 +860,8 @@ export const onUpdateAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -1134,8 +872,9 @@ export const onUpdateAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -1148,6 +887,8 @@ export const onDeleteAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -1158,8 +899,9 @@ export const onDeleteAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -1173,6 +915,7 @@ export const onCreateBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1204,6 +947,7 @@ export const onCreateBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1218,9 +962,12 @@ export const onCreateBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -1247,6 +994,7 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1278,6 +1026,7 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1292,9 +1041,12 @@ export const onUpdateBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -1321,6 +1073,7 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1352,6 +1105,7 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1366,9 +1120,12 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -1381,6 +1138,429 @@ export const onDeleteBidItemHistory = /* GraphQL */ `
       userNumber
       bidItemHistoryStatus
       bidForm
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateAuctionUserLimitation = /* GraphQL */ `
+  subscription OnCreateAuctionUserLimitation($owner: String) {
+    onCreateAuctionUserLimitation(owner: $owner) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateAuctionUserLimitation = /* GraphQL */ `
+  subscription OnUpdateAuctionUserLimitation($owner: String) {
+    onUpdateAuctionUserLimitation(owner: $owner) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteAuctionUserLimitation = /* GraphQL */ `
+  subscription OnDeleteAuctionUserLimitation($owner: String) {
+    onDeleteAuctionUserLimitation(owner: $owner) {
+      id
+      maxUserBidPrice
+      limitStatus
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateMySucceedBid = /* GraphQL */ `
+  subscription OnCreateMySucceedBid($owner: String) {
+    onCreateMySucceedBid(owner: $owner) {
+      id
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateMySucceedBid = /* GraphQL */ `
+  subscription OnUpdateMySucceedBid($owner: String) {
+    onUpdateMySucceedBid(owner: $owner) {
+      id
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteMySucceedBid = /* GraphQL */ `
+  subscription OnDeleteMySucceedBid($owner: String) {
+    onDeleteMySucceedBid(owner: $owner) {
+      id
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      bidItemHistoryID
+      bidItemHistory {
+        id
+        bidPrice
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        lotsID
+        lots {
+          id
+          lot
+          startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotsStatus
+          auctionsID
+          auctionItemID
+          createdAt
+          updatedAt
+        }
+        userNumber
+        bidItemHistoryStatus
+        bidForm
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateAuctionUserNumber = /* GraphQL */ `
+  subscription OnCreateAuctionUserNumber($owner: String) {
+    onCreateAuctionUserNumber(owner: $owner) {
+      id
+      number
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateAuctionUserNumber = /* GraphQL */ `
+  subscription OnUpdateAuctionUserNumber($owner: String) {
+    onUpdateAuctionUserNumber(owner: $owner) {
+      id
+      number
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteAuctionUserNumber = /* GraphQL */ `
+  subscription OnDeleteAuctionUserNumber($owner: String) {
+    onDeleteAuctionUserNumber(owner: $owner) {
+      id
+      number
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
       owner

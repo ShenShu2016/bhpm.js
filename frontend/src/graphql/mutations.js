@@ -67,6 +67,123 @@ export const deleteProfile = /* GraphQL */ `
     }
   }
 `;
+export const createHomePageCarouse = /* GraphQL */ `
+  mutation CreateHomePageCarouse(
+    $input: CreateHomePageCarouseInput!
+    $condition: ModelHomePageCarouseConditionInput
+  ) {
+    createHomePageCarouse(input: $input, condition: $condition) {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateHomePageCarouse = /* GraphQL */ `
+  mutation UpdateHomePageCarouse(
+    $input: UpdateHomePageCarouseInput!
+    $condition: ModelHomePageCarouseConditionInput
+  ) {
+    updateHomePageCarouse(input: $input, condition: $condition) {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteHomePageCarouse = /* GraphQL */ `
+  mutation DeleteHomePageCarouse(
+    $input: DeleteHomePageCarouseInput!
+    $condition: ModelHomePageCarouseConditionInput
+  ) {
+    deleteHomePageCarouse(input: $input, condition: $condition) {
+      id
+      title
+      imgUrl
+      description
+      auctionsID
+      auctions {
+        id
+        active
+        company
+        description
+        auctionStartDate
+        auctionEndDate
+        lots {
+          nextToken
+        }
+        bidItemHistories {
+          nextToken
+        }
+        bidIncrementPriceList
+        auctionUserLimitations {
+          nextToken
+        }
+        auctionUserNumbers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createCategory = /* GraphQL */ `
   mutation CreateCategory(
     $input: CreateCategoryInput!
@@ -81,9 +198,12 @@ export const createCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -108,9 +228,12 @@ export const updateCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -135,9 +258,12 @@ export const deleteCategory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -155,6 +281,7 @@ export const createAuctions = /* GraphQL */ `
   ) {
     createAuctions(input: $input, condition: $condition) {
       id
+      active
       company
       description
       auctionStartDate
@@ -225,6 +352,7 @@ export const updateAuctions = /* GraphQL */ `
   ) {
     updateAuctions(input: $input, condition: $condition) {
       id
+      active
       company
       description
       auctionStartDate
@@ -295,6 +423,7 @@ export const deleteAuctions = /* GraphQL */ `
   ) {
     deleteAuctions(input: $input, condition: $condition) {
       id
+      active
       company
       description
       auctionStartDate
@@ -376,6 +505,7 @@ export const createMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -390,9 +520,12 @@ export const createMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -426,6 +559,7 @@ export const updateMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -440,9 +574,12 @@ export const updateMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -476,6 +613,7 @@ export const deleteMyCollection = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -490,9 +628,12 @@ export const deleteMyCollection = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -523,6 +664,7 @@ export const createLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -549,6 +691,8 @@ export const createLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -556,8 +700,9 @@ export const createLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -596,6 +741,7 @@ export const updateLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -622,6 +768,8 @@ export const updateLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -629,8 +777,9 @@ export const updateLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -669,6 +818,7 @@ export const deleteLots = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -695,6 +845,8 @@ export const deleteLots = /* GraphQL */ `
         name
         title
         description
+        titleEng
+        descriptionEng
         categoryID
         category {
           id
@@ -702,8 +854,9 @@ export const deleteLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        imgUrl
         imgUrls
+        condition
+        provenance
         createdAt
         updatedAt
       }
@@ -737,6 +890,8 @@ export const createAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -747,8 +902,9 @@ export const createAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -764,6 +920,8 @@ export const updateAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -774,8 +932,9 @@ export const updateAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -791,6 +950,8 @@ export const deleteAuctionItem = /* GraphQL */ `
       name
       title
       description
+      titleEng
+      descriptionEng
       categoryID
       category {
         id
@@ -801,8 +962,9 @@ export const deleteAuctionItem = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      imgUrl
       imgUrls
+      condition
+      provenance
       createdAt
       updatedAt
     }
@@ -819,6 +981,7 @@ export const createBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -850,6 +1013,7 @@ export const createBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -864,9 +1028,12 @@ export const createBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -896,6 +1063,7 @@ export const updateBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -927,6 +1095,7 @@ export const updateBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -941,9 +1110,12 @@ export const updateBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -973,6 +1145,7 @@ export const deleteBidItemHistory = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1004,6 +1177,7 @@ export const deleteBidItemHistory = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1018,9 +1192,12 @@ export const deleteBidItemHistory = /* GraphQL */ `
           name
           title
           description
+          titleEng
+          descriptionEng
           categoryID
-          imgUrl
           imgUrls
+          condition
+          provenance
           createdAt
           updatedAt
         }
@@ -1051,6 +1228,7 @@ export const createAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1089,6 +1267,7 @@ export const updateAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1127,6 +1306,7 @@ export const deleteAuctionUserLimitation = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1163,6 +1343,7 @@ export const createMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1190,6 +1371,7 @@ export const createMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1234,6 +1416,7 @@ export const updateMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1261,6 +1444,7 @@ export const updateMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1305,6 +1489,7 @@ export const deleteMySucceedBid = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1332,6 +1517,7 @@ export const deleteMySucceedBid = /* GraphQL */ `
         auctionsID
         auctions {
           id
+          active
           company
           description
           auctionStartDate
@@ -1377,6 +1563,7 @@ export const createAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1414,6 +1601,7 @@ export const updateAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate
@@ -1451,6 +1639,7 @@ export const deleteAuctionUserNumber = /* GraphQL */ `
       auctionsID
       auctions {
         id
+        active
         company
         description
         auctionStartDate

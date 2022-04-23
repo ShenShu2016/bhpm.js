@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 00:43:39
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\LotssRenderList.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Container, Typography } from "@mui/material";
 
 import React from "react";

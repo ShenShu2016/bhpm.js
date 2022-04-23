@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "../../components/navbar/Navbar";
-import Section12 from "../../components/superstore-shop/Section12";
 import { fetchLotss } from "../../redux/slice/lotsSlice";
+
+//import Section12 from "../../components/superstore-shop/Section12";
+
 
 export default function AboutUs() {
   const dispatch = useDispatch();
@@ -90,7 +92,7 @@ export default function AboutUs() {
         </Box>
       </InnerContainer>
 
-      <Section12 />
+      {/* <Section12 /> */}
     </>
   );
 }

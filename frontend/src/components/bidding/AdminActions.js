@@ -21,8 +21,8 @@ import {
 } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import BazarButton from "../../components/BazarButton";
-import { H1 } from "../../components/Typography";
+import BazarButton from "../BazarButton";
+import { H1 } from "../Typography";
 import { green } from "@mui/material/colors";
 
 export default function AdminActions({ auctionsID, nextBid }) {
@@ -31,7 +31,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
   const [bidForm, setBidForm] = useState("Room");
   const [userNumber, setUserNumber] = useState(0);
   const [bidAmount, setBidAmount] = useState(0);
-  console.log(bidAmount);
+  //console.log(bidAmount);
 
   useEffect(() => {
     if (nextBid) {
@@ -123,7 +123,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
   const nextLotArr = useSelector(
     selectLotByNextLotNumber(lotInProgress[0] && lotInProgress[0].lot + 1)
   );
-  console.log(nextLotArr);
+  //console.log(nextLotArr);
   const handleFinishAndNext = async (event) => {
     setLoading(true);
     const currentLot = lotInProgress[0];

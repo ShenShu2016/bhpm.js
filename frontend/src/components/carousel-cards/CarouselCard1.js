@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 15:40:59
+ * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Button, Grid, styled } from "@mui/material";
 
 import BazarImage from "../BazarImage";
@@ -48,7 +59,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CarouselCard1 = ({ carousel }) => {
+export default function CarouselCard1({ carousel }) {
+  //console.log(carousel);
   return (
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
@@ -61,33 +73,32 @@ const CarouselCard1 = ({ carousel }) => {
             className="button-link"
             variant="contained"
             color="primary"
-            disableElevation
             sx={{
               px: "1.75rem",
               height: "44px",
               borderRadius: "8px",
             }}
             component={Link}
-            to={carousel.buttonLik}
+            to={`/auctions/bidding/${carousel.auctionsID}`}
           >
-            {carousel.buttonText}
+            Bid Now
           </Button>
         </Grid>
         <Grid item sm={5} xs={12}>
           <BazarImage
-            src={carousel.photoUrl}
+            src={carousel.imgUrl}
             alt="apple-watch-1"
             sx={{
               display: "block",
               mx: "auto",
               maxHeight: 400,
               maxWidth: "100%",
+              cursor: "pointer",
             }}
+            onClick={() => window.open(carousel.imgUrl)}
           />
         </Grid>
       </Grid>
     </StyledBox>
   );
-};
-
-export default CarouselCard1;
+}

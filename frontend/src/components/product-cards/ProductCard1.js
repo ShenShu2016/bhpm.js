@@ -1,28 +1,29 @@
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  IconButton,
-  styled,
-  Button,
-} from "@mui/material";
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 15:18:44
+ * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
+import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
+import {
+  postMyCollection,
+  removeMyCollection,
+} from "../../redux/slice/myCollectionSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import BazarCard from "../BazarCard";
 import Close from "@mui/icons-material/Close";
+import Favorite from "@mui/icons-material/Favorite";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
-import { graphqlOperation } from "@aws-amplify/api-graphql";
-import API from "@aws-amplify/api";
-import {
-  createMyCollection,
-} from "../../graphql/mutations";
-//import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-
-//import RemoveRedEye from "@mui/icons-material/RemoveRedEye";
-
-// import Favorite from "@mui/icons-material/Favorite";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
   position: "relative",
@@ -41,6 +42,7 @@ const StyledBazarCard = styled(BazarCard)(() => ({
   },
 }));
 const ImageWrapper = styled(Box)(({ theme }) => ({
+  marginTop: "1rem",
   position: "relative",
   display: "inline-block",
   textAlign: "center",
@@ -49,24 +51,24 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-// const HoverIconWrapper = styled(Box)(({ theme }) => ({
-//   display: "none",
-//   flexDirection: "column",
-//   position: "absolute",
-//   top: "7px",
-//   right: "15px",
-//   cursor: "pointer",
-//   zIndex: 2,
-//   [theme.breakpoints.down("md")]: {
-//     display: "flex",
-//   },
-// }));
 const ContentWrapper = styled(Box)(() => ({
   padding: "1rem",
   "& .title, & .categories": {
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+  },
+}));
+const HoverIconWrapper = styled(Box)(({ theme }) => ({
+  // display: "none",
+  flexDirection: "column",
+  position: "absolute",
+  top: "7px",
+  right: "15px",
+  cursor: "pointer",
+  zIndex: 2,
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
   },
 }));
 
@@ -76,62 +78,58 @@ const ProductCard1 = ({
   price,
   startingPrice,
   imgUrl,
+  isFav,
   hoverEffect,
+  lotNum,
 }) => {
-  //const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(isFav || false);
   const [open, setOpen] = useState(false);
-  // const { state, dispatch } = useAppContext();
-  // const cartItem = state.cart.cartList.find((item) => item.id === id);
+  const dispatch = useDispatch();
+  const { username } = useSelector((state) => state.userAuth.user);
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
   console.log();
-  // const toggleIsFavorite = async () => {
-  //   setIsFavorite((fav) => !fav);
-  // };ƒ
 
-  // const handleCartAmountChange = useCallback(
-  //   (amount) => () => {
-  //     dispatch({
-  //       type: "CHANGE_CART_AMOUNT",
-  //       payload: {
-  //         name: title,
-  //         qty: amount,
-  //         price,
-  //         imgUrl,
-  //         id,
-  //       },
-  //     });
-  //   },
-  //   []
-  // );
-  const postMyCollection = async (id) => {
-    console.log(id);
-    const createMyCollectionInput = {
-      lotsID: id,
-    };
-    try {
-      const response = await API.graphql(
-        graphqlOperation(createMyCollection, {
-          input: createMyCollectionInput,
-        })
-      );
-      console.log("response", response);
-      return response.data.createMyCollection;
-    } catch (error) {
-      console.log(error);
+  const toggleIsFavorite = async () => {
+    setIsFavorite((fav) => !fav);
+    console.log(isFavorite);
+    if (isFavorite === false) {
+      const createMyCollectionInput = {
+        id: username + id,
+        lotsID: id,
+      };
+      dispatch(postMyCollection({ createMyCollectionInput }));
+    } else {
+      dispatch(removeMyCollection({ id: username + id }));
     }
-  }
+  };
+
   return (
     <StyledBazarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
+        <HoverIconWrapper>
+          <IconButton
+            sx={{
+              p: "0px",
+            }}
+            onClick={toggleIsFavorite}
+          >
+            {isFavorite ? (
+              <Favorite color="primary" fontSize="small" />
+            ) : (
+              <FavoriteBorder fontSize="small" />
+            )}
+          </IconButton>
+        </HoverIconWrapper>
         <Link to={`/lots/${id}`}>
           <img
             src={imgUrl}
             // maxWidth={300}
-            height={300}
+            height={275}
             layout="responsive"
             alt={title}
+            style={{ borderRadius: "10px" }}
           />
         </Link>
       </ImageWrapper>
@@ -149,39 +147,15 @@ const ProductCard1 = ({
                 mb={1}
                 title={title}
               >
-                {title}
+                Lot #{lotNum} {title}
               </H3>
             </Link>
-
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.second">
-                起拍價: ${startingPrice.toFixed(2)}
-              </Box>
-            </FlexBox>
-            <FlexBox alignItems="center" mt={0.5}>
-              <Box pr={1} fontWeight="600" color="primary.main">
-                預計成交價: ${price.toFixed(2)}
+                估價: ${startingPrice.toFixed(2)} - ${price.toFixed(2)}
               </Box>
             </FlexBox>
           </Box>
-          <Box minWidth="0px" ml={1} mt={3}>
-          <Button
-              className="button-link"
-              variant="contained"
-              color="primary"
-              disableElevation
-              sx={{
-                px: "1.25rem",
-                height: "44px",
-                borderRadius: "8px",
-              }}
-              onClick={(e)=>postMyCollection(id)}
-              component={Link}
-              to={'/profile/myCollection'}
-              //to={''}
-            >
-              收藏
-            </Button></Box>
         </FlexBox>
       </ContentWrapper>
 

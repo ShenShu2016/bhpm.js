@@ -1,8 +1,20 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 14:59:05
+ * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Container, MenuItem } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BazarButton from "../BazarButton";
 import BazarMenu from "../BazarMenu";
 import CallOutlined from "@mui/icons-material/CallOutlined";
@@ -11,6 +23,7 @@ import FlexBox from "../FlexBox";
 import MailOutline from "@mui/icons-material/MailOutline";
 import { Span } from "../Typography";
 import TouchRipple from "@mui/material/ButtonBase";
+import { setLanguage } from "../../redux/slice/generalSlice";
 import { signOut } from "../../redux/slice/authSlice";
 import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
@@ -73,14 +86,15 @@ const Topbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
-
-  const [language, setLanguage] = useState(languageList[0]);
+  const languageState = useSelector((state) => state.general.language);
+  const languageList = useSelector((state) => state.general.languageList);
   const { t, i18n } = useTranslation();
   const handleLanguageClick = (lang) => () => {
     console.log(lang);
-    setLanguage(lang);
+    dispatch(setLanguage(lang));
     i18n.changeLanguage(lang.title);
   };
+  //console.log(languageState);
 
   useEffect(() => {
     // get language from browser
@@ -105,12 +119,13 @@ const Topbar = () => {
       >
         <FlexBox className="topbarLeft" alignItems="center">
           <div className="logo">
-            <Link to="/">
+            <Link to="/" style={{ display: "flex", alignItems: "center" }}>
               <img
                 display="block"
-                height="38px"
+                height="40px"
                 src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
                 alt="logo"
+                style={{ borderRadius: "10px" }}
               />
             </Link>
           </div>
@@ -128,23 +143,38 @@ const Topbar = () => {
         <FlexBox className="" alignItems="center">
           {isAuthenticated ? (
             <>
-              <BazarButton
-                variant="contained"
-                color="secondary"
-                sx={{ mx: "1rem" }}
-                component={Link}
-                to="profile"
+              <BazarMenu
+                handler={
+                  <TouchRipple className="handler marginRight">
+                    <AccountCircleIcon />
+                    <Span className="menuTitle">
+                      {t("description.Profile")}
+                    </Span>
+                    <ExpandMore fontSize="inherit" />
+                  </TouchRipple>
+                }
               >
-                {t("description.Profile")}
-              </BazarButton>
-              <BazarButton
-                variant="contained"
-                color="primary"
-                sx={{ mx: "1rem" }}
-                onClick={signOut_user}
-              >
-                {t("description.Logout")}
-              </BazarButton>
+                <MenuItem className="menuItem" component={Link} to="profile">
+                  <Span className="menuTitle">Profile</Span>
+                </MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  component={Link}
+                  to="profile/myCollection"
+                >
+                  <Span className="menuTitle">My Collection</Span>
+                </MenuItem>
+                <MenuItem className="menuItem">
+                  <BazarButton
+                    variant="contained"
+                    color="primary"
+                    sx={{ mx: "1rem" }}
+                    onClick={signOut_user}
+                  >
+                    {t("description.Logout")}
+                  </BazarButton>{" "}
+                </MenuItem>
+              </BazarMenu>
             </>
           ) : (
             <Box sx={{ mx: "2rem" }}>
@@ -157,7 +187,7 @@ const Topbar = () => {
           <BazarMenu
             handler={
               <TouchRipple className="handler marginRight">
-                <Span className="menuTitle">{language.title}</Span>
+                <Span className="menuTitle">{languageState.title}</Span>
                 <ExpandMore fontSize="inherit" />
               </TouchRipple>
             }
@@ -177,16 +207,5 @@ const Topbar = () => {
     </TopbarWrapper>
   );
 };
-
-const languageList = [
-  {
-    title: "en",
-    imgUrl: "/assets/images/flags/usa.png",
-  },
-  {
-    title: "中文",
-    imgUrl: "/assets/images/flags/bd.png",
-  },
-];
 
 export default Topbar;

@@ -1,19 +1,3 @@
-/*
-
-use this as auctions
-
-replace Auctions to Database table name example: Auctions => Todo
-
-replace Auctions to Database table name Lower fist one example: auctions => todo
-
---and  replace the under two to store.js
-
-import auctionsReducer from "./slice/auctionsSlice";
-
-auctions: auctionsReducer,
-
-*/
-
 import {
   createAsyncThunk,
   createEntityAdapter,
@@ -21,10 +5,11 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { createAuctions, updateAuctions } from "../../graphql/mutations";
-import { getAuctions, listAuctions } from "../../graphql/queries";
 
 import API from "@aws-amplify/api";
+import { getAuctions } from "../../graphql/queries";
 import { graphqlOperation } from "@aws-amplify/api-graphql";
+import { listAuctions } from "../../graphql_custom/_queries";
 
 const auctionsAdapter = createEntityAdapter({
   // selectId: (item) => item.id,
@@ -50,12 +35,12 @@ export const fetchAuctionss = createAsyncThunk(
     try {
       const AuctionssData = await API.graphql({
         query: listAuctions,
-
+        variables: { active: true, limit: 1 },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
       return AuctionssData.data.listAuctions.items;
     } catch (error) {
-      console.log(error);
+      return error.data.listAuctions.items;
     }
   }
 );

@@ -1,15 +1,28 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 00:41:04
+ * @FilePath: \bhpmJS\frontend\src\pages\auctions\ChangeLotsStatusDialog.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import { updateLotsDetail } from "../../redux/slice/lotsSlice";
 import { useDispatch } from "react-redux";
 
@@ -22,11 +35,10 @@ export default function ChangeLotsStatusDialog({
   const [rowInfo, setRowInfo] = useState(statusDialogRowInfo);
 
   useEffect(() => {
-    console.log("useEffect");
     setRowInfo(statusDialogRowInfo);
   }, [statusDialogRowInfo]);
 
-  console.log("rowInfo", rowInfo);
+  //console.log("rowInfo", rowInfo);
 
   const handleChangeStatus = async (event) => {
     console.log(event.target.value);

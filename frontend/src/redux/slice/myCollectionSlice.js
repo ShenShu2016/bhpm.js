@@ -1,20 +1,18 @@
-import { 
-    createAsyncThunk, 
-    createSlice,
-    createEntityAdapter
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
 } from "@reduxjs/toolkit";
 import {
   createMyCollection,
+  deleteMyCollection,
 } from "../../graphql/mutations";
 
 import API from "@aws-amplify/api";
-import {  listMyCollections } from "../../graphql/queries";
 import { graphqlOperation } from "@aws-amplify/api-graphql";
+import { listMyCollections } from "../../graphql_custom/_queries";
 
-const myCollectionAdapter = createEntityAdapter({
-    // selectId: (item) => item.id,
-    //sortComparer: (a, b) => b.createdAt.localeCompare(a.createdAt),
-  });
+const myCollectionAdapter = createEntityAdapter({});
 
 const initialState = myCollectionAdapter.getInitialState({
   //  Status: "idle",
@@ -24,22 +22,23 @@ const initialState = myCollectionAdapter.getInitialState({
   postMyCollectionStatus: "idle",
   postMyCollectionError: null,
   //updateMyCollectionStatus: "idle",
- // updateMyCollectionError: null,
+  // updateMyCollectionError: null,
+  removeMyCollectionStatus: "idle",
+  removeMyCollectionError: null,
 });
 
 export const fetchMyCollection = createAsyncThunk(
   "myCollection/fetchMyCollection",
-  async ({ isAuthenticated }) => {
-      try{
-    const response = await API.graphql({
-      query: listMyCollections,
-      variables: { limit:1000, },
-      authMode: isAuthenticated ? undefined : "AWS_IAM",
-    });
-    return response.data.listMyCollections.items;
-} catch(error){
-    console.log(error);
-}
+  async () => {
+    try {
+      const response = await API.graphql({
+        query: listMyCollections,
+        variables: { limit: 1000 },
+      });
+      return response.data.listMyCollections.items;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 export const postMyCollection = createAsyncThunk(
@@ -60,15 +59,32 @@ export const postMyCollection = createAsyncThunk(
   }
 );
 
+export const removeMyCollection = createAsyncThunk(
+  "myCollection/removeMyCollection",
+  async ({ id }) => {
+    console.log(id);
+    try {
+      const response = await API.graphql(
+        graphqlOperation(deleteMyCollection, {
+          input: { id: id },
+        })
+      );
+      console.log("response", response);
+      return response.data.deleteMyCollection;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 const myCollectionSlice = createSlice({
   name: "myCollection",
   initialState,
   reducers: {
     //有API call 的不能放这里
     updateLotsDetailBySub(state, data) {
-        myCollectionAdapter.upsertOne(state, data);
-        //state.insertBidItemHistoryStatus = "succeeded";
-      },
+      myCollectionAdapter.upsertOne(state, data);
+      //state.insertBidItemHistoryStatus = "succeeded";
+    },
   },
   extraReducers(builder) {
     builder
@@ -80,7 +96,7 @@ const myCollectionSlice = createSlice({
         state.fetchMyCollectionStatus = "succeeded";
         //console.log(action);
         myCollectionAdapter.removeAll(state);
-        myCollectionAdapter.upsertMany(state,action.payload);
+        myCollectionAdapter.upsertMany(state, action.payload);
       })
       .addCase(fetchMyCollection.rejected, (state, action) => {
         state.fetchMyCollectionStatus = "failed";
@@ -92,18 +108,28 @@ const myCollectionSlice = createSlice({
       })
       .addCase(postMyCollection.fulfilled, (state, action) => {
         state.postMyCollectionStatus = "succeeded";
-        myCollectionAdapter.addOne(state,action.payload);
+        myCollectionAdapter.addOne(state, action.payload);
       })
       .addCase(postMyCollection.rejected, (state, action) => {
         state.postMyCollectionStatus = "failed";
         state.postMyCollectionError = action.error.message;
       })
-    
+      // Cases for status of removeMyCollection (pending, fulfilled, and rejected)
+      .addCase(removeMyCollection.pending, (state, action) => {
+        state.removeMyCollectionStatus = "loading";
+      })
+      .addCase(removeMyCollection.fulfilled, (state, action) => {
+        state.removeMyCollectionStatus = "succeeded";
+        myCollectionAdapter.removeOne(state, action.payload.id);
+      })
+      .addCase(removeMyCollection.rejected, (state, action) => {
+        state.removeMyCollectionStatus = "failed";
+        state.removeMyCollectionError = action.error.message;
+      });
   },
 });
 
-export const {
-    selectAll: selectAllMyCollection,
-} = myCollectionAdapter.getSelectors((state) => state.myCollection);
+export const { selectAll: selectAllMyCollection } =
+  myCollectionAdapter.getSelectors((state) => state.myCollection);
 
 export default myCollectionSlice.reducer;

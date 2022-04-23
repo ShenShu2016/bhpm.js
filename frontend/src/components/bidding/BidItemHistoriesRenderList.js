@@ -1,6 +1,17 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-23 14:12:26
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\BidItemHistoriesRenderList.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Box, Card, Stack } from "@mui/material";
 import { H3, H4 } from "../../components/Typography";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../../components/BazarButton";
@@ -13,6 +24,16 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   const { cognitoGroup } = useSelector((state) => state.userAuth);
   const [loading, setLoading] = useState(false);
 
+  const messageRef = useRef();
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [bitItemHistories]);
   const handleBidSuccess = async (history) => {
     setLoading(true);
     console.log(history);
@@ -53,20 +74,11 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     if (history.bidItemHistoryStatus === "Success") {
       return (
         <>
-          <Card sx={{ minWidth: 275, backgroundColor: "#ba000d", p: "0.2rem" }}>
+          <Card sx={{ backgroundColor: "#ba000d", p: "0.2rem" }}>
             <H4 sx={{ color: "white" }}>
               Lot {history.lots.lot} sold For CAD ${history.bidPrice} to
               Competing Bidder
             </H4>
-            {/* <H3>
-                ${history.bidPrice} ({history.bidForm})
-              </H3>
-              <H5 color="red">
-                Lot {history.lots.lot} 
-              </H5>
-              <Typography variant="body1">
-                {moment(history.createdAt).fromNow()}
-              </Typography> */}
           </Card>
         </>
       );
@@ -74,13 +86,10 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     if (history.bidItemHistoryStatus === "Start") {
       return (
         <>
-          <Card sx={{ minWidth: 275, backgroundColor: "#388e3c", p: "0.2rem" }}>
+          <Card sx={{ backgroundColor: "#388e3c", p: "0.2rem" }}>
             <H4 color="white">
               Lot {history.lots.lot} Opened - Ask ${history.lots.startingPrice}
             </H4>
-            {/* <Typography variant="body1">
-                {moment(history.createdAt).fromNow()}
-              </Typography> */}
           </Card>
         </>
       );
@@ -88,15 +97,8 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     if (history.bidItemHistoryStatus === "FirstCall") {
       return (
         <>
-          <Card sx={{ minWidth: 275, backgroundColor: "#ffd686", p: "0.2rem" }}>
+          <Card sx={{ backgroundColor: "#ffd686", p: "0.2rem" }}>
             <H3 sx={{ color: "blue" }}>First Warning</H3>
-            {/* <H3>
-                ${history.bidPrice} ({history.bidForm})
-              </H3>
-              <H2 color="blue">First Call</H2>
-              <Typography variant="body1">
-                {moment(history.createdAt).fromNow()}
-              </Typography> */}
           </Card>
         </>
       );
@@ -104,7 +106,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     if (history.bidItemHistoryStatus === "SecondCall") {
       return (
         <>
-          <Card sx={{ minWidth: 275, backgroundColor: "#ffd686" }}>
+          <Card sx={{ backgroundColor: "#ffd686" }}>
             <H3 sx={{ color: "blue" }}>Second Warning</H3>
           </Card>
         </>
@@ -112,7 +114,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
     } else
       return (
         <>
-          <Card sx={{ minWidth: 275, backgroundColor: "" }}>
+          <Card sx={{ backgroundColor: "" }}>
             <H4>
               ${history.bidPrice} ({history.bidForm}): Competing Bid
             </H4>
@@ -122,7 +124,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   }
 
   return (
-    <div>
+    <div ref={messageRef}>
       <Stack
         spacing={2}
         sx={{
@@ -137,7 +139,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
                 {history.bidItemHistoryStatus ? (
                   <> {differentStatus(history)}</>
                 ) : (
-                  <Card sx={{ minWidth: 275, backgroundColor: "#c8c8c8" }}>
+                  <Card sx={{ backgroundColor: "#c8c8c8" }}>
                     <H4 sx={{ color: "blue" }}>
                       ${history.bidPrice} ({history.bidForm}): Competing Bid
                     </H4>
