@@ -8,7 +8,7 @@ import lotsReducer from "./slice/lotsSlice";
 import mySucceedBidReducer from "./slice/mySucceedBidSlice";
 import profileReducer from "./slice/profileSlice";
 import myCollectionReducer from "./slice/myCollectionSlice";
-
+import generalReducer from "./slice/generalSlice";
 export default configureStore({
   reducer: {
     userAuth: authReducer,
@@ -20,6 +20,7 @@ export default configureStore({
     myCollection: myCollectionReducer,
     bidItemHistory: bidItemHistoryReducer,
     category: categoryReducer,
+    general:generalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
