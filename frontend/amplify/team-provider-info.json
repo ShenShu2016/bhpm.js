@@ -14,15 +14,10 @@
     },
     "categories": {
       "function": {
-        "bhpmjs7985bcb47985bcb4PostConfirmation": {
-          "GROUP": "anyone",
-          "deploymentBucketName": "amplify-bhpmjs-dev-215255-deployment",
-          "s3Key": "amplify-builds/bhpmjs7985bcb47985bcb4PostConfirmation-302f697369636258516c-build.zip"
-        },
         "bhpmjs10bca66010bca660PostConfirmation": {
           "GROUP": "anyone",
           "deploymentBucketName": "amplify-bhpmjs-dev-215255-deployment",
-          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-474a642f594b64584136-build.zip"
+          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-7347586f48524d467759-build.zip"
         }
       },
       "auth": {
@@ -49,15 +44,10 @@
         "bhpmjs10bca66010bca660": {}
       },
       "function": {
-        "bhpmjs7985bcb47985bcb4PostConfirmation": {
-          "GROUP": "anyone",
-          "deploymentBucketName": "amplify-bhpmjs-prod-144251-deployment",
-          "s3Key": "amplify-builds/bhpmjs7985bcb47985bcb4PostConfirmation-302f697369636258516c-build.zip"
-        },
         "bhpmjs10bca66010bca660PostConfirmation": {
           "GROUP": "anyone",
           "deploymentBucketName": "amplify-bhpmjs-prod-144251-deployment",
-          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-474a642f594b64584136-build.zip"
+          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-7347586f48524d467759-build.zip"
         }
       }
     }

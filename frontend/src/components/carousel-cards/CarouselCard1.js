@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 15:40:59
+ * @LastEditTime: 2022-04-23 20:58:07
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -60,7 +60,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function CarouselCard1({ carousel }) {
-  //console.log(carousel);
+  console.log(carousel.imgUrl.slice(-4));
   return (
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
@@ -85,18 +85,32 @@ export default function CarouselCard1({ carousel }) {
           </Button>
         </Grid>
         <Grid item sm={5} xs={12}>
-          <BazarImage
-            src={carousel.imgUrl}
-            alt="apple-watch-1"
-            sx={{
-              display: "block",
-              mx: "auto",
-              maxHeight: 400,
-              maxWidth: "100%",
-              cursor: "pointer",
-            }}
-            onClick={() => window.open(carousel.imgUrl)}
-          />
+          {carousel.imgUrl.slice(-4) === ".mp4" ? (
+            <video
+              src={carousel.imgUrl}
+              type="video/mp4"
+              controls
+              style={{
+                display: "block",
+                mx: "auto",
+                maxHeight: 400,
+                maxWidth: "100%",
+              }}
+            />
+          ) : (
+            <BazarImage
+              src={carousel.imgUrl}
+              alt={carousel.title}
+              sx={{
+                display: "block",
+                mx: "auto",
+                maxHeight: 400,
+                maxWidth: "100%",
+                cursor: "pointer",
+              }}
+              onClick={() => window.open(carousel.imgUrl)}
+            />
+          )}
         </Grid>
       </Grid>
     </StyledBox>

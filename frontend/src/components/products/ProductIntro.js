@@ -58,8 +58,9 @@ const ProductIntro = ({ product }) => {
                     src={product.auctionItem.imgUrls}
                     currentIndex={currentImage}
                     onClose={closeImageViewer}
+                    closeOnClickOutside={true}
                     backgroundStyle={{
-                      backgroundColor: "rgba(0,0,0,0.9)",
+                      backgroundColor: "white",
                     }}
                   />
                 )}

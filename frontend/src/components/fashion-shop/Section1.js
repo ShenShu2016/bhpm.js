@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 00:22:22
+ * @LastEditTime: 2022-04-23 16:35:42
  * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section1.js
  * @Description:
  *
@@ -27,7 +27,7 @@ const Section1 = () => {
       <Box bgcolor="white" mb={7.5}>
         <Container sx={{ py: "2rem" }}>
           <Carousel
-            totalSlides={5}
+            totalSlides={carouselData?.length}
             visibleSlides={1}
             infinite={true}
             autoPlay={false}

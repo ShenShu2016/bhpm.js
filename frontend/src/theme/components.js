@@ -1,26 +1,39 @@
 export const fontSize = 14;
-export const fontFamily = ["Open Sans", "Roboto", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"].join(",");
+export const fontFamily = [
+  "Open Sans",
+  "Roboto",
+  "-apple-system",
+  "BlinkMacSystemFont",
+  "Segoe UI",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  "Fira Sans",
+  "Droid Sans",
+  "Helvetica Neue",
+  "sans-serif",
+].join(",");
 export const components = {
   MuiCssBaseline: {
     styleOverrides: {
       ul: {
         margin: 0,
         padding: 0,
-        listStyle: "none"
+        listStyle: "none",
       },
       p: {
-        lineHeight: 1.75
+        lineHeight: 1.75,
       },
       a: {
         textDecoration: "none",
-        color: "inherit"
+        color: "inherit",
       },
       button: {
         fontFamily,
-        fontSize
+        fontSize,
       },
       ".MuiRating-sizeSmall": {
-        fontSize: "20px"
+        fontSize: "20px",
       },
       "#nprogress .bar": {
         position: "fixed",
@@ -29,36 +42,36 @@ export const components = {
         height: "3px !important",
         borderRadius: "0px 300px 300px 0px !important",
         zIndex: 1031,
-        overflow: "hidden"
-      }
-    }
+        overflow: "hidden",
+      },
+    },
   },
   MuiPagination: {
     defaultProps: {
       variant: "outlined",
-      color: "primary"
-    }
+      color: "primary",
+    },
   },
   MuiTextField: {
     defaultProps: {
       size: "small",
-      variant: "outlined"
-    }
+      variant: "outlined",
+    },
   },
   MuiMenuItem: {
     styleOverrides: {
       root: {
         paddingTop: 8,
-        paddingBottom: 8
-      }
-    }
+        paddingBottom: 8,
+      },
+    },
   },
   MuiInputLabel: {
     styleOverrides: {
       root: {
-        zIndex: 0
-      }
-    }
+        zIndex: 0,
+      },
+    },
   },
   MuiButton: {
     styleOverrides: {
@@ -66,25 +79,25 @@ export const components = {
         fontWeight: 600,
         textTransform: "capitalize",
         minWidth: 0,
-        minHeight: 0
-      }
+        minHeight: 0,
+      },
     },
     defaultProps: {
-      color: "inherit"
-    }
+      color: "inherit",
+    },
   },
   MuiCard: {
     styleOverrides: {
       root: {
-        borderRadius: "8px"
-      }
-    }
+        borderRadius: "8px",
+      },
+    },
   },
   MuiDialog: {
     styleOverrides: {
       paper: {
-        borderRadius: 8
-      }
-    }
-  }
+        borderRadius: 8,
+      },
+    },
+  },
 };
