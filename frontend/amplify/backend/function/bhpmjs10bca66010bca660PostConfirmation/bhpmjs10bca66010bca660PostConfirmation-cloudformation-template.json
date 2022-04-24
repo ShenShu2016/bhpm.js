@@ -217,7 +217,7 @@
                 "dynamodb:PutItem"
               ],
               "Resource": [
-                "*"
+                "arn:aws:dynamodb:*:*:table/*"
               ],
               "Effect": "Allow"
             }

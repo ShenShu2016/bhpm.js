@@ -55,11 +55,6 @@
     }
   },
   "function": {
-    "bhpmjs7985bcb47985bcb4PostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "bhpmjs10bca66010bca660PostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",

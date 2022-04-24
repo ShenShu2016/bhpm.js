@@ -16,12 +16,6 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "bhpmjs7985bcb47985bcb4PostConfirmation": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
-        },
         "bhpmjs10bca66010bca660PostConfirmation": {
             "Name": "string",
             "Arn": "string",
