@@ -16,7 +16,7 @@ import Topbar from "./components/topbar/Topbar";
 import AlertTool from "./components/AlertTool";
 import awsconfig from "./aws-exports";
 import { loadUser } from "./redux/slice/authSlice";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 Amplify.configure(awsconfig);
