@@ -22,7 +22,7 @@
         "bhpmjs10bca66010bca660PostConfirmation": {
           "GROUP": "anyone",
           "deploymentBucketName": "amplify-bhpmjs-dev-215255-deployment",
-          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-474a642f594b64584136-build.zip"
+          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-2f36764a684e6a41444d-build.zip"
         }
       },
       "auth": {
