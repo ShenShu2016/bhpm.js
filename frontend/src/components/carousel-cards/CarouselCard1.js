@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 16:32:26
+ * @LastEditTime: 2022-04-23 20:58:07
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -100,7 +100,7 @@ export default function CarouselCard1({ carousel }) {
           ) : (
             <BazarImage
               src={carousel.imgUrl}
-              alt="apple-watch-1"
+              alt={carousel.title}
               sx={{
                 display: "block",
                 mx: "auto",
