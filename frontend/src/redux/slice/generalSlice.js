@@ -1,3 +1,12 @@
+/*
+ * @Author: Quennel
+ * @Date: 2022-04-20 16:26:48
+ * @LastEditTime: 2022-04-25 21:30:46
+ * @LastEditors: Quennel
+ * @Description: 
+ * @FilePath: /bhpmJS/frontend/src/redux/slice/generalSlice.js
+ * Quennel
+ */
 import {  createSlice } from "@reduxjs/toolkit";
 //import API from "@aws-amplify/api";
 //import { graphqlOperation } from "@aws-amplify/api-graphql";
@@ -17,6 +26,7 @@ const initialState = {
     alert: false,
     language: languageList[0],
     languageList: languageList,
+    snackBar: {isOpen: false, isSuccess: null, sentence: null},
     // setLanguageStatus: "idle",
     // setLanguageError: null,
     // setAlertStatus: "idle",
@@ -41,10 +51,18 @@ const generalSlice = createSlice({
         setLanguage(state,action){
             console.log(action);
             state.language = action.payload;
+        },
+        setSnackBar(state,action){
+            console.log(action);
+            state.snackBar = action.payload;
+        },
+        removeSnackBar(state,action){
+            console.log(action);
+            state.snackBar = action.payload;
         }
     },
 })
 
-export const { setAlert,removeAlert,setLanguage } = generalSlice.actions;
+export const { setAlert,removeAlert,setLanguage,setSnackBar,removeSnackBar } = generalSlice.actions;
 
 export default generalSlice.reducer;

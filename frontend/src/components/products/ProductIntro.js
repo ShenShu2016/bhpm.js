@@ -1,9 +1,9 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-24 16:41:09
+ * @LastEditTime: 2022-04-25 22:22:05
  * @LastEditors: Quennel
- * @Description: 
+ * @Description:
  * @FilePath: /bhpmJS/frontend/src/components/products/ProductIntro.js
  * Quennel
  */
@@ -21,9 +21,8 @@ import {
   postMyCollection,
   removeMyCollection,
 } from "../../redux/slice/myCollectionSlice";
-import Favorite from "@mui/icons-material/Favorite";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SnackBar from "../SnackBar";
+import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 const ProductIntro = ({ product }) => {
   const { title } = product;
   const dispatch = useDispatch();
@@ -34,9 +33,14 @@ const ProductIntro = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const languageState = useSelector((state) => state.general.language);
   const { username } = useSelector((state) => state.userAuth.user);
+  const { isAuthenticated } = useSelector((state) => state.userAuth);
   const [language, setLanguage] = useState(false);
+  const [alertStatus, setAlertStatus] = useState({
+    isOpen: false,
+    isSuccess: null,
+    sentence: null,
+  });
   const { t } = useTranslation();
-  console.log(languageState);
 
   useEffect(() => {
     if (languageState.title === "en") {
@@ -54,9 +58,35 @@ const ProductIntro = ({ product }) => {
         id: username + product.id,
         lotsID: product.id,
       };
-      dispatch(postMyCollection({ createMyCollectionInput }));
+      const response = await dispatch(
+        postMyCollection({ createMyCollectionInput })
+      );
+      if (response.meta.requestStatus === "fulfilled") {
+        setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
+      } else {
+        setAlertStatus({
+          isOpen: true,
+          isSuccess: false,
+          sentence: "收藏失败",
+        });
+      }
     } else {
-      dispatch(removeMyCollection({ id: username + product.id }));
+      const response = await dispatch(
+        removeMyCollection({ id: username + product.id })
+      );
+      if (response.meta.requestStatus === "fulfilled") {
+        setAlertStatus({
+          isOpen: true,
+          isSuccess: true,
+          sentence: "取消收藏成功",
+        });
+      } else {
+        setAlertStatus({
+          isOpen: true,
+          isSuccess: false,
+          sentence: "取消收藏失败",
+        });
+      }
     }
   };
   const handleImageClick = (ind) => () => {
@@ -80,19 +110,18 @@ const ProductIntro = ({ product }) => {
     >
       <Box width="100%">
         <Grid container spacing={3} justifyContent="space-around">
-          
           <Grid item md={6} xs={12} alignItems="center">
             <Box>
-            <FlexBox alignItems="center" mb={2}>
-              <IconButton
-                sx={{
-                  p: "0px",
-                }}
-                onClick={() => navigate(-1)}
-              >
-              <ArrowBackIcon fontSize="small" />
-              </IconButton>
-            </FlexBox>
+              <FlexBox alignItems="center" mb={2}>
+                <IconButton
+                  // sx={{
+                  //   p: "0px",
+                  // }}
+                  onClick={() => navigate(-1)}
+                >
+                  <ArrowCircleLeftOutlinedIcon fontSize="normal" />
+                </IconButton>
+              </FlexBox>
               <FlexBox justifyContent="center" mb={6}>
                 <img
                   src={product.auctionItem.imgUrls[selectedImage]}
@@ -188,20 +217,20 @@ const ProductIntro = ({ product }) => {
               )}
             </FlexBox>
 
-            <FlexBox alignItems="center" mb={2}>
+            {/* <FlexBox alignItems="center" mb={2}>
               <H3> {t("description.ProductStatus")}: </H3>
               <H4 ml={1}> {product.lotsStatus} </H4>
-            </FlexBox>
+            </FlexBox> */}
 
             <Box mb={3}>
               <H3 color="primary" mb={0.5} lineHeight="1">
                 {t("description.ProductStartPrice")}: ${product.startingPrice}
               </H3>
-              <H2 color="primary.main" mb={0.5} lineHeight="1">
+              <H3 color="primary" mb={0.5} lineHeight="1">
                 {t("description.ProductEstimatedPrice")}: $
                 {product.estimatedPriceMin.toFixed(2)} - $
                 {product.estimatedPriceMax.toFixed(2)}
-              </H2>
+              </H3>
             </Box>
 
             <FlexBox alignItems="center" mb={3}>
@@ -212,26 +241,29 @@ const ProductIntro = ({ product }) => {
               <H3> {t("description.ProductProvenance")}: </H3>
               <H4 ml={1}> {product.auctionItem.provenance} </H4>
             </FlexBox>
-            <FlexBox alignItems="center" mb={2}>
-              <IconButton
-                sx={{
-                  p: "0px",
-                }}
+            <FlexBox justifyContent="space-between" alignItems="center" mb={2}>
+              <Button
                 onClick={toggleIsFavorite}
+                variant={isFavorite ? "contained" : "outlined"}
+                color="primary"
+                mr={2}
               >
-                {isFavorite ? (
-                  <Favorite color="primary" fontSize="small" />
-                ) : (
-                  <FavoriteBorder fontSize="small" />
-                )}
-              </IconButton>
-              <Link to={"/auth/signUp"}>
-              <Button ml={3} variant="outlined" >Place Bid</Button>
-              </Link>
+                {t("description.ProductCollect")}
+              </Button>
+              {isAuthenticated ? (
+                ""
+              ) : (
+                <Link to={"/auth/signUp"}>
+                  <Button ml={3} variant="outlined">
+                    Place Bid
+                  </Button>
+                </Link>
+              )}
             </FlexBox>
             <FlexBox alignItems="center" mb={2}></FlexBox>
           </Grid>
         </Grid>
+        <SnackBar alertStatus={alertStatus}></SnackBar>
       </Box>
     </Container>
   );
