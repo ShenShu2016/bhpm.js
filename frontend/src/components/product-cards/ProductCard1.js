@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:44:21
- * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
+ * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-25 22:11:57
+ * @FilePath: /bhpmJS/frontend/src/components/product-cards/ProductCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -27,6 +27,7 @@ import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
+import SnackBar from "../SnackBar";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
   position: "relative",
@@ -89,6 +90,11 @@ const ProductCard1 = ({
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
+  const [alertStatus, setAlertStatus] = useState({
+    isOpen: false,
+    isSuccess: null,
+    sentence: null,
+  });
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
@@ -102,9 +108,32 @@ const ProductCard1 = ({
         id: username + id,
         lotsID: id,
       };
-      dispatch(postMyCollection({ createMyCollectionInput }));
+      const response = await dispatch(postMyCollection({ createMyCollectionInput }));
+      if (response.meta.requestStatus === "fulfilled") {
+        setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
+      } else {
+        setAlertStatus({
+          isOpen: true,
+          isSuccess: false,
+          sentence: "收藏失败",
+        });
+      }
     } else {
+      const response = await
       dispatch(removeMyCollection({ id: username + id }));
+      if (response.meta.requestStatus === "fulfilled") {
+        setAlertStatus({
+          isOpen: true,
+          isSuccess: true,
+          sentence: "取消收藏成功",
+        });
+      } else {
+        setAlertStatus({
+          isOpen: true,
+          isSuccess: false,
+          sentence: "取消收藏失败",
+        });
+      }
     }
   };
 
@@ -181,6 +210,7 @@ const ProductCard1 = ({
           </IconButton>
         </DialogContent>
       </Dialog>
+      <SnackBar alertStatus={alertStatus}></SnackBar>
     </StyledBazarCard>
   );
 };

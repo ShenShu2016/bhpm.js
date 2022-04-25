@@ -1,3 +1,12 @@
+/*
+ * @Author: Quennel
+ * @Date: 2022-04-12 15:35:29
+ * @LastEditTime: 2022-04-25 12:01:20
+ * @LastEditors: Quennel
+ * @Description: 
+ * @FilePath: /bhpmJS/frontend/src/i18n.js
+ * Quennel
+ */
 //import LanguageDetector from "i18next-browser-languagedetector";
 
 import i18n from "i18next";
@@ -35,11 +44,12 @@ i18n
             Profile: "Profile",
             ProductTitle: "Title",
             ProductDescription: "Description",
-            ProductEstimatedPrice: "Estimated Price",
+            ProductEstimatedPrice: "Estimate Price",
             ProductStartPrice: "Starting Price",
             ProductStatus: "Lots Status",
             ProductCondition: "Condition",
             ProductProvenance: "Provenance",
+            ProductCollect: "Favorite",
             Logout: "Logout",
             寶華介紹: "Bowell Information",
             團隊介紹: "Team Information",
@@ -81,6 +91,7 @@ i18n
             ProductStatus: "藏品狀態",
             ProductCondition: "藏品狀況",
             ProductProvenance: "藏品出處",
+            ProductCollect: "藏品收藏",
             首頁: "首頁",
             最新拍賣: "最新拍賣",
             拍賣歷史: "拍賣歷史",
