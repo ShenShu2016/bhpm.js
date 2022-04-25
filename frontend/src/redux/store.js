@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-22 23:14:06
+ * @LastEditTime: 2022-04-25 11:04:16
  * @FilePath: \bhpmJS\frontend\src\redux\store.js
  * @Description:
  *
@@ -24,17 +24,17 @@ import profileReducer from "./slice/profileSlice";
 
 export default configureStore({
   reducer: {
+    general: generalReducer,
     userAuth: authReducer,
     profile: profileReducer,
-    auctions: auctionsReducer,
-    auctionUserLimitation: auctionUserLimitationReducer,
     mySucceedBid: mySucceedBidReducer,
-    lots: lotsReducer,
     myCollection: myCollectionReducer,
-    bidItemHistory: bidItemHistoryReducer,
-    category: categoryReducer,
-    general: generalReducer,
     homePageCarouse: homePageCarouseReducer,
+    auctions: auctionsReducer,
+    category: categoryReducer,
+    lots: lotsReducer,
+    auctionUserLimitation: auctionUserLimitationReducer,
+    bidItemHistory: bidItemHistoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

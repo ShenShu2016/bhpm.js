@@ -1,10 +1,10 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-12 15:35:29
- * @LastEditTime: 2022-04-25 12:01:20
- * @LastEditors: Quennel
- * @Description: 
- * @FilePath: /bhpmJS/frontend/src/i18n.js
+ * @LastEditTime: 2022-04-25 13:34:11
+ * @LastEditors: Shen Shu
+ * @Description:
+ * @FilePath: \bhpmJS\frontend\src\i18n.js
  * Quennel
  */
 //import LanguageDetector from "i18next-browser-languagedetector";
@@ -44,8 +44,8 @@ i18n
             Profile: "Profile",
             ProductTitle: "Title",
             ProductDescription: "Description",
-            ProductEstimatedPrice: "Estimate Price",
-            ProductStartPrice: "Starting Price",
+            ProductEstimatedPrice: "Estimate",
+            ProductStartPrice: "Starting",
             ProductStatus: "Lots Status",
             ProductCondition: "Condition",
             ProductProvenance: "Provenance",

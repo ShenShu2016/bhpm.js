@@ -1,28 +1,31 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-25 22:22:05
- * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-25 13:36:27
+ * @LastEditors: Shen Shu
  * @Description:
- * @FilePath: /bhpmJS/frontend/src/components/products/ProductIntro.js
+ * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
  * Quennel
  */
-import { Box, Container, Grid, IconButton, Button } from "@mui/material";
+
+import { Box, Button, Container, Grid, IconButton } from "@mui/material";
 import { H2, H3, H4, H6 } from "../../components/Typography";
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import BazarAvatar from "../../components/BazarAvatar";
-import FlexBox from "../FlexBox";
-import ImageViewer from "react-simple-image-viewer";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   postMyCollection,
   removeMyCollection,
 } from "../../redux/slice/myCollectionSlice";
-import SnackBar from "../SnackBar";
+import { useDispatch, useSelector } from "react-redux";
+
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+import BazarAvatar from "../../components/BazarAvatar";
+import FlexBox from "../FlexBox";
+import ImageViewer from "react-simple-image-viewer";
+import SnackBar from "../SnackBar";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import { useTranslation } from "react-i18next";
+
 const ProductIntro = ({ product }) => {
   const { title } = product;
   const dispatch = useDispatch();
@@ -233,14 +236,18 @@ const ProductIntro = ({ product }) => {
               </H3>
             </Box>
 
-            <FlexBox alignItems="center" mb={3}>
-              <H3> {t("description.ProductCondition")}: </H3>
-              <H4 ml={1}> {product.auctionItem.condition} </H4>
-            </FlexBox>
-            <FlexBox alignItems="center" mb={3}>
-              <H3> {t("description.ProductProvenance")}: </H3>
-              <H4 ml={1}> {product.auctionItem.provenance} </H4>
-            </FlexBox>
+            {product.auctionItem.condition && (
+              <FlexBox alignItems="center" mb={3}>
+                <H3> {t("description.ProductCondition")}: </H3>
+                <H4 ml={1}> {product.auctionItem.condition} </H4>
+              </FlexBox>
+            )}
+            {product.auctionItem.provenance && (
+              <FlexBox alignItems="center" mb={3}>
+                <H3> {t("description.ProductProvenance")}: </H3>
+                <H4 ml={1}> {product.auctionItem.provenance} </H4>
+              </FlexBox>
+            )}
             <FlexBox justifyContent="space-between" alignItems="center" mb={2}>
               <Button
                 onClick={toggleIsFavorite}
