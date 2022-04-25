@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 20:58:07
+ * @LastEditTime: 2022-04-24 22:12:50
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -60,7 +60,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function CarouselCard1({ carousel }) {
-  console.log(carousel.imgUrl.slice(-4));
   return (
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
