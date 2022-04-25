@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:16:26
+ * @LastEditTime: 2022-04-24 22:47:19
  * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section11.js
  * @Description:
  *
@@ -14,8 +14,9 @@ import React, { useState } from "react";
 
 import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
+import { trackWindowScroll } from "react-lazy-load-image-component";
 
-export default function Section11({ moreItems }) {
+const Section11 = ({ moreItems }) => {
   const itemPerPage = 32;
   const pageNumber = moreItems && Math.ceil(moreItems.length / itemPerPage);
 
@@ -51,4 +52,6 @@ export default function Section11({ moreItems }) {
       </Container>
     </>
   );
-}
+};
+
+export default trackWindowScroll(Section11);
