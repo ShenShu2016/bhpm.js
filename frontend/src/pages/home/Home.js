@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:59:07
+ * @LastEditTime: 2022-04-24 23:12:15
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -28,18 +28,35 @@ export default function Home() {
   const { fetchHomePageCarousesStatus } = useSelector(
     (state) => state.homePageCarouse
   );
+  const { fetchLotssStatus } = useSelector((state) => state.lots);
+  const { fetchAuctionssStatus } = useSelector((state) => state.auctions);
   const auctionss = useSelector(selectAllAuctionss);
   const lotss = useSelector(selectAllLotss);
 
   useEffect(() => {
     if (isAuthenticated !== null) {
-      dispatch(fetchAuctionss({ isAuthenticated }));
-      dispatch(fetchHomePageCarouses({ isAuthenticated }));
+      if (fetchAuctionssStatus === "idle" || undefined) {
+        dispatch(fetchAuctionss({ isAuthenticated }));
+      }
+
+      if (fetchHomePageCarousesStatus === "idle" || undefined) {
+        dispatch(fetchHomePageCarouses({ isAuthenticated }));
+      }
     }
-  }, [dispatch, isAuthenticated]);
+  }, [
+    dispatch,
+    isAuthenticated,
+    fetchHomePageCarousesStatus,
+    fetchAuctionssStatus,
+  ]);
 
   useEffect(() => {
-    if (isAuthenticated !== null && auctionss[0]?.id) {
+    if (
+      isAuthenticated !== null &&
+      auctionss[0]?.id &&
+      (fetchLotssStatus === "idle" || undefined)
+    ) {
+      console.log("我来这里几次了？");
       dispatch(
         fetchLotss({
           isAuthenticated,
@@ -47,7 +64,7 @@ export default function Home() {
         })
       );
     }
-  }, [dispatch, isAuthenticated, auctionss]);
+  }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus]);
 
   const moreItemsRenderList = lotss.map((lot) => {
     return {
