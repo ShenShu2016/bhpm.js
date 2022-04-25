@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 15:36:09
+ * @LastEditTime: 2022-04-24 22:59:07
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -17,6 +17,7 @@ import {
 import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import BackdropLoading from "../../components/BackdropLoading";
 import Section1 from "../../components/fashion-shop/Section1";
 import Section11 from "../../components/fashion-shop/Section11";
 import { fetchHomePageCarouses } from "../../redux/slice/homePageCarouseSlice";
@@ -24,6 +25,9 @@ import { fetchHomePageCarouses } from "../../redux/slice/homePageCarouseSlice";
 export default function Home() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
+  const { fetchHomePageCarousesStatus } = useSelector(
+    (state) => state.homePageCarouse
+  );
   const auctionss = useSelector(selectAllAuctionss);
   const lotss = useSelector(selectAllLotss);
 
@@ -60,8 +64,14 @@ export default function Home() {
 
   return (
     <>
-      <Section1 />
-      <Section11 moreItems={moreItemsRenderList} />
+      {fetchHomePageCarousesStatus === "succeeded" ? (
+        <>
+          <Section1 />
+          <Section11 moreItems={moreItemsRenderList} />
+        </>
+      ) : (
+        <BackdropLoading />
+      )}
     </>
   );
 }

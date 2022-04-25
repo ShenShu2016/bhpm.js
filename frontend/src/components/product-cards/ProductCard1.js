@@ -2,12 +2,14 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:14:22
+ * @LastEditTime: 2022-04-24 22:44:21
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
+
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
@@ -23,6 +25,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FlexBox from "../FlexBox";
 import { H3 } from "../Typography";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
@@ -123,9 +126,10 @@ const ProductCard1 = ({
           </IconButton>
         </HoverIconWrapper>
         <Link to={`/lots/${id}`}>
-          <img
+          <LazyLoadImage
+            effect="blur"
             src={imgUrl}
-            // maxWidth={300}
+            width={220}
             height={275}
             layout="responsive"
             alt={title}
