@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 15:33:20
+ * @LastEditTime: 2022-04-24 22:16:26
  * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section11.js
  * @Description:
  *
@@ -15,8 +15,8 @@ import React, { useState } from "react";
 import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
 
-const Section11 = ({ moreItems }) => {
-  const itemPerPage = 8;
+export default function Section11({ moreItems }) {
+  const itemPerPage = 32;
   const pageNumber = moreItems && Math.ceil(moreItems.length / itemPerPage);
 
   const [page, setPage] = useState(1);
@@ -51,6 +51,4 @@ const Section11 = ({ moreItems }) => {
       </Container>
     </>
   );
-};
-
-export default Section11;
+}
