@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 15:18:44
+ * @LastEditTime: 2022-04-24 22:14:22
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
@@ -137,7 +137,7 @@ const ProductCard1 = ({
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link to={`/product/${id}`}>
+            <Link to={`/lots/${id}`}>
               <H3
                 className="title"
                 fontSize="14px"
