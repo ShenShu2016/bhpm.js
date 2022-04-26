@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-04-18 00:03:49
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 15:48:53
+ * @FilePath: \bhpmJS\frontend\src\redux\slice\myFavoriteSlice.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import {
   createAsyncThunk,
   createEntityAdapter,
@@ -117,7 +128,7 @@ const myFavoriteSlice = createSlice({
       })
       .addCase(removeMyFavorite.fulfilled, (state, action) => {
         state.removeMyFavoriteStatus = "succeeded";
-        //myFavoriteAdapter.removeOne(state, action.payload.id);
+        myFavoriteAdapter.removeOne(state, action.payload.id);
       })
       .addCase(removeMyFavorite.rejected, (state, action) => {
         state.removeMyFavoriteStatus = "failed";
