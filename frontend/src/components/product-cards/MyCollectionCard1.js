@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-25 21:35:39
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:38:18
+ * @LastEditTime: 2022-04-26 13:48:25
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyCollectionCard1.js
  * @Description:
  *
@@ -178,7 +178,7 @@ const MyCollectionCard1 = ({ off, hoverEffect, item }) => {
                 title={item.lots.auctionItem.title}
               >
                 Lot #{item.lots.lot}{" "}
-                {currentLanguage === "zh-hk"
+                {currentLanguage === "zh_hk"
                   ? item.lots.auctionItem.title
                   : item.lots.auctionItem.titleEng}
               </H3>

@@ -1,17 +1,17 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-26 20:14:01
- * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-26 13:42:43
+ * @LastEditors: Shen Shu
  * @Description:
- * @FilePath: /bhpmJS/frontend/src/components/products/ProductIntro.js
+ * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
  * Quennel
  */
 
 import { Box, Button, Container, Grid, IconButton } from "@mui/material";
 import { H3, H4, H6 } from "../../components/Typography";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   postMyCollection,
   removeMyCollection,
