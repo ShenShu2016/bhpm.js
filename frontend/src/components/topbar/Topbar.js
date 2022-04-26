@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 16:01:20
- * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
+ * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-26 20:08:57
+ * @FilePath: /bhpmJS/frontend/src/components/topbar/Topbar.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -92,7 +92,7 @@ const Topbar = () => {
   const handleLanguageClick = (lang) => () => {
     console.log(lang);
     dispatch(setLanguage(lang));
-    i18n.changeLanguage(lang.title);
+    i18n.changeLanguage(lang.currentLanguage);
   };
   //console.log(languageState);
 
@@ -187,7 +187,7 @@ const Topbar = () => {
           <BazarMenu
             handler={
               <TouchRipple className="handler marginRight">
-                <Span className="menuTitle">{languageState.title}</Span>
+                <Span className="menuTitle">{languageState.languageName}</Span>
                 <ExpandMore fontSize="inherit" />
               </TouchRipple>
             }
@@ -195,10 +195,10 @@ const Topbar = () => {
             {languageList.map((item) => (
               <MenuItem
                 className="menuItem"
-                key={item.title}
+                key={item.currentLanguage}
                 onClick={handleLanguageClick(item)}
               >
-                <Span className="menuTitle">{item.title}</Span>
+                <Span className="menuTitle">{item.languageName}</Span>
               </MenuItem>
             ))}
           </BazarMenu>

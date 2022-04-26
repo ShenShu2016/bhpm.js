@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:30:58
- * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
+ * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-26 20:16:26
+ * @FilePath: /bhpmJS/frontend/src/components/product-cards/ProductCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -179,7 +179,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
                 title={item.auctionItem.title}
               >
                 Lot #{item.lot}{" "}
-                {currentLanguage === "zh-hk"
+                {currentLanguage === "zh_hk"
                   ? item.auctionItem.title
                   : item.auctionItem.titleEng}
               </H3>
