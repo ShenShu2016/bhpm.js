@@ -120,7 +120,7 @@ const myCollectionSlice = createSlice({
       })
       .addCase(removeMyCollection.fulfilled, (state, action) => {
         state.removeMyCollectionStatus = "succeeded";
-        myCollectionAdapter.removeOne(state, action.payload.id);
+        //myCollectionAdapter.removeOne(state, action.payload.id);
       })
       .addCase(removeMyCollection.rejected, (state, action) => {
         state.removeMyCollectionStatus = "failed";

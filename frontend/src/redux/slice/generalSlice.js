@@ -1,10 +1,10 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-20 16:26:48
- * @LastEditTime: 2022-04-25 21:14:17
- * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 20:03:42
+ * @LastEditors: Quennel
  * @Description:
- * @FilePath: \bhpmJS\frontend\src\redux\slice\generalSlice.js
+ * @FilePath: /bhpmJS/frontend/src/redux/slice/generalSlice.js
  * Quennel
  */
 
@@ -12,12 +12,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const languageList = [
   {
-    title: "en",
-    currentLanguage: "en-us",
+    currentLanguage: "en_us",
+    languageName: "English",
   },
   {
-    title: "中文",
-    currentLanguage: "zh-hk",
+    currentLanguage: "zh_hk",
+    languageName: "中文",
   },
 ];
 

@@ -1,10 +1,10 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-12 15:35:29
- * @LastEditTime: 2022-04-25 13:34:11
- * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 20:01:05
+ * @LastEditors: Quennel
  * @Description:
- * @FilePath: \bhpmJS\frontend\src\i18n.js
+ * @FilePath: /bhpmJS/frontend/src/i18n.js
  * Quennel
  */
 //import LanguageDetector from "i18next-browser-languagedetector";
@@ -22,12 +22,12 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     debug: true,
-    fallbackLng: "en",
+    fallbackLng: "en_us",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
     resources: {
-      en: {
+      en_us: {
         translation: {
           description: {
             part1: "Login/Register",
@@ -68,7 +68,7 @@ i18n
           },
         },
       },
-      中文: {
+      zh_hk: {
         translation: {
           description: {
             part1: "登錄/註冊",

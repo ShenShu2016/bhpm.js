@@ -1,15 +1,15 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-25 13:36:27
- * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 20:14:01
+ * @LastEditors: Quennel
  * @Description:
- * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
+ * @FilePath: /bhpmJS/frontend/src/components/products/ProductIntro.js
  * Quennel
  */
 
 import { Box, Button, Container, Grid, IconButton } from "@mui/material";
-import { H2, H3, H4, H6 } from "../../components/Typography";
+import { H3, H4, H6 } from "../../components/Typography";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -34,10 +34,9 @@ const ProductIntro = ({ product }) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const languageState = useSelector((state) => state.general.language);
+  const language = useSelector((state) => state.general.language);
   const { username } = useSelector((state) => state.userAuth.user);
   const { isAuthenticated } = useSelector((state) => state.userAuth);
-  const [language, setLanguage] = useState(false);
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
     isSuccess: null,
@@ -45,14 +44,6 @@ const ProductIntro = ({ product }) => {
   });
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (languageState.title === "en") {
-      setLanguage(false);
-    }
-    if (languageState.title === "中文") {
-      setLanguage(true);
-    }
-  }, [language, languageState]);
   const toggleIsFavorite = async () => {
     setIsFavorite((fav) => !fav);
     console.log(isFavorite);
@@ -201,40 +192,41 @@ const ProductIntro = ({ product }) => {
 
           <Grid item md={6} xs={12} alignItems="center">
             <H3>Lot #{product.lot}</H3>
-            <FlexBox alignItems="center" mb={2}>
-              <Box>
-                <H2>{t("description.ProductTitle")}:</H2>
+            <FlexBox
+              alignItems="center"
+              justifyContent="space-between"
+              mt={2}
+              mb={2}
+            >
+              <Box alignContent="center">
+                <H4>{t("description.ProductTitle")}:</H4>
               </Box>
-              {language ? (
-                <H3 ml={1}>{product.auctionItem.title}</H3>
-              ) : (
-                <H3 ml={1}>{product.auctionItem.titleEng}</H3>
-              )}
-            </FlexBox>
-            <FlexBox alignItems="center" mb={2}>
-              <Box>{t("description.ProductDescription")}:</Box>
-              {language ? (
-                <H6 ml={1}>{product.auctionItem.description}</H6>
-              ) : (
-                <H6 ml={1}>{product.auctionItem.descriptionEng}</H6>
-              )}
-            </FlexBox>
-
-            {/* <FlexBox alignItems="center" mb={2}>
-              <H3> {t("description.ProductStatus")}: </H3>
-              <H4 ml={1}> {product.lotsStatus} </H4>
-            </FlexBox> */}
-
-            <Box mb={3}>
-              <H3 color="primary" mb={0.5} lineHeight="1">
-                {t("description.ProductStartPrice")}: ${product.startingPrice}
+              <H3 ml={1}>
+                {language.currentLanguage === "zh_hk" &&
+                  product.auctionItem.title}
+                {language.currentLanguage === "en_us" &&
+                  product.auctionItem.titleEng}
               </H3>
-              <H3 color="primary" mb={0.5} lineHeight="1">
-                {t("description.ProductEstimatedPrice")}: $
-                {product.estimatedPriceMin.toFixed(2)} - $
+            </FlexBox>
+            <FlexBox alignItems="center" justifyContent="space-between" mb={4}>
+              <H4>{t("description.ProductDescription")}:</H4>
+              <H3 ml={1}>
+                {language.currentLanguage === "zh_hk" &&
+                  product.auctionItem.description}
+                {language.currentLanguage === "en_us" &&
+                  product.auctionItem.descriptionEng}
+              </H3>
+            </FlexBox>
+
+            <FlexBox alignItems="center" justifyContent="space-between" mb={4}>
+              <H6 color="primary" mb={0.5} lineHeight="1">
+                {t("description.ProductEstimatedPrice")}:
+              </H6>
+              <H6 color="primary" mb={0.5} lineHeight="1">
+                ${product.estimatedPriceMin.toFixed(2)} - $
                 {product.estimatedPriceMax.toFixed(2)}
-              </H3>
-            </Box>
+              </H6>
+            </FlexBox>
 
             {product.auctionItem.condition && (
               <FlexBox alignItems="center" mb={3}>
@@ -257,9 +249,7 @@ const ProductIntro = ({ product }) => {
               >
                 {t("description.ProductCollect")}
               </Button>
-              {isAuthenticated ? (
-                ""
-              ) : (
+              {!isAuthenticated && (
                 <Link to={"/auth/signUp"}>
                   <Button ml={3} variant="outlined">
                     Place Bid
