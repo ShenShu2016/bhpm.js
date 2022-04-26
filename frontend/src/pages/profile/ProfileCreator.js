@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-04-18 00:03:49
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 19:21:12
+ * @FilePath: \bhpmJS\frontend\src\pages\profile\ProfileCreator.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { Button, Grid, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,9 +25,9 @@ const ProfileCreator = () => {
   const { username } = useSelector((state) => state.userAuth.user);
 
   const handleFormSubmit = async (values) => {
-    console.log(values);
-    const createProfileInput = { id: username, ...values };
-    console.log(createProfileInput);
+    //console.log(values);
+    const createProfileInput = { id: username, owner: username, ...values };
+    //console.log(createProfileInput);
     const response = await dispatch(createUserProfile({ createProfileInput }));
     console.log(response);
     navigate(`/profile`, {
