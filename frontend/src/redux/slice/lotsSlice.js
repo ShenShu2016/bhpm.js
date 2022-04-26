@@ -21,9 +21,13 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { createLots, updateLots } from "../../graphql/mutations";
-import { getLots, lotsSortByLot } from "../../graphql/queries";
+import {
+  lotsSortByLot_isAuth,
+  lotsSortByLot_noAuth,
+} from "../../graphql_custom/_queries";
 
 import API from "@aws-amplify/api";
+import { getLots } from "../../graphql/queries";
 import { graphqlOperation } from "@aws-amplify/api-graphql";
 
 const lotsAdapter = createEntityAdapter({
@@ -46,15 +50,16 @@ const initialState = lotsAdapter.getInitialState({
 
 export const fetchLotss = createAsyncThunk(
   "lots/fetchLotss",
-  async ({ isAuthenticated, auctionsID }) => {
+  async ({ isAuthenticated, auctionsID, username }) => {
     //console.log("isAuthenticated, auctionsID", isAuthenticated, auctionsID);
     try {
       const LotssData = await API.graphql({
-        query: lotsSortByLot,
+        query: username ? lotsSortByLot_isAuth : lotsSortByLot_noAuth,
         variables: {
           auctionsID: auctionsID,
           sortDirection: "ASC",
           limit: 1000,
+          username: username,
         },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });

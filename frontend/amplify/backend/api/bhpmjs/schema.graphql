@@ -2,7 +2,11 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 # sudo amplify api gql-compile && amplify codegen
 
-type UserInfo @model @auth(rules: [{ allow: groups, groups: ["admin"] }]) {
+# 如果重命名table，会把之前的数据全部都删除的
+
+type UserInfo
+  @model(subscriptions: null)
+  @auth(rules: [{ allow: groups, groups: ["admin"] }]) {
   id: ID!
   email: String
   userName: String
@@ -11,7 +15,7 @@ type UserInfo @model @auth(rules: [{ allow: groups, groups: ["admin"] }]) {
 }
 
 type Profile
-  @model
+  @model(subscriptions: null)
   @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
   id: ID!
   name: String
@@ -23,10 +27,11 @@ type Profile
   phone: String
   phone2: String
   email: String
+  owner: ID!
 }
 
 type HomePageCarouse
-  @model
+  @model(subscriptions: null)
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
@@ -43,7 +48,7 @@ type HomePageCarouse
 }
 
 type Category
-  @model
+  @model(subscriptions: null)
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
@@ -57,7 +62,7 @@ type Category
 }
 
 type Auctions
-  @model
+  @model(subscriptions: null)
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
@@ -88,14 +93,14 @@ enum AuctionStatus {
   Canceled
 }
 
-type MyCollection
-  @model
+type MyFavorite
+  @model(subscriptions: null)
   @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
   id: ID! # uuid
-  lotsID: ID! @index(name: "myCollectionByLots", sortKeyFields: ["createdAt"])
-  lots: Lots! @hasOne(fields: ["lotsID"])
+  lots: Lots @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
+  owner: ID!
 }
 
 type Lots
@@ -128,6 +133,8 @@ type Lots
     @hasMany(indexName: "byLots", fields: ["id"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
+
+  myFavorites: [MyFavorite] @hasMany
 }
 # 东西会不会流拍，流拍的会不会再拍
 
@@ -140,7 +147,7 @@ enum LotsStatus {
 }
 
 type AuctionItem
-  @model
+  @model(subscriptions: null)
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }
@@ -199,7 +206,7 @@ type BidItemHistory
   bidForm: BidForm
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
 
 enum BidForm {
@@ -233,7 +240,7 @@ type AuctionUserLimitation
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
 type MySucceedBid
   @model
@@ -252,7 +259,7 @@ type MySucceedBid
   bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
 
 enum LimitStatus {
@@ -276,5 +283,5 @@ type AuctionUserNumber  #别人看不到，自己能看到，但是公开的能�
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }

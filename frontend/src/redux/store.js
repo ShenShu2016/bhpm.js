@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-22 23:14:06
+ * @LastEditTime: 2022-04-26 15:20:57
  * @FilePath: \bhpmJS\frontend\src\redux\store.js
  * @Description:
  *
@@ -18,23 +18,23 @@ import { configureStore } from "@reduxjs/toolkit";
 import generalReducer from "./slice/generalSlice";
 import homePageCarouseReducer from "./slice/homePageCarouseSlice";
 import lotsReducer from "./slice/lotsSlice";
-import myCollectionReducer from "./slice/myCollectionSlice";
+import myFavoriteReducer from "./slice/myFavoriteSlice";
 import mySucceedBidReducer from "./slice/mySucceedBidSlice";
 import profileReducer from "./slice/profileSlice";
 
 export default configureStore({
   reducer: {
+    general: generalReducer,
     userAuth: authReducer,
     profile: profileReducer,
-    auctions: auctionsReducer,
-    auctionUserLimitation: auctionUserLimitationReducer,
     mySucceedBid: mySucceedBidReducer,
-    lots: lotsReducer,
-    myCollection: myCollectionReducer,
-    bidItemHistory: bidItemHistoryReducer,
-    category: categoryReducer,
-    general: generalReducer,
+    myFavorite: myFavoriteReducer,
     homePageCarouse: homePageCarouseReducer,
+    auctions: auctionsReducer,
+    category: categoryReducer,
+    lots: lotsReducer,
+    auctionUserLimitation: auctionUserLimitationReducer,
+    bidItemHistory: bidItemHistoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

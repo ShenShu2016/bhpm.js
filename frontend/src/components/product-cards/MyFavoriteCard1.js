@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
- * @Date: 2022-03-24 23:14:58
+ * @Date: 2022-04-25 21:35:39
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 18:42:41
- * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
+ * @LastEditTime: 2022-04-26 18:43:58
+ * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyFavoriteCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -77,11 +77,9 @@ const HoverIconWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ProductCard1 = ({ off, hoverEffect, item }) => {
+const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
   const { t } = useTranslation();
-  const [isFavorite, setIsFavorite] = useState(
-    item?.myFavorites?.items[0] || false
-  );
+  const [isFavorite, setIsFavorite] = useState(true);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
@@ -94,14 +92,15 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
+  console.log();
 
   const toggleIsFavorite = async () => {
     setIsFavorite((fav) => !fav);
     console.log(isFavorite);
     if (isFavorite === false) {
       const createMyFavoriteInput = {
-        //id: username + item.id,
-        lotsMyFavoritesId: item.id,
+        //id: username + item.lots.id,
+        lotsMyFavoritesId: item.lots.id,
         owner: username,
       };
       const response = await dispatch(
@@ -117,9 +116,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
         });
       }
     } else {
-      const response = await dispatch(
-        removeMyFavorite({ id: item.myFavorites.items[0].id })
-      );
+      const response = await dispatch(removeMyFavorite({ id: item.id }));
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({
           isOpen: true,
@@ -153,14 +150,14 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
             )}
           </IconButton>
         </HoverIconWrapper>
-        <Link to={`/lots/${item.id}`}>
+        <Link to={`/lots/${item.lots.id}`}>
           <LazyLoadImage
             effect="blur"
-            src={item.auctionItem.imgUrls[0]}
+            src={item.lots.auctionItem.imgUrls[0]}
             width={220}
             height={275}
             layout="responsive"
-            alt={item.auctionItem.title}
+            alt={item.lots.auctionItem.title}
             style={{ borderRadius: "10px" }}
           />
         </Link>
@@ -169,7 +166,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link to={`/lots/${item.id}`}>
+            <Link to={`/lots/${item.lots.id}`}>
               <H3
                 className="title"
                 fontSize="14px"
@@ -177,19 +174,19 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
                 fontWeight="600"
                 color="text.secondary"
                 mb={1}
-                title={item.auctionItem.title}
+                title={item.lots.auctionItem.title}
               >
-                Lot #{item.lot}{" "}
+                Lot #{item.lots.lot}{" "}
                 {currentLanguage === "zh_hk"
-                  ? item.auctionItem.title
-                  : item.auctionItem.titleEng}
+                  ? item.lots.auctionItem.title
+                  : item.lots.auctionItem.titleEng}
               </H3>
             </Link>
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.second">
                 {t("description.ProductEstimatedPrice")}: $
-                {item.startingPrice.toFixed(2)} - $
-                {item.estimatedPriceMax.toFixed(2)}
+                {item.lots.startingPrice.toFixed(2)} - $
+                {item.lots.estimatedPriceMax.toFixed(2)}
               </Box>
             </FlexBox>
           </Box>
@@ -219,4 +216,4 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
   );
 };
 
-export default ProductCard1;
+export default MyFavoriteCard1;

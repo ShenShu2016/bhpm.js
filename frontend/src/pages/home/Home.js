@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 23:12:15
+ * @LastEditTime: 2022-04-26 18:04:36
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -14,24 +14,25 @@ import {
   fetchAuctionss,
   selectAllAuctionss,
 } from "../../redux/slice/auctionsSlice";
-import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BackdropLoading from "../../components/BackdropLoading";
 import Section1 from "../../components/fashion-shop/Section1";
 import Section11 from "../../components/fashion-shop/Section11";
 import { fetchHomePageCarouses } from "../../redux/slice/homePageCarouseSlice";
+import { fetchLotss } from "../../redux/slice/lotsSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
+  const { username } = useSelector((state) => state.userAuth.user);
   const { fetchHomePageCarousesStatus } = useSelector(
     (state) => state.homePageCarouse
   );
+
   const { fetchLotssStatus } = useSelector((state) => state.lots);
   const { fetchAuctionssStatus } = useSelector((state) => state.auctions);
   const auctionss = useSelector(selectAllAuctionss);
-  const lotss = useSelector(selectAllLotss);
 
   useEffect(() => {
     if (isAuthenticated !== null) {
@@ -56,39 +57,26 @@ export default function Home() {
       auctionss[0]?.id &&
       (fetchLotssStatus === "idle" || undefined)
     ) {
-      console.log("我来这里几次了？");
       dispatch(
         fetchLotss({
           isAuthenticated,
           auctionsID: auctionss[0].id,
+          username:username
         })
       );
     }
-  }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus]);
-
-  const moreItemsRenderList = lotss.map((lot) => {
-    return {
-      auctionItemID: lot.auctionItemID,
-      price: lot.estimatedPriceMax,
-      title: lot.auctionItem.title,
-      imgUrl: lot.auctionItem.imgUrls[0],
-      category: lot.auctionItem.categoryID,
-      id: lot.id,
-      startingPrice: lot.startingPrice,
-      lotNum: lot.lot,
-    };
-  });
+  }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus,username]);
 
   return (
     <>
-      {fetchHomePageCarousesStatus === "succeeded" ? (
-        <>
-          <Section1 />
-          <Section11 moreItems={moreItemsRenderList} />
-        </>
-      ) : (
+      {fetchHomePageCarousesStatus === "succeeded" &&
+      fetchLotssStatus === "succeeded" ? undefined : (
         <BackdropLoading />
       )}
+      <>
+        <Section1 />
+        <Section11 />
+      </>
     </>
   );
 }

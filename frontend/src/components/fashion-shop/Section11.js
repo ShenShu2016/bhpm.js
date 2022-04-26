@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:47:19
+ * @LastEditTime: 2022-04-25 21:26:03
  * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section11.js
  * @Description:
  *
@@ -14,11 +14,14 @@ import React, { useState } from "react";
 
 import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
+import { selectAllLotss } from "../../redux/slice/lotsSlice";
 import { trackWindowScroll } from "react-lazy-load-image-component";
+import { useSelector } from "react-redux";
 
-const Section11 = ({ moreItems }) => {
+const Section11 = () => {
+  const lotss = useSelector(selectAllLotss);
   const itemPerPage = 32;
-  const pageNumber = moreItems && Math.ceil(moreItems.length / itemPerPage);
+  const pageNumber = lotss && Math.ceil(lotss.length / itemPerPage);
 
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
@@ -33,13 +36,14 @@ const Section11 = ({ moreItems }) => {
       >
         <CategorySectionHeader title="More For You" seeMoreLink="#" />
         <Grid container spacing={3}>
-          {moreItems
-            .slice((page - 1) * itemPerPage, page * itemPerPage)
-            .map((item, ind) => (
-              <Grid item lg={3} md={4} sm={6} xs={12} key={ind}>
-                <ProductCard1 off={25} hoverEffect {...item} />
-              </Grid>
-            ))}
+          {lotss &&
+            lotss
+              .slice((page - 1) * itemPerPage, page * itemPerPage)
+              .map((item, ind) => (
+                <Grid item lg={3} md={4} sm={6} xs={12} key={ind}>
+                  <ProductCard1 off={25} hoverEffect item={item} />
+                </Grid>
+              ))}
         </Grid>
         <Box sx={{ my: "2rem" }}>
           <Pagination

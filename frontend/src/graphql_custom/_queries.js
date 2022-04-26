@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 13:48:47
+ * @LastEditTime: 2022-04-26 18:37:03
  * @FilePath: \bhpmJS\frontend\src\graphql_custom\_queries.js
  * @Description:
  *
@@ -41,7 +41,6 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        lotsID
         lots {
           id
           lot
@@ -77,16 +76,15 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
   }
 `;
 
-export const listMyCollections = /* GraphQL */ `
-  query ListMyCollections(
-    $filter: ModelMyCollectionFilterInput
+export const listMyFavorites = /* GraphQL */ `
+  query ListMyFavorites(
+    $filter: ModelMyFavoriteFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listMyCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMyFavorites(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        lotsID
         lots {
           id
           lot
@@ -192,6 +190,140 @@ export const listAuctions = /* GraphQL */ `
             updatedAt
             owner
           }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
+export const lotsSortByLot_isAuth = /* GraphQL */ `
+  query LotsSortByLot(
+    $auctionsID: ID!
+    $lot: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLotsFilterInput
+    $limit: Int
+    $nextToken: String
+    $username: ID
+  ) {
+    lotsSortByLot(
+      auctionsID: $auctionsID
+      lot: $lot
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          titleEng
+          descriptionEng
+          categoryID
+          imgUrls
+          condition
+          provenance
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        myFavorites(limit: 1, filter: { owner: { eq: $username } }) {
+          items {
+            owner
+            lotsMyFavoritesId
+            id
+            createdAt
+            updatedAt
+          }
+        }
+      }
+      nextToken
+    }
+  }
+`;
+
+export const lotsSortByLot_noAuth = /* GraphQL */ `
+  query LotsSortByLot(
+    $auctionsID: ID!
+    $lot: ModelIntKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelLotsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    lotsSortByLot(
+      auctionsID: $auctionsID
+      lot: $lot
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        lot
+        startingPrice
+        estimatedPriceMin
+        estimatedPriceMax
+        lotsStatus
+        auctionsID
+        auctions {
+          id
+          active
+          company
+          description
+          auctionStartDate
+          auctionEndDate
+          bidIncrementPriceList
+          createdAt
+          updatedAt
+        }
+        auctionItemID
+        auctionItem {
+          id
+          name
+          title
+          description
+          titleEng
+          descriptionEng
+          categoryID
+          imgUrls
+          condition
+          provenance
+          createdAt
+          updatedAt
+        }
+        bidItemHistories {
           nextToken
         }
         createdAt

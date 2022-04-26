@@ -43,9 +43,9 @@ export const getProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -67,9 +67,9 @@ export const listProfiles = /* GraphQL */ `
         phone
         phone2
         email
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -295,11 +295,10 @@ export const listAuctions = /* GraphQL */ `
     }
   }
 `;
-export const getMyCollection = /* GraphQL */ `
-  query GetMyCollection($id: ID!) {
-    getMyCollection(id: $id) {
+export const getMyFavorite = /* GraphQL */ `
+  query GetMyFavorite($id: ID!) {
+    getMyFavorite(id: $id) {
       id
-      lotsID
       lots {
         id
         lot
@@ -339,23 +338,26 @@ export const getMyCollection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       createdAt
       updatedAt
       owner
+      lotsMyFavoritesId
     }
   }
 `;
-export const listMyCollections = /* GraphQL */ `
-  query ListMyCollections(
-    $filter: ModelMyCollectionFilterInput
+export const listMyFavorites = /* GraphQL */ `
+  query ListMyFavorites(
+    $filter: ModelMyFavoriteFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listMyCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMyFavorites(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        lotsID
         lots {
           id
           lot
@@ -371,6 +373,7 @@ export const listMyCollections = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        lotsMyFavoritesId
       }
       nextToken
     }
@@ -447,6 +450,16 @@ export const getLots = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      myFavorites {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+          lotsMyFavoritesId
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -496,6 +509,9 @@ export const listLots = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       nextToken
     }
@@ -557,6 +573,9 @@ export const lotsSortByLot = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       nextToken
     }
@@ -689,6 +708,9 @@ export const getBidItemHistory = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       userNumber
       bidItemHistoryStatus

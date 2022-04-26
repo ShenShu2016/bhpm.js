@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 14:40:05
+ * @LastEditTime: 2022-04-26 13:46:16
  * @FilePath: \bhpmJS\frontend\src\pages\auctions\bidding\Bidding.js
  * @Description:
  *
@@ -184,12 +184,7 @@ export default function Bidding() {
         {lotInProgress.length === 1 ? (
           <>
             <Box sx={{ width: "100%", margin: "1rem 0", minWidth: "350px" }}>
-              <BiddingTitle
-                lotNum={lotInProgress[0]?.lot}
-                title={lotInProgress[0]?.auctionItem?.title}
-                description={lotInProgress[0]?.auctionItem?.description}
-                createdAt={lotInProgress[0]?.auctionItem?.createdAt}
-              />
+              <BiddingTitle item={lotInProgress[0]} />
             </Box>
             <Box sx={{ width: "70%", minWidth: "350px" }}>
               <Box sx={{ display: "flex", width: "100%" }}>

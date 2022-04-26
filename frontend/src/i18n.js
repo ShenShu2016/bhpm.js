@@ -1,3 +1,12 @@
+/*
+ * @Author: Quennel
+ * @Date: 2022-04-12 15:35:29
+ * @LastEditTime: 2022-04-26 20:01:05
+ * @LastEditors: Quennel
+ * @Description:
+ * @FilePath: /bhpmJS/frontend/src/i18n.js
+ * Quennel
+ */
 //import LanguageDetector from "i18next-browser-languagedetector";
 
 import i18n from "i18next";
@@ -13,12 +22,12 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     debug: true,
-    fallbackLng: "en",
+    fallbackLng: "en_us",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
     resources: {
-      en: {
+      en_us: {
         translation: {
           description: {
             part1: "Login/Register",
@@ -35,11 +44,12 @@ i18n
             Profile: "Profile",
             ProductTitle: "Title",
             ProductDescription: "Description",
-            ProductEstimatedPrice: "Estimated Price",
-            ProductStartPrice: "Starting Price",
+            ProductEstimatedPrice: "Estimate",
+            ProductStartPrice: "Starting",
             ProductStatus: "Lots Status",
             ProductCondition: "Condition",
             ProductProvenance: "Provenance",
+            ProductCollect: "Favorite",
             Logout: "Logout",
             寶華介紹: "Bowell Information",
             團隊介紹: "Team Information",
@@ -58,7 +68,7 @@ i18n
           },
         },
       },
-      中文: {
+      zh_hk: {
         translation: {
           description: {
             part1: "登錄/註冊",
@@ -81,6 +91,7 @@ i18n
             ProductStatus: "藏品狀態",
             ProductCondition: "藏品狀況",
             ProductProvenance: "藏品出處",
+            ProductCollect: "藏品收藏",
             首頁: "首頁",
             最新拍賣: "最新拍賣",
             拍賣歷史: "拍賣歷史",

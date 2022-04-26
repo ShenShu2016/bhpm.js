@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 16:01:20
+ * @LastEditTime: 2022-04-26 18:56:34
  * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
  * @Description:
  *
@@ -92,7 +92,7 @@ const Topbar = () => {
   const handleLanguageClick = (lang) => () => {
     console.log(lang);
     dispatch(setLanguage(lang));
-    i18n.changeLanguage(lang.title);
+    i18n.changeLanguage(lang.currentLanguage);
   };
   //console.log(languageState);
 
@@ -105,6 +105,7 @@ const Topbar = () => {
     const response = await dispatch(signOut());
     if (response.meta.requestStatus === "fulfilled") {
       navigate("/", { replace: true });
+      window.location.reload(false);
     }
   };
   return (
@@ -160,9 +161,9 @@ const Topbar = () => {
                 <MenuItem
                   className="menuItem"
                   component={Link}
-                  to="profile/myCollection"
+                  to="profile/myFavorite"
                 >
-                  <Span className="menuTitle">My Collection</Span>
+                  <Span className="menuTitle">My Favorites</Span>
                 </MenuItem>
                 <MenuItem className="menuItem">
                   <BazarButton
@@ -172,7 +173,7 @@ const Topbar = () => {
                     onClick={signOut_user}
                   >
                     {t("description.Logout")}
-                  </BazarButton>{" "}
+                  </BazarButton>
                 </MenuItem>
               </BazarMenu>
             </>
@@ -187,7 +188,7 @@ const Topbar = () => {
           <BazarMenu
             handler={
               <TouchRipple className="handler marginRight">
-                <Span className="menuTitle">{languageState.title}</Span>
+                <Span className="menuTitle">{languageState.languageName}</Span>
                 <ExpandMore fontSize="inherit" />
               </TouchRipple>
             }
@@ -195,10 +196,10 @@ const Topbar = () => {
             {languageList.map((item) => (
               <MenuItem
                 className="menuItem"
-                key={item.title}
+                key={item.currentLanguage}
                 onClick={handleLanguageClick(item)}
               >
-                <Span className="menuTitle">{item.title}</Span>
+                <Span className="menuTitle">{item.languageName}</Span>
               </MenuItem>
             ))}
           </BazarMenu>

@@ -59,9 +59,9 @@ export const createProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -81,9 +81,9 @@ export const updateProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -103,9 +103,9 @@ export const deleteProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -529,14 +529,13 @@ export const deleteAuctions = /* GraphQL */ `
     }
   }
 `;
-export const createMyCollection = /* GraphQL */ `
-  mutation CreateMyCollection(
-    $input: CreateMyCollectionInput!
-    $condition: ModelMyCollectionConditionInput
+export const createMyFavorite = /* GraphQL */ `
+  mutation CreateMyFavorite(
+    $input: CreateMyFavoriteInput!
+    $condition: ModelMyFavoriteConditionInput
   ) {
-    createMyCollection(input: $input, condition: $condition) {
+    createMyFavorite(input: $input, condition: $condition) {
       id
-      lotsID
       lots {
         id
         lot
@@ -576,21 +575,24 @@ export const createMyCollection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       createdAt
       updatedAt
       owner
+      lotsMyFavoritesId
     }
   }
 `;
-export const updateMyCollection = /* GraphQL */ `
-  mutation UpdateMyCollection(
-    $input: UpdateMyCollectionInput!
-    $condition: ModelMyCollectionConditionInput
+export const updateMyFavorite = /* GraphQL */ `
+  mutation UpdateMyFavorite(
+    $input: UpdateMyFavoriteInput!
+    $condition: ModelMyFavoriteConditionInput
   ) {
-    updateMyCollection(input: $input, condition: $condition) {
+    updateMyFavorite(input: $input, condition: $condition) {
       id
-      lotsID
       lots {
         id
         lot
@@ -630,21 +632,24 @@ export const updateMyCollection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       createdAt
       updatedAt
       owner
+      lotsMyFavoritesId
     }
   }
 `;
-export const deleteMyCollection = /* GraphQL */ `
-  mutation DeleteMyCollection(
-    $input: DeleteMyCollectionInput!
-    $condition: ModelMyCollectionConditionInput
+export const deleteMyFavorite = /* GraphQL */ `
+  mutation DeleteMyFavorite(
+    $input: DeleteMyFavoriteInput!
+    $condition: ModelMyFavoriteConditionInput
   ) {
-    deleteMyCollection(input: $input, condition: $condition) {
+    deleteMyFavorite(input: $input, condition: $condition) {
       id
-      lotsID
       lots {
         id
         lot
@@ -684,10 +689,14 @@ export const deleteMyCollection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       createdAt
       updatedAt
       owner
+      lotsMyFavoritesId
     }
   }
 `;
@@ -765,6 +774,16 @@ export const createLots = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      myFavorites {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+          lotsMyFavoritesId
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -842,6 +861,16 @@ export const updateLots = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      myFavorites {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+          lotsMyFavoritesId
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -919,6 +948,16 @@ export const deleteLots = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      myFavorites {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+          lotsMyFavoritesId
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -1084,6 +1123,9 @@ export const createBidItemHistory = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       userNumber
       bidItemHistoryStatus
@@ -1166,6 +1208,9 @@ export const updateBidItemHistory = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       userNumber
       bidItemHistoryStatus
@@ -1248,6 +1293,9 @@ export const deleteBidItemHistory = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        myFavorites {
+          nextToken
+        }
       }
       userNumber
       bidItemHistoryStatus
