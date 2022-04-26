@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 15:42:58
+ * @LastEditTime: 2022-04-26 18:42:41
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
@@ -78,9 +78,10 @@ const HoverIconWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const ProductCard1 = ({ off, hoverEffect, item }) => {
-  let isFav = false;
   const { t } = useTranslation();
-  const [isFavorite, setIsFavorite] = useState(isFav || false);
+  const [isFavorite, setIsFavorite] = useState(
+    item?.myFavorites?.items[0] || false
+  );
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
@@ -93,15 +94,15 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
   const toggleDialog = useCallback(() => {
     setOpen((open) => !open);
   }, []);
-  console.log();
 
   const toggleIsFavorite = async () => {
     setIsFavorite((fav) => !fav);
     console.log(isFavorite);
     if (isFavorite === false) {
       const createMyFavoriteInput = {
-        id: username + item.id,
+        //id: username + item.id,
         lotsMyFavoritesId: item.id,
+        owner: username,
       };
       const response = await dispatch(
         postMyFavorite({ createMyFavoriteInput })
@@ -117,7 +118,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
       }
     } else {
       const response = await dispatch(
-        removeMyFavorite({ id: username + item.id })
+        removeMyFavorite({ id: item.myFavorites.items[0].id })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({

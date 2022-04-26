@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:50:18
+ * @LastEditTime: 2022-04-26 18:04:36
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -25,6 +25,7 @@ import { fetchLotss } from "../../redux/slice/lotsSlice";
 export default function Home() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.userAuth);
+  const { username } = useSelector((state) => state.userAuth.user);
   const { fetchHomePageCarousesStatus } = useSelector(
     (state) => state.homePageCarouse
   );
@@ -60,10 +61,11 @@ export default function Home() {
         fetchLotss({
           isAuthenticated,
           auctionsID: auctionss[0].id,
+          username:username
         })
       );
     }
-  }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus]);
+  }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus,username]);
 
   return (
     <>

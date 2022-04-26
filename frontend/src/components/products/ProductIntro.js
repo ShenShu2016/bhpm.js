@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-26 15:43:03
+ * @LastEditTime: 2022-04-26 18:38:25
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -49,8 +49,9 @@ const ProductIntro = ({ product }) => {
     console.log(isFavorite);
     if (isFavorite === false) {
       const createMyFavoriteInput = {
-        id: username + product.id,
+        //id: username + product.id,
         lotsMyFavoritesId: product.id,
+        owner: username,
       };
       const response = await dispatch(
         postMyFavorite({ createMyFavoriteInput })

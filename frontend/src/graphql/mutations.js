@@ -59,9 +59,9 @@ export const createProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -81,9 +81,9 @@ export const updateProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -103,9 +103,9 @@ export const deleteProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -581,8 +581,8 @@ export const createMyFavorite = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      lotsMyFavoritesId
       owner
+      lotsMyFavoritesId
     }
   }
 `;
@@ -638,8 +638,8 @@ export const updateMyFavorite = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      lotsMyFavoritesId
       owner
+      lotsMyFavoritesId
     }
   }
 `;
@@ -695,8 +695,8 @@ export const deleteMyFavorite = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      lotsMyFavoritesId
       owner
+      lotsMyFavoritesId
     }
   }
 `;
@@ -779,8 +779,8 @@ export const createLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }
@@ -866,8 +866,8 @@ export const updateLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }
@@ -953,8 +953,8 @@ export const deleteLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }

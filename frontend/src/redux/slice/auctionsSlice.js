@@ -40,6 +40,7 @@ export const fetchAuctionss = createAsyncThunk(
       });
       return AuctionssData.data.listAuctions.items;
     } catch (error) {
+      console.log(error);
       return error.data.listAuctions.items;
     }
   }
@@ -59,7 +60,7 @@ export const selectedAuctions = createAsyncThunk(
       // console.log("what?", response);
       return response.data.getAuctions;
     } catch (error) {
-      //console.log("出错啦", error);
+      console.log(error);
       return error.data.getAuctions;
     }
   }

@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 15:37:15
+ * @LastEditTime: 2022-04-26 18:56:34
  * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
  * @Description:
  *
@@ -105,6 +105,7 @@ const Topbar = () => {
     const response = await dispatch(signOut());
     if (response.meta.requestStatus === "fulfilled") {
       navigate("/", { replace: true });
+      window.location.reload(false);
     }
   };
   return (
@@ -172,7 +173,7 @@ const Topbar = () => {
                     onClick={signOut_user}
                   >
                     {t("description.Logout")}
-                  </BazarButton>{" "}
+                  </BazarButton>
                 </MenuItem>
               </BazarMenu>
             </>

@@ -77,8 +77,8 @@ export const onCreateLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }
@@ -161,8 +161,8 @@ export const onUpdateLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }
@@ -245,8 +245,8 @@ export const onDeleteLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }

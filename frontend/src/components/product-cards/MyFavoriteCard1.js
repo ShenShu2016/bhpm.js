@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-25 21:35:39
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 15:42:52
+ * @LastEditTime: 2022-04-26 18:43:58
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyFavoriteCard1.js
  * @Description:
  *
@@ -99,8 +99,9 @@ const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
     console.log(isFavorite);
     if (isFavorite === false) {
       const createMyFavoriteInput = {
-        id: username + item.lots.id,
+        //id: username + item.lots.id,
         lotsMyFavoritesId: item.lots.id,
+        owner: username,
       };
       const response = await dispatch(
         postMyFavorite({ createMyFavoriteInput })
@@ -115,9 +116,7 @@ const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
         });
       }
     } else {
-      const response = await dispatch(
-        removeMyFavorite({ id: username + item.lots.id })
-      );
+      const response = await dispatch(removeMyFavorite({ id: item.id }));
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({
           isOpen: true,

@@ -43,9 +43,9 @@ export const getProfile = /* GraphQL */ `
       phone
       phone2
       email
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -67,9 +67,9 @@ export const listProfiles = /* GraphQL */ `
         phone
         phone2
         email
+        owner
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }
@@ -344,8 +344,8 @@ export const getMyFavorite = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      lotsMyFavoritesId
       owner
+      lotsMyFavoritesId
     }
   }
 `;
@@ -372,8 +372,8 @@ export const listMyFavorites = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        lotsMyFavoritesId
         owner
+        lotsMyFavoritesId
       }
       nextToken
     }
@@ -455,8 +455,8 @@ export const getLots = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          lotsMyFavoritesId
           owner
+          lotsMyFavoritesId
         }
         nextToken
       }

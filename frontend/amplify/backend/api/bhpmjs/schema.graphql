@@ -27,6 +27,7 @@ type Profile
   phone: String
   phone2: String
   email: String
+  owner: ID!
 }
 
 type HomePageCarouse
@@ -99,6 +100,7 @@ type MyFavorite
   lots: Lots @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
+  owner: ID!
 }
 
 type Lots
@@ -204,7 +206,7 @@ type BidItemHistory
   bidForm: BidForm
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
 
 enum BidForm {
@@ -238,7 +240,7 @@ type AuctionUserLimitation
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
 type MySucceedBid
   @model
@@ -257,7 +259,7 @@ type MySucceedBid
   bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
 
 enum LimitStatus {
@@ -281,5 +283,5 @@ type AuctionUserNumber  #别人看不到，自己能看到，但是公开的能�
   auctions: Auctions! @belongsTo(fields: ["auctionsID"])
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
-  owner: ID
+  owner: ID!
 }
