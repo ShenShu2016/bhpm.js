@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-18 00:03:49
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:47:04
+ * @LastEditTime: 2022-04-25 21:55:09
  * @FilePath: \bhpmJS\frontend\src\pages\profile\MyCollection.js
  * @Description:
  *
@@ -10,15 +10,11 @@
  */
 
 import React, { useEffect } from "react";
-import {
-  fetchMyCollection,
-  selectAllMyCollection,
-} from "../../redux/slice/myCollectionSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BackdropLoading from "../../components/BackdropLoading";
-import { H2 } from "../../components/Typography";
 import SectionMyCollection from "../../components/fashion-shop/SectionMyCollection";
+import { fetchMyCollection } from "../../redux/slice/myCollectionSlice";
 
 export default function MyCollection() {
   const dispatch = useDispatch();

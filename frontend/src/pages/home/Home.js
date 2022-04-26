@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:43:56
+ * @LastEditTime: 2022-04-25 21:50:18
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -28,6 +28,7 @@ export default function Home() {
   const { fetchHomePageCarousesStatus } = useSelector(
     (state) => state.homePageCarouse
   );
+
   const { fetchLotssStatus } = useSelector((state) => state.lots);
   const { fetchAuctionssStatus } = useSelector((state) => state.auctions);
   const auctionss = useSelector(selectAllAuctionss);
@@ -66,14 +67,14 @@ export default function Home() {
 
   return (
     <>
-      {fetchHomePageCarousesStatus === "succeeded" ? (
-        <>
-          <Section1 />
-          <Section11 />
-        </>
-      ) : (
+      {fetchHomePageCarousesStatus === "succeeded" &&
+      fetchLotssStatus === "succeeded" ? undefined : (
         <BackdropLoading />
       )}
+      <>
+        <Section1 />
+        <Section11 />
+      </>
     </>
   );
 }
