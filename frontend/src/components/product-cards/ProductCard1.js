@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Quennel
- * @LastEditTime: 2022-04-25 22:11:57
- * @FilePath: /bhpmJS/frontend/src/components/product-cards/ProductCard1.js
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-25 21:30:58
+ * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -28,6 +28,7 @@ import { H3 } from "../Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import SnackBar from "../SnackBar";
+import { useTranslation } from "react-i18next";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
   position: "relative",
@@ -76,20 +77,14 @@ const HoverIconWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ProductCard1 = ({
-  id,
-  title,
-  price,
-  startingPrice,
-  imgUrl,
-  isFav,
-  hoverEffect,
-  lotNum,
-}) => {
+const ProductCard1 = ({ off, hoverEffect, item }) => {
+  let isFav = false;
+  const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(isFav || false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
+  const { currentLanguage } = useSelector((state) => state.general.language);
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
     isSuccess: null,
@@ -105,10 +100,12 @@ const ProductCard1 = ({
     console.log(isFavorite);
     if (isFavorite === false) {
       const createMyCollectionInput = {
-        id: username + id,
-        lotsID: id,
+        id: username + item.id,
+        lotsID: item.id,
       };
-      const response = await dispatch(postMyCollection({ createMyCollectionInput }));
+      const response = await dispatch(
+        postMyCollection({ createMyCollectionInput })
+      );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
       } else {
@@ -119,8 +116,9 @@ const ProductCard1 = ({
         });
       }
     } else {
-      const response = await
-      dispatch(removeMyCollection({ id: username + id }));
+      const response = await dispatch(
+        removeMyCollection({ id: username + item.id })
+      );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({
           isOpen: true,
@@ -154,14 +152,14 @@ const ProductCard1 = ({
             )}
           </IconButton>
         </HoverIconWrapper>
-        <Link to={`/lots/${id}`}>
+        <Link to={`/lots/${item.id}`}>
           <LazyLoadImage
             effect="blur"
-            src={imgUrl}
+            src={item.auctionItem.imgUrls[0]}
             width={220}
             height={275}
             layout="responsive"
-            alt={title}
+            alt={item.auctionItem.title}
             style={{ borderRadius: "10px" }}
           />
         </Link>
@@ -170,7 +168,7 @@ const ProductCard1 = ({
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link to={`/lots/${id}`}>
+            <Link to={`/lots/${item.id}`}>
               <H3
                 className="title"
                 fontSize="14px"
@@ -178,14 +176,19 @@ const ProductCard1 = ({
                 fontWeight="600"
                 color="text.secondary"
                 mb={1}
-                title={title}
+                title={item.auctionItem.title}
               >
-                Lot #{lotNum} {title}
+                Lot #{item.lot}{" "}
+                {currentLanguage === "zh-hk"
+                  ? item.auctionItem.title
+                  : item.auctionItem.titleEng}
               </H3>
             </Link>
             <FlexBox alignItems="center" mt={0.5}>
               <Box pr={1} fontWeight="600" color="primary.second">
-                估價: ${startingPrice.toFixed(2)} - ${price.toFixed(2)}
+                {t("description.ProductEstimatedPrice")}: $
+                {item.startingPrice.toFixed(2)} - $
+                {item.estimatedPriceMax.toFixed(2)}
               </Box>
             </FlexBox>
           </Box>

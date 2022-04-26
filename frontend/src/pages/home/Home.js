@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 23:12:15
+ * @LastEditTime: 2022-04-25 21:29:45
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -66,25 +66,12 @@ export default function Home() {
     }
   }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus]);
 
-  const moreItemsRenderList = lotss.map((lot) => {
-    return {
-      auctionItemID: lot.auctionItemID,
-      price: lot.estimatedPriceMax,
-      title: lot.auctionItem.title,
-      imgUrl: lot.auctionItem.imgUrls[0],
-      category: lot.auctionItem.categoryID,
-      id: lot.id,
-      startingPrice: lot.startingPrice,
-      lotNum: lot.lot,
-    };
-  });
-
   return (
     <>
       {fetchHomePageCarousesStatus === "succeeded" ? (
         <>
           <Section1 />
-          <Section11 moreItems={moreItemsRenderList} />
+          <Section11 />
         </>
       ) : (
         <BackdropLoading />
