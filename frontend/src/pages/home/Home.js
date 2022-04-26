@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:29:45
+ * @LastEditTime: 2022-04-25 21:43:56
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -14,13 +14,13 @@ import {
   fetchAuctionss,
   selectAllAuctionss,
 } from "../../redux/slice/auctionsSlice";
-import { fetchLotss, selectAllLotss } from "../../redux/slice/lotsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BackdropLoading from "../../components/BackdropLoading";
 import Section1 from "../../components/fashion-shop/Section1";
 import Section11 from "../../components/fashion-shop/Section11";
 import { fetchHomePageCarouses } from "../../redux/slice/homePageCarouseSlice";
+import { fetchLotss } from "../../redux/slice/lotsSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ export default function Home() {
   const { fetchLotssStatus } = useSelector((state) => state.lots);
   const { fetchAuctionssStatus } = useSelector((state) => state.auctions);
   const auctionss = useSelector(selectAllAuctionss);
-  const lotss = useSelector(selectAllLotss);
 
   useEffect(() => {
     if (isAuthenticated !== null) {
@@ -56,7 +55,6 @@ export default function Home() {
       auctionss[0]?.id &&
       (fetchLotssStatus === "idle" || undefined)
     ) {
-      console.log("我来这里几次了？");
       dispatch(
         fetchLotss({
           isAuthenticated,
