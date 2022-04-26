@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Quennel
- * @LastEditTime: 2022-04-26 20:16:26
- * @FilePath: /bhpmJS/frontend/src/components/product-cards/ProductCard1.js
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 15:42:58
+ * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -14,9 +14,9 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import {
-  postMyCollection,
-  removeMyCollection,
-} from "../../redux/slice/myCollectionSlice";
+  postMyFavorite,
+  removeMyFavorite,
+} from "../../redux/slice/myFavoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarCard from "../BazarCard";
@@ -99,12 +99,12 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
     setIsFavorite((fav) => !fav);
     console.log(isFavorite);
     if (isFavorite === false) {
-      const createMyCollectionInput = {
+      const createMyFavoriteInput = {
         id: username + item.id,
-        lotsID: item.id,
+        lotsMyFavoritesId: item.id,
       };
       const response = await dispatch(
-        postMyCollection({ createMyCollectionInput })
+        postMyFavorite({ createMyFavoriteInput })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
@@ -117,7 +117,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
       }
     } else {
       const response = await dispatch(
-        removeMyCollection({ id: username + item.id })
+        removeMyFavorite({ id: username + item.id })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({

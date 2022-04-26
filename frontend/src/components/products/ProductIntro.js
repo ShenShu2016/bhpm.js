@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-26 13:42:43
+ * @LastEditTime: 2022-04-26 15:43:03
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -13,9 +13,9 @@ import { H3, H4, H6 } from "../../components/Typography";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useState } from "react";
 import {
-  postMyCollection,
-  removeMyCollection,
-} from "../../redux/slice/myCollectionSlice";
+  postMyFavorite,
+  removeMyFavorite,
+} from "../../redux/slice/myFavoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
@@ -48,12 +48,12 @@ const ProductIntro = ({ product }) => {
     setIsFavorite((fav) => !fav);
     console.log(isFavorite);
     if (isFavorite === false) {
-      const createMyCollectionInput = {
+      const createMyFavoriteInput = {
         id: username + product.id,
-        lotsID: product.id,
+        lotsMyFavoritesId: product.id,
       };
       const response = await dispatch(
-        postMyCollection({ createMyCollectionInput })
+        postMyFavorite({ createMyFavoriteInput })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
@@ -66,7 +66,7 @@ const ProductIntro = ({ product }) => {
       }
     } else {
       const response = await dispatch(
-        removeMyCollection({ id: username + product.id })
+        removeMyFavorite({ id: username + product.id })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({

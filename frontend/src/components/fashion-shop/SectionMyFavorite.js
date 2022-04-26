@@ -2,8 +2,8 @@
  * @Author: Shen Shu
  * @Date: 2022-04-18 00:03:49
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:37:01
- * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\SectionMyCollection.js
+ * @LastEditTime: 2022-04-26 15:37:11
+ * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\SectionMyFavorite.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -16,17 +16,17 @@ import Button from "@mui/material/Button";
 import CategorySectionHeader from "../CategorySectionHeader";
 import { H3 } from "../Typography";
 import { Link } from "react-router-dom";
-import MyCollectionCard1 from "../product-cards/MyCollectionCard1";
+import MyFavoriteCard1 from "../product-cards/MyFavoriteCard1";
 import React from "react";
 import Stack from "@mui/material/Stack";
-import { selectAllMyCollection } from "../../redux/slice/myCollectionSlice";
+import { selectAllMyFavorite } from "../../redux/slice/myFavoriteSlice";
 import { setAlert } from "../../redux/slice/generalSlice";
 
-const SectionMyCollection = () => {
+const SectionMyFavorite = () => {
   //console.log(moreItems);
   const dispatch = useDispatch();
   const alert = useSelector((state) => state.general.alert);
-  const myCollections = useSelector(selectAllMyCollection);
+  const myFavorites = useSelector(selectAllMyFavorite);
 
   const toggleAlert = async () => {
     if (alert === false) {
@@ -40,12 +40,12 @@ const SectionMyCollection = () => {
         mb: "70px",
       }}
     >
-      <CategorySectionHeader title="Your Collections" />
-      {myCollections.length !== 0 ? (
+      <CategorySectionHeader title="Your Favorites" />
+      {myFavorites.length !== 0 ? (
         <Grid container spacing={3}>
-          {myCollections.map((item, ind) => (
+          {myFavorites.map((item, ind) => (
             <Grid item lg={3} md={4} sm={6} xs={12} key={ind}>
-              <MyCollectionCard1 off={25} hoverEffect item={item} />
+              <MyFavoriteCard1 off={25} hoverEffect item={item} />
             </Grid>
           ))}
         </Grid>
@@ -79,4 +79,4 @@ const SectionMyCollection = () => {
   );
 };
 
-export default SectionMyCollection;
+export default SectionMyFavorite;

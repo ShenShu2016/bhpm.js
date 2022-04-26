@@ -102,7 +102,7 @@ type MyFavorite
 }
 
 type Lots
-  @model(subscriptions: null)
+  @model
   @auth(
     rules: [
       { allow: public, operations: [read], provider: iam }

@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 13:48:47
+ * @LastEditTime: 2022-04-26 15:42:12
  * @FilePath: \bhpmJS\frontend\src\graphql_custom\_queries.js
  * @Description:
  *
@@ -41,7 +41,7 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        lotsID
+        lotsMyFavoritesId
         lots {
           id
           lot
@@ -77,16 +77,15 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
   }
 `;
 
-export const listMyCollections = /* GraphQL */ `
-  query ListMyCollections(
-    $filter: ModelMyCollectionFilterInput
+export const listMyFavorites = /* GraphQL */ `
+  query ListMyFavorites(
+    $filter: ModelMyFavoriteFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listMyCollections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMyFavorites(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        lotsID
         lots {
           id
           lot

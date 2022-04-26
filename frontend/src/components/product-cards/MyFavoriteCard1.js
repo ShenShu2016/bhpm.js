@@ -2,8 +2,8 @@
  * @Author: Shen Shu
  * @Date: 2022-04-25 21:35:39
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 13:48:25
- * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyCollectionCard1.js
+ * @LastEditTime: 2022-04-26 15:42:52
+ * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyFavoriteCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -14,9 +14,9 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import {
-  postMyCollection,
-  removeMyCollection,
-} from "../../redux/slice/myCollectionSlice";
+  postMyFavorite,
+  removeMyFavorite,
+} from "../../redux/slice/myFavoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarCard from "../BazarCard";
@@ -77,7 +77,7 @@ const HoverIconWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const MyCollectionCard1 = ({ off, hoverEffect, item }) => {
+const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
   const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(true);
   const [open, setOpen] = useState(false);
@@ -98,12 +98,12 @@ const MyCollectionCard1 = ({ off, hoverEffect, item }) => {
     setIsFavorite((fav) => !fav);
     console.log(isFavorite);
     if (isFavorite === false) {
-      const createMyCollectionInput = {
+      const createMyFavoriteInput = {
         id: username + item.lots.id,
-        lotsID: item.lots.id,
+        lotsMyFavoritesId: item.lots.id,
       };
       const response = await dispatch(
-        postMyCollection({ createMyCollectionInput })
+        postMyFavorite({ createMyFavoriteInput })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
@@ -116,7 +116,7 @@ const MyCollectionCard1 = ({ off, hoverEffect, item }) => {
       }
     } else {
       const response = await dispatch(
-        removeMyCollection({ id: username + item.lots.id })
+        removeMyFavorite({ id: username + item.lots.id })
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({
@@ -217,4 +217,4 @@ const MyCollectionCard1 = ({ off, hoverEffect, item }) => {
   );
 };
 
-export default MyCollectionCard1;
+export default MyFavoriteCard1;

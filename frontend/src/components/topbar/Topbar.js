@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Quennel
- * @LastEditTime: 2022-04-26 20:08:57
- * @FilePath: /bhpmJS/frontend/src/components/topbar/Topbar.js
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 15:37:15
+ * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -160,9 +160,9 @@ const Topbar = () => {
                 <MenuItem
                   className="menuItem"
                   component={Link}
-                  to="profile/myCollection"
+                  to="profile/myFavorite"
                 >
-                  <Span className="menuTitle">My Collection</Span>
+                  <Span className="menuTitle">My Favorites</Span>
                 </MenuItem>
                 <MenuItem className="menuItem">
                   <BazarButton
