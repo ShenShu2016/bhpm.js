@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 
 import ChangeLotsStatusDialog from "../../components/bidding/ChangeLotsStatusDialog";
-import { selectAllLotss } from "../../redux/slice/lotsSlice";
+import { selectAllLots } from "../../redux/slice/lotSlice";
 import { useSelector } from "react-redux";
 
 export default function BasicTable() {
@@ -20,7 +20,7 @@ export default function BasicTable() {
   const [statusDialogRowInfo, setStatusDialogRowInfo] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const lotss = useSelector(selectAllLotss);
+  const lots = useSelector(selectAllLots);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -53,8 +53,8 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {lotss.length !== 0 &&
-              lotss
+            {lots.length !== 0 &&
+              lots
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((lot) => (
                   <TableRow
@@ -62,14 +62,14 @@ export default function BasicTable() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {lot.lot}
+                      {lot.lotOrder}
                     </TableCell>
                     {/* <TableCell align="right">{lot.id}</TableCell> */}
                     <TableCell align="right">
-                      {lot.auctionItem.categoryID}
+                      {lot.auctionItem.categoryAuctionItemsId}
                     </TableCell>
                     <TableCell align="right">{lot.auctionItem.name}</TableCell>
-                    <TableCell align="right">{lot.lotsStatus}</TableCell>
+                    <TableCell align="right">{lot.lotStatus}</TableCell>
                     <TableCell align="right">
                       <Button
                         variant="contained"
@@ -85,7 +85,7 @@ export default function BasicTable() {
         <TablePagination
           rowsPerPageOptions={[10, 25, 50, 100]}
           component="div"
-          count={lotss.length}
+          count={lots.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

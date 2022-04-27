@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-23 13:59:06
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 14:09:57
+ * @LastEditTime: 2022-04-27 10:41:24
  * @FilePath: \bhpmJS\frontend\src\pages\auctions\bidding\useSubscriptions.js
  * @Description:
  *
@@ -10,19 +10,19 @@
  */
 
 import {
-  onCreateBidItemHistory,
-  onUpdateBidItemHistory,
+  onCreateBidHistory,
+  onUpdateBidHistory,
 } from "../../../graphql_custom/_subscriptions";
 import {
   onCreateMySucceedBid,
-  onUpdateLots,
+  onUpdateLot,
 } from "../../../graphql/subscriptions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { API } from "aws-amplify";
-import { insertBidItemHistory } from "../../../redux/slice/bidItemHistorySlice";
+import { insertBidHistory } from "../../../redux/slice/bidHistorySlice";
 import { insertMySucceedBid } from "../../../redux/slice/mySucceedBidSlice";
-import { updateLotsDetailBySub } from "../../../redux/slice/lotsSlice";
+import { updateLotDetailBySub } from "../../../redux/slice/lotSlice";
 import { useEffect } from "react";
 
 export default function useSubscriptions() {
@@ -55,19 +55,19 @@ export default function useSubscriptions() {
   useEffect(() => {
     if (isAuthenticated !== null) {
       //console.log("start subscription++++++");
-      const onCreateBidItemHistorySub = API.graphql({
-        query: onCreateBidItemHistory,
+      const onCreateBidHistorySub = API.graphql({
+        query: onCreateBidHistory,
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       }).subscribe({
         next: ({ value }) => {
           //console.log(value);
-          dispatch(insertBidItemHistory(value.data.onCreateBidItemHistory));
+          dispatch(insertBidHistory(value.data.onCreateBidHistory));
         },
         error: (error) => console.warn(error),
       });
 
       return () => {
-        onCreateBidItemHistorySub.unsubscribe();
+        onCreateBidHistorySub.unsubscribe();
         console.log("close subscription");
       };
     }
@@ -76,19 +76,19 @@ export default function useSubscriptions() {
   useEffect(() => {
     if (isAuthenticated !== null) {
       //console.log("start subscription++++++");
-      const onUpdateBidItemHistorySub = API.graphql({
-        query: onUpdateBidItemHistory,
+      const onUpdateBidHistorySub = API.graphql({
+        query: onUpdateBidHistory,
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       }).subscribe({
         next: ({ value }) => {
           //console.log(value);
-          dispatch(insertBidItemHistory(value.data.onUpdateBidItemHistory));
+          dispatch(insertBidHistory(value.data.onUpdateBidHistory));
         },
         error: (error) => console.warn(error),
       });
 
       return () => {
-        onUpdateBidItemHistorySub.unsubscribe();
+        onUpdateBidHistorySub.unsubscribe();
         console.log("close subscription");
       };
     }
@@ -96,19 +96,19 @@ export default function useSubscriptions() {
   useEffect(() => {
     if (isAuthenticated !== null) {
       //console.log("start update lots subscription++++++");
-      const onUpdateLotsSub = API.graphql({
-        query: onUpdateLots,
+      const onUpdateLotSub = API.graphql({
+        query: onUpdateLot,
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       }).subscribe({
         next: ({ value }) => {
           console.log(value);
-          dispatch(updateLotsDetailBySub(value.data.onUpdateLots));
+          dispatch(updateLotDetailBySub(value.data.onUpdateLot));
         },
         error: (error) => console.warn(error),
       });
 
       return () => {
-        onUpdateLotsSub.unsubscribe();
+        onUpdateLotSub.unsubscribe();
         console.log("close subscription");
       };
     }

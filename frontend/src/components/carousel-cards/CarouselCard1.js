@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:12:50
+ * @LastEditTime: 2022-04-27 16:57:24
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -60,13 +60,22 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function CarouselCard1({ carousel }) {
+  const {
+    title,
+    description,
+    sourceUrl,
+    imgUrl,
+    homePageCarouseAuctionId,
+    sourceType,
+  } = carousel;
+
   return (
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
         <Grid item className="grid-item" sm={5} xs={12}>
-          <h1 className="title">{carousel.title}</h1>
+          <h1 className="title">{title}</h1>
           <Paragraph color="secondary.main" mb={2.7}>
-            {carousel.description}
+            {description}
           </Paragraph>
           <Button
             className="button-link"
@@ -78,15 +87,15 @@ export default function CarouselCard1({ carousel }) {
               borderRadius: "8px",
             }}
             component={Link}
-            to={`/auctions/bidding/${carousel.auctionsID}`}
+            to={`/auction/bidding/${homePageCarouseAuctionId}`}
           >
             Bid Now
           </Button>
         </Grid>
         <Grid item sm={5} xs={12}>
-          {carousel.imgUrl.slice(-4) === ".mp4" ? (
+          {sourceType === "video" ? (
             <video
-              src={carousel.imgUrl}
+              src={sourceUrl}
               type="video/mp4"
               controls
               style={{
@@ -98,8 +107,8 @@ export default function CarouselCard1({ carousel }) {
             />
           ) : (
             <BazarImage
-              src={carousel.imgUrl}
-              alt={carousel.title}
+              src={sourceUrl}
+              alt={title}
               sx={{
                 display: "block",
                 mx: "auto",
@@ -107,7 +116,7 @@ export default function CarouselCard1({ carousel }) {
                 maxWidth: "100%",
                 cursor: "pointer",
               }}
-              onClick={() => window.open(carousel.imgUrl)}
+              onClick={() => window.open(imgUrl)}
             />
           )}
         </Grid>

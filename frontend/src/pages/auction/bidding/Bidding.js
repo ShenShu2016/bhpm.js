@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 13:46:16
+ * @LastEditTime: 2022-04-27 16:26:34
  * @FilePath: \bhpmJS\frontend\src\pages\auctions\bidding\Bidding.js
  * @Description:
  *
@@ -22,26 +22,26 @@ import {
 } from "./BiddingStyled";
 import React, { useEffect, useState } from "react";
 import {
-  fetchBidItemHistories,
-  postBidItemHistory,
-  selectAllBidItemHistories,
+  fetchBidHistories,
+  postBidHistory,
+  selectAllBidHistories,
   selectMaxBidPriceByCurrentLot,
-} from "../../../redux/slice/bidItemHistorySlice";
+} from "../../../redux/slice/bidHistorySlice";
 import {
-  fetchLotss,
-  selectAllLotss,
+  fetchLots,
+  selectAllLots,
   selectLotByInProgress,
-} from "../../../redux/slice/lotsSlice";
+} from "../../../redux/slice/lotSlice";
 import {
-  selectAuctionsById,
-  selectedAuctions,
-} from "../../../redux/slice/auctionsSlice";
+  selectAuctionById,
+  selectedAuction,
+} from "../../../redux/slice/auctionSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import AdminActions from "../../../components/bidding/AdminActions";
 import AdminTable from "../../../components/bidding/AdminTable";
 import BazarButton from "../../../components/BazarButton";
-import BidItemHistoriesRenderList from "../../../components/bidding/BidItemHistoriesRenderList";
+import BidHistoriesRenderList from "../../../components/bidding/BidHistoriesRenderList";
 import BiddingTitle from "../../../components/bidding/BiddingTitle";
 import ImageGallery from "react-image-gallery";
 import ImageList from "../../../components/ImageList";
@@ -53,6 +53,7 @@ import { useParams } from "react-router-dom";
 import useSubscriptions from "./useSubscriptions";
 
 function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
+  //console.log(auction, maxBidPriceByCurrentLot, lotInProgress);
   const tempMin =
     auction &&
     maxBidPriceByCurrentLot &&
@@ -75,8 +76,9 @@ function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
 export default function Bidding() {
   useSubscriptions();
   const dispatch = useDispatch();
-  const { auctionsID } = useParams();
-
+  const { auctionId } = useParams();
+  //console.log(auctionId);
+  const { username } = useSelector((state) => state.userAuth.user);
   const [loading, setLoading] = useState(false);
   const [imgListInProgress, setImgListInProgress] = useState([]);
   const [alertStatus, setAlertStatus] = useState({
@@ -87,13 +89,12 @@ export default function Bidding() {
 
   const { isAuthenticated } = useSelector((state) => state.userAuth);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
-  const auction = useSelector((state) => selectAuctionsById(state, auctionsID));
-  const lotss = useSelector(selectAllLotss);
+  const auction = useSelector((state) => selectAuctionById(state, auctionId));
+
+  const lots = useSelector(selectAllLots);
   const lotInProgress = useSelector(selectLotByInProgress());
-  const bitItemHistories = useSelector(selectAllBidItemHistories);
-  const { fetchBidItemHistoriesStatus } = useSelector(
-    (state) => state.bidItemHistory
-  );
+  const bitItemHistories = useSelector(selectAllBidHistories);
+  const { fetchBidHistoriesStatus } = useSelector((state) => state.bidHistory);
 
   const handleAlertClose = (reason) => {
     if (reason === "clickaway") {
@@ -104,35 +105,35 @@ export default function Bidding() {
 
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
-      lotID: lotInProgress.length === 1 && lotInProgress[0].id,
+      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0].id,
     })
   );
 
   useEffect(() => {
-    if (isAuthenticated !== null && auctionsID) {
-      dispatch(selectedAuctions({ isAuthenticated, auctionsID }));
-      dispatch(fetchLotss({ isAuthenticated, auctionsID }));
+    if (isAuthenticated !== null && auctionId) {
+      dispatch(selectedAuction({ isAuthenticated, auctionId }));
+      dispatch(fetchLots({ isAuthenticated, auctionId }));
     }
-  }, [dispatch, isAuthenticated, auctionsID]);
+  }, [dispatch, isAuthenticated, auctionId]);
 
   const nextBid = getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress);
 
   useEffect(() => {
     if (
       isAuthenticated !== null &&
-      auctionsID &&
-      fetchBidItemHistoriesStatus !== "succeeded"
+      auctionId &&
+      fetchBidHistoriesStatus !== "succeeded"
     ) {
-      dispatch(fetchBidItemHistories({ isAuthenticated, auctionsID }));
+      dispatch(fetchBidHistories({ isAuthenticated, auctionId }));
     }
-  }, [dispatch, isAuthenticated, auctionsID, fetchBidItemHistoriesStatus]);
+  }, [dispatch, isAuthenticated, auctionId, fetchBidHistoriesStatus]);
 
   useEffect(() => {
-    if (isAuthenticated === true && auctionsID) {
+    if (isAuthenticated === true && auctionId) {
       dispatch(fetchAuctionUserLimitations());
       dispatch(fetchMySucceedBids());
     }
-  }, [dispatch, isAuthenticated, auctionsID]);
+  }, [dispatch, isAuthenticated, auctionId]);
 
   useEffect(() => {
     if (lotInProgress.length) {
@@ -150,17 +151,16 @@ export default function Bidding() {
 
   const handleBitClick = async () => {
     setLoading(true);
-    const createBidItemHistoryInput = {
+    const createBidHistoryInput = {
       id: lotInProgress.length === 1 && `${lotInProgress[0].id}-${nextBid}`,
       bidPrice: nextBid,
-      auctionsID: auctionsID,
-      lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+      auctionBidHistoriesId: auctionId,
+      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0].id,
       bidForm: "Internet",
       userNumber: auction.auctionUserNumbers.items[0].number,
+      owner: username,
     };
-    const response = await dispatch(
-      postBidItemHistory({ createBidItemHistoryInput })
-    );
+    const response = await dispatch(postBidHistory({ createBidHistoryInput }));
 
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
@@ -189,8 +189,8 @@ export default function Bidding() {
             <Box sx={{ width: "70%", minWidth: "350px" }}>
               <Box sx={{ display: "flex", width: "100%" }}>
                 <LeftImgList>
-                  {lotss?.length && lotInProgress?.length ? (
-                    <ImageList images={lotss} itemId={lotInProgress[0].id} />
+                  {lots?.length && lotInProgress?.length ? (
+                    <ImageList images={lots} itemId={lotInProgress[0].id} />
                   ) : null}
                 </LeftImgList>
                 <Paper sx={{ flex: 1, width: "calc(100% - 125px)" }}>
@@ -253,7 +253,7 @@ export default function Bidding() {
                       disabled={
                         isAuthenticated !== true ||
                         loading ||
-                        !auction?.auctionUserNumbers?.items[0]?.number
+                        !auction?.auctionUserNumbers?.items?.[0].number
                       }
                     >
                       Bid
@@ -300,7 +300,7 @@ export default function Bidding() {
             </Box>
 
             <HistoryList component={Paper}>
-              <BidItemHistoriesRenderList bitItemHistories={bitItemHistories} />
+              <BidHistoriesRenderList bitItemHistories={bitItemHistories} />
             </HistoryList>
           </>
         ) : (
@@ -311,7 +311,7 @@ export default function Bidding() {
       </Box>
       {cognitoGroup.includes("admin") && (
         <Box sx={{ my: "2rem" }}>
-          <AdminActions auctionsID={auctionsID} nextBid={nextBid} />
+          <AdminActions auctionId={auctionId} nextBid={nextBid} />
           <AdminTable />
         </Box>
       )}

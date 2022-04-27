@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 18:42:41
+ * @LastEditTime: 2022-04-27 16:58:41
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
@@ -80,8 +80,10 @@ const HoverIconWrapper = styled(Box)(({ theme }) => ({
 const ProductCard1 = ({ off, hoverEffect, item }) => {
   const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(
-    item?.myFavorites?.items[0] || false
+    item?.myFavorites?.items[0]?.id ? item?.myFavorites?.items[0]?.id : false
   );
+  const [isLoading, setIsLoading] = useState(false);
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
@@ -96,12 +98,11 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
   }, []);
 
   const toggleIsFavorite = async () => {
-    setIsFavorite((fav) => !fav);
-    console.log(isFavorite);
+    setIsLoading((pre) => !pre); //把它变成True
     if (isFavorite === false) {
       const createMyFavoriteInput = {
         //id: username + item.id,
-        lotsMyFavoritesId: item.id,
+        lotMyFavoritesId: item.id,
         owner: username,
       };
       const response = await dispatch(
@@ -109,6 +110,8 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
       );
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
+        console.log(response.payload.id);
+        setIsFavorite(response.payload.id);
       } else {
         setAlertStatus({
           isOpen: true,
@@ -117,15 +120,14 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
         });
       }
     } else {
-      const response = await dispatch(
-        removeMyFavorite({ id: item.myFavorites.items[0].id })
-      );
+      const response = await dispatch(removeMyFavorite({ id: isFavorite }));
       if (response.meta.requestStatus === "fulfilled") {
         setAlertStatus({
           isOpen: true,
           isSuccess: true,
           sentence: "取消收藏成功",
         });
+        setIsFavorite(false);
       } else {
         setAlertStatus({
           isOpen: true,
@@ -134,6 +136,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
         });
       }
     }
+    setIsLoading((pre) => !pre); //把它变成false
   };
 
   return (
@@ -145,6 +148,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
               p: "0px",
             }}
             onClick={toggleIsFavorite}
+            disabled={isLoading}
           >
             {isFavorite ? (
               <Favorite color="primary" fontSize="small" />
@@ -153,7 +157,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
             )}
           </IconButton>
         </HoverIconWrapper>
-        <Link to={`/lots/${item.id}`}>
+        <Link to={`/lot/${item.id}`}>
           <LazyLoadImage
             effect="blur"
             src={item.auctionItem.imgUrls[0]}
@@ -169,7 +173,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link to={`/lots/${item.id}`}>
+            <Link to={`/lot/${item.id}`}>
               <H3
                 className="title"
                 fontSize="14px"
@@ -179,7 +183,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
                 mb={1}
                 title={item.auctionItem.title}
               >
-                Lot #{item.lot}{" "}
+                Lot #{item.lotOrder}:{" "}
                 {currentLanguage === "zh_hk"
                   ? item.auctionItem.title
                   : item.auctionItem.titleEng}

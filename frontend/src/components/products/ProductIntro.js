@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-26 18:38:25
+ * @LastEditTime: 2022-04-27 16:30:47
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -50,7 +50,7 @@ const ProductIntro = ({ product }) => {
     if (isFavorite === false) {
       const createMyFavoriteInput = {
         //id: username + product.id,
-        lotsMyFavoritesId: product.id,
+        lotMyFavoritesId: product.id,
         owner: username,
       };
       const response = await dispatch(
@@ -137,6 +137,7 @@ const ProductIntro = ({ product }) => {
                   <ImageViewer
                     src={product.auctionItem.imgUrls}
                     currentIndex={currentImage}
+                    disableScroll={true}
                     onClose={closeImageViewer}
                     closeOnClickOutside={true}
                     backgroundStyle={{
@@ -192,7 +193,7 @@ const ProductIntro = ({ product }) => {
           </Grid>
 
           <Grid item md={6} xs={12} alignItems="center">
-            <H3>Lot #{product.lot}</H3>
+            <H3>Lot #{product.lotOrder}</H3>
             <FlexBox
               alignItems="center"
               justifyContent="space-between"

@@ -2,23 +2,23 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 14:12:26
- * @FilePath: \bhpmJS\frontend\src\components\bidding\BidItemHistoriesRenderList.js
+ * @LastEditTime: 2022-04-27 15:49:15
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
 
 import { Box, Card, Stack } from "@mui/material";
-import { H3, H4 } from "../../components/Typography";
+import { H3, H4 } from "../Typography";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import BazarButton from "../../components/BazarButton";
+import BazarButton from "../BazarButton";
 import { postMySucceedBid } from "../../redux/slice/mySucceedBidSlice";
-import { updateBidItemHistoryDetail } from "../../redux/slice/bidItemHistorySlice";
+import { updateBidHistoryDetail } from "../../redux/slice/bidHistorySlice";
 
-export default function BidItemHistoriesRenderList({ bitItemHistories }) {
+export default function BidHistoriesRenderList({ bitItemHistories }) {
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
@@ -37,19 +37,19 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   const handleBidSuccess = async (history) => {
     setLoading(true);
     console.log(history);
-    const updateBidItemHistoryDetailInput = {
+    const updateBidHistoryDetailInput = {
       id: history.id,
-      bidItemHistoryStatus: "Success",
+      bidHistoryStatus: "Success",
     };
-    console.log(updateBidItemHistoryDetailInput);
+    console.log(updateBidHistoryDetailInput);
     const response = await dispatch(
-      updateBidItemHistoryDetail(updateBidItemHistoryDetailInput)
+      updateBidHistoryDetail(updateBidHistoryDetailInput)
     );
     //console.log(response.meta.requestStatus);
 
     const createMySucceedBidInput = {
-      auctionsID: history.auctionsID,
-      bidItemHistoryID: history.id,
+      mySucceedBidAuctionId: history.auctionBidHistoriesId,
+      mySucceedBidBidHistoryId: history.id,
       owner: history.owner,
     };
     console.log(createMySucceedBidInput);
@@ -71,30 +71,31 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   //console.log(username);
 
   function differentStatus(history) {
-    if (history.bidItemHistoryStatus === "Success") {
+    if (history.bidHistoryStatus === "Success") {
       return (
         <>
           <Card sx={{ backgroundColor: "#ba000d", p: "0.2rem" }}>
             <H4 sx={{ color: "white" }}>
-              Lot {history.lots.lot} sold For CAD ${history.bidPrice} to
+              Lot #{history.lot.lotOrder} sold For CAD ${history.bidPrice} to
               Competing Bidder
             </H4>
           </Card>
         </>
       );
     }
-    if (history.bidItemHistoryStatus === "Start") {
+    if (history.bidHistoryStatus === "Start") {
       return (
         <>
           <Card sx={{ backgroundColor: "#388e3c", p: "0.2rem" }}>
             <H4 color="white">
-              Lot {history.lots.lot} Opened - Ask ${history.lots.startingPrice}
+              Lot #{history.lot.lotOrder} Opened - Ask $
+              {history.lot.startingPrice}
             </H4>
           </Card>
         </>
       );
     }
-    if (history.bidItemHistoryStatus === "FirstCall") {
+    if (history.bidHistoryStatus === "FirstCall") {
       return (
         <>
           <Card sx={{ backgroundColor: "#ffd686", p: "0.2rem" }}>
@@ -103,7 +104,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
         </>
       );
     }
-    if (history.bidItemHistoryStatus === "SecondCall") {
+    if (history.bidHistoryStatus === "SecondCall") {
       return (
         <>
           <Card sx={{ backgroundColor: "#ffd686" }}>
@@ -136,7 +137,7 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
           bitItemHistories.map((history) => {
             return (
               <Box key={history.id}>
-                {history.bidItemHistoryStatus ? (
+                {history.bidHistoryStatus ? (
                   <> {differentStatus(history)}</>
                 ) : (
                   <Card sx={{ backgroundColor: "#c8c8c8" }}>

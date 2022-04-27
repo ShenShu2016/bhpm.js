@@ -91,7 +91,7 @@ const myFavoriteSlice = createSlice({
     //有API call 的不能放这里
     updateLotsDetailBySub(state, data) {
       myFavoriteAdapter.upsertOne(state, data);
-      //state.insertBidItemHistoryStatus = "succeeded";
+      //state.insertBidHistoryStatus = "succeeded";
     },
   },
   extraReducers(builder) {

@@ -65,6 +65,15 @@
     "bhpmjs": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "bhpmjs10bca66010bca660",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
       "output": {
         "authConfig": {
           "defaultAuthentication": {

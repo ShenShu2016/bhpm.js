@@ -8,7 +8,7 @@ type UserInfo
   @model(subscriptions: null)
   @auth(rules: [{ allow: groups, groups: ["admin"] }]) {
   id: ID!
-  email: String
+  email: AWSEmail
   userName: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
@@ -26,7 +26,7 @@ type Profile
   title: String
   phone: String
   phone2: String
-  email: String
+  email: AWSEmail
   owner: ID!
 }
 
@@ -41,10 +41,15 @@ type HomePageCarouse
   ) {
   id: ID!
   title: String
-  imgUrl: AWSURL
+  sourceUrl: AWSURL
   description: String
-  auctionsID: ID!
-  auctions: Auctions! @hasOne(fields: ["auctionsID"])
+  sourceType: SourceType!
+  auction: Auction! @hasOne
+}
+
+enum SourceType {
+  image
+  video
 }
 
 type Category
@@ -58,10 +63,10 @@ type Category
   ) {
   id: ID!
   categoryName: String!
-  auctionItems: [AuctionItem] @hasMany(indexName: "byCategory", fields: ["id"])
+  auctionItems: [AuctionItem] @hasMany
 }
 
-type Auctions
+type Auction
   @model(subscriptions: null)
   @auth(
     rules: [
@@ -76,14 +81,11 @@ type Auctions
   description: String
   auctionStartDate: AWSDateTime
   auctionEndDate: AWSDateTime
-  lots: [Lots] @hasMany(indexName: "byAuctions", fields: ["id"])
-  bidItemHistories: [BidItemHistory]
-    @hasMany(indexName: "byAuctions", fields: ["id"])
+  lot: [Lot] @hasMany
+  bidHistories: [BidHistory] @hasMany
   bidIncrementPriceList: [Int]
-  auctionUserLimitations: [AuctionUserLimitation]
-    @hasMany(indexName: "byAuctions", fields: ["id"])
-  auctionUserNumbers: [AuctionUserNumber]
-    @hasMany(indexName: "byAuctions", fields: ["id"])
+  auctionUserLimitations: [AuctionUserLimitation] @hasMany
+  auctionUserNumbers: [AuctionUserNumber] @hasMany
 }
 
 enum AuctionStatus {
@@ -97,13 +99,13 @@ type MyFavorite
   @model(subscriptions: null)
   @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
   id: ID! # uuid
-  lots: Lots @belongsTo
+  lot: Lot @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!
 }
 
-type Lots
+type Lot
   @model
   @auth(
     rules: [
@@ -113,24 +115,24 @@ type Lots
     ]
   ) {
   id: ID! # uuid
-  lot: Int #拍卖顺序
+  lotOrder: Int! #拍卖顺序
   startingPrice: Int
   estimatedPriceMin: Int
   estimatedPriceMax: Int
-  lotsStatus: LotsStatus!
-  auctionsID: ID!
-    @index(
-      name: "lotsSortByLot"
-      queryField: "lotsSortByLot"
-      sortKeyFields: ["lot"]
-    )
-    @index(name: "byAuctions", sortKeyFields: ["lot"])
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
-  auctionItemID: ID!
-  auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
+  lotStatus: LotStatus!
 
-  bidItemHistories: [BidItemHistory]
-    @hasMany(indexName: "byLots", fields: ["id"])
+  auctionLotId: ID!
+    @index(
+      name: "lotSortByLotOrder"
+      queryField: "lotSortByLotOrder"
+      sortKeyFields: ["lotOrder"]
+    )
+    @index(name: "byAuction", sortKeyFields: ["lotOrder"])
+  auction: Auction! @belongsTo(fields: ["auctionLotId"])
+
+  auctionItem: AuctionItem! @hasOne
+
+  bidHistories: [BidHistory] @hasMany
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 
@@ -138,7 +140,7 @@ type Lots
 }
 # 东西会不会流拍，流拍的会不会再拍
 
-enum LotsStatus {
+enum LotStatus {
   ComingSoon
   InProgress
   Finished
@@ -161,16 +163,15 @@ type AuctionItem
   description: String
   titleEng: String
   descriptionEng: String
-  categoryID: ID! @index(name: "byCategory", sortKeyFields: ["createdAt"])
-  category: Category! @belongsTo(fields: ["categoryID"])
+  category: Category! @belongsTo
   imgUrls: [AWSURL]
   condition: String
   provenance: String
   createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  updatedAt: AWSDateTime
 }
 
-type BidItemHistory
+type BidHistory
   @model
   @auth(
     rules: [
@@ -181,20 +182,19 @@ type BidItemHistory
     ]
   ) {
   id: ID!
-  bidPrice: String!
-  auctionsID: ID!
-    @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+  bidPrice: Int!
+  auctionBidHistoriesId: ID!
+    @index(name: "byAuction", sortKeyFields: ["createdAt"])
     @index(
-      name: "BidItemHistorySortByCreatedAt"
-      queryField: "BidItemHistorySortByCreatedAt"
+      name: "BidHistorySortByCreatedAt"
+      queryField: "BidHistorySortByCreatedAt"
       sortKeyFields: ["createdAt"]
     )
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  auction: Auction! @belongsTo(fields: ["auctionBidHistoriesId"])
 
-  lotsID: ID! @index(name: "byLots", sortKeyFields: ["createdAt"])
-  lots: Lots! @belongsTo(fields: ["lotsID"])
+  lot: Lot! @belongsTo
   userNumber: Int!
-  bidItemHistoryStatus: BidItemHistoryStatus
+  bidHistoryStatus: BidHistoryStatus
     @auth(
       rules: [
         { allow: public, operations: [read], provider: iam }
@@ -215,7 +215,7 @@ enum BidForm {
   Phone
 }
 
-enum BidItemHistoryStatus {
+enum BidHistoryStatus {
   Start
   Success
   FirstCall
@@ -236,8 +236,7 @@ type AuctionUserLimitation
   id: ID!
   maxUserBidPrice: Int!
   limitStatus: LimitStatus!
-  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  auction: Auction! @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!
@@ -249,14 +248,13 @@ type MySucceedBid
       # { allow: public, operations: [read], provider: iam }
       { allow: owner, operations: [read] }
       { allow: groups, operations: [read], groups: ["anyone"] }
-      { allow: groups, groups: ["admin", "staff"] }
+      { allow: groups, groups: ["admin"] }
     ]
   ) {
   id: ID!
-  auctionsID: ID!
-  auctions: Auctions! @hasOne(fields: ["auctionsID"])
-  bidItemHistoryID: ID!
-  bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
+
+  auction: Auction! @hasOne
+  bidHistory: BidHistory! @hasOne
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!
@@ -279,8 +277,7 @@ type AuctionUserNumber  #别人看不到，自己能看到，但是公开的能�
   ) {
   id: ID!
   number: Int!
-  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  auction: Auction! @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!

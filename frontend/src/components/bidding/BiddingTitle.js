@@ -1,7 +1,7 @@
 /*
  * @Author: 李佳修
  * @Date: 2022-04-12 17:49:45
- * @LastEditTime: 2022-04-26 13:46:45
+ * @LastEditTime: 2022-04-27 14:58:30
  * @LastEditors: Shen Shu
  * @FilePath: \bhpmJS\frontend\src\components\bidding\BiddingTitle.js
  */
@@ -12,12 +12,11 @@ import { useSelector } from "react-redux";
 //import { Typography } from "@mui/material";
 
 export default function BiddingTitle({ item }) {
-  console.log(item);
   const { currentLanguage } = useSelector((state) => state.general.language);
   return (
     <div style={{ width: "100%" }}>
       <H2>
-        Lot #{item.lot}{" "}
+        Lot #{item.lotOrder}{" "}
         {currentLanguage === "zh_hk"
           ? item.auctionItem.title
           : item.auctionItem.titleEng}

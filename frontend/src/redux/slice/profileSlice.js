@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-27 21:38:24
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-26 19:21:46
+ * @FilePath: \bhpmJS\frontend\src\redux\slice\profileSlice.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createProfile, updateProfile } from "../../graphql/mutations";
 
@@ -44,13 +55,17 @@ export const createUserProfile = createAsyncThunk(
   "profile/createUserProfile",
   async ({ createProfileInput }) => {
     console.log(createProfileInput);
-    const response = await API.graphql(
-      graphqlOperation(createProfile, {
-        input: createProfileInput,
-      })
-    );
-    console.log("response", response);
-    return response.data.createProfile;
+    try {
+      const response = await API.graphql(
+        graphqlOperation(createProfile, {
+          input: createProfileInput,
+        })
+      );
+      console.log("response", response);
+      return response.data.createProfile;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 export const putUserProfile = createAsyncThunk(
