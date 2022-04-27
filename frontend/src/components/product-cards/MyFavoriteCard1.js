@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-25 21:35:39
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 18:43:58
+ * @LastEditTime: 2022-04-26 20:17:52
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyFavoriteCard1.js
  * @Description:
  *
@@ -13,10 +13,6 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { Box, Dialog, DialogContent, IconButton, styled } from "@mui/material";
 import React, { useCallback, useState } from "react";
-import {
-  postMyFavorite,
-  removeMyFavorite,
-} from "../../redux/slice/myFavoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarCard from "../BazarCard";
@@ -28,6 +24,7 @@ import { H3 } from "../Typography";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import SnackBar from "../SnackBar";
+import { removeMyFavorite } from "../../redux/slice/myFavoriteSlice";
 import { useTranslation } from "react-i18next";
 
 const StyledBazarCard = styled(BazarCard)(() => ({
@@ -80,9 +77,10 @@ const HoverIconWrapper = styled(Box)(({ theme }) => ({
 const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
   const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { username } = useSelector((state) => state.userAuth.user);
+
   const { currentLanguage } = useSelector((state) => state.general.language);
   const [alertStatus, setAlertStatus] = useState({
     isOpen: false,
@@ -95,26 +93,28 @@ const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
   console.log();
 
   const toggleIsFavorite = async () => {
-    setIsFavorite((fav) => !fav);
+    setIsLoading((pre) => !pre); //把它变成True
+
     console.log(isFavorite);
     if (isFavorite === false) {
-      const createMyFavoriteInput = {
-        //id: username + item.lots.id,
-        lotsMyFavoritesId: item.lots.id,
-        owner: username,
-      };
-      const response = await dispatch(
-        postMyFavorite({ createMyFavoriteInput })
-      );
-      if (response.meta.requestStatus === "fulfilled") {
-        setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
-      } else {
-        setAlertStatus({
-          isOpen: true,
-          isSuccess: false,
-          sentence: "收藏失败",
-        });
-      }
+      //这里不会再出现收藏的情况
+      // const createMyFavoriteInput = {
+      //   //id: username + item.lots.id,
+      //   lotsMyFavoritesId: item.lots.id,
+      //   owner: username,
+      // };
+      // const response = await dispatch(
+      //   postMyFavorite({ createMyFavoriteInput })
+      // );
+      // if (response.meta.requestStatus === "fulfilled") {
+      //   setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
+      // } else {
+      //   setAlertStatus({
+      //     isOpen: true,
+      //     isSuccess: false,
+      //     sentence: "收藏失败",
+      //   });
+      // }
     } else {
       const response = await dispatch(removeMyFavorite({ id: item.id }));
       if (response.meta.requestStatus === "fulfilled") {
@@ -123,6 +123,7 @@ const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
           isSuccess: true,
           sentence: "取消收藏成功",
         });
+        setIsFavorite((fav) => !fav);
       } else {
         setAlertStatus({
           isOpen: true,
@@ -131,6 +132,7 @@ const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
         });
       }
     }
+    setIsLoading((pre) => !pre); //把它变成false
   };
 
   return (
@@ -142,6 +144,7 @@ const MyFavoriteCard1 = ({ off, hoverEffect, item }) => {
               p: "0px",
             }}
             onClick={toggleIsFavorite}
+            disabled={isLoading}
           >
             {isFavorite ? (
               <Favorite color="primary" fontSize="small" />
