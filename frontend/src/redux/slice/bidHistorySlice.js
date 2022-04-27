@@ -48,12 +48,12 @@ const initialState = bidHistoryAdapter.getInitialState({
 
 export const fetchBidHistories = createAsyncThunk(
   "bidHistory/fetchBidHistories",
-  async ({ isAuthenticated, auctionsID }) => {
+  async ({ isAuthenticated, auctionId }) => {
     try {
       const BidHistoriesData = await API.graphql({
         query: bidHistorySortByCreatedAt,
         variables: {
-          auctionsID: auctionsID,
+          auctionBidHistoriesId: auctionId,
           sortDirection: "DESC",
           limit: 2000,
         },
@@ -85,17 +85,18 @@ export const selectedBidHistory = createAsyncThunk(
 export const postBidHistory = createAsyncThunk(
   "bidHistory/postBidHistory",
   async ({ createBidHistoryInput }) => {
-    // try {
-    const response = await API.graphql(
-      graphqlOperation(createBidHistory, {
-        input: createBidHistoryInput,
-      })
-    );
-    console.log("postBidHistory", response);
-    return response.data.createBidHistory;
-    // } catch (error) {
-    //   return error;
-    // }
+    console.log(createBidHistoryInput);
+    try {
+      const response = await API.graphql(
+        graphqlOperation(createBidHistory, {
+          input: createBidHistoryInput,
+        })
+      );
+      console.log("postBidHistory", response);
+      return response.data.createBidHistory;
+    } catch (error) {
+      console(error);
+    }
   }
 );
 
@@ -199,9 +200,11 @@ export const {
 //   }
 // );
 
-export const selectMaxBidPriceByCurrentLot = ({ lotID }) =>
+export const selectMaxBidPriceByCurrentLot = ({ lotBidHistoriesId }) =>
   createSelector(selectAllBidHistories, (bidHistory) => {
-    const lotHistories = bidHistory.filter((x) => x.lotsID === lotID);
+    const lotHistories = bidHistory.filter(
+      (x) => x.lotBidHistoriesId === lotBidHistoriesId
+    );
     const maxBidPrice = lotHistories.sort((a, b) => b.bidPrice - a.bidPrice)[0];
 
     return maxBidPrice;

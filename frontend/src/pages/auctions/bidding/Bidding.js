@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:43:11
+ * @LastEditTime: 2022-04-27 16:26:34
  * @FilePath: \bhpmJS\frontend\src\pages\auctions\bidding\Bidding.js
  * @Description:
  *
@@ -53,6 +53,7 @@ import { useParams } from "react-router-dom";
 import useSubscriptions from "./useSubscriptions";
 
 function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
+  //console.log(auction, maxBidPriceByCurrentLot, lotInProgress);
   const tempMin =
     auction &&
     maxBidPriceByCurrentLot &&
@@ -75,8 +76,9 @@ function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
 export default function Bidding() {
   useSubscriptions();
   const dispatch = useDispatch();
-  const { auctionsID } = useParams();
-
+  const { auctionId } = useParams();
+  //console.log(auctionId);
+  const { username } = useSelector((state) => state.userAuth.user);
   const [loading, setLoading] = useState(false);
   const [imgListInProgress, setImgListInProgress] = useState([]);
   const [alertStatus, setAlertStatus] = useState({
@@ -87,7 +89,8 @@ export default function Bidding() {
 
   const { isAuthenticated } = useSelector((state) => state.userAuth);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
-  const auction = useSelector((state) => selectAuctionById(state, auctionsID));
+  const auction = useSelector((state) => selectAuctionById(state, auctionId));
+
   const lots = useSelector(selectAllLots);
   const lotInProgress = useSelector(selectLotByInProgress());
   const bitItemHistories = useSelector(selectAllBidHistories);
@@ -102,35 +105,35 @@ export default function Bidding() {
 
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
-      lotID: lotInProgress.length === 1 && lotInProgress[0].id,
+      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0].id,
     })
   );
 
   useEffect(() => {
-    if (isAuthenticated !== null && auctionsID) {
-      dispatch(selectedAuction({ isAuthenticated, auctionsID }));
-      dispatch(fetchLots({ isAuthenticated, auctionsID }));
+    if (isAuthenticated !== null && auctionId) {
+      dispatch(selectedAuction({ isAuthenticated, auctionId }));
+      dispatch(fetchLots({ isAuthenticated, auctionId }));
     }
-  }, [dispatch, isAuthenticated, auctionsID]);
+  }, [dispatch, isAuthenticated, auctionId]);
 
   const nextBid = getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress);
 
   useEffect(() => {
     if (
       isAuthenticated !== null &&
-      auctionsID &&
+      auctionId &&
       fetchBidHistoriesStatus !== "succeeded"
     ) {
-      dispatch(fetchBidHistories({ isAuthenticated, auctionsID }));
+      dispatch(fetchBidHistories({ isAuthenticated, auctionId }));
     }
-  }, [dispatch, isAuthenticated, auctionsID, fetchBidHistoriesStatus]);
+  }, [dispatch, isAuthenticated, auctionId, fetchBidHistoriesStatus]);
 
   useEffect(() => {
-    if (isAuthenticated === true && auctionsID) {
+    if (isAuthenticated === true && auctionId) {
       dispatch(fetchAuctionUserLimitations());
       dispatch(fetchMySucceedBids());
     }
-  }, [dispatch, isAuthenticated, auctionsID]);
+  }, [dispatch, isAuthenticated, auctionId]);
 
   useEffect(() => {
     if (lotInProgress.length) {
@@ -151,10 +154,11 @@ export default function Bidding() {
     const createBidHistoryInput = {
       id: lotInProgress.length === 1 && `${lotInProgress[0].id}-${nextBid}`,
       bidPrice: nextBid,
-      auctionsID: auctionsID,
-      lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+      auctionBidHistoriesId: auctionId,
+      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0].id,
       bidForm: "Internet",
       userNumber: auction.auctionUserNumbers.items[0].number,
+      owner: username,
     };
     const response = await dispatch(postBidHistory({ createBidHistoryInput }));
 
@@ -249,7 +253,7 @@ export default function Bidding() {
                       disabled={
                         isAuthenticated !== true ||
                         loading ||
-                        !auction?.auctionUserNumbers?.items[0]?.number
+                        !auction?.auctionUserNumbers?.items?.[0].number
                       }
                     >
                       Bid
@@ -307,7 +311,7 @@ export default function Bidding() {
       </Box>
       {cognitoGroup.includes("admin") && (
         <Box sx={{ my: "2rem" }}>
-          <AdminActions auctionsID={auctionsID} nextBid={nextBid} />
+          <AdminActions auctionId={auctionId} nextBid={nextBid} />
           <AdminTable />
         </Box>
       )}

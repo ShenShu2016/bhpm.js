@@ -2,15 +2,16 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 13:58:00
+ * @LastEditTime: 2022-04-27 16:28:58
  * @FilePath: \bhpmJS\frontend\src\graphql_custom\_queries.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
+
 export const bidHistorySortByCreatedAt = /* GraphQL */ `
   query BidHistorySortByCreatedAt(
-    $auctionLotId: ID!
+    $auctionBidHistoriesId: ID!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelBidHistoryFilterInput
@@ -18,7 +19,7 @@ export const bidHistorySortByCreatedAt = /* GraphQL */ `
     $nextToken: String
   ) {
     BidHistorySortByCreatedAt(
-      auctionsID: $auctionsID
+      auctionBidHistoriesId: $auctionBidHistoriesId
       createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
@@ -28,48 +29,48 @@ export const bidHistorySortByCreatedAt = /* GraphQL */ `
       items {
         id
         bidPrice
-        auctionsID
-        bidHistoryStatus
-        userNumber
-        bidForm
-        auctions {
+        auctionBidHistoriesId
+        auction {
           id
+          active
           company
           description
           auctionStartDate
           auctionEndDate
+          bidIncrementPriceList
           createdAt
           updatedAt
         }
         lot {
           id
-          lot
-          auctionItemID
+          lotOrder
           startingPrice
+          estimatedPriceMin
+          estimatedPriceMax
+          lotStatus
+          auctionLotId
+          createdAt
+          updatedAt
+          lotAuctionItemId
           auctionItem {
             id
             name
             title
             description
-            categoryID
-            category {
-              id
-              categoryName
-              createdAt
-              updatedAt
-            }
             condition
             provenance
             imgUrls
             createdAt
             updatedAt
           }
-          createdAt
-          updatedAt
         }
+        userNumber
+        bidHistoryStatus
+        bidForm
         createdAt
         updatedAt
         owner
+        lotBidHistoriesId
       }
       nextToken
     }
@@ -132,17 +133,28 @@ export const listAuctions = /* GraphQL */ `
         description
         auctionStartDate
         auctionEndDate
-        lot {
-          nextToken
-        }
-        bidHistories {
-          nextToken
-        }
         bidIncrementPriceList
         auctionUserLimitations {
+          items {
+            id
+            maxUserBidPrice
+            limitStatus
+            createdAt
+            updatedAt
+            owner
+            auctionAuctionUserLimitationsId
+          }
           nextToken
         }
         auctionUserNumbers {
+          items {
+            id
+            number
+            createdAt
+            updatedAt
+            owner
+            auctionAuctionUserNumbersId
+          }
           nextToken
         }
         createdAt

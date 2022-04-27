@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 12:40:42
+ * @LastEditTime: 2022-04-27 16:20:00
  * @FilePath: \bhpmJS\frontend\src\redux\slice\lotSlice.js
  * @Description:
  *
@@ -45,13 +45,13 @@ const initialState = lotAdapter.getInitialState({
 
 export const fetchLots = createAsyncThunk(
   "lot/fetchLots",
-  async ({ isAuthenticated, auctionsID, username }) => {
-    //console.log("isAuthenticated, auctionsID", isAuthenticated, auctionsID);
+  async ({ isAuthenticated, auctionId, username }) => {
+    //console.log("isAuthenticated,  auctionId", isAuthenticated,  auctionId);
     try {
       const LotData = await API.graphql({
         query: username ? lotSortByLotOrder_isAuth : lotSortByLotOrder_noAuth,
         variables: {
-          auctionLotId: auctionsID,
+          auctionLotId: auctionId,
           sortDirection: "ASC",
           limit: 300,
           username: username,
@@ -188,8 +188,8 @@ export const selectLotByInProgress = () =>
     return lot.filter((x) => x.lotStatus === "InProgress");
   });
 
-export const selectLotByNextLotNumber = (lot) =>
+export const selectLotByNextLotNumber = ({ lotOrder }) =>
   createSelector(selectAllLots, (lot) => {
-    return lot.filter((x) => x.lot === lot);
+    return lot.filter((x) => x.lotOrder === lotOrder);
   });
 export default lotSlice.reducer;

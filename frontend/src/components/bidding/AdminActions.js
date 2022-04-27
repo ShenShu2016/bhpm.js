@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:46:23
+ * @LastEditTime: 2022-04-27 16:13:32
  * @FilePath: \bhpmJS\frontend\src\components\bidding\AdminActions.js
  * @Description:
  *
@@ -36,7 +36,7 @@ import BazarButton from "../BazarButton";
 import { H1 } from "../Typography";
 import { green } from "@mui/material/colors";
 
-export default function AdminActions({ auctionsID, nextBid }) {
+export default function AdminActions({ auctionId, nextBid }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [bidForm, setBidForm] = useState("Room");
@@ -53,16 +53,16 @@ export default function AdminActions({ auctionsID, nextBid }) {
   const lotInProgress = useSelector(selectLotByInProgress());
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
-      lotID: lotInProgress.length === 1 && lotInProgress[0].id,
+      lotBidHistoriesId: lotInProgress[0]?.id,
     })
   );
   const handleSubmitBid = async (event) => {
     setLoading(true);
     const createBidHistoryInput = {
-      id: lotInProgress.length === 1 && `${lotInProgress[0].id}-${bidAmount}`,
+      id: lotInProgress.length === 1 && `${lotInProgress[0]?.id}-${bidAmount}`,
       bidPrice: bidAmount,
-      auctionsID: auctionsID,
-      lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+      auctionBidHistoriesId: auctionId,
+      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0]?.id,
       bidForm: bidForm,
       userNumber: userNumber,
       owner: "admin",
@@ -75,58 +75,37 @@ export default function AdminActions({ auctionsID, nextBid }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("bid失敗");
+      // alert("bid失敗");
     }
   };
 
-  const handleFirstCall = async (event) => {
+  const handleFirstSecondCall = async (event) => {
     setLoading(true);
     const createBidHistoryInput = {
       bidPrice: maxBidPriceByCurrentLot.bidPrice,
-      auctionsID: auctionsID,
+      auctionBidHistoriesId: auctionId,
       bidForm: "Room",
-      lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
+      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0]?.id,
       userNumber: 0,
-      bidItemHistoryStatus: "FirstCall",
+      bidHistoryStatus: event.target.value,
       owner: "admin",
     };
     const response = await dispatch(postBidHistory({ createBidHistoryInput }));
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
-      alert("First Call 成功");
+      alert(event.target.value, " 成功");
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("First Call 失敗");
-    }
-  };
-
-  const handleSecondCall = async (event) => {
-    setLoading(true);
-    const createBidHistoryInput = {
-      bidPrice: maxBidPriceByCurrentLot.bidPrice,
-      auctionsID: auctionsID,
-      bidForm: "Room",
-      lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
-      userNumber: 0,
-      bidItemHistoryStatus: "SecondCall",
-      owner: "admin",
-    };
-    const response = await dispatch(postBidHistory({ createBidHistoryInput }));
-    if (response.meta.requestStatus === "fulfilled") {
-      setLoading(false);
-      setUserNumber(0);
-      alert("First Call 成功");
-    } else {
-      setLoading(false);
-      setUserNumber(0);
-      alert("First Call 失敗");
+      alert(event.target.value, " 失敗");
     }
   };
 
   const nextLotArr = useSelector(
-    selectLotByNextLotNumber(lotInProgress[0] && lotInProgress[0].lot + 1)
+    selectLotByNextLotNumber({
+      lotOrder: lotInProgress[0] && lotInProgress[0].lotOrder + 1,
+    })
   );
   //console.log(nextLotArr);
   const handleFinishAndNext = async (event) => {
@@ -134,37 +113,26 @@ export default function AdminActions({ auctionsID, nextBid }) {
     const currentLot = lotInProgress[0];
     const nextLot = nextLotArr[0];
     const response1 = await dispatch(
-      updateLotDetail({ id: currentLot.id, lotsStatus: "Finished" })
+      updateLotDetail({ id: currentLot.id, lotStatus: "Finished" })
     );
     console.log(response1);
 
     const response2 = await dispatch(
-      updateLotDetail({ id: nextLot.id, lotsStatus: "InProgress" })
+      updateLotDetail({ id: nextLot.id, lotStatus: "InProgress" })
     );
     console.log(response2);
     const createBidHistoryInput = {
       bidPrice: 0,
-      auctionsID: auctionsID,
+      auctionBidHistoriesId: auctionId,
       bidForm: "Room",
-      lotsID: nextLot.id,
+      lotBidHistoriesId: nextLot.id,
       userNumber: 0,
-      bidItemHistoryStatus: "Start",
+      bidHistoryStatus: "Start",
       owner: "admin",
     };
     const response3 = await dispatch(postBidHistory({ createBidHistoryInput }));
     console.log(response3);
-    // const createBidHistoryInput = {
-    //   bidPrice: maxBidPriceByCurrentLot.bidPrice,
-    //   auctionsID: auctionsID,
-    //   bidForm: "Room",
-    //   lotsID: lotInProgress.length === 1 && lotInProgress[0].id,
-    //   userNumber: 0,
-    //   bidItemHistoryStatus: "SecondCall",
-    //   owner: "admin",
-    // };
-    // const response = await dispatch(
-    //   postBidHistory({ createBidHistoryInput })
-    // );
+
     if (response3.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
@@ -258,7 +226,8 @@ export default function AdminActions({ auctionsID, nextBid }) {
           size="large"
           color="primary"
           variant="contained"
-          onClick={handleFirstCall}
+          value={"FirstCall"}
+          onClick={handleFirstSecondCall}
           disabled={loading || !maxBidPriceByCurrentLot}
         >
           First Call{" "}
@@ -280,7 +249,8 @@ export default function AdminActions({ auctionsID, nextBid }) {
           size="large"
           color="primary"
           variant="contained"
-          onClick={handleSecondCall}
+          value={"SecondCall"}
+          onClick={handleFirstSecondCall}
           disabled={loading || !maxBidPriceByCurrentLot}
         >
           Second Call{" "}

@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 12:24:51
+ * @LastEditTime: 2022-04-27 15:25:28
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -60,7 +60,7 @@ export default function Home() {
       dispatch(
         fetchLots({
           isAuthenticated,
-          auctionsID: auctions[0].id,
+          auctionId: auctions[0].id,
           username: username,
         })
       );

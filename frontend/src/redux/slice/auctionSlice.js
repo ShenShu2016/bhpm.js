@@ -49,12 +49,11 @@ export const fetchAuctions = createAsyncThunk(
 export const selectedAuction = createAsyncThunk(
   "auction/selectedAuction",
 
-  async ({ isAuthenticated, auctionID }) => {
+  async ({ isAuthenticated, auctionId }) => {
     try {
-      //console.log("isAuthenticated", isAuthenticated);
       const response = await API.graphql({
         query: getAuction,
-        variables: { id: auctionID },
+        variables: { id: auctionId },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
       // console.log("what?", response);
@@ -160,9 +159,9 @@ export const {
   selectIds: selectAuctionIds,
 } = auctionAdapter.getSelectors((state) => state.auction);
 
-export const selectMyAuctionLimitation = ({ auctionID }) =>
+export const selectMyAuctionLimitation = ({ auctionId }) =>
   createSelector(selectAllAuctions, (auctions) => {
-    const auction = auctions.filter((x) => x.id === auctionID)[0];
+    const auction = auctions.filter((x) => x.id === auctionId)[0];
     console.log(auction);
 
     return auction;

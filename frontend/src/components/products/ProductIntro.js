@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-27 12:41:40
+ * @LastEditTime: 2022-04-27 16:30:47
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -137,6 +137,7 @@ const ProductIntro = ({ product }) => {
                   <ImageViewer
                     src={product.auctionItem.imgUrls}
                     currentIndex={currentImage}
+                    disableScroll={true}
                     onClose={closeImageViewer}
                     closeOnClickOutside={true}
                     backgroundStyle={{

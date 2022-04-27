@@ -62,14 +62,14 @@ export default function BasicTable() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {lot.lot}
+                      {lot.lotOrder}
                     </TableCell>
                     {/* <TableCell align="right">{lot.id}</TableCell> */}
                     <TableCell align="right">
-                      {lot.auctionItem.categoryID}
+                      {lot.auctionItem.categoryAuctionItemsId}
                     </TableCell>
                     <TableCell align="right">{lot.auctionItem.name}</TableCell>
-                    <TableCell align="right">{lot.lotsStatus}</TableCell>
+                    <TableCell align="right">{lot.lotStatus}</TableCell>
                     <TableCell align="right">
                       <Button
                         variant="contained"

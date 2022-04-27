@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 00:44:57
+ * @LastEditTime: 2022-04-27 15:23:04
  * @FilePath: \bhpmJS\frontend\src\pages\auctions\AuctionsRouter.js
  * @Description:
  *
@@ -20,7 +20,7 @@ export default function AuctionsRouter() {
     <>
       <Routes>
         <Route exact path="" element={<Auctions />} />
-        <Route exact path="/bidding/:auctionsID" element={<Bidding />} />
+        <Route exact path="/bidding/:auctionId" element={<Bidding />} />
       </Routes>
     </>
   );
