@@ -10,6 +10,7 @@ export const onCreateLot = /* GraphQL */ `
       estimatedPriceMin
       estimatedPriceMax
       lotStatus
+      lotAuctionItemId
       auction {
         id
         active
@@ -57,6 +58,7 @@ export const onCreateLot = /* GraphQL */ `
         items {
           id
           bidPrice
+          lotBidHistoriesId
           userNumber
           bidHistoryStatus
           bidForm
@@ -64,7 +66,6 @@ export const onCreateLot = /* GraphQL */ `
           updatedAt
           owner
           auctionBidHistoriesId
-          lotBidHistoriesId
         }
         nextToken
       }
@@ -81,7 +82,6 @@ export const onCreateLot = /* GraphQL */ `
         nextToken
       }
       auctionLotId
-      lotAuctionItemId
     }
   }
 `;
@@ -94,6 +94,7 @@ export const onUpdateLot = /* GraphQL */ `
       estimatedPriceMin
       estimatedPriceMax
       lotStatus
+      lotAuctionItemId
       auction {
         id
         active
@@ -141,6 +142,7 @@ export const onUpdateLot = /* GraphQL */ `
         items {
           id
           bidPrice
+          lotBidHistoriesId
           userNumber
           bidHistoryStatus
           bidForm
@@ -148,7 +150,6 @@ export const onUpdateLot = /* GraphQL */ `
           updatedAt
           owner
           auctionBidHistoriesId
-          lotBidHistoriesId
         }
         nextToken
       }
@@ -165,7 +166,6 @@ export const onUpdateLot = /* GraphQL */ `
         nextToken
       }
       auctionLotId
-      lotAuctionItemId
     }
   }
 `;
@@ -178,6 +178,7 @@ export const onDeleteLot = /* GraphQL */ `
       estimatedPriceMin
       estimatedPriceMax
       lotStatus
+      lotAuctionItemId
       auction {
         id
         active
@@ -225,6 +226,7 @@ export const onDeleteLot = /* GraphQL */ `
         items {
           id
           bidPrice
+          lotBidHistoriesId
           userNumber
           bidHistoryStatus
           bidForm
@@ -232,7 +234,6 @@ export const onDeleteLot = /* GraphQL */ `
           updatedAt
           owner
           auctionBidHistoriesId
-          lotBidHistoriesId
         }
         nextToken
       }
@@ -249,7 +250,6 @@ export const onDeleteLot = /* GraphQL */ `
         nextToken
       }
       auctionLotId
-      lotAuctionItemId
     }
   }
 `;
@@ -258,6 +258,7 @@ export const onCreateBidHistory = /* GraphQL */ `
     onCreateBidHistory(owner: $owner) {
       id
       bidPrice
+      lotBidHistoriesId
       auction {
         id
         active
@@ -288,6 +289,7 @@ export const onCreateBidHistory = /* GraphQL */ `
         estimatedPriceMin
         estimatedPriceMax
         lotStatus
+        lotAuctionItemId
         auction {
           id
           active
@@ -322,7 +324,6 @@ export const onCreateBidHistory = /* GraphQL */ `
           nextToken
         }
         auctionLotId
-        lotAuctionItemId
       }
       userNumber
       bidHistoryStatus
@@ -331,7 +332,6 @@ export const onCreateBidHistory = /* GraphQL */ `
       updatedAt
       owner
       auctionBidHistoriesId
-      lotBidHistoriesId
     }
   }
 `;
@@ -340,6 +340,7 @@ export const onUpdateBidHistory = /* GraphQL */ `
     onUpdateBidHistory(owner: $owner) {
       id
       bidPrice
+      lotBidHistoriesId
       auction {
         id
         active
@@ -370,6 +371,7 @@ export const onUpdateBidHistory = /* GraphQL */ `
         estimatedPriceMin
         estimatedPriceMax
         lotStatus
+        lotAuctionItemId
         auction {
           id
           active
@@ -404,7 +406,6 @@ export const onUpdateBidHistory = /* GraphQL */ `
           nextToken
         }
         auctionLotId
-        lotAuctionItemId
       }
       userNumber
       bidHistoryStatus
@@ -413,7 +414,6 @@ export const onUpdateBidHistory = /* GraphQL */ `
       updatedAt
       owner
       auctionBidHistoriesId
-      lotBidHistoriesId
     }
   }
 `;
@@ -422,6 +422,7 @@ export const onDeleteBidHistory = /* GraphQL */ `
     onDeleteBidHistory(owner: $owner) {
       id
       bidPrice
+      lotBidHistoriesId
       auction {
         id
         active
@@ -452,6 +453,7 @@ export const onDeleteBidHistory = /* GraphQL */ `
         estimatedPriceMin
         estimatedPriceMax
         lotStatus
+        lotAuctionItemId
         auction {
           id
           active
@@ -486,7 +488,6 @@ export const onDeleteBidHistory = /* GraphQL */ `
           nextToken
         }
         auctionLotId
-        lotAuctionItemId
       }
       userNumber
       bidHistoryStatus
@@ -495,7 +496,6 @@ export const onDeleteBidHistory = /* GraphQL */ `
       updatedAt
       owner
       auctionBidHistoriesId
-      lotBidHistoriesId
     }
   }
 `;
@@ -637,6 +637,7 @@ export const onCreateMySucceedBid = /* GraphQL */ `
       bidHistory {
         id
         bidPrice
+        lotBidHistoriesId
         auction {
           id
           active
@@ -655,10 +656,10 @@ export const onCreateMySucceedBid = /* GraphQL */ `
           estimatedPriceMin
           estimatedPriceMax
           lotStatus
+          lotAuctionItemId
           createdAt
           updatedAt
           auctionLotId
-          lotAuctionItemId
         }
         userNumber
         bidHistoryStatus
@@ -667,7 +668,6 @@ export const onCreateMySucceedBid = /* GraphQL */ `
         updatedAt
         owner
         auctionBidHistoriesId
-        lotBidHistoriesId
       }
       createdAt
       updatedAt
@@ -707,6 +707,7 @@ export const onUpdateMySucceedBid = /* GraphQL */ `
       bidHistory {
         id
         bidPrice
+        lotBidHistoriesId
         auction {
           id
           active
@@ -725,10 +726,10 @@ export const onUpdateMySucceedBid = /* GraphQL */ `
           estimatedPriceMin
           estimatedPriceMax
           lotStatus
+          lotAuctionItemId
           createdAt
           updatedAt
           auctionLotId
-          lotAuctionItemId
         }
         userNumber
         bidHistoryStatus
@@ -737,7 +738,6 @@ export const onUpdateMySucceedBid = /* GraphQL */ `
         updatedAt
         owner
         auctionBidHistoriesId
-        lotBidHistoriesId
       }
       createdAt
       updatedAt
@@ -777,6 +777,7 @@ export const onDeleteMySucceedBid = /* GraphQL */ `
       bidHistory {
         id
         bidPrice
+        lotBidHistoriesId
         auction {
           id
           active
@@ -795,10 +796,10 @@ export const onDeleteMySucceedBid = /* GraphQL */ `
           estimatedPriceMin
           estimatedPriceMax
           lotStatus
+          lotAuctionItemId
           createdAt
           updatedAt
           auctionLotId
-          lotAuctionItemId
         }
         userNumber
         bidHistoryStatus
@@ -807,7 +808,6 @@ export const onDeleteMySucceedBid = /* GraphQL */ `
         updatedAt
         owner
         auctionBidHistoriesId
-        lotBidHistoriesId
       }
       createdAt
       updatedAt

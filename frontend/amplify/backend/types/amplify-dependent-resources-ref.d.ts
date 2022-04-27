@@ -25,6 +25,7 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "api": {
         "bhpmjs": {
+            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }

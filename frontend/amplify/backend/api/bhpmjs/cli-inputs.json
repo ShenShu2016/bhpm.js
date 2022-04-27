@@ -3,12 +3,16 @@
   "serviceConfiguration": {
     "apiName": "bhpmjs",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/home/shen/Documents/GitHub/bhpmJS/frontend/amplify/backend/api/bhpmjs/schema.graphql",
+    "gqlSchemaPath": "C:\\Users\\shush\\Documents\\GitHub\\bhpmJS\\frontend\\amplify\\backend\\api\\bhpmjs\\schema.graphql",
     "defaultAuthType": {
-      "mode": "AMAZON_COGNITO_USER_POOLS",
-      "cognitoUserPoolId": "authbhpmjs10bca66010bca660"
+      "mode": "API_KEY",
+      "expirationTime": 7
     },
     "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authbhpmjs10bca66010bca660"
+      },
       {
         "mode": "AWS_IAM"
       }
