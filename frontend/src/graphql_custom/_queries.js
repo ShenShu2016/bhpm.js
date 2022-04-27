@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:38:03
+ * @LastEditTime: 2022-04-27 12:34:28
  * @FilePath: \bhpmJS\frontend\src\graphql_custom\_queries.js
  * @Description:
  *
@@ -10,7 +10,7 @@
  */
 export const bidHistorySortByCreatedAt = /* GraphQL */ `
   query BidHistorySortByCreatedAt(
-    $auctionsID: ID!
+    $auctionLotId: ID!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelBidHistoryFilterInput
@@ -124,13 +124,13 @@ export const listMyFavorites = /* GraphQL */ `
   }
 `;
 
-export const listAuction = /* GraphQL */ `
-  query ListAuction(
+export const listAuctions = /* GraphQL */ `
+  query ListAuctions(
     $filter: ModelAuctionFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listAuction(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listAuctions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         active
@@ -139,57 +139,16 @@ export const listAuction = /* GraphQL */ `
         auctionStartDate
         auctionEndDate
         lot {
-          items {
-            id
-            lot
-            startingPrice
-            estimatedPriceMin
-            estimatedPriceMax
-            lotStatus
-            auctionsID
-            auctionItemID
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         bidHistories {
-          items {
-            id
-            bidPrice
-            auctionsID
-            lotID
-            userNumber
-            bidHistoryStatus
-            bidForm
-            createdAt
-            updatedAt
-            owner
-          }
           nextToken
         }
         bidIncrementPriceList
         auctionUserLimitations {
-          items {
-            id
-            maxUserBidPrice
-            limitStatus
-            auctionsID
-            createdAt
-            updatedAt
-            owner
-          }
           nextToken
         }
         auctionUserNumbers {
-          items {
-            id
-            number
-            auctionsID
-            createdAt
-            updatedAt
-            owner
-          }
           nextToken
         }
         createdAt
@@ -200,19 +159,19 @@ export const listAuction = /* GraphQL */ `
   }
 `;
 
-export const lotSortByLot_isAuth = /* GraphQL */ `
-  query LotSortByLot(
-    $auctionsID: ID!
-    $lot: ModelIntKeyConditionInput
+export const lotSortByLotOrder_isAuth = /* GraphQL */ `
+  query LotSortByLotOrder(
+    $auctionLotId: ID!
+    $lotOrder: ModelIntKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelLotFilterInput
     $limit: Int
     $nextToken: String
     $username: ID
   ) {
-    lotSortByLot(
-      auctionsID: $auctionsID
-      lot: $lot
+    lotSortByLotOrder(
+      auctionLotId: $auctionLotId
+      lotOrder: $lotOrder
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -220,24 +179,23 @@ export const lotSortByLot_isAuth = /* GraphQL */ `
     ) {
       items {
         id
-        lot
+        lotOrder
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
         lotStatus
-        auctionsID
-        auctions {
-          id
-          active
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        auctionItemID
+        auctionLotId
+        # auction {
+        #   id
+        #   active
+        #   company
+        #   description
+        #   auctionStartDate
+        #   auctionEndDate
+        #   bidIncrementPriceList
+        #   createdAt
+        #   updatedAt
+        # }
         auctionItem {
           id
           name
@@ -245,15 +203,12 @@ export const lotSortByLot_isAuth = /* GraphQL */ `
           description
           titleEng
           descriptionEng
-          categoryID
           imgUrls
           condition
           provenance
           createdAt
           updatedAt
-        }
-        bidHistories {
-          nextToken
+          categoryAuctionItemsId
         }
         createdAt
         updatedAt
@@ -266,24 +221,25 @@ export const lotSortByLot_isAuth = /* GraphQL */ `
             updatedAt
           }
         }
+        lotAuctionItemId
       }
       nextToken
     }
   }
 `;
 
-export const lotSortByLot_noAuth = /* GraphQL */ `
-  query LotSortByLot(
-    $auctionsID: ID!
-    $lot: ModelIntKeyConditionInput
+export const lotSortByLotOrder_noAuth = /* GraphQL */ `
+  query LotSortByLotOrder(
+    $auctionLotId: ID!
+    $lotOrder: ModelIntKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelLotFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    lotSortByLot(
-      auctionsID: $auctionsID
-      lot: $lot
+    lotSortByLotOrder(
+      auctionLotId: $auctionLotId
+      lotOrder: $lotOrder
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -291,24 +247,23 @@ export const lotSortByLot_noAuth = /* GraphQL */ `
     ) {
       items {
         id
-        lot
+        lotOrder
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
         lotStatus
-        auctionsID
-        auctions {
-          id
-          active
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        auctionItemID
+        auctionLotId
+        # auction {
+        #   id
+        #   active
+        #   company
+        #   description
+        #   auctionStartDate
+        #   auctionEndDate
+        #   bidIncrementPriceList
+        #   createdAt
+        #   updatedAt
+        # }
         auctionItem {
           id
           name
@@ -316,18 +271,16 @@ export const lotSortByLot_noAuth = /* GraphQL */ `
           description
           titleEng
           descriptionEng
-          categoryID
           imgUrls
           condition
           provenance
           createdAt
           updatedAt
-        }
-        bidHistories {
-          nextToken
+          categoryAuctionItemsId
         }
         createdAt
         updatedAt
+        lotAuctionItemId
       }
       nextToken
     }

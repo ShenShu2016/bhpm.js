@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:52:27
+ * @LastEditTime: 2022-04-27 12:24:51
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -30,7 +30,7 @@ export default function Home() {
     (state) => state.homePageCarouse
   );
 
-  const { fetchLotStatus } = useSelector((state) => state.lot);
+  const { fetchLotsStatus } = useSelector((state) => state.lot);
   const { fetchAuctionsStatus } = useSelector((state) => state.auction);
   const auctions = useSelector(selectAllAuctions);
 
@@ -55,7 +55,7 @@ export default function Home() {
     if (
       isAuthenticated !== null &&
       auctions[0]?.id &&
-      (fetchLotStatus === "idle" || undefined)
+      (fetchLotsStatus === "idle" || undefined)
     ) {
       dispatch(
         fetchLots({
@@ -65,12 +65,12 @@ export default function Home() {
         })
       );
     }
-  }, [dispatch, isAuthenticated, auctions, fetchLotStatus, username]);
+  }, [dispatch, isAuthenticated, auctions, fetchLotsStatus, username]);
 
   return (
     <>
       {fetchHomePageCarousesStatus === "succeeded" &&
-      fetchLotStatus === "succeeded" ? undefined : (
+      fetchLotsStatus === "succeeded" ? undefined : (
         <BackdropLoading />
       )}
       <>

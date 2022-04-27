@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:43:58
+ * @LastEditTime: 2022-04-27 12:33:45
  * @FilePath: \bhpmJS\frontend\src\redux\slice\lotSlice.js
  * @Description:
  *
@@ -17,8 +17,8 @@ import {
 } from "@reduxjs/toolkit";
 import { createLot, updateLot } from "../../graphql/mutations";
 import {
-  lotSortByLot_isAuth,
-  lotSortByLot_noAuth,
+  lotSortByLotOrder_isAuth,
+  lotSortByLotOrder_noAuth,
 } from "../../graphql_custom/_queries";
 
 import API from "@aws-amplify/api";
@@ -49,16 +49,16 @@ export const fetchLots = createAsyncThunk(
     //console.log("isAuthenticated, auctionsID", isAuthenticated, auctionsID);
     try {
       const LotData = await API.graphql({
-        query: username ? lotSortByLot_isAuth : lotSortByLot_noAuth,
+        query: username ? lotSortByLotOrder_isAuth : lotSortByLotOrder_noAuth,
         variables: {
-          auctionsID: auctionsID,
+          auctionLotId: auctionsID,
           sortDirection: "ASC",
-          limit: 1000,
+          limit: 300,
           username: username,
         },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
-      return LotData.data.lotSortByLot.items;
+      return LotData.data.lotSortByLotOrder.items;
     } catch (error) {
       console.log(error);
     }

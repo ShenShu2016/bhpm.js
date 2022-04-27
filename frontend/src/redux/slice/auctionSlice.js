@@ -9,7 +9,7 @@ import { createAuction, updateAuction } from "../../graphql/mutations";
 import API from "@aws-amplify/api";
 import { getAuction } from "../../graphql/queries";
 import { graphqlOperation } from "@aws-amplify/api-graphql";
-import { listAuction } from "../../graphql_custom/_queries";
+import { listAuctions } from "../../graphql_custom/_queries";
 
 const auctionAdapter = createEntityAdapter({
   // selectId: (item) => item.id,
@@ -34,14 +34,14 @@ export const fetchAuctions = createAsyncThunk(
   async ({ isAuthenticated }) => {
     try {
       const AuctionsData = await API.graphql({
-        query: listAuction,
+        query: listAuctions,
         variables: { active: true, limit: 1 },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
-      return AuctionsData.data.listAuction.items;
+      return AuctionsData.data.listAuctions.items;
     } catch (error) {
       console.log(error);
-      return error.data.listAuction.items;
+      return error.data.listAuctions.items;
     }
   }
 );
