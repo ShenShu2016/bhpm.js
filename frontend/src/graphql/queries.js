@@ -769,7 +769,7 @@ export const listBidHistories = /* GraphQL */ `
     }
   }
 `;
-export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
+export const bidHistorySortByCreatedAt = /* GraphQL */ `
   query BidHistorySortByCreatedAt(
     $auctionBidHistoriesId: ID!
     $createdAt: ModelStringKeyConditionInput
