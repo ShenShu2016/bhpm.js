@@ -121,14 +121,14 @@ type Lot
   estimatedPriceMax: Int
   lotStatus: LotStatus!
 
-  lotAuctionItemId: ID!
+  auctionLotId: ID!
     @index(
       name: "lotSortByLotOrder"
       queryField: "lotSortByLotOrder"
       sortKeyFields: ["lotOrder"]
     )
     @index(name: "byAuction", sortKeyFields: ["lotOrder"])
-  auction: Auction! @belongsTo(fields: ["lotAuctionItemId"])
+  auction: Auction! @belongsTo(fields: ["auctionLotId"])
 
   auctionItem: AuctionItem! @hasOne
 
@@ -183,14 +183,14 @@ type BidHistory
   ) {
   id: ID!
   bidPrice: Int!
-  lotBidHistoriesId: ID!
+  auctionBidHistoriesId: ID!
     @index(name: "byAuction", sortKeyFields: ["createdAt"])
     @index(
       name: "BidItemHistorySortByCreatedAt"
       queryField: "BidItemHistorySortByCreatedAt"
       sortKeyFields: ["createdAt"]
     )
-  auction: Auction! @belongsTo(fields: ["lotBidHistoriesId"])
+  auction: Auction! @belongsTo(fields: ["auctionBidHistoriesId"])
 
   lot: Lot! @belongsTo
   userNumber: Int!
