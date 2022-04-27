@@ -8,7 +8,7 @@ type UserInfo
   @model(subscriptions: null)
   @auth(rules: [{ allow: groups, groups: ["admin"] }]) {
   id: ID!
-  email: String
+  email: AWSEmail
   userName: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
@@ -26,7 +26,7 @@ type Profile
   title: String
   phone: String
   phone2: String
-  email: String
+  email: AWSEmail
   owner: ID!
 }
 
@@ -41,9 +41,15 @@ type HomePageCarouse
   ) {
   id: ID!
   title: String
-  imgUrl: AWSURL
+  sourceUrl: AWSURL
   description: String
+  sourceType: SourceType!
   auction: Auction! @hasOne
+}
+
+enum SourceType {
+  image
+  video
 }
 
 type Category
@@ -57,7 +63,7 @@ type Category
   ) {
   id: ID!
   categoryName: String!
-  auctionItems: [AuctionItem] @hasMany(indexName: "byCategory", fields: ["id"])
+  auctionItems: [AuctionItem] @hasMany
 }
 
 type Auction
@@ -75,7 +81,7 @@ type Auction
   description: String
   auctionStartDate: AWSDateTime
   auctionEndDate: AWSDateTime
-  lots: [Lots] @hasMany(indexName: "byAuction", fields: ["id"])
+  lot: [Lot] @hasMany
   bidItemHistories: [BidItemHistory]
     @hasMany(indexName: "byAuction", fields: ["id"])
   bidIncrementPriceList: [Int]
@@ -94,13 +100,13 @@ type MyFavorite
   @model(subscriptions: null)
   @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
   id: ID! # uuid
-  lots: Lots @belongsTo
+  lot: Lot @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!
 }
 
-type Lots
+type Lot
   @model
   @auth(
     rules: [
@@ -110,26 +116,25 @@ type Lots
     ]
   ) {
   id: ID! # uuid
-  lot: Int #拍卖顺序
+  lotOrder: Int #拍卖顺序
   startingPrice: Int
   estimatedPriceMin: Int
   estimatedPriceMax: Int
-  lotsStatus: LotsStatus!
+  lotStatus: LotStatus!
 
   auctionId: ID!
     @index(
-      name: "lotsSortByLot"
-      queryField: "lotsSortByLot"
-      sortKeyFields: ["lot"]
+      name: "lotSortByLotOrder"
+      queryField: "lotSortByLotOrder"
+      sortKeyFields: ["lotOrder"]
     )
-    @index(name: "byAuction", sortKeyFields: ["lot"])
+    @index(name: "byAuction", sortKeyFields: ["lotOrder"])
   auction: Auction! @belongsTo(fields: ["auctionId"])
 
   auctionItemID: ID!
   auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
 
-  bidItemHistories: [BidItemHistory]
-    @hasMany(indexName: "byLots", fields: ["id"])
+  bidItemHistories: [BidItemHistory] @hasMany
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 
@@ -137,7 +142,7 @@ type Lots
 }
 # 东西会不会流拍，流拍的会不会再拍
 
-enum LotsStatus {
+enum LotStatus {
   ComingSoon
   InProgress
   Finished
@@ -160,8 +165,7 @@ type AuctionItem
   description: String
   titleEng: String
   descriptionEng: String
-  categoryID: ID! @index(name: "byCategory", sortKeyFields: ["createdAt"])
-  category: Category! @belongsTo(fields: ["categoryID"])
+  category: Category! @belongsTo
   imgUrls: [AWSURL]
   condition: String
   provenance: String
@@ -190,8 +194,7 @@ type BidItemHistory
     )
   auction: Auction! @belongsTo(fields: ["auctionId"])
 
-  lotsID: ID! @index(name: "byLots", sortKeyFields: ["createdAt"])
-  lots: Lots! @belongsTo(fields: ["lotsID"])
+  lot: Lot! @belongsTo
   userNumber: Int!
   bidItemHistoryStatus: BidItemHistoryStatus
     @auth(
