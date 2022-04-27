@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-25 21:26:03
+ * @LastEditTime: 2022-04-27 10:45:15
  * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section11.js
  * @Description:
  *
@@ -14,14 +14,14 @@ import React, { useState } from "react";
 
 import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
-import { selectAllLotss } from "../../redux/slice/lotsSlice";
+import { selectAllLots } from "../../redux/slice/lotSlice";
 import { trackWindowScroll } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 
 const Section11 = () => {
-  const lotss = useSelector(selectAllLotss);
+  const lots = useSelector(selectAllLots);
   const itemPerPage = 32;
-  const pageNumber = lotss && Math.ceil(lotss.length / itemPerPage);
+  const pageNumber = lots && Math.ceil(lots.length / itemPerPage);
 
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
@@ -36,8 +36,8 @@ const Section11 = () => {
       >
         <CategorySectionHeader title="More For You" seeMoreLink="#" />
         <Grid container spacing={3}>
-          {lotss &&
-            lotss
+          {lots &&
+            lots
               .slice((page - 1) * itemPerPage, page * itemPerPage)
               .map((item, ind) => (
                 <Grid item lg={3} md={4} sm={6} xs={12} key={ind}>

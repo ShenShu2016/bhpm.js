@@ -1,46 +1,59 @@
-export const onCreateBidItemHistory = /* GraphQL */ `
-  subscription OnCreateBidItemHistory {
-    onCreateBidItemHistory {
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-27 10:50:32
+ * @FilePath: \bhpmJS\frontend\src\graphql_custom\_subscriptions.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+export const onCreateBidHistory = /* GraphQL */ `
+  subscription OnCreateBidHistory {
+    onCreateBidHistory {
       id
       bidPrice
-      auctionsID
-      bidItemHistoryStatus
-      userNumber
-      bidForm
-      lotsID
-      lots {
+      auctionBidHistoriesId
+      lot {
         id
-        lot
+        lotOrder
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
-        lotsStatus
-        auctionItemID
+        lotStatus
+        auctionLotId
         auctionItem {
           id
           name
           title
           description
-          categoryID
+          titleEng
+          descriptionEng
+          imgUrls
           condition
           provenance
-          imgUrls
           createdAt
           updatedAt
+          categoryAuctionItemsId
         }
         createdAt
         updatedAt
+        lotAuctionItemId
       }
+      userNumber
+      bidHistoryStatus
+      bidForm
       createdAt
       updatedAt
       owner
+      lotBidHistoriesId
     }
   }
 `;
 
-export const onUpdateBidItemHistory = /* GraphQL */ `
-  subscription OnUpdateBidItemHistory {
-    onUpdateBidItemHistory {
+export const onUpdateBidHistory = /* GraphQL */ `
+  subscription OnUpdateBidHistory {
+    onUpdateBidHistory {
       id
       bidPrice
       auctionsID

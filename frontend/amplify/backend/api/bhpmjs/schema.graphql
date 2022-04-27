@@ -186,8 +186,8 @@ type BidHistory
   auctionBidHistoriesId: ID!
     @index(name: "byAuction", sortKeyFields: ["createdAt"])
     @index(
-      name: "BidItemHistorySortByCreatedAt"
-      queryField: "BidItemHistorySortByCreatedAt"
+      name: "BidHistorySortByCreatedAt"
+      queryField: "BidHistorySortByCreatedAt"
       sortKeyFields: ["createdAt"]
     )
   auction: Auction! @belongsTo(fields: ["auctionBidHistoriesId"])

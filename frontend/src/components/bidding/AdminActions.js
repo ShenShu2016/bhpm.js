@@ -1,3 +1,14 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-27 10:46:23
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\AdminActions.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import {
   Box,
   CircularProgress,
@@ -11,14 +22,14 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
-  postBidItemHistory,
+  postBidHistory,
   selectMaxBidPriceByCurrentLot,
-} from "../../redux/slice/bidItemHistorySlice";
+} from "../../redux/slice/bidHistorySlice";
 import {
   selectLotByInProgress,
   selectLotByNextLotNumber,
-  updateLotsDetail,
-} from "../../redux/slice/lotsSlice";
+  updateLotDetail,
+} from "../../redux/slice/lotSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../BazarButton";
@@ -47,7 +58,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
   );
   const handleSubmitBid = async (event) => {
     setLoading(true);
-    const createBidItemHistoryInput = {
+    const createBidHistoryInput = {
       id: lotInProgress.length === 1 && `${lotInProgress[0].id}-${bidAmount}`,
       bidPrice: bidAmount,
       auctionsID: auctionsID,
@@ -56,9 +67,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
       userNumber: userNumber,
       owner: "admin",
     };
-    const response = await dispatch(
-      postBidItemHistory({ createBidItemHistoryInput })
-    );
+    const response = await dispatch(postBidHistory({ createBidHistoryInput }));
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
@@ -72,7 +81,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
 
   const handleFirstCall = async (event) => {
     setLoading(true);
-    const createBidItemHistoryInput = {
+    const createBidHistoryInput = {
       bidPrice: maxBidPriceByCurrentLot.bidPrice,
       auctionsID: auctionsID,
       bidForm: "Room",
@@ -81,9 +90,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
       bidItemHistoryStatus: "FirstCall",
       owner: "admin",
     };
-    const response = await dispatch(
-      postBidItemHistory({ createBidItemHistoryInput })
-    );
+    const response = await dispatch(postBidHistory({ createBidHistoryInput }));
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
@@ -97,7 +104,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
 
   const handleSecondCall = async (event) => {
     setLoading(true);
-    const createBidItemHistoryInput = {
+    const createBidHistoryInput = {
       bidPrice: maxBidPriceByCurrentLot.bidPrice,
       auctionsID: auctionsID,
       bidForm: "Room",
@@ -106,9 +113,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
       bidItemHistoryStatus: "SecondCall",
       owner: "admin",
     };
-    const response = await dispatch(
-      postBidItemHistory({ createBidItemHistoryInput })
-    );
+    const response = await dispatch(postBidHistory({ createBidHistoryInput }));
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
@@ -129,15 +134,15 @@ export default function AdminActions({ auctionsID, nextBid }) {
     const currentLot = lotInProgress[0];
     const nextLot = nextLotArr[0];
     const response1 = await dispatch(
-      updateLotsDetail({ id: currentLot.id, lotsStatus: "Finished" })
+      updateLotDetail({ id: currentLot.id, lotsStatus: "Finished" })
     );
     console.log(response1);
 
     const response2 = await dispatch(
-      updateLotsDetail({ id: nextLot.id, lotsStatus: "InProgress" })
+      updateLotDetail({ id: nextLot.id, lotsStatus: "InProgress" })
     );
     console.log(response2);
-    const createBidItemHistoryInput = {
+    const createBidHistoryInput = {
       bidPrice: 0,
       auctionsID: auctionsID,
       bidForm: "Room",
@@ -146,11 +151,9 @@ export default function AdminActions({ auctionsID, nextBid }) {
       bidItemHistoryStatus: "Start",
       owner: "admin",
     };
-    const response3 = await dispatch(
-      postBidItemHistory({ createBidItemHistoryInput })
-    );
+    const response3 = await dispatch(postBidHistory({ createBidHistoryInput }));
     console.log(response3);
-    // const createBidItemHistoryInput = {
+    // const createBidHistoryInput = {
     //   bidPrice: maxBidPriceByCurrentLot.bidPrice,
     //   auctionsID: auctionsID,
     //   bidForm: "Room",
@@ -160,7 +163,7 @@ export default function AdminActions({ auctionsID, nextBid }) {
     //   owner: "admin",
     // };
     // const response = await dispatch(
-    //   postBidItemHistory({ createBidItemHistoryInput })
+    //   postBidHistory({ createBidHistoryInput })
     // );
     if (response3.meta.requestStatus === "fulfilled") {
       setLoading(false);

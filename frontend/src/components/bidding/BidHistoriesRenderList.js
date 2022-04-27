@@ -2,23 +2,23 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 14:12:26
- * @FilePath: \bhpmJS\frontend\src\components\bidding\BidItemHistoriesRenderList.js
+ * @LastEditTime: 2022-04-27 10:45:18
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
 
 import { Box, Card, Stack } from "@mui/material";
-import { H3, H4 } from "../../components/Typography";
+import { H3, H4 } from "../Typography";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import BazarButton from "../../components/BazarButton";
+import BazarButton from "../BazarButton";
 import { postMySucceedBid } from "../../redux/slice/mySucceedBidSlice";
-import { updateBidItemHistoryDetail } from "../../redux/slice/bidItemHistorySlice";
+import { updateBidHistoryDetail } from "../../redux/slice/bidHistorySlice";
 
-export default function BidItemHistoriesRenderList({ bitItemHistories }) {
+export default function BidHistoriesRenderList({ bitItemHistories }) {
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
@@ -37,13 +37,13 @@ export default function BidItemHistoriesRenderList({ bitItemHistories }) {
   const handleBidSuccess = async (history) => {
     setLoading(true);
     console.log(history);
-    const updateBidItemHistoryDetailInput = {
+    const updateBidHistoryDetailInput = {
       id: history.id,
       bidItemHistoryStatus: "Success",
     };
-    console.log(updateBidItemHistoryDetailInput);
+    console.log(updateBidHistoryDetailInput);
     const response = await dispatch(
-      updateBidItemHistoryDetail(updateBidItemHistoryDetailInput)
+      updateBidHistoryDetail(updateBidHistoryDetailInput)
     );
     //console.log(response.meta.requestStatus);
 

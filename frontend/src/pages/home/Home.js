@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 18:04:36
+ * @LastEditTime: 2022-04-27 10:52:27
  * @FilePath: \bhpmJS\frontend\src\pages\home\Home.js
  * @Description:
  *
@@ -11,16 +11,16 @@
 
 import React, { useEffect } from "react";
 import {
-  fetchAuctionss,
-  selectAllAuctionss,
-} from "../../redux/slice/auctionsSlice";
+  fetchAuctions,
+  selectAllAuctions,
+} from "../../redux/slice/auctionSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BackdropLoading from "../../components/BackdropLoading";
 import Section1 from "../../components/fashion-shop/Section1";
 import Section11 from "../../components/fashion-shop/Section11";
 import { fetchHomePageCarouses } from "../../redux/slice/homePageCarouseSlice";
-import { fetchLotss } from "../../redux/slice/lotsSlice";
+import { fetchLots } from "../../redux/slice/lotSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -30,14 +30,14 @@ export default function Home() {
     (state) => state.homePageCarouse
   );
 
-  const { fetchLotssStatus } = useSelector((state) => state.lots);
-  const { fetchAuctionssStatus } = useSelector((state) => state.auctions);
-  const auctionss = useSelector(selectAllAuctionss);
+  const { fetchLotStatus } = useSelector((state) => state.lot);
+  const { fetchAuctionsStatus } = useSelector((state) => state.auction);
+  const auctions = useSelector(selectAllAuctions);
 
   useEffect(() => {
     if (isAuthenticated !== null) {
-      if (fetchAuctionssStatus === "idle" || undefined) {
-        dispatch(fetchAuctionss({ isAuthenticated }));
+      if (fetchAuctionsStatus === "idle" || undefined) {
+        dispatch(fetchAuctions({ isAuthenticated }));
       }
 
       if (fetchHomePageCarousesStatus === "idle" || undefined) {
@@ -48,29 +48,29 @@ export default function Home() {
     dispatch,
     isAuthenticated,
     fetchHomePageCarousesStatus,
-    fetchAuctionssStatus,
+    fetchAuctionsStatus,
   ]);
 
   useEffect(() => {
     if (
       isAuthenticated !== null &&
-      auctionss[0]?.id &&
-      (fetchLotssStatus === "idle" || undefined)
+      auctions[0]?.id &&
+      (fetchLotStatus === "idle" || undefined)
     ) {
       dispatch(
-        fetchLotss({
+        fetchLots({
           isAuthenticated,
-          auctionsID: auctionss[0].id,
-          username:username
+          auctionsID: auctions[0].id,
+          username: username,
         })
       );
     }
-  }, [dispatch, isAuthenticated, auctionss, fetchLotssStatus,username]);
+  }, [dispatch, isAuthenticated, auctions, fetchLotStatus, username]);
 
   return (
     <>
       {fetchHomePageCarousesStatus === "succeeded" &&
-      fetchLotssStatus === "succeeded" ? undefined : (
+      fetchLotStatus === "succeeded" ? undefined : (
         <BackdropLoading />
       )}
       <>

@@ -2,8 +2,8 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 00:41:04
- * @FilePath: \bhpmJS\frontend\src\pages\auctions\ChangeLotsStatusDialog.js
+ * @LastEditTime: 2022-04-27 10:49:16
+ * @FilePath: \bhpmJS\frontend\src\components\bidding\ChangeLotsStatusDialog.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-import { updateLotsDetail } from "../../redux/slice/lotsSlice";
+import { updateLotDetail } from "../../redux/slice/lotSlice";
 import { useDispatch } from "react-redux";
 
 export default function ChangeLotsStatusDialog({
@@ -42,11 +42,11 @@ export default function ChangeLotsStatusDialog({
 
   const handleChangeStatus = async (event) => {
     console.log(event.target.value);
-    setRowInfo({ ...statusDialogRowInfo, lotsStatus: event.target.value });
+    setRowInfo({ ...statusDialogRowInfo, lotStatus: event.target.value });
   };
   const handleSubmitChange = async () => {
     const response = await dispatch(
-      updateLotsDetail({ id: rowInfo.id, lotsStatus: rowInfo.lotsStatus })
+      updateLotDetail({ id: rowInfo.id, lotStatus: rowInfo.lotStatus })
     );
     console.log(response);
     handleStatusDialogClose();
@@ -73,7 +73,7 @@ export default function ChangeLotsStatusDialog({
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={rowInfo && rowInfo.lotsStatus}
+                  value={rowInfo && rowInfo.lotStatus}
                   label="Status"
                   onChange={handleChangeStatus}
                 >

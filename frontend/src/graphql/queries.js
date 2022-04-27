@@ -770,7 +770,7 @@ export const listBidHistories = /* GraphQL */ `
   }
 `;
 export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
-  query BidItemHistorySortByCreatedAt(
+  query BidHistorySortByCreatedAt(
     $auctionBidHistoriesId: ID!
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -778,7 +778,7 @@ export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-    BidItemHistorySortByCreatedAt(
+    BidHistorySortByCreatedAt(
       auctionBidHistoriesId: $auctionBidHistoriesId
       createdAt: $createdAt
       sortDirection: $sortDirection
