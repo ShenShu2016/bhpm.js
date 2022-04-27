@@ -43,8 +43,7 @@ type HomePageCarouse
   title: String
   imgUrl: AWSURL
   description: String
-  auctionsID: ID!
-  auctions: Auctions! @hasOne(fields: ["auctionsID"])
+  auction: Auction! @hasOne
 }
 
 type Category
@@ -61,7 +60,7 @@ type Category
   auctionItems: [AuctionItem] @hasMany(indexName: "byCategory", fields: ["id"])
 }
 
-type Auctions
+type Auction
   @model(subscriptions: null)
   @auth(
     rules: [
@@ -76,14 +75,12 @@ type Auctions
   description: String
   auctionStartDate: AWSDateTime
   auctionEndDate: AWSDateTime
-  lots: [Lots] @hasMany(indexName: "byAuctions", fields: ["id"])
+  lots: [Lots] @hasMany(indexName: "byAuction", fields: ["id"])
   bidItemHistories: [BidItemHistory]
-    @hasMany(indexName: "byAuctions", fields: ["id"])
+    @hasMany(indexName: "byAuction", fields: ["id"])
   bidIncrementPriceList: [Int]
-  auctionUserLimitations: [AuctionUserLimitation]
-    @hasMany(indexName: "byAuctions", fields: ["id"])
-  auctionUserNumbers: [AuctionUserNumber]
-    @hasMany(indexName: "byAuctions", fields: ["id"])
+  auctionUserLimitations: [AuctionUserLimitation] @hasMany
+  auctionUserNumbers: [AuctionUserNumber] @hasMany
 }
 
 enum AuctionStatus {
@@ -118,14 +115,16 @@ type Lots
   estimatedPriceMin: Int
   estimatedPriceMax: Int
   lotsStatus: LotsStatus!
-  auctionsID: ID!
+
+  auctionId: ID!
     @index(
       name: "lotsSortByLot"
       queryField: "lotsSortByLot"
       sortKeyFields: ["lot"]
     )
-    @index(name: "byAuctions", sortKeyFields: ["lot"])
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+    @index(name: "byAuction", sortKeyFields: ["lot"])
+  auction: Auction! @belongsTo(fields: ["auctionId"])
+
   auctionItemID: ID!
   auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
 
@@ -182,14 +181,14 @@ type BidItemHistory
   ) {
   id: ID!
   bidPrice: String!
-  auctionsID: ID!
-    @index(name: "byAuctions", sortKeyFields: ["createdAt"])
+  auctionId: ID!
+    @index(name: "byAuction", sortKeyFields: ["createdAt"])
     @index(
       name: "BidItemHistorySortByCreatedAt"
       queryField: "BidItemHistorySortByCreatedAt"
       sortKeyFields: ["createdAt"]
     )
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  auction: Auction! @belongsTo(fields: ["auctionId"])
 
   lotsID: ID! @index(name: "byLots", sortKeyFields: ["createdAt"])
   lots: Lots! @belongsTo(fields: ["lotsID"])
@@ -236,8 +235,7 @@ type AuctionUserLimitation
   id: ID!
   maxUserBidPrice: Int!
   limitStatus: LimitStatus!
-  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  auction: Auction! @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!
@@ -253,8 +251,8 @@ type MySucceedBid
     ]
   ) {
   id: ID!
-  auctionsID: ID!
-  auctions: Auctions! @hasOne(fields: ["auctionsID"])
+
+  auction: Auction! @hasOne
   bidItemHistoryID: ID!
   bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
   createdAt: AWSDateTime!
@@ -279,8 +277,7 @@ type AuctionUserNumber  #别人看不到，自己能看到，但是公开的能�
   ) {
   id: ID!
   number: Int!
-  auctionsID: ID! @index(name: "byAuctions", sortKeyFields: ["createdAt"])
-  auctions: Auctions! @belongsTo(fields: ["auctionsID"])
+  auction: Auction! @belongsTo
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!
