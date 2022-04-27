@@ -263,7 +263,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getAuctions",
+          "name" : "getAuction",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -281,7 +281,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Auctions",
+            "name" : "Auction",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -294,7 +294,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsFilterInput",
+              "name" : "ModelAuctionFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -319,7 +319,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelAuctionsConnection",
+            "name" : "ModelAuctionConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -387,7 +387,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getLots",
+          "name" : "getLot",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -405,7 +405,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -418,7 +418,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsFilterInput",
+              "name" : "ModelLotFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -443,76 +443,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelLotsConnection",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "lotsSortByLot",
-          "description" : null,
-          "args" : [ {
-            "name" : "auctionsID",
-            "description" : null,
-            "type" : {
-              "kind" : "NON_NULL",
-              "name" : null,
-              "ofType" : {
-                "kind" : "SCALAR",
-                "name" : "ID",
-                "ofType" : null
-              }
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "lot",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelIntKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "sortDirection",
-            "description" : null,
-            "type" : {
-              "kind" : "ENUM",
-              "name" : "ModelSortDirection",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "filter",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "limit",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "Int",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "nextToken",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          } ],
-          "type" : {
-            "kind" : "OBJECT",
-            "name" : "ModelLotsConnection",
+            "name" : "ModelLotConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -580,7 +511,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "getBidItemHistory",
+          "name" : "getBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -598,20 +529,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listBidItemHistories",
+          "name" : "listBidHistories",
           "description" : null,
           "args" : [ {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryFilterInput",
+              "name" : "ModelBidHistoryFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -636,76 +567,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelBidItemHistoryConnection",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "BidItemHistorySortByCreatedAt",
-          "description" : null,
-          "args" : [ {
-            "name" : "auctionsID",
-            "description" : null,
-            "type" : {
-              "kind" : "NON_NULL",
-              "name" : null,
-              "ofType" : {
-                "kind" : "SCALAR",
-                "name" : "ID",
-                "ofType" : null
-              }
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "createdAt",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelStringKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "sortDirection",
-            "description" : null,
-            "type" : {
-              "kind" : "ENUM",
-              "name" : "ModelSortDirection",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "filter",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryFilterInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "limit",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "Int",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
-            "name" : "nextToken",
-            "description" : null,
-            "type" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          } ],
-          "type" : {
-            "kind" : "OBJECT",
-            "name" : "ModelBidItemHistoryConnection",
+            "name" : "ModelBidHistoryConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -926,7 +788,7 @@
           "args" : [ ],
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
+            "name" : "AWSEmail",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -973,6 +835,15 @@
         "kind" : "SCALAR",
         "name" : "ID",
         "description" : "Built-in ID",
+        "fields" : null,
+        "inputFields" : null,
+        "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "SCALAR",
+        "name" : "AWSEmail",
+        "description" : "The `AWSEmail` scalar type provided by AWS AppSync, represents an Email address string that complies with [RFC 822](https://www.ietf.org/rfc/rfc822.txt). For example, \"**username@example.com**\" is a valid Email address.",
         "fields" : null,
         "inputFields" : null,
         "interfaces" : null,
@@ -1650,7 +1521,7 @@
           "args" : [ ],
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
+            "name" : "AWSEmail",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1918,7 +1789,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "imgUrl",
+          "name" : "sourceUrl",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1940,22 +1811,22 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctionsID",
+          "name" : "sourceType",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "NON_NULL",
             "name" : null,
             "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
+              "kind" : "ENUM",
+              "name" : "SourceType",
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctions",
+          "name" : "auction",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -1963,7 +1834,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Auctions",
+              "name" : "Auction",
               "ofType" : null
             }
           },
@@ -1999,6 +1870,21 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
+        }, {
+          "name" : "homePageCarouseAuctionId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -2014,8 +1900,27 @@
         "enumValues" : null,
         "possibleTypes" : null
       }, {
+        "kind" : "ENUM",
+        "name" : "SourceType",
+        "description" : null,
+        "fields" : null,
+        "inputFields" : null,
+        "interfaces" : null,
+        "enumValues" : [ {
+          "name" : "image",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "video",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        } ],
+        "possibleTypes" : null
+      }, {
         "kind" : "OBJECT",
-        "name" : "Auctions",
+        "name" : "Auction",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -2092,23 +1997,14 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "lots",
+          "name" : "lot",
           "description" : null,
           "args" : [ {
-            "name" : "lot",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelIntKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsFilterInput",
+              "name" : "ModelLotFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2142,29 +2038,20 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelLotsConnection",
+            "name" : "ModelLotConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "bidItemHistories",
+          "name" : "bidHistories",
           "description" : null,
           "args" : [ {
-            "name" : "createdAt",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelStringKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryFilterInput",
+              "name" : "ModelBidHistoryFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2198,7 +2085,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelBidItemHistoryConnection",
+            "name" : "ModelBidHistoryConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -2222,15 +2109,6 @@
           "name" : "auctionUserLimitations",
           "description" : null,
           "args" : [ {
-            "name" : "createdAt",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelStringKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "filter",
             "description" : null,
             "type" : {
@@ -2278,15 +2156,6 @@
           "name" : "auctionUserNumbers",
           "description" : null,
           "args" : [ {
-            "name" : "createdAt",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelStringKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "filter",
             "description" : null,
             "type" : {
@@ -2367,7 +2236,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelLotsConnection",
+        "name" : "ModelLotConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -2381,7 +2250,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "Lots",
+                "name" : "Lot",
                 "ofType" : null
               }
             }
@@ -2406,7 +2275,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Lots",
+        "name" : "Lot",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -2424,13 +2293,17 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "lot",
+          "name" : "lotOrder",
           "description" : null,
           "args" : [ ],
           "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -2468,7 +2341,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "lotsStatus",
+          "name" : "lotStatus",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -2476,29 +2349,14 @@
             "name" : null,
             "ofType" : {
               "kind" : "ENUM",
-              "name" : "LotsStatus",
+              "name" : "LotStatus",
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "auctions",
+          "name" : "auction",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -2506,22 +2364,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Auctions",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "auctionItemID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
+              "name" : "Auction",
               "ofType" : null
             }
           },
@@ -2543,23 +2386,14 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "bidItemHistories",
+          "name" : "bidHistories",
           "description" : null,
           "args" : [ {
-            "name" : "createdAt",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelStringKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "filter",
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryFilterInput",
+              "name" : "ModelBidHistoryFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -2593,7 +2427,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelBidItemHistoryConnection",
+            "name" : "ModelBidHistoryConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -2671,6 +2505,32 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
+        }, {
+          "name" : "auctionLotId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "lotAuctionItemId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -2678,7 +2538,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "ENUM",
-        "name" : "LotsStatus",
+        "name" : "LotStatus",
         "description" : null,
         "fields" : null,
         "inputFields" : null,
@@ -2785,21 +2645,6 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "categoryID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
           "name" : "category",
           "description" : null,
           "args" : [ ],
@@ -2871,13 +2716,20 @@
           "description" : null,
           "args" : [ ],
           "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "AWSDateTime",
-              "ofType" : null
-            }
+            "kind" : "SCALAR",
+            "name" : "AWSDateTime",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "categoryAuctionItemsId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -2924,15 +2776,6 @@
           "name" : "auctionItems",
           "description" : null,
           "args" : [ {
-            "name" : "createdAt",
-            "description" : null,
-            "type" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModelStringKeyConditionInput",
-              "ofType" : null
-            },
-            "defaultValue" : null
-          }, {
             "name" : "filter",
             "description" : null,
             "type" : {
@@ -3052,82 +2895,6 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelStringKeyConditionInput",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : [ {
-          "name" : "eq",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "le",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "lt",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "ge",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "gt",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "between",
-          "description" : null,
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "beginsWith",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        } ],
-        "interfaces" : null,
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "INPUT_OBJECT",
         "name" : "ModelAuctionItemFilterInput",
         "description" : null,
         "fields" : null,
@@ -3182,15 +2949,6 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "categoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3274,6 +3032,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "categoryAuctionItemsId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -3299,7 +3066,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelBidItemHistoryConnection",
+        "name" : "ModelBidHistoryConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -3313,7 +3080,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "BidItemHistory",
+                "name" : "BidHistory",
                 "ofType" : null
               }
             }
@@ -3338,7 +3105,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "BidItemHistory",
+        "name" : "BidHistory",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -3364,29 +3131,14 @@
             "name" : null,
             "ofType" : {
               "kind" : "SCALAR",
-              "name" : "String",
+              "name" : "Int",
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "auctions",
+          "name" : "auction",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -3394,29 +3146,14 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Auctions",
+              "name" : "Auction",
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "lotsID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "lots",
+          "name" : "lot",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -3424,7 +3161,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Lots",
+              "name" : "Lot",
               "ofType" : null
             }
           },
@@ -3446,12 +3183,12 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "bidItemHistoryStatus",
+          "name" : "bidHistoryStatus",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "ENUM",
-            "name" : "BidItemHistoryStatus",
+            "name" : "BidHistoryStatus",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -3508,6 +3245,28 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
+        }, {
+          "name" : "auctionBidHistoriesId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "lotBidHistoriesId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -3515,7 +3274,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "ENUM",
-        "name" : "BidItemHistoryStatus",
+        "name" : "BidHistoryStatus",
         "description" : null,
         "fields" : null,
         "inputFields" : null,
@@ -3573,7 +3332,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelBidItemHistoryFilterInput",
+        "name" : "ModelBidHistoryFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -3590,25 +3349,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "lotsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
+            "name" : "ModelIntInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3622,11 +3363,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "bidItemHistoryStatus",
+          "name" : "bidHistoryStatus",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelBidItemHistoryStatusInput",
+            "name" : "ModelBidHistoryStatusInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3674,7 +3415,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryFilterInput",
+              "name" : "ModelBidHistoryFilterInput",
               "ofType" : null
             }
           },
@@ -3687,7 +3428,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryFilterInput",
+              "name" : "ModelBidHistoryFilterInput",
               "ofType" : null
             }
           },
@@ -3697,7 +3438,25 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelBidItemHistoryFilterInput",
+            "name" : "ModelBidHistoryFilterInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3801,7 +3560,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelBidItemHistoryStatusInput",
+        "name" : "ModelBidHistoryStatusInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -3809,7 +3568,7 @@
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "BidItemHistoryStatus",
+            "name" : "BidHistoryStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3818,7 +3577,7 @@
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "BidItemHistoryStatus",
+            "name" : "BidHistoryStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -3912,12 +3671,12 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "lots",
+          "name" : "lot",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -3964,7 +3723,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "lotsMyFavoritesId",
+          "name" : "lotMyFavoritesId",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -4056,7 +3815,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsMyFavoritesId",
+          "name" : "lotMyFavoritesId",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -4070,74 +3829,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelIntKeyConditionInput",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : [ {
-          "name" : "eq",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "le",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "lt",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "ge",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "gt",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "between",
-          "description" : null,
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "Int",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        } ],
-        "interfaces" : null,
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "INPUT_OBJECT",
-        "name" : "ModelLotsFilterInput",
+        "name" : "ModelLotFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -4150,7 +3842,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lot",
+          "name" : "lotOrder",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -4186,29 +3878,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsStatus",
+          "name" : "lotStatus",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelLotsStatusInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionItemID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
+            "name" : "ModelLotStatusInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4238,7 +3912,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsFilterInput",
+              "name" : "ModelLotFilterInput",
               "ofType" : null
             }
           },
@@ -4251,7 +3925,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsFilterInput",
+              "name" : "ModelLotFilterInput",
               "ofType" : null
             }
           },
@@ -4261,7 +3935,25 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelLotsFilterInput",
+            "name" : "ModelLotFilterInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionLotId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotAuctionItemId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4271,7 +3963,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelLotsStatusInput",
+        "name" : "ModelLotStatusInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -4279,7 +3971,7 @@
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "LotsStatus",
+            "name" : "LotStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4288,7 +3980,7 @@
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "LotsStatus",
+            "name" : "LotStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4385,22 +4077,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "auctions",
+          "name" : "auction",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -4408,7 +4085,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Auctions",
+              "name" : "Auction",
               "ofType" : null
             }
           },
@@ -4452,6 +4129,17 @@
               "name" : "ID",
               "ofType" : null
             }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "auctionAuctionUserLimitationsId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
@@ -4517,15 +4205,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -4584,6 +4263,15 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelAuctionUserLimitationFilterInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserLimitationsId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4692,22 +4380,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "auctions",
+          "name" : "auction",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -4715,7 +4388,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Auctions",
+              "name" : "Auction",
               "ofType" : null
             }
           },
@@ -4762,6 +4435,17 @@
           },
           "isDeprecated" : false,
           "deprecationReason" : null
+        }, {
+          "name" : "auctionAuctionUserNumbersId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
@@ -4787,15 +4471,6 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelIntInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4858,6 +4533,15 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelAuctionUserNumberFilterInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserNumbersId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4928,7 +4612,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "imgUrl",
+          "name" : "sourceUrl",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -4946,11 +4630,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
+          "name" : "sourceType",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
+            "name" : "ModelSourceTypeInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -4986,6 +4670,42 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelHomePageCarouseFilterInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "homePageCarouseAuctionId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        } ],
+        "interfaces" : null,
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "INPUT_OBJECT",
+        "name" : "ModelSourceTypeInput",
+        "description" : null,
+        "fields" : null,
+        "inputFields" : [ {
+          "name" : "eq",
+          "description" : null,
+          "type" : {
+            "kind" : "ENUM",
+            "name" : "SourceType",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "ne",
+          "description" : null,
+          "type" : {
+            "kind" : "ENUM",
+            "name" : "SourceType",
             "ofType" : null
           },
           "defaultValue" : null
@@ -5096,7 +4816,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelAuctionsConnection",
+        "name" : "ModelAuctionConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -5110,7 +4830,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "Auctions",
+                "name" : "Auction",
                 "ofType" : null
               }
             }
@@ -5135,7 +4855,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelAuctionsFilterInput",
+        "name" : "ModelAuctionFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -5209,7 +4929,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsFilterInput",
+              "name" : "ModelAuctionFilterInput",
               "ofType" : null
             }
           },
@@ -5222,7 +4942,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsFilterInput",
+              "name" : "ModelAuctionFilterInput",
               "ofType" : null
             }
           },
@@ -5232,7 +4952,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelAuctionsFilterInput",
+            "name" : "ModelAuctionFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -5305,22 +5025,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "auctions",
+          "name" : "auction",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -5328,29 +5033,14 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "Auctions",
+              "name" : "Auction",
               "ofType" : null
             }
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "bidItemHistoryID",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "bidItemHistory",
+          "name" : "bidHistory",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -5358,7 +5048,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "OBJECT",
-              "name" : "BidItemHistory",
+              "name" : "BidHistory",
               "ofType" : null
             }
           },
@@ -5392,6 +5082,36 @@
           "deprecationReason" : null
         }, {
           "name" : "owner",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "mySucceedBidAuctionId",
+          "description" : null,
+          "args" : [ ],
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "mySucceedBidBidHistoryId",
           "description" : null,
           "args" : [ ],
           "type" : {
@@ -5464,24 +5184,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "bidItemHistoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -5540,6 +5242,24 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelMySucceedBidFilterInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidAuctionId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidBidHistoryId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -5948,7 +5668,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createAuctions",
+          "name" : "createAuction",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -5958,7 +5678,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateAuctionsInput",
+                "name" : "CreateAuctionInput",
                 "ofType" : null
               }
             },
@@ -5968,20 +5688,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsConditionInput",
+              "name" : "ModelAuctionConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Auctions",
+            "name" : "Auction",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateAuctions",
+          "name" : "updateAuction",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -5991,7 +5711,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateAuctionsInput",
+                "name" : "UpdateAuctionInput",
                 "ofType" : null
               }
             },
@@ -6001,20 +5721,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsConditionInput",
+              "name" : "ModelAuctionConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Auctions",
+            "name" : "Auction",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteAuctions",
+          "name" : "deleteAuction",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6024,7 +5744,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteAuctionsInput",
+                "name" : "DeleteAuctionInput",
                 "ofType" : null
               }
             },
@@ -6034,14 +5754,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsConditionInput",
+              "name" : "ModelAuctionConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Auctions",
+            "name" : "Auction",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -6146,7 +5866,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createLots",
+          "name" : "createLot",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6156,7 +5876,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateLotsInput",
+                "name" : "CreateLotInput",
                 "ofType" : null
               }
             },
@@ -6166,20 +5886,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsConditionInput",
+              "name" : "ModelLotConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateLots",
+          "name" : "updateLot",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6189,7 +5909,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateLotsInput",
+                "name" : "UpdateLotInput",
                 "ofType" : null
               }
             },
@@ -6199,20 +5919,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsConditionInput",
+              "name" : "ModelLotConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteLots",
+          "name" : "deleteLot",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6222,7 +5942,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteLotsInput",
+                "name" : "DeleteLotInput",
                 "ofType" : null
               }
             },
@@ -6232,14 +5952,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsConditionInput",
+              "name" : "ModelLotConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -6344,7 +6064,7 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "createBidItemHistory",
+          "name" : "createBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6354,7 +6074,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateBidItemHistoryInput",
+                "name" : "CreateBidHistoryInput",
                 "ofType" : null
               }
             },
@@ -6364,20 +6084,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryConditionInput",
+              "name" : "ModelBidHistoryConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateBidItemHistory",
+          "name" : "updateBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6387,7 +6107,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateBidItemHistoryInput",
+                "name" : "UpdateBidHistoryInput",
                 "ofType" : null
               }
             },
@@ -6397,20 +6117,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryConditionInput",
+              "name" : "ModelBidHistoryConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteBidItemHistory",
+          "name" : "deleteBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -6420,7 +6140,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteBidItemHistoryInput",
+                "name" : "DeleteBidHistoryInput",
                 "ofType" : null
               }
             },
@@ -6430,14 +6150,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryConditionInput",
+              "name" : "ModelBidHistoryConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -6763,7 +6483,7 @@
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
+            "name" : "AWSEmail",
             "ofType" : null
           },
           "defaultValue" : null
@@ -6901,7 +6621,7 @@
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
+            "name" : "AWSEmail",
             "ofType" : null
           },
           "defaultValue" : null
@@ -7049,7 +6769,7 @@
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
+            "name" : "AWSEmail",
             "ofType" : null
           },
           "defaultValue" : null
@@ -7299,7 +7019,7 @@
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
+            "name" : "AWSEmail",
             "ofType" : null
           },
           "defaultValue" : null
@@ -7362,7 +7082,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "imgUrl",
+          "name" : "sourceUrl",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -7380,7 +7100,20 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
+          "name" : "sourceType",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "ENUM",
+              "name" : "SourceType",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "homePageCarouseAuctionId",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
@@ -7411,7 +7144,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "imgUrl",
+          "name" : "sourceUrl",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -7429,11 +7162,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
+          "name" : "sourceType",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
+            "name" : "ModelSourceTypeInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -7472,6 +7205,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "homePageCarouseAuctionId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -7504,7 +7246,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "imgUrl",
+          "name" : "sourceUrl",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -7522,7 +7264,16 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
+          "name" : "sourceType",
+          "description" : null,
+          "type" : {
+            "kind" : "ENUM",
+            "name" : "SourceType",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "homePageCarouseAuctionId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -7695,7 +7446,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateAuctionsInput",
+        "name" : "CreateAuctionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -7775,7 +7526,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelAuctionsConditionInput",
+        "name" : "ModelAuctionConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -7840,7 +7591,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsConditionInput",
+              "name" : "ModelAuctionConditionInput",
               "ofType" : null
             }
           },
@@ -7853,7 +7604,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelAuctionsConditionInput",
+              "name" : "ModelAuctionConditionInput",
               "ofType" : null
             }
           },
@@ -7863,7 +7614,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelAuctionsConditionInput",
+            "name" : "ModelAuctionConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -7873,7 +7624,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateAuctionsInput",
+        "name" : "UpdateAuctionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -7953,7 +7704,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteAuctionsInput",
+        "name" : "DeleteAuctionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -8019,7 +7770,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsMyFavoritesId",
+          "name" : "lotMyFavoritesId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -8099,7 +7850,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsMyFavoritesId",
+          "name" : "lotMyFavoritesId",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -8157,7 +7908,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsMyFavoritesId",
+          "name" : "lotMyFavoritesId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -8193,7 +7944,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateLotsInput",
+        "name" : "CreateLotInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -8206,12 +7957,16 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lot",
+          "name" : "lotOrder",
           "description" : null,
           "type" : {
-            "kind" : "SCALAR",
-            "name" : "Int",
-            "ofType" : null
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "Int",
+              "ofType" : null
+            }
           },
           "defaultValue" : null
         }, {
@@ -8242,40 +7997,14 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsStatus",
+          "name" : "lotStatus",
           "description" : null,
           "type" : {
             "kind" : "NON_NULL",
             "name" : null,
             "ofType" : {
               "kind" : "ENUM",
-              "name" : "LotsStatus",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionItemID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
+              "name" : "LotStatus",
               "ofType" : null
             }
           },
@@ -8298,17 +8027,39 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionLotId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotAuctionItemId",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelLotsConditionInput",
+        "name" : "ModelLotConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "lot",
+          "name" : "lotOrder",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -8344,29 +8095,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsStatus",
+          "name" : "lotStatus",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelLotsStatusInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionItemID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
+            "name" : "ModelLotStatusInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -8396,7 +8129,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsConditionInput",
+              "name" : "ModelLotConditionInput",
               "ofType" : null
             }
           },
@@ -8409,7 +8142,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelLotsConditionInput",
+              "name" : "ModelLotConditionInput",
               "ofType" : null
             }
           },
@@ -8419,7 +8152,25 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelLotsConditionInput",
+            "name" : "ModelLotConditionInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionLotId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotAuctionItemId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -8429,7 +8180,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateLotsInput",
+        "name" : "UpdateLotInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -8446,7 +8197,7 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lot",
+          "name" : "lotOrder",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -8482,29 +8233,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "lotsStatus",
+          "name" : "lotStatus",
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "LotsStatus",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionItemID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
+            "name" : "LotStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -8526,13 +8259,31 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionLotId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotAuctionItemId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteLotsInput",
+        "name" : "DeleteLotInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -8612,19 +8363,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "categoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
           "name" : "imgUrls",
           "description" : null,
           "type" : {
@@ -8670,6 +8408,15 @@
           "type" : {
             "kind" : "SCALAR",
             "name" : "AWSDateTime",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "categoryAuctionItemsId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
             "ofType" : null
           },
           "defaultValue" : null
@@ -8724,15 +8471,6 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "categoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -8816,6 +8554,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "categoryAuctionItemsId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -8884,15 +8631,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "categoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "imgUrls",
           "description" : null,
           "type" : {
@@ -8941,6 +8679,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "categoryAuctionItemsId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -8969,7 +8716,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateBidItemHistoryInput",
+        "name" : "CreateBidHistoryInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -8989,33 +8736,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "SCALAR",
-              "name" : "String",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "lotsID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
+              "name" : "Int",
               "ofType" : null
             }
           },
@@ -9034,11 +8755,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "bidItemHistoryStatus",
+          "name" : "bidHistoryStatus",
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "BidItemHistoryStatus",
+            "name" : "BidHistoryStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9082,13 +8803,31 @@
             }
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelBidItemHistoryConditionInput",
+        "name" : "ModelBidHistoryConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -9096,25 +8835,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "lotsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
+            "name" : "ModelIntInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9128,11 +8849,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "bidItemHistoryStatus",
+          "name" : "bidHistoryStatus",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelBidItemHistoryStatusInput",
+            "name" : "ModelBidHistoryStatusInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9180,7 +8901,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryConditionInput",
+              "name" : "ModelBidHistoryConditionInput",
               "ofType" : null
             }
           },
@@ -9193,7 +8914,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelBidItemHistoryConditionInput",
+              "name" : "ModelBidHistoryConditionInput",
               "ofType" : null
             }
           },
@@ -9203,7 +8924,25 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelBidItemHistoryConditionInput",
+            "name" : "ModelBidHistoryConditionInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9213,7 +8952,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateBidItemHistoryInput",
+        "name" : "UpdateBidHistoryInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -9234,25 +8973,7 @@
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "lotsID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
+            "name" : "Int",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9266,11 +8987,11 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "bidItemHistoryStatus",
+          "name" : "bidHistoryStatus",
           "description" : null,
           "type" : {
             "kind" : "ENUM",
-            "name" : "BidItemHistoryStatus",
+            "name" : "BidHistoryStatus",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9310,13 +9031,31 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "lotBidHistoriesId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteBidItemHistoryInput",
+        "name" : "DeleteBidHistoryInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -9377,19 +9116,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -9420,6 +9146,15 @@
             }
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserLimitationsId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -9444,15 +9179,6 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelLimitStatusInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -9518,6 +9244,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserLimitationsId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -9559,15 +9294,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -9587,6 +9313,15 @@
           "defaultValue" : null
         }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserLimitationsId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -9635,32 +9370,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "bidItemHistoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -9691,6 +9400,32 @@
             }
           },
           "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidAuctionId",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidBidHistoryId",
+          "description" : null,
+          "type" : {
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -9701,24 +9436,6 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "bidItemHistoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -9780,6 +9497,24 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidAuctionId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidBidHistoryId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -9803,24 +9538,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "bidItemHistoryID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -9840,6 +9557,24 @@
           "defaultValue" : null
         }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidAuctionId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "mySucceedBidBidHistoryId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -9901,19 +9636,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -9944,6 +9666,15 @@
             }
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserNumbersId",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -9959,15 +9690,6 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelIntInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -10033,6 +9755,15 @@
             "ofType" : null
           },
           "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserNumbersId",
+          "description" : null,
+          "type" : {
+            "kind" : "INPUT_OBJECT",
+            "name" : "ModelIDInput",
+            "ofType" : null
+          },
+          "defaultValue" : null
         } ],
         "interfaces" : null,
         "enumValues" : null,
@@ -10065,15 +9796,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "auctionsID",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "createdAt",
           "description" : null,
           "type" : {
@@ -10093,6 +9815,15 @@
           "defaultValue" : null
         }, {
           "name" : "owner",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "ID",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "auctionAuctionUserNumbersId",
           "description" : null,
           "type" : {
             "kind" : "SCALAR",
@@ -10131,40 +9862,40 @@
         "name" : "Subscription",
         "description" : null,
         "fields" : [ {
-          "name" : "onCreateLots",
+          "name" : "onCreateLot",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateLots",
+          "name" : "onUpdateLot",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteLots",
+          "name" : "onDeleteLot",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Lots",
+            "name" : "Lot",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onCreateBidItemHistory",
+          "name" : "onCreateBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -10178,13 +9909,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateBidItemHistory",
+          "name" : "onUpdateBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -10198,13 +9929,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteBidItemHistory",
+          "name" : "onDeleteBidHistory",
           "description" : null,
           "args" : [ {
             "name" : "owner",
@@ -10218,7 +9949,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "BidItemHistory",
+            "name" : "BidHistory",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -10409,35 +10140,6 @@
         "enumValues" : null,
         "possibleTypes" : null
       }, {
-        "kind" : "ENUM",
-        "name" : "AuctionStatus",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : null,
-        "interfaces" : null,
-        "enumValues" : [ {
-          "name" : "ComingSoon",
-          "description" : null,
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "InProgress",
-          "description" : null,
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "Finished",
-          "description" : null,
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "Canceled",
-          "description" : null,
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        } ],
-        "possibleTypes" : null
-      }, {
         "kind" : "INPUT_OBJECT",
         "name" : "ModelFloatInput",
         "description" : null,
@@ -10539,6 +10241,35 @@
         "inputFields" : null,
         "interfaces" : null,
         "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "ENUM",
+        "name" : "AuctionStatus",
+        "description" : null,
+        "fields" : null,
+        "inputFields" : null,
+        "interfaces" : null,
+        "enumValues" : [ {
+          "name" : "ComingSoon",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "InProgress",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "Finished",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        }, {
+          "name" : "Canceled",
+          "description" : null,
+          "isDeprecated" : false,
+          "deprecationReason" : null
+        } ],
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
@@ -11374,23 +11105,6 @@
         "onFragment" : false,
         "onField" : false
       }, {
-        "name" : "deprecated",
-        "description" : null,
-        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
-        "args" : [ {
-          "name" : "reason",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "defaultValue" : "\"No longer supported\""
-        } ],
-        "onOperation" : false,
-        "onFragment" : false,
-        "onField" : false
-      }, {
         "name" : "aws_auth",
         "description" : "Directs the schema to enforce authorization on a field",
         "locations" : [ "FIELD_DEFINITION" ],
@@ -11453,6 +11167,23 @@
         "description" : "Tells the service this field/object has access authorized by a Lambda Authorizer.",
         "locations" : [ "OBJECT", "FIELD_DEFINITION" ],
         "args" : [ ],
+        "onOperation" : false,
+        "onFragment" : false,
+        "onField" : false
+      }, {
+        "name" : "deprecated",
+        "description" : null,
+        "locations" : [ "FIELD_DEFINITION", "ENUM_VALUE" ],
+        "args" : [ {
+          "name" : "reason",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "String",
+            "ofType" : null
+          },
+          "defaultValue" : "\"No longer supported\""
+        } ],
         "onOperation" : false,
         "onFragment" : false,
         "onField" : false

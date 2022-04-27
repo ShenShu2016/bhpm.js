@@ -82,8 +82,7 @@ type Auction
   auctionStartDate: AWSDateTime
   auctionEndDate: AWSDateTime
   lot: [Lot] @hasMany
-  bidItemHistories: [BidItemHistory]
-    @hasMany(indexName: "byAuction", fields: ["id"])
+  bidHistories: [BidHistory] @hasMany
   bidIncrementPriceList: [Int]
   auctionUserLimitations: [AuctionUserLimitation] @hasMany
   auctionUserNumbers: [AuctionUserNumber] @hasMany
@@ -116,25 +115,24 @@ type Lot
     ]
   ) {
   id: ID! # uuid
-  lotOrder: Int #拍卖顺序
+  lotOrder: Int! #拍卖顺序
   startingPrice: Int
   estimatedPriceMin: Int
   estimatedPriceMax: Int
   lotStatus: LotStatus!
 
-  auctionId: ID!
+  lotAuctionItemId: ID!
     @index(
       name: "lotSortByLotOrder"
       queryField: "lotSortByLotOrder"
       sortKeyFields: ["lotOrder"]
     )
     @index(name: "byAuction", sortKeyFields: ["lotOrder"])
-  auction: Auction! @belongsTo(fields: ["auctionId"])
+  auction: Auction! @belongsTo(fields: ["lotAuctionItemId"])
 
-  auctionItemID: ID!
-  auctionItem: AuctionItem! @hasOne(fields: ["auctionItemID"])
+  auctionItem: AuctionItem! @hasOne
 
-  bidItemHistories: [BidItemHistory] @hasMany
+  bidHistories: [BidHistory] @hasMany
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 
@@ -170,10 +168,10 @@ type AuctionItem
   condition: String
   provenance: String
   createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  updatedAt: AWSDateTime
 }
 
-type BidItemHistory
+type BidHistory
   @model
   @auth(
     rules: [
@@ -184,19 +182,19 @@ type BidItemHistory
     ]
   ) {
   id: ID!
-  bidPrice: String!
-  auctionId: ID!
+  bidPrice: Int!
+  lotBidHistoriesId: ID!
     @index(name: "byAuction", sortKeyFields: ["createdAt"])
     @index(
       name: "BidItemHistorySortByCreatedAt"
       queryField: "BidItemHistorySortByCreatedAt"
       sortKeyFields: ["createdAt"]
     )
-  auction: Auction! @belongsTo(fields: ["auctionId"])
+  auction: Auction! @belongsTo(fields: ["lotBidHistoriesId"])
 
   lot: Lot! @belongsTo
   userNumber: Int!
-  bidItemHistoryStatus: BidItemHistoryStatus
+  bidHistoryStatus: BidHistoryStatus
     @auth(
       rules: [
         { allow: public, operations: [read], provider: iam }
@@ -217,7 +215,7 @@ enum BidForm {
   Phone
 }
 
-enum BidItemHistoryStatus {
+enum BidHistoryStatus {
   Start
   Success
   FirstCall
@@ -250,14 +248,13 @@ type MySucceedBid
       # { allow: public, operations: [read], provider: iam }
       { allow: owner, operations: [read] }
       { allow: groups, operations: [read], groups: ["anyone"] }
-      { allow: groups, groups: ["admin", "staff"] }
+      { allow: groups, groups: ["admin"] }
     ]
   ) {
   id: ID!
 
   auction: Auction! @hasOne
-  bidItemHistoryID: ID!
-  bidItemHistory: BidItemHistory! @hasOne(fields: ["bidItemHistoryID"])
+  bidHistory: BidHistory! @hasOne
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   owner: ID!

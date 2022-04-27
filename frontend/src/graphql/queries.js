@@ -80,20 +80,20 @@ export const getHomePageCarouse = /* GraphQL */ `
     getHomePageCarouse(id: $id) {
       id
       title
-      imgUrl
+      sourceUrl
       description
-      auctionsID
-      auctions {
+      sourceType
+      auction {
         id
         active
         company
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -108,6 +108,7 @@ export const getHomePageCarouse = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      homePageCarouseAuctionId
     }
   }
 `;
@@ -125,10 +126,10 @@ export const listHomePageCarouses = /* GraphQL */ `
       items {
         id
         title
-        imgUrl
+        sourceUrl
         description
-        auctionsID
-        auctions {
+        sourceType
+        auction {
           id
           active
           company
@@ -141,6 +142,7 @@ export const listHomePageCarouses = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        homePageCarouseAuctionId
       }
       nextToken
     }
@@ -159,12 +161,12 @@ export const getCategory = /* GraphQL */ `
           description
           titleEng
           descriptionEng
-          categoryID
           imgUrls
           condition
           provenance
           createdAt
           updatedAt
+          categoryAuctionItemsId
         }
         nextToken
       }
@@ -193,42 +195,42 @@ export const listCategories = /* GraphQL */ `
     }
   }
 `;
-export const getAuctions = /* GraphQL */ `
-  query GetAuctions($id: ID!) {
-    getAuctions(id: $id) {
+export const getAuction = /* GraphQL */ `
+  query GetAuction($id: ID!) {
+    getAuction(id: $id) {
       id
       active
       company
       description
       auctionStartDate
       auctionEndDate
-      lots {
+      lot {
         items {
           id
-          lot
+          lotOrder
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
+          lotStatus
           createdAt
           updatedAt
+          auctionLotId
+          lotAuctionItemId
         }
         nextToken
       }
-      bidItemHistories {
+      bidHistories {
         items {
           id
           bidPrice
-          auctionsID
-          lotsID
           userNumber
-          bidItemHistoryStatus
+          bidHistoryStatus
           bidForm
           createdAt
           updatedAt
           owner
+          auctionBidHistoriesId
+          lotBidHistoriesId
         }
         nextToken
       }
@@ -238,10 +240,10 @@ export const getAuctions = /* GraphQL */ `
           id
           maxUserBidPrice
           limitStatus
-          auctionsID
           createdAt
           updatedAt
           owner
+          auctionAuctionUserLimitationsId
         }
         nextToken
       }
@@ -249,10 +251,10 @@ export const getAuctions = /* GraphQL */ `
         items {
           id
           number
-          auctionsID
           createdAt
           updatedAt
           owner
+          auctionAuctionUserNumbersId
         }
         nextToken
       }
@@ -263,7 +265,7 @@ export const getAuctions = /* GraphQL */ `
 `;
 export const listAuctions = /* GraphQL */ `
   query ListAuctions(
-    $filter: ModelAuctionsFilterInput
+    $filter: ModelAuctionFilterInput
     $limit: Int
     $nextToken: String
   ) {
@@ -275,10 +277,10 @@ export const listAuctions = /* GraphQL */ `
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -299,15 +301,14 @@ export const getMyFavorite = /* GraphQL */ `
   query GetMyFavorite($id: ID!) {
     getMyFavorite(id: $id) {
       id
-      lots {
+      lot {
         id
-        lot
+        lotOrder
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
+        lotStatus
+        auction {
           id
           active
           company
@@ -318,7 +319,6 @@ export const getMyFavorite = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        auctionItemID
         auctionItem {
           id
           name
@@ -326,14 +326,14 @@ export const getMyFavorite = /* GraphQL */ `
           description
           titleEng
           descriptionEng
-          categoryID
           imgUrls
           condition
           provenance
           createdAt
           updatedAt
+          categoryAuctionItemsId
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         createdAt
@@ -341,11 +341,13 @@ export const getMyFavorite = /* GraphQL */ `
         myFavorites {
           nextToken
         }
+        auctionLotId
+        lotAuctionItemId
       }
       createdAt
       updatedAt
       owner
-      lotsMyFavoritesId
+      lotMyFavoritesId
     }
   }
 `;
@@ -358,48 +360,47 @@ export const listMyFavorites = /* GraphQL */ `
     listMyFavorites(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        lots {
+        lot {
           id
-          lot
+          lotOrder
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
+          lotStatus
           createdAt
           updatedAt
+          auctionLotId
+          lotAuctionItemId
         }
         createdAt
         updatedAt
         owner
-        lotsMyFavoritesId
+        lotMyFavoritesId
       }
       nextToken
     }
   }
 `;
-export const getLots = /* GraphQL */ `
-  query GetLots($id: ID!) {
-    getLots(id: $id) {
+export const getLot = /* GraphQL */ `
+  query GetLot($id: ID!) {
+    getLot(id: $id) {
       id
-      lot
+      lotOrder
       startingPrice
       estimatedPriceMin
       estimatedPriceMax
-      lotsStatus
-      auctionsID
-      auctions {
+      lotStatus
+      auction {
         id
         active
         company
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -412,7 +413,6 @@ export const getLots = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      auctionItemID
       auctionItem {
         id
         name
@@ -420,7 +420,6 @@ export const getLots = /* GraphQL */ `
         description
         titleEng
         descriptionEng
-        categoryID
         category {
           id
           categoryName
@@ -432,19 +431,20 @@ export const getLots = /* GraphQL */ `
         provenance
         createdAt
         updatedAt
+        categoryAuctionItemsId
       }
-      bidItemHistories {
+      bidHistories {
         items {
           id
           bidPrice
-          auctionsID
-          lotsID
           userNumber
-          bidItemHistoryStatus
+          bidHistoryStatus
           bidForm
           createdAt
           updatedAt
           owner
+          auctionBidHistoriesId
+          lotBidHistoriesId
         }
         nextToken
       }
@@ -456,29 +456,30 @@ export const getLots = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          lotsMyFavoritesId
+          lotMyFavoritesId
         }
         nextToken
       }
+      auctionLotId
+      lotAuctionItemId
     }
   }
 `;
 export const listLots = /* GraphQL */ `
   query ListLots(
-    $filter: ModelLotsFilterInput
+    $filter: ModelLotFilterInput
     $limit: Int
     $nextToken: String
   ) {
     listLots(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        lot
+        lotOrder
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
+        lotStatus
+        auction {
           id
           active
           company
@@ -489,7 +490,6 @@ export const listLots = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        auctionItemID
         auctionItem {
           id
           name
@@ -497,14 +497,14 @@ export const listLots = /* GraphQL */ `
           description
           titleEng
           descriptionEng
-          categoryID
           imgUrls
           condition
           provenance
           createdAt
           updatedAt
+          categoryAuctionItemsId
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         createdAt
@@ -512,70 +512,8 @@ export const listLots = /* GraphQL */ `
         myFavorites {
           nextToken
         }
-      }
-      nextToken
-    }
-  }
-`;
-export const lotsSortByLot = /* GraphQL */ `
-  query LotsSortByLot(
-    $auctionsID: ID!
-    $lot: ModelIntKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelLotsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    lotsSortByLot(
-      auctionsID: $auctionsID
-      lot: $lot
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        lot
-        startingPrice
-        estimatedPriceMin
-        estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
-          id
-          active
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        auctionItemID
-        auctionItem {
-          id
-          name
-          title
-          description
-          titleEng
-          descriptionEng
-          categoryID
-          imgUrls
-          condition
-          provenance
-          createdAt
-          updatedAt
-        }
-        bidItemHistories {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        myFavorites {
-          nextToken
-        }
+        auctionLotId
+        lotAuctionItemId
       }
       nextToken
     }
@@ -590,7 +528,6 @@ export const getAuctionItem = /* GraphQL */ `
       description
       titleEng
       descriptionEng
-      categoryID
       category {
         id
         categoryName
@@ -605,6 +542,7 @@ export const getAuctionItem = /* GraphQL */ `
       provenance
       createdAt
       updatedAt
+      categoryAuctionItemsId
     }
   }
 `;
@@ -622,7 +560,6 @@ export const listAuctionItems = /* GraphQL */ `
         description
         titleEng
         descriptionEng
-        categoryID
         category {
           id
           categoryName
@@ -634,28 +571,28 @@ export const listAuctionItems = /* GraphQL */ `
         provenance
         createdAt
         updatedAt
+        categoryAuctionItemsId
       }
       nextToken
     }
   }
 `;
-export const getBidItemHistory = /* GraphQL */ `
-  query GetBidItemHistory($id: ID!) {
-    getBidItemHistory(id: $id) {
+export const getBidHistory = /* GraphQL */ `
+  query GetBidHistory($id: ID!) {
+    getBidHistory(id: $id) {
       id
       bidPrice
-      auctionsID
-      auctions {
+      auction {
         id
         active
         company
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -668,16 +605,14 @@ export const getBidItemHistory = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      lotsID
-      lots {
+      lot {
         id
-        lot
+        lotOrder
         startingPrice
         estimatedPriceMin
         estimatedPriceMax
-        lotsStatus
-        auctionsID
-        auctions {
+        lotStatus
+        auction {
           id
           active
           company
@@ -688,7 +623,6 @@ export const getBidItemHistory = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        auctionItemID
         auctionItem {
           id
           name
@@ -696,14 +630,14 @@ export const getBidItemHistory = /* GraphQL */ `
           description
           titleEng
           descriptionEng
-          categoryID
           imgUrls
           condition
           provenance
           createdAt
           updatedAt
+          categoryAuctionItemsId
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         createdAt
@@ -711,32 +645,31 @@ export const getBidItemHistory = /* GraphQL */ `
         myFavorites {
           nextToken
         }
+        auctionLotId
+        lotAuctionItemId
       }
       userNumber
-      bidItemHistoryStatus
+      bidHistoryStatus
       bidForm
       createdAt
       updatedAt
       owner
+      auctionBidHistoriesId
+      lotBidHistoriesId
     }
   }
 `;
-export const listBidItemHistories = /* GraphQL */ `
-  query ListBidItemHistories(
-    $filter: ModelBidItemHistoryFilterInput
+export const listBidHistories = /* GraphQL */ `
+  query ListBidHistories(
+    $filter: ModelBidHistoryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBidItemHistories(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
+    listBidHistories(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         bidPrice
-        auctionsID
-        auctions {
+        auction {
           id
           active
           company
@@ -747,81 +680,26 @@ export const listBidItemHistories = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        lotsID
-        lots {
+        lot {
           id
-          lot
+          lotOrder
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
+          lotStatus
           createdAt
           updatedAt
+          auctionLotId
+          lotAuctionItemId
         }
         userNumber
-        bidItemHistoryStatus
+        bidHistoryStatus
         bidForm
         createdAt
         updatedAt
         owner
-      }
-      nextToken
-    }
-  }
-`;
-export const bidItemHistorySortByCreatedAt = /* GraphQL */ `
-  query BidItemHistorySortByCreatedAt(
-    $auctionsID: ID!
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelBidItemHistoryFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    BidItemHistorySortByCreatedAt(
-      auctionsID: $auctionsID
-      createdAt: $createdAt
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        bidPrice
-        auctionsID
-        auctions {
-          id
-          active
-          company
-          description
-          auctionStartDate
-          auctionEndDate
-          bidIncrementPriceList
-          createdAt
-          updatedAt
-        }
-        lotsID
-        lots {
-          id
-          lot
-          startingPrice
-          estimatedPriceMin
-          estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
-          createdAt
-          updatedAt
-        }
-        userNumber
-        bidItemHistoryStatus
-        bidForm
-        createdAt
-        updatedAt
-        owner
+        auctionBidHistoriesId
+        lotBidHistoriesId
       }
       nextToken
     }
@@ -833,18 +711,17 @@ export const getAuctionUserLimitation = /* GraphQL */ `
       id
       maxUserBidPrice
       limitStatus
-      auctionsID
-      auctions {
+      auction {
         id
         active
         company
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -860,6 +737,7 @@ export const getAuctionUserLimitation = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      auctionAuctionUserLimitationsId
     }
   }
 `;
@@ -878,8 +756,7 @@ export const listAuctionUserLimitations = /* GraphQL */ `
         id
         maxUserBidPrice
         limitStatus
-        auctionsID
-        auctions {
+        auction {
           id
           active
           company
@@ -893,6 +770,7 @@ export const listAuctionUserLimitations = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        auctionAuctionUserLimitationsId
       }
       nextToken
     }
@@ -902,18 +780,17 @@ export const getMySucceedBid = /* GraphQL */ `
   query GetMySucceedBid($id: ID!) {
     getMySucceedBid(id: $id) {
       id
-      auctionsID
-      auctions {
+      auction {
         id
         active
         company
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -926,12 +803,10 @@ export const getMySucceedBid = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      bidItemHistoryID
-      bidItemHistory {
+      bidHistory {
         id
         bidPrice
-        auctionsID
-        auctions {
+        auction {
           id
           active
           company
@@ -942,29 +817,32 @@ export const getMySucceedBid = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        lotsID
-        lots {
+        lot {
           id
-          lot
+          lotOrder
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
-          lotsStatus
-          auctionsID
-          auctionItemID
+          lotStatus
           createdAt
           updatedAt
+          auctionLotId
+          lotAuctionItemId
         }
         userNumber
-        bidItemHistoryStatus
+        bidHistoryStatus
         bidForm
         createdAt
         updatedAt
         owner
+        auctionBidHistoriesId
+        lotBidHistoriesId
       }
       createdAt
       updatedAt
       owner
+      mySucceedBidAuctionId
+      mySucceedBidBidHistoryId
     }
   }
 `;
@@ -977,8 +855,7 @@ export const listMySucceedBids = /* GraphQL */ `
     listMySucceedBids(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        auctionsID
-        auctions {
+        auction {
           id
           active
           company
@@ -989,22 +866,23 @@ export const listMySucceedBids = /* GraphQL */ `
           createdAt
           updatedAt
         }
-        bidItemHistoryID
-        bidItemHistory {
+        bidHistory {
           id
           bidPrice
-          auctionsID
-          lotsID
           userNumber
-          bidItemHistoryStatus
+          bidHistoryStatus
           bidForm
           createdAt
           updatedAt
           owner
+          auctionBidHistoriesId
+          lotBidHistoriesId
         }
         createdAt
         updatedAt
         owner
+        mySucceedBidAuctionId
+        mySucceedBidBidHistoryId
       }
       nextToken
     }
@@ -1015,18 +893,17 @@ export const getAuctionUserNumber = /* GraphQL */ `
     getAuctionUserNumber(id: $id) {
       id
       number
-      auctionsID
-      auctions {
+      auction {
         id
         active
         company
         description
         auctionStartDate
         auctionEndDate
-        lots {
+        lot {
           nextToken
         }
-        bidItemHistories {
+        bidHistories {
           nextToken
         }
         bidIncrementPriceList
@@ -1042,6 +919,7 @@ export const getAuctionUserNumber = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      auctionAuctionUserNumbersId
     }
   }
 `;
@@ -1059,8 +937,7 @@ export const listAuctionUserNumbers = /* GraphQL */ `
       items {
         id
         number
-        auctionsID
-        auctions {
+        auction {
           id
           active
           company
@@ -1074,6 +951,7 @@ export const listAuctionUserNumbers = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        auctionAuctionUserNumbersId
       }
       nextToken
     }
