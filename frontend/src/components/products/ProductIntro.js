@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-26 18:38:25
+ * @LastEditTime: 2022-04-27 12:41:40
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -192,7 +192,7 @@ const ProductIntro = ({ product }) => {
           </Grid>
 
           <Grid item md={6} xs={12} alignItems="center">
-            <H3>Lot #{product.lot}</H3>
+            <H3>Lot #{product.lotOrder}</H3>
             <FlexBox
               alignItems="center"
               justifyContent="space-between"

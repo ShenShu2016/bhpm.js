@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 20:13:38
+ * @LastEditTime: 2022-04-27 13:50:20
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
@@ -83,7 +83,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
     item?.myFavorites?.items[0]?.id ? item?.myFavorites?.items[0]?.id : false
   );
   const [isLoading, setIsLoading] = useState(false);
-  console.log(isFavorite);
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
@@ -183,7 +183,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
                 mb={1}
                 title={item.auctionItem.title}
               >
-                Lot #{item.lot}:{" "}
+                Lot #{item.lotOrder}:{" "}
                 {currentLanguage === "zh_hk"
                   ? item.auctionItem.title
                   : item.auctionItem.titleEng}

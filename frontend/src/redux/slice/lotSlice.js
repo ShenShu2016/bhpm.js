@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 12:33:45
+ * @LastEditTime: 2022-04-27 12:40:42
  * @FilePath: \bhpmJS\frontend\src\redux\slice\lotSlice.js
  * @Description:
  *
@@ -67,11 +67,11 @@ export const fetchLots = createAsyncThunk(
 
 export const selectedLot = createAsyncThunk(
   "lot/selectedLot",
-  async ({ isAuthenticated, lotID }) => {
+  async ({ isAuthenticated, lotId }) => {
     try {
       const response = await API.graphql({
         query: getLot,
-        variables: { id: lotID },
+        variables: { id: lotId },
         authMode: isAuthenticated ? undefined : "AWS_IAM",
       });
       // console.log("what?", response);

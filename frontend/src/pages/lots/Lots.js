@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-02 21:31:20
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:38:23
+ * @LastEditTime: 2022-04-27 12:40:26
  * @FilePath: \bhpmJS\frontend\src\pages\lots\Lots.js
  * @Description:
  *
@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 
 export default function Lots() {
   const dispatch = useDispatch();
-  const { lotsID } = useParams();
+  const { lotId } = useParams();
 
   const { isAuthenticated } = useSelector((state) => state.userAuth);
 
@@ -28,12 +28,12 @@ export default function Lots() {
       dispatch(
         selectedLot({
           isAuthenticated,
-          lotsID,
+          lotId,
         })
       );
     }
-  }, [dispatch, isAuthenticated, lotsID]);
-  const product = useSelector((state) => selectLotById(state, lotsID));
+  }, [dispatch, isAuthenticated, lotId]);
+  const product = useSelector((state) => selectLotById(state, lotId));
 
   return <>{product ? <ProductIntro product={product} /> : <Loading />}</>;
 }
