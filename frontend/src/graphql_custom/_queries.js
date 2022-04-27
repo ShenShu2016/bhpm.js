@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 12:34:28
+ * @LastEditTime: 2022-04-27 13:58:00
  * @FilePath: \bhpmJS\frontend\src\graphql_custom\_queries.js
  * @Description:
  *
@@ -87,25 +87,17 @@ export const listMyFavorites = /* GraphQL */ `
         id
         lot {
           id
-          lot
+          lotOrder
           startingPrice
           estimatedPriceMin
           estimatedPriceMax
           lotStatus
-          auctionsID
-          auctionItemID
+          auctionLotId
           auctionItem {
             id
             name
             title
             description
-            categoryID
-            category {
-              id
-              categoryName
-              createdAt
-              updatedAt
-            }
             condition
             provenance
             imgUrls
@@ -114,10 +106,12 @@ export const listMyFavorites = /* GraphQL */ `
           }
           createdAt
           updatedAt
+          lotAuctionItemId
         }
         createdAt
         updatedAt
         owner
+        lotMyFavoritesId
       }
       nextToken
     }

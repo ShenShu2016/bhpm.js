@@ -50,7 +50,7 @@ const ProductIntro = ({ product }) => {
     if (isFavorite === false) {
       const createMyFavoriteInput = {
         //id: username + product.id,
-        lotsMyFavoritesId: product.id,
+        lotMyFavoritesId: product.id,
         owner: username,
       };
       const response = await dispatch(

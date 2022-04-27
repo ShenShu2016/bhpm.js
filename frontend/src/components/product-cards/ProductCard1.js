@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 13:50:20
+ * @LastEditTime: 2022-04-27 14:08:39
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
@@ -102,7 +102,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
     if (isFavorite === false) {
       const createMyFavoriteInput = {
         //id: username + item.id,
-        lotsMyFavoritesId: item.id,
+        lotMyFavoritesId: item.id,
         owner: username,
       };
       const response = await dispatch(
