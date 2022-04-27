@@ -2,8 +2,8 @@
  * @Author: Shen Shu
  * @Date: 2022-04-02 21:31:20
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 12:40:26
- * @FilePath: \bhpmJS\frontend\src\pages\lots\Lots.js
+ * @LastEditTime: 2022-04-27 16:52:20
+ * @FilePath: \bhpmJS\frontend\src\pages\lot\Lot.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -17,7 +17,7 @@ import Loading from "../../components/Loading";
 import ProductIntro from "../../components/products/ProductIntro";
 import { useParams } from "react-router-dom";
 
-export default function Lots() {
+export default function Lot() {
   const dispatch = useDispatch();
   const { lotId } = useParams();
 

@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 14:08:39
+ * @LastEditTime: 2022-04-27 16:58:41
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\ProductCard1.js
  * @Description:
  *
@@ -157,7 +157,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
             )}
           </IconButton>
         </HoverIconWrapper>
-        <Link to={`/lots/${item.id}`}>
+        <Link to={`/lot/${item.id}`}>
           <LazyLoadImage
             effect="blur"
             src={item.auctionItem.imgUrls[0]}
@@ -173,7 +173,7 @@ const ProductCard1 = ({ off, hoverEffect, item }) => {
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link to={`/lots/${item.id}`}>
+            <Link to={`/lot/${item.id}`}>
               <H3
                 className="title"
                 fontSize="14px"

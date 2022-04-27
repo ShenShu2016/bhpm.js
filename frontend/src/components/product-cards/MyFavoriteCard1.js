@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-25 21:35:39
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 14:08:07
+ * @LastEditTime: 2022-04-27 16:58:33
  * @FilePath: \bhpmJS\frontend\src\components\product-cards\MyFavoriteCard1.js
  * @Description:
  *
@@ -153,7 +153,7 @@ export default function MyFavoriteCard1({ off, hoverEffect, item }) {
             )}
           </IconButton>
         </HoverIconWrapper>
-        <Link to={`/lots/${item.lot.id}`}>
+        <Link to={`/lot/${item.lot.id}`}>
           <LazyLoadImage
             effect="blur"
             src={item.lot.auctionItem.imgUrls[0]}
@@ -169,7 +169,7 @@ export default function MyFavoriteCard1({ off, hoverEffect, item }) {
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link to={`/lots/${item.lot.id}`}>
+            <Link to={`/lot/${item.lot.id}`}>
               <H3
                 className="title"
                 fontSize="14px"

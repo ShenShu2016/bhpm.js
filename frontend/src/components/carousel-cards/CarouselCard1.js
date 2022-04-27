@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 14:21:36
+ * @LastEditTime: 2022-04-27 16:57:24
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -87,7 +87,7 @@ export default function CarouselCard1({ carousel }) {
               borderRadius: "8px",
             }}
             component={Link}
-            to={`/auctions/bidding/${homePageCarouseAuctionId}`}
+            to={`/auction/bidding/${homePageCarouseAuctionId}`}
           >
             Bid Now
           </Button>

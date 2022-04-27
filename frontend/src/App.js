@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:57
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 21:02:28
+ * @LastEditTime: 2022-04-27 17:02:42
  * @FilePath: \bhpmJS\frontend\src\App.js
  * @Description:
  *
@@ -14,11 +14,11 @@ import { Route, Routes } from "react-router-dom";
 import AboutUs from "./pages/business_info/About-us";
 import AlertTool from "./components/AlertTool";
 import Amplify from "aws-amplify";
-import AuctionsRouter from "./pages/auctions/AuctionsRouter";
+import AuctionsRouter from "./pages/auction/AuctionRouter";
 import AuthRouter from "./pages/auth/AuthRouter";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
-import LotsRouter from "./pages/lots/LotsRouter";
+import LotRouter from "./pages/lot/LotRouter";
 import MuiTheme from "./theme/MuiTheme";
 import Privacy from "./pages/business_info/Privacy";
 import ProfileRouter from "./pages/profile/ProfileRouter";
@@ -44,10 +44,10 @@ export default function App() {
       <AlertTool />
       <Routes>
         <Route exact path="" element={<Home />} />
-        <Route path="auctions/*" element={<AuctionsRouter />} />
+        <Route path="auction/*" element={<AuctionsRouter />} />
         <Route path="auth/*" element={<AuthRouter />} />
         <Route path="profile/*" element={<ProfileRouter />} />
-        <Route path="lots/*" element={<LotsRouter />} />
+        <Route path="lot/*" element={<LotRouter />} />
         <Route path="about_us" element={<AboutUs />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="services" element={<Services />} />
