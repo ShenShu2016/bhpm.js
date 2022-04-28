@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 18:53:09
+ * @LastEditTime: 2022-04-28 19:10:16
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -177,7 +177,7 @@ export default function Bidding() {
 
   const handleBitClick = async () => {
     setLoading(true);
-    if (nextBid > myLimitation.maxUserBidPrice - myTotalPriceMySucceedBids) {
+    if (nextBid > myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids) {
       setLoading(false);
       alert("Exceed Limit");
 
@@ -299,7 +299,7 @@ export default function Bidding() {
                         !!isLotSucceed ||
                         !(
                           nextBid <=
-                          myLimitation.maxUserBidPrice -
+                          myLimitation?.maxUserBidPrice -
                             myTotalPriceMySucceedBids
                         ) //剩下的钱要大于nextBid 才行
                       }
