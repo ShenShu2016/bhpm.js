@@ -1,18 +1,13 @@
 /*
-
-use this as bidHistory
-
-replace BidHistory to Database table name example: BidHistory => Todo
-
-replace BidHistory to Database table name Lower fist one example: bidHistory => todo
-
---and  replace the under two to store.js
-
-import bidHistoryReducer from "./slice/bidHistorySlice";
-
-bidHistory: bidHistoryReducer,
-
-*/
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-28 17:04:38
+ * @FilePath: \bhpmJS\frontend\src\redux\slice\bidHistorySlice.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
 
 import {
   createAsyncThunk,
@@ -208,6 +203,20 @@ export const selectMaxBidPriceByCurrentLot = ({ lotBidHistoriesId }) =>
     const maxBidPrice = lotHistories.sort((a, b) => b.bidPrice - a.bidPrice)[0];
 
     return maxBidPrice;
+  });
+
+export const isLotSucceedByLotId = ({ lotBidHistoriesId }) =>
+  createSelector(selectAllBidHistories, (bidHistory) => {
+    const lotHistory = bidHistory.filter(
+      (x) =>
+        x.lotBidHistoriesId === lotBidHistoriesId &&
+        x.bidHistoryStatus === "Success"
+    );
+    if (lotHistory.length === 1) {
+      return lotHistory;
+    } else {
+      return false;
+    }
   });
 
 export default bidHistorySlice.reducer;

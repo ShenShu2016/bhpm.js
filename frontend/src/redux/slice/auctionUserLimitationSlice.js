@@ -1,18 +1,13 @@
 /*
-
-use this as auctionUserLimitation
-
-replace AuctionUserLimitation to Database table name example: AuctionUserLimitation => Todo
-
-replace AuctionUserLimitation to Database table name Lower fist one example: auctionUserLimitation => todo
-
---and  replace the under two to store.js
-
-import auctionUserLimitationReducer from "./slice/auctionUserLimitationSlice";
-
-auctionUserLimitation: auctionUserLimitationReducer,
-
-*/
+ * @Author: Shen Shu
+ * @Date: 2022-04-18 00:03:49
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-28 17:05:05
+ * @FilePath: \bhpmJS\frontend\src\redux\slice\auctionUserLimitationSlice.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
 
 import {
   createAsyncThunk,
@@ -190,4 +185,5 @@ export const selectMyAuctionLimitation = ({ auctionId, username }) =>
       return null;
     }
   });
+
 export default auctionUserLimitationSlice.reducer;

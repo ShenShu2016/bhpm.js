@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 13:46:56
+ * @LastEditTime: 2022-04-28 16:29:55
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -31,6 +31,7 @@ import {
 } from "../../../redux/slice/auctionUserNumberSlice";
 import {
   fetchBidHistories,
+  isLotSucceedByLotId,
   postBidHistory,
   selectAllBidHistories,
   selectMaxBidPriceByCurrentLot,
@@ -40,6 +41,10 @@ import {
   selectAllLots,
   selectLotByInProgress,
 } from "../../../redux/slice/lotSlice";
+import {
+  fetchMySucceedBids,
+  selectTotalPriceMySucceedBids,
+} from "../../../redux/slice/mySucceedBidSlice";
 import {
   selectAuctionById,
   selectedAuction,
@@ -54,7 +59,6 @@ import BiddingTitle from "../../../components/bidding/BiddingTitle";
 import ImageGallery from "react-image-gallery";
 import ImageList from "../../../components/ImageList";
 import Loading from "../../../components/Loading";
-import { fetchMySucceedBids } from "../../../redux/slice/mySucceedBidSlice";
 import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
 import useSubscriptions from "./useSubscriptions";
@@ -75,17 +79,6 @@ function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
     return lotInProgress?.startingPrice;
   } else {
     return tempMin;
-  }
-}
-
-function isHighestBid(myUserNumber, maxBidPriceByCurrentLot) {
-  if (
-    myUserNumber?.number &&
-    maxBidPriceByCurrentLot?.userNumber === myUserNumber?.number
-  ) {
-    return true;
-  } else {
-    return false;
   }
 }
 
@@ -131,6 +124,16 @@ export default function Bidding() {
     })
   );
 
+  const isLotSucceed = useSelector(
+    isLotSucceedByLotId({
+      lotBidHistoriesId: lotInProgress?.id,
+    })
+  );
+
+  const myTotalPriceMySucceedBids = useSelector(
+    selectTotalPriceMySucceedBids()
+  );
+
   useEffect(() => {
     if (isAuthenticated !== null && auctionId) {
       dispatch(selectedAuction({ isAuthenticated, auctionId }));
@@ -174,6 +177,12 @@ export default function Bidding() {
 
   const handleBitClick = async () => {
     setLoading(true);
+    if (nextBid > myLimitation.maxUserBidPrice - myTotalPriceMySucceedBids) {
+      setLoading(false);
+      alert("Exceed Limit");
+
+      return;
+    }
     const createBidHistoryInput = {
       id: lotInProgress && `${lotInProgress.id}-${nextBid}`,
       bidPrice: nextBid,
@@ -284,7 +293,15 @@ export default function Bidding() {
                       size="large"
                       fullWidth={true}
                       disabled={
-                        loading || !myUserNumber?.number || isHighestBid()
+                        loading ||
+                        !myUserNumber?.number ||
+                        isHighestBid() ||
+                        isLotSucceed ||
+                        !(
+                          nextBid <
+                          myLimitation.maxUserBidPrice -
+                            myTotalPriceMySucceedBids
+                        ) //剩下的钱要大于nextBid 才行
                       }
                     >
                       Bid
@@ -318,8 +335,11 @@ export default function Bidding() {
                 <Paper sx={{ p: "2rem", marginBottom: "1rem" }}>
                   <H3>My Status:</H3>
                   <Box sx={{ pl: "2rem" }}>
-                    My Limitation: {myLimitation.maxUserBidPrice}{" "}
-                    {myLimitation.limitStatus}
+                    My Limitation: {myLimitation.maxUserBidPrice} Used:{" "}
+                    {myTotalPriceMySucceedBids} Left:{" "}
+                    {myLimitation.maxUserBidPrice - myTotalPriceMySucceedBids}
+                    <br />
+                    My Limitation Status: {myLimitation.limitStatus}
                     <br />
                     My Auction User Number: {myUserNumber.number}
                   </Box>
