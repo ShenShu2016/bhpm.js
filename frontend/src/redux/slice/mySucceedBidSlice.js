@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-18 00:03:49
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 17:04:45
+ * @LastEditTime: 2022-04-28 17:40:42
  * @FilePath: \bhpmJS\frontend\src\redux\slice\mySucceedBidSlice.js
  * @Description:
  *
@@ -48,6 +48,7 @@ export const fetchMySucceedBids = createAsyncThunk(
     try {
       const MySucceedBidsData = await API.graphql({
         query: listMySucceedBids,
+        variables: { id: 500 },
       });
       return MySucceedBidsData.data.listMySucceedBids.items;
     } catch (error) {
@@ -170,12 +171,14 @@ export const {
   selectIds: selectMySucceedBidIds,
 } = mySucceedBidAdapter.getSelectors((state) => state.mySucceedBid);
 
-export const selectTotalPriceMySucceedBids = () =>
+export const selectTotalPriceMySucceedBids = ({ username }) =>
   createSelector(selectAllMySucceedBids, (mySucceedBids) => {
-    let result = mySucceedBids.reduce(
-      (accumulator, current) => accumulator + current.bidHistory.bidPrice,
-      0
-    );
+    let result = mySucceedBids
+      .filter((x) => x.owner === username)
+      .reduce(
+        (accumulator, current) => accumulator + current.bidHistory.bidPrice,
+        0
+      );
     return result;
   });
 
