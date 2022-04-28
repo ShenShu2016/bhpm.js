@@ -117,8 +117,10 @@ export const createHomePageCarouse = /* GraphQL */ `
     createHomePageCarouse(input: $input, condition: $condition) {
       id
       title
+      titleEng
       sourceUrl
       description
+      descriptionEng
       sourceType
       auction {
         id
@@ -157,8 +159,10 @@ export const updateHomePageCarouse = /* GraphQL */ `
     updateHomePageCarouse(input: $input, condition: $condition) {
       id
       title
+      titleEng
       sourceUrl
       description
+      descriptionEng
       sourceType
       auction {
         id
@@ -197,8 +201,10 @@ export const deleteHomePageCarouse = /* GraphQL */ `
     deleteHomePageCarouse(input: $input, condition: $condition) {
       id
       title
+      titleEng
       sourceUrl
       description
+      descriptionEng
       sourceType
       auction {
         id
