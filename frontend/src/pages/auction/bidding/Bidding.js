@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 17:39:53
+ * @LastEditTime: 2022-04-28 18:53:09
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -335,13 +335,13 @@ export default function Bidding() {
                 <Paper sx={{ p: "2rem", marginBottom: "1rem" }}>
                   <H3>My Status:</H3>
                   <Box sx={{ pl: "2rem" }}>
-                    My Limitation: {myLimitation.maxUserBidPrice} Used:{" "}
+                    My Limitation: {myLimitation?.maxUserBidPrice} Used:{" "}
                     {myTotalPriceMySucceedBids} Left:{" "}
-                    {myLimitation.maxUserBidPrice - myTotalPriceMySucceedBids}
+                    {myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids}
                     <br />
-                    My Limitation Status: {myLimitation.limitStatus}
+                    My Limitation Status: {myLimitation?.limitStatus}
                     <br />
-                    My Auction User Number: {myUserNumber.number}
+                    My Auction User Number: {myUserNumber?.number}
                   </Box>
                 </Paper>
               )}
