@@ -1,7 +1,17 @@
+/*
+ * @Author: Shen Shu
+ * @Date: 2022-03-24 23:14:58
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-28 17:04:59
+ * @FilePath: \bhpmJS\frontend\src\redux\slice\auctionSlice.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
+
 import {
   createAsyncThunk,
   createEntityAdapter,
-  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import { createAuction, updateAuction } from "../../graphql/mutations";
@@ -158,13 +168,5 @@ export const {
   selectById: selectAuctionById,
   selectIds: selectAuctionIds,
 } = auctionAdapter.getSelectors((state) => state.auction);
-
-export const selectMyAuctionLimitation = ({ auctionId }) =>
-  createSelector(selectAllAuctions, (auctions) => {
-    const auction = auctions.filter((x) => x.id === auctionId)[0];
-    console.log(auction);
-
-    return auction;
-  });
 
 export default auctionSlice.reducer;

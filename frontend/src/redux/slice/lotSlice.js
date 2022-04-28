@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 16:20:00
+ * @LastEditTime: 2022-04-28 13:29:05
  * @FilePath: \bhpmJS\frontend\src\redux\slice\lotSlice.js
  * @Description:
  *
@@ -184,12 +184,27 @@ export const {
 
 export const selectLotByInProgress = () =>
   createSelector(selectAllLots, (lot) => {
-    console.log();
-    return lot.filter((x) => x.lotStatus === "InProgress");
+    let resultArr = lot.filter((x) => x.lotStatus === "InProgress");
+    if (resultArr.length === 1) {
+      return resultArr[0];
+    } else {
+      return null;
+    }
   });
 
 export const selectLotByNextLotNumber = ({ lotOrder }) =>
   createSelector(selectAllLots, (lot) => {
     return lot.filter((x) => x.lotOrder === lotOrder);
   });
+
+export const selectLotByLotOrder = ({ lotOrder }) =>
+  createSelector(selectAllLots, (lot) => {
+    let resultArr = lot.filter((x) => x.lotOrder === lotOrder);
+    if (resultArr.length === 1) {
+      return resultArr[0];
+    } else {
+      return null;
+    }
+  });
+
 export default lotSlice.reducer;

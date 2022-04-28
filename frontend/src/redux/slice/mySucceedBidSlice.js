@@ -1,22 +1,18 @@
 /*
-
-use this as mySucceedBid
-
-replace MySucceedBid to Database table name example: MySucceedBid => Todo
-
-replace MySucceedBid to Database table name Lower fist one example: mySucceedBid => todo
-
---and  replace the under two to store.js
-
-import mySucceedBidReducer from "./slice/mySucceedBidSlice";
-
-mySucceedBid: mySucceedBidReducer,
-
-*/
+ * @Author: Shen Shu
+ * @Date: 2022-04-18 00:03:49
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-28 17:04:45
+ * @FilePath: \bhpmJS\frontend\src\redux\slice\mySucceedBidSlice.js
+ * @Description:
+ *
+ * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
+ */
 
 import {
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import {
@@ -173,5 +169,14 @@ export const {
   selectById: selectMySucceedBidById,
   selectIds: selectMySucceedBidIds,
 } = mySucceedBidAdapter.getSelectors((state) => state.mySucceedBid);
+
+export const selectTotalPriceMySucceedBids = () =>
+  createSelector(selectAllMySucceedBids, (mySucceedBids) => {
+    let result = mySucceedBids.reduce(
+      (accumulator, current) => accumulator + current.bidHistory.bidPrice,
+      0
+    );
+    return result;
+  });
 
 export default mySucceedBidSlice.reducer;

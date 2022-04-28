@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 16:13:32
+ * @LastEditTime: 2022-04-28 13:34:52
  * @FilePath: \bhpmJS\frontend\src\components\bidding\AdminActions.js
  * @Description:
  *
@@ -27,6 +27,7 @@ import {
 } from "../../redux/slice/bidHistorySlice";
 import {
   selectLotByInProgress,
+  selectLotByLotOrder,
   selectLotByNextLotNumber,
   updateLotDetail,
 } from "../../redux/slice/lotSlice";
@@ -42,7 +43,6 @@ export default function AdminActions({ auctionId, nextBid }) {
   const [bidForm, setBidForm] = useState("Room");
   const [userNumber, setUserNumber] = useState(0);
   const [bidAmount, setBidAmount] = useState(0);
-  //console.log(bidAmount);
 
   useEffect(() => {
     if (nextBid) {
@@ -53,16 +53,17 @@ export default function AdminActions({ auctionId, nextBid }) {
   const lotInProgress = useSelector(selectLotByInProgress());
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
-      lotBidHistoriesId: lotInProgress[0]?.id,
+      lotBidHistoriesId: lotInProgress?.id,
     })
   );
+  const lot1 = useSelector(selectLotByLotOrder({ lotOrder: 1 }));
   const handleSubmitBid = async (event) => {
     setLoading(true);
     const createBidHistoryInput = {
-      id: lotInProgress.length === 1 && `${lotInProgress[0]?.id}-${bidAmount}`,
+      id: lotInProgress && `${lotInProgress.id}-${bidAmount}`,
       bidPrice: bidAmount,
       auctionBidHistoriesId: auctionId,
-      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0]?.id,
+      lotBidHistoriesId: lotInProgress?.id,
       bidForm: bidForm,
       userNumber: userNumber,
       owner: "admin",
@@ -75,7 +76,7 @@ export default function AdminActions({ auctionId, nextBid }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      // alert("bid失敗");
+      alert("bid失敗");
     }
   };
 
@@ -85,7 +86,7 @@ export default function AdminActions({ auctionId, nextBid }) {
       bidPrice: maxBidPriceByCurrentLot.bidPrice,
       auctionBidHistoriesId: auctionId,
       bidForm: "Room",
-      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0]?.id,
+      lotBidHistoriesId: lotInProgress?.id,
       userNumber: 0,
       bidHistoryStatus: event.target.value,
       owner: "admin",
@@ -104,13 +105,13 @@ export default function AdminActions({ auctionId, nextBid }) {
 
   const nextLotArr = useSelector(
     selectLotByNextLotNumber({
-      lotOrder: lotInProgress[0] && lotInProgress[0].lotOrder + 1,
+      lotOrder: parseInt(lotInProgress?.lotOrder) + 1,
     })
   );
-  //console.log(nextLotArr);
+
   const handleFinishAndNext = async (event) => {
     setLoading(true);
-    const currentLot = lotInProgress[0];
+    const currentLot = lotInProgress;
     const nextLot = nextLotArr[0];
     const response1 = await dispatch(
       updateLotDetail({ id: currentLot.id, lotStatus: "Finished" })
@@ -144,6 +145,33 @@ export default function AdminActions({ auctionId, nextBid }) {
     }
   };
 
+  const handleStartFirstOne = async (event) => {
+    setLoading(true);
+    const response2 = await dispatch(
+      updateLotDetail({ id: lot1.id, lotStatus: "InProgress" })
+    );
+    console.log(response2);
+    const createBidHistoryInput = {
+      bidPrice: 0,
+      auctionBidHistoriesId: auctionId,
+      bidForm: "Room",
+      lotBidHistoriesId: lot1.id,
+      userNumber: 0,
+      bidHistoryStatus: "Start",
+      owner: "admin",
+    };
+    const response3 = await dispatch(postBidHistory({ createBidHistoryInput }));
+    console.log(response3);
+    if (response3.meta.requestStatus === "fulfilled") {
+      setLoading(false);
+      setUserNumber(0);
+      alert("成功");
+    } else {
+      setLoading(false);
+      setUserNumber(0);
+      alert("失敗");
+    }
+  };
   return (
     <Box sx={{ mx: "2rem" }}>
       <Box sx={{ my: "1rem" }}>
@@ -205,7 +233,7 @@ export default function AdminActions({ auctionId, nextBid }) {
           }}
           onClick={handleSubmitBid}
         >
-          Bid{" "}
+          Bid
           {loading && (
             <CircularProgress
               size={24}
@@ -226,11 +254,35 @@ export default function AdminActions({ auctionId, nextBid }) {
           size="large"
           color="primary"
           variant="contained"
+          onClick={handleStartFirstOne}
+          disabled={loading || !!maxBidPriceByCurrentLot}
+        >
+          Auction Start! Start Lot #1
+          {loading && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color: green[500],
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                marginTop: "-0.75rem",
+                marginLeft: "-0.75rem",
+              }}
+            />
+          )}
+        </BazarButton>
+      </Stack>
+      <Stack direction="row" spacing={2} sx={{ my: "1rem" }}>
+        <BazarButton
+          size="large"
+          color="primary"
+          variant="contained"
           value={"FirstCall"}
           onClick={handleFirstSecondCall}
           disabled={loading || !maxBidPriceByCurrentLot}
         >
-          First Call{" "}
+          First Call
           {loading && (
             <CircularProgress
               size={24}
@@ -253,7 +305,7 @@ export default function AdminActions({ auctionId, nextBid }) {
           onClick={handleFirstSecondCall}
           disabled={loading || !maxBidPriceByCurrentLot}
         >
-          Second Call{" "}
+          Second Call
           {loading && (
             <CircularProgress
               size={24}
@@ -267,16 +319,15 @@ export default function AdminActions({ auctionId, nextBid }) {
               }}
             />
           )}
-        </BazarButton>{" "}
+        </BazarButton>
         <BazarButton
           size="large"
           color="primary"
           variant="contained"
           onClick={handleFinishAndNext}
-          disabled={loading || !lotInProgress[0]}
+          disabled={loading || !lotInProgress}
         >
-          Finish lot: {lotInProgress[0] && lotInProgress[0].lot} & Start Next
-          (if exist)
+          Finish lot: {lotInProgress?.lot} & Start Next (if exist)
           {loading && (
             <CircularProgress
               size={24}

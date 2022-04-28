@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 15:49:15
+ * @LastEditTime: 2022-04-28 15:53:13
  * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
@@ -12,17 +12,28 @@
 import { Box, Card, Stack } from "@mui/material";
 import { H3, H4 } from "../Typography";
 import React, { useEffect, useRef, useState } from "react";
+import {
+  isLotSucceedByLotId,
+  updateBidHistoryDetail,
+} from "../../redux/slice/bidHistorySlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import BazarButton from "../BazarButton";
 import { postMySucceedBid } from "../../redux/slice/mySucceedBidSlice";
-import { updateBidHistoryDetail } from "../../redux/slice/bidHistorySlice";
+import { selectLotByInProgress } from "../../redux/slice/lotSlice";
 
 export default function BidHistoriesRenderList({ bitItemHistories }) {
   const dispatch = useDispatch();
   const { username } = useSelector((state) => state.userAuth.user);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
   const [loading, setLoading] = useState(false);
+  const lotInProgress = useSelector(selectLotByInProgress());
+
+  const isLotSucceed = useSelector(
+    isLotSucceedByLotId({
+      lotBidHistoriesId: lotInProgress?.id,
+    })
+  );
 
   const messageRef = useRef();
   useEffect(() => {
@@ -77,7 +88,7 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
           <Card sx={{ backgroundColor: "#ba000d", p: "0.2rem" }}>
             <H4 sx={{ color: "white" }}>
               Lot #{history.lot.lotOrder} sold For CAD ${history.bidPrice} to
-              Competing Bidder
+              Competing Bidder to User: {history.userNumber}
             </H4>
           </Card>
         </>
@@ -146,19 +157,20 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
                     </H4>
                     {history.owner === username && "You"}
 
-                    {cognitoGroup.includes("admin") && (
-                      <BazarButton
-                        color="primary"
-                        variant="contained"
-                        size="small"
-                        disabled={loading}
-                        onClick={() => {
-                          handleBidSuccess(history);
-                        }}
-                      >
-                        成功交易
-                      </BazarButton>
-                    )}
+                    {cognitoGroup.includes("admin") &&
+                      history.lotBidHistoriesId === lotInProgress.id && (
+                        <BazarButton
+                          color="primary"
+                          variant="contained"
+                          size="small"
+                          disabled={loading || isLotSucceed}
+                          onClick={() => {
+                            handleBidSuccess(history);
+                          }}
+                        >
+                          成功交易
+                        </BazarButton>
+                      )}
                   </Card>
                 )}
               </Box>

@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:33:31
+ * @LastEditTime: 2022-04-28 13:11:52
  * @FilePath: \bhpmJS\frontend\src\redux\store.js
  * @Description:
  *
@@ -11,6 +11,7 @@
 
 import auctionReducer from "./slice/auctionSlice";
 import auctionUserLimitationReducer from "./slice/auctionUserLimitationSlice";
+import auctionUserNumberReducer from "./slice/auctionUserNumberSlice";
 import authReducer from "./slice/authSlice";
 import bidHistoryReducer from "./slice/bidHistorySlice";
 import categoryReducer from "./slice/categorySlice";
@@ -34,6 +35,7 @@ export default configureStore({
     category: categoryReducer,
     lot: lotReducer,
     auctionUserLimitation: auctionUserLimitationReducer,
+    auctionUserNumber: auctionUserNumberReducer,
     bidHistory: bidHistoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
