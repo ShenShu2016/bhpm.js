@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 16:29:55
+ * @LastEditTime: 2022-04-28 17:39:53
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -131,7 +131,7 @@ export default function Bidding() {
   );
 
   const myTotalPriceMySucceedBids = useSelector(
-    selectTotalPriceMySucceedBids()
+    selectTotalPriceMySucceedBids({ username })
   );
 
   useEffect(() => {
@@ -296,9 +296,9 @@ export default function Bidding() {
                         loading ||
                         !myUserNumber?.number ||
                         isHighestBid() ||
-                        isLotSucceed ||
+                        !!isLotSucceed ||
                         !(
-                          nextBid <
+                          nextBid <=
                           myLimitation.maxUserBidPrice -
                             myTotalPriceMySucceedBids
                         ) //剩下的钱要大于nextBid 才行

@@ -249,7 +249,7 @@ type MySucceedBid
     rules: [
       # { allow: public, operations: [read], provider: iam }
       { allow: owner, operations: [read] }
-      { allow: groups, operations: [read], groups: ["anyone"] }
+      { allow: groups, operations: [read], groups: ["anyone"] } #这个要改
       { allow: groups, groups: ["admin"] }
     ]
   ) {
