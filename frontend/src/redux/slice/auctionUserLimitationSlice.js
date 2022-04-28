@@ -17,6 +17,7 @@ auctionUserLimitation: auctionUserLimitationReducer,
 import {
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 import {
@@ -176,4 +177,17 @@ export const {
   (state) => state.auctionUserLimitation
 );
 
+export const selectMyAuctionLimitation = ({ auctionId, username }) =>
+  createSelector(selectAllAuctionUserLimitations, (auctionUserLimitations) => {
+    let resultList = auctionUserLimitations.filter(
+      (x) =>
+        x.auctionAuctionUserLimitationsId === auctionId && x.owner === username
+    );
+
+    if (resultList.length === 1) {
+      return resultList[0];
+    } else {
+      return null;
+    }
+  });
 export default auctionUserLimitationSlice.reducer;

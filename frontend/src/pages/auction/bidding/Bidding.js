@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 20:15:46
+ * @LastEditTime: 2022-04-28 13:46:56
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -21,6 +21,14 @@ import {
   TextPaperContainer,
 } from "./BiddingStyled";
 import React, { useEffect, useState } from "react";
+import {
+  fetchAuctionUserLimitations,
+  selectMyAuctionLimitation,
+} from "../../../redux/slice/auctionUserLimitationSlice";
+import {
+  fetchAuctionUserNumbers,
+  selectMyAuctionUserNumber,
+} from "../../../redux/slice/auctionUserNumberSlice";
 import {
   fetchBidHistories,
   postBidHistory,
@@ -46,7 +54,6 @@ import BiddingTitle from "../../../components/bidding/BiddingTitle";
 import ImageGallery from "react-image-gallery";
 import ImageList from "../../../components/ImageList";
 import Loading from "../../../components/Loading";
-import { fetchAuctionUserLimitations } from "../../../redux/slice/auctionUserLimitationSlice";
 import { fetchMySucceedBids } from "../../../redux/slice/mySucceedBidSlice";
 import { green } from "@mui/material/colors";
 import { useParams } from "react-router-dom";
@@ -63,13 +70,22 @@ function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
       )
     );
   if (tempMin === undefined) {
-    return lotInProgress[0]?.startingPrice;
-  } else if (
-    maxBidPriceByCurrentLot.bidPrice < lotInProgress[0]?.startingPrice
-  ) {
-    return lotInProgress[0]?.startingPrice;
+    return lotInProgress?.startingPrice;
+  } else if (maxBidPriceByCurrentLot.bidPrice < lotInProgress?.startingPrice) {
+    return lotInProgress?.startingPrice;
   } else {
     return tempMin;
+  }
+}
+
+function isHighestBid(myUserNumber, maxBidPriceByCurrentLot) {
+  if (
+    myUserNumber?.number &&
+    maxBidPriceByCurrentLot?.userNumber === myUserNumber?.number
+  ) {
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -94,6 +110,12 @@ export default function Bidding() {
   const lots = useSelector(selectAllLots);
   const lotInProgress = useSelector(selectLotByInProgress());
   const bitItemHistories = useSelector(selectAllBidHistories);
+  const myLimitation = useSelector(
+    selectMyAuctionLimitation({ auctionId, username })
+  );
+  const myUserNumber = useSelector(
+    selectMyAuctionUserNumber({ auctionId, username })
+  );
   const { fetchBidHistoriesStatus } = useSelector((state) => state.bidHistory);
 
   const handleAlertClose = (reason) => {
@@ -105,7 +127,7 @@ export default function Bidding() {
 
   const maxBidPriceByCurrentLot = useSelector(
     selectMaxBidPriceByCurrentLot({
-      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0].id,
+      lotBidHistoriesId: lotInProgress?.id,
     })
   );
 
@@ -131,14 +153,15 @@ export default function Bidding() {
   useEffect(() => {
     if (isAuthenticated === true && auctionId) {
       dispatch(fetchAuctionUserLimitations());
+      dispatch(fetchAuctionUserNumbers());
       dispatch(fetchMySucceedBids());
     }
   }, [dispatch, isAuthenticated, auctionId]);
 
   useEffect(() => {
-    if (lotInProgress.length) {
+    if (lotInProgress) {
       setImgListInProgress(
-        lotInProgress[0].auctionItem.imgUrls.map((url) => {
+        lotInProgress.auctionItem.imgUrls.map((url) => {
           return {
             original: url,
             thumbnail: url,
@@ -147,15 +170,15 @@ export default function Bidding() {
         })
       );
     } // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lotInProgress.length]);
+  }, [lotInProgress]);
 
   const handleBitClick = async () => {
     setLoading(true);
     const createBidHistoryInput = {
-      id: lotInProgress.length === 1 && `${lotInProgress[0].id}-${nextBid}`,
+      id: lotInProgress && `${lotInProgress.id}-${nextBid}`,
       bidPrice: nextBid,
       auctionBidHistoriesId: auctionId,
-      lotBidHistoriesId: lotInProgress.length === 1 && lotInProgress[0].id,
+      lotBidHistoriesId: lotInProgress.id,
       bidForm: "Internet",
       userNumber: auction.auctionUserNumbers.items[0].number,
       owner: username,
@@ -171,6 +194,16 @@ export default function Bidding() {
     }
   };
 
+  function isHighestBid() {
+    if (
+      myUserNumber?.number &&
+      maxBidPriceByCurrentLot?.userNumber === myUserNumber?.number
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   return (
     <div
       style={{
@@ -181,16 +214,16 @@ export default function Bidding() {
       }}
     >
       <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-        {lotInProgress.length === 1 ? (
+        {lotInProgress ? (
           <>
             <Box sx={{ width: "100%", margin: "1rem 0", minWidth: "350px" }}>
-              <BiddingTitle item={lotInProgress[0]} />
+              <BiddingTitle item={lotInProgress} />
             </Box>
             <Box sx={{ width: "70%", minWidth: "350px" }}>
               <Box sx={{ display: "flex", width: "100%" }}>
                 <LeftImgList>
-                  {lots?.length && lotInProgress?.length ? (
-                    <ImageList images={lots} itemId={lotInProgress[0].id} />
+                  {lots?.length && lotInProgress ? (
+                    <ImageList images={lots} itemId={lotInProgress.id} />
                   ) : null}
                 </LeftImgList>
                 <Paper sx={{ flex: 1, width: "calc(100% - 125px)" }}>
@@ -251,9 +284,7 @@ export default function Bidding() {
                       size="large"
                       fullWidth={true}
                       disabled={
-                        isAuthenticated !== true ||
-                        loading ||
-                        !auction?.auctionUserNumbers?.items[0]?.number
+                        loading || !myUserNumber?.number || isHighestBid()
                       }
                     >
                       Bid
@@ -267,21 +298,19 @@ export default function Bidding() {
                         />
                       )}
                     </BazarButton>
-                    {auction?.auctionUserNumbers?.items?.length !== 0 &&
-                      maxBidPriceByCurrentLot?.userNumber ===
-                        auction?.auctionUserNumbers?.items[0]?.number && (
-                        <Paper
-                          sx={{
-                            maxWidth: "500px",
-                            margin: "auto",
-                            backgroundColor: "green",
-                          }}
-                        >
-                          <H1 color="" mb="0.2rem">
-                            You are the highest bidder now
-                          </H1>
-                        </Paper>
-                      )}
+                    {isHighestBid() && (
+                      <Paper
+                        sx={{
+                          maxWidth: "500px",
+                          margin: "auto",
+                          backgroundColor: "green",
+                        }}
+                      >
+                        <H1 color="" mb="0.2rem">
+                          You are the highest bidder now
+                        </H1>
+                      </Paper>
+                    )}
                   </>
                 )}
               </Box>
@@ -289,11 +318,10 @@ export default function Bidding() {
                 <Paper sx={{ p: "2rem", marginBottom: "1rem" }}>
                   <H3>My Status:</H3>
                   <Box sx={{ pl: "2rem" }}>
-                    My Limitation:{" "}
-                    {auction?.auctionUserLimitations?.items[0]?.maxUserBidPrice}
+                    My Limitation: {myLimitation.maxUserBidPrice}{" "}
+                    {myLimitation.limitStatus}
                     <br />
-                    My Auction User Number:{" "}
-                    {auction?.auctionUserNumbers?.items[0]?.number}
+                    My Auction User Number: {myUserNumber.number}
                   </Box>
                 </Paper>
               )}

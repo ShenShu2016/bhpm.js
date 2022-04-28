@@ -159,12 +159,4 @@ export const {
   selectIds: selectAuctionIds,
 } = auctionAdapter.getSelectors((state) => state.auction);
 
-export const selectMyAuctionLimitation = ({ auctionId }) =>
-  createSelector(selectAllAuctions, (auctions) => {
-    const auction = auctions.filter((x) => x.id === auctionId)[0];
-    console.log(auction);
-
-    return auction;
-  });
-
 export default auctionSlice.reducer;
