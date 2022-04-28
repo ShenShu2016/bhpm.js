@@ -80,8 +80,10 @@ export const getHomePageCarouse = /* GraphQL */ `
     getHomePageCarouse(id: $id) {
       id
       title
+      titleEng
       sourceUrl
       description
+      descriptionEng
       sourceType
       auction {
         id
@@ -126,8 +128,10 @@ export const listHomePageCarouses = /* GraphQL */ `
       items {
         id
         title
+        titleEng
         sourceUrl
         description
+        descriptionEng
         sourceType
         auction {
           id

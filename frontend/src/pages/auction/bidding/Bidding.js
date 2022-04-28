@@ -2,8 +2,8 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 16:26:34
- * @FilePath: \bhpmJS\frontend\src\pages\auctions\bidding\Bidding.js
+ * @LastEditTime: 2022-04-27 20:15:46
+ * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -253,7 +253,7 @@ export default function Bidding() {
                       disabled={
                         isAuthenticated !== true ||
                         loading ||
-                        !auction?.auctionUserNumbers?.items?.[0].number
+                        !auction?.auctionUserNumbers?.items[0]?.number
                       }
                     >
                       Bid

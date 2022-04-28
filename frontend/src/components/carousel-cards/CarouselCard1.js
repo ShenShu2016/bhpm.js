@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 16:57:24
+ * @LastEditTime: 2022-04-27 20:11:37
  * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
  * @Description:
  *
@@ -15,6 +15,7 @@ import BazarImage from "../BazarImage";
 import { Link } from "react-router-dom";
 import { Paragraph } from "../Typography";
 import React from "react"; // component props interface
+import { useSelector } from "react-redux";
 
 // styled component
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -60,11 +61,12 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 export default function CarouselCard1({ carousel }) {
+  const { currentLanguage } = useSelector((state) => state.general.language);
   const {
     title,
     description,
     sourceUrl,
-    imgUrl,
+    titleEng,
     homePageCarouseAuctionId,
     sourceType,
   } = carousel;
@@ -73,7 +75,9 @@ export default function CarouselCard1({ carousel }) {
     <StyledBox>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
         <Grid item className="grid-item" sm={5} xs={12}>
-          <h1 className="title">{title}</h1>
+          <h1 className="title">
+            {currentLanguage === "zh_hk" ? title : titleEng}
+          </h1>
           <Paragraph color="secondary.main" mb={2.7}>
             {description}
           </Paragraph>
@@ -116,7 +120,7 @@ export default function CarouselCard1({ carousel }) {
                 maxWidth: "100%",
                 cursor: "pointer",
               }}
-              onClick={() => window.open(imgUrl)}
+              onClick={() => window.open(sourceUrl)}
             />
           )}
         </Grid>

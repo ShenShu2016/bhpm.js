@@ -3,12 +3,9 @@ import {
   Box,
   Card,
   CircularProgress,
-  FormControl,
   Grid,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { H3, Small } from "../../components/Typography";
@@ -202,34 +199,61 @@ export default function SignUp() {
                     required: true,
                   }}
                   render={({ field: { onChange, value } }) => (
-                    <FormControl fullWidth variant="outlined">
-                      <InputLabel htmlFor="outlined-adornment-password">
-                        {t("description.Password")}
-                      </InputLabel>
-                      <OutlinedInput
-                        id="password"
-                        type={isShowPassword ? "text" : "password"}
-                        onChange={onChange}
-                        error={!!errors.password}
-                        value={value}
-                        endAdornment={
-                          <InputAdornment position="end">
+                    <BazarTextField
+                      required
+                      label="Password"
+                      variant="outlined"
+                      placeholder=""
+                      fullWidth
+                      type={isShowPassword ? "text" : "password"}
+                      autoComplete="password"
+                      onChange={onChange}
+                      value={value}
+                      error={!!errors.password}
+                      helperText={errors.password ? "Required" : null}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="edn">
                             <IconButton
                               aria-label="toggle password visibility"
                               onClick={handleClickShowPassword}
                               edge="end"
                             >
                               {isShowPassword ? (
-                                <VisibilityOff />
-                              ) : (
                                 <Visibility />
+                              ) : (
+                                <VisibilityOff />
                               )}
                             </IconButton>
                           </InputAdornment>
-                        }
-                        label="Password"
-                      />
-                    </FormControl>
+                        ),
+                      }}
+                    />
+                    // <FormControl fullWidth required variant="outlined">
+                    //   <OutlinedInput
+                    //     id="password"
+                    //     type={isShowPassword ? "text" : "password"}
+                    //     onChange={onChange}
+                    //     error={!!errors.password}
+                    //     value={value}
+                    //     endAdornment={
+                    //       <InputAdornment position="end">
+                    //         <IconButton
+                    //           aria-label="toggle password visibility"
+                    //           onClick={handleClickShowPassword}
+                    //           edge="end"
+                    //         >
+                    //           {isShowPassword ? (
+                    //             <VisibilityOff />
+                    //           ) : (
+                    //             <Visibility />
+                    //           )}
+                    //         </IconButton>
+                    //       </InputAdornment>
+                    //     }
+                    //     label="Password"
+                    //   />
+                    // </FormControl>
                   )}
                 />
               </Grid>

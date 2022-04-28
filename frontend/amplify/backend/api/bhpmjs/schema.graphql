@@ -41,8 +41,10 @@ type HomePageCarouse
   ) {
   id: ID!
   title: String
+  titleEng: String
   sourceUrl: AWSURL
   description: String
+  descriptionEng: String
   sourceType: SourceType!
   auction: Auction! @hasOne
 }
