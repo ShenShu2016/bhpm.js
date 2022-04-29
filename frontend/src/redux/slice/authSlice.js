@@ -25,6 +25,8 @@ const initialState = {
   forgotPasswordError: null,
   forgotPassWordSubmitStatus: "idle",
   forgotPassWordSubmitError: null,
+  changePasswordStatus: "idle",
+  changePasswordError: null,
   signOutStatus: "idle",
   signOutError: null,
 };
@@ -77,6 +79,18 @@ export const forgotPassWordSubmit = createAsyncThunk(
     const response = await Auth.forgotPasswordSubmit(
       username,
       code,
+      new_password
+    );
+    return response;
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "auth/changePassword",
+  async ({ user, old_password, new_password }) => {
+    const response = await Auth.changePassword(
+      user,
+      old_password,
       new_password
     );
     return response;
@@ -205,6 +219,18 @@ const authSlice = createSlice({
       .addCase(forgotPassWordSubmit.rejected, (state, action) => {
         state.forgotPassWordSubmitStatus = "failed";
         state.forgotPassWordSubmitError = action.error.message;
+      })
+       // Cases for status of changePassword (pending, fulfilled, and rejected)
+       .addCase(changePassword.pending, (state, action) => {
+        state.changePasswordStatus = "loading";
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.changePasswordStatus = "succeeded";
+        //! need to do later
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.changePasswordStatus = "failed";
+        state.changePasswordError = action.error.message;
       })
       // Cases for status of signOut (pending, fulfilled, and rejected)
       .addCase(signOut.pending, (state, action) => {

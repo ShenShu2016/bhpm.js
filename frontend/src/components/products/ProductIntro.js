@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-27 16:30:47
+ * @LastEditTime: 2022-04-29 14:03:19
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -10,7 +10,6 @@
 
 import { Box, Button, Container, Grid, IconButton } from "@mui/material";
 import { H3, H4, H6 } from "../../components/Typography";
-import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useState } from "react";
 import {
   postMyFavorite,
@@ -18,10 +17,11 @@ import {
 } from "../../redux/slice/myFavoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
+import BackToPrePageButton from "../BackToPrePageButton";
 import BazarAvatar from "../../components/BazarAvatar";
 import FlexBox from "../FlexBox";
 import ImageViewer from "react-simple-image-viewer";
+import { Link } from "react-router-dom";
 import SnackBar from "../SnackBar";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import { useTranslation } from "react-i18next";
@@ -29,7 +29,6 @@ import { useTranslation } from "react-i18next";
 const ProductIntro = ({ product }) => {
   const { title } = product;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
@@ -107,16 +106,7 @@ const ProductIntro = ({ product }) => {
         <Grid container spacing={3} justifyContent="space-around">
           <Grid item md={6} xs={12} alignItems="center">
             <Box>
-              <FlexBox alignItems="center" mb={2}>
-                <IconButton
-                  // sx={{
-                  //   p: "0px",
-                  // }}
-                  onClick={() => navigate(-1)}
-                >
-                  <ArrowCircleLeftOutlinedIcon fontSize="normal" />
-                </IconButton>
-              </FlexBox>
+              <BackToPrePageButton />
               <FlexBox justifyContent="center" mb={6}>
                 <img
                   src={product.auctionItem.imgUrls[selectedImage]}

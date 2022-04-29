@@ -72,20 +72,29 @@ const Login = () => {
     //   console.log(error.response.data.message);
     // }
     setLoading(true);
-    console.log(values, "values");
     const response = await dispatch(signIn(values));
-    console.log(response);
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
       navigate("/", { replace: true });
     } else {
-      timer.current = window.setTimeout(() => {
-        setLoading(false);
-        setAlertContent(response.error.message);
-        setAlert(true);
-        console.log(response.error.message);
-      }, 1000);
-      console.log(response.error.message);
+      // 如果邮箱未验证 直接跳转验证页面
+      if (response.error.code === "UserNotConfirmedException") {
+        navigate(
+          `/auth/emailConfirm/${response.meta.arg.email}`,
+          { 
+            state: {
+              status: response.error.code
+            },
+            replace: true 
+          }
+        );
+      } else {
+        timer.current = window.setTimeout(() => {
+          setLoading(false);
+          setAlertContent(response.error.message);
+          setAlert(true);
+        }, 1000);
+      }
     }
   };
 
@@ -198,6 +207,11 @@ const Login = () => {
           <Link to="/auth/signUp">
             <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
               {t("description.signup")}
+            </H6>
+          </Link>
+          <Link to="/auth/forgotPassword">
+            <H6 ml={1} borderBottom="1px solid" borderColor="grey.900">
+              {t("description.forgotPassword")}
             </H6>
           </Link>
         </FlexBox>
