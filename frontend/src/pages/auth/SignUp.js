@@ -64,7 +64,6 @@ export default function SignUp() {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const timer = useRef();
-
   const {
     handleSubmit,
     control,
@@ -88,7 +87,6 @@ export default function SignUp() {
   const onSubmit = async (data) => {
     setLoading(true);
     const response = await dispatch(signUp(data));
-    console.log("onSignUp", response);
     if (response.meta.requestStatus === "fulfilled") {
       navigate(`/auth/emailConfirm/${getValues("username")}`, {
         replace: true,
@@ -98,9 +96,7 @@ export default function SignUp() {
         setLoading(false);
         setAlertContent(response.error.message);
         setAlert(true);
-        console.log(response.error.message);
       }, 1000);
-      console.log(response.error.message);
     }
     setLoading(false);
   };
@@ -126,7 +122,7 @@ export default function SignUp() {
             display="block"
           >
             {t("description.AlreadyHaveAccount")}
-            <Link to="/auth/signIn">{t("description.Login")}</Link>
+            <Link to="/auth/login">{t("description.Login")}</Link>
           </Small>
           {alert ? (
             <Alert className={classes.alert} severity="error">

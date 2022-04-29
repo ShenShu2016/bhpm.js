@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-26 18:56:34
- * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
+ * @LastEditors: 李佳修
+ * @LastEditTime: 2022-04-29 14:52:17
+ * @FilePath: /bhpmJS/frontend/src/components/topbar/Topbar.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -164,6 +164,13 @@ const Topbar = () => {
                   to="profile/myFavorite"
                 >
                   <Span className="menuTitle">My Favorites</Span>
+                </MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  component={Link}
+                  to="auth/resetPassword"
+                >
+                  <Span className="menuTitle">Change Password</Span>
                 </MenuItem>
                 <MenuItem className="menuItem">
                   <BazarButton

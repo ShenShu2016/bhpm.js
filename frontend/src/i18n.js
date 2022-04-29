@@ -1,8 +1,8 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-12 15:35:29
- * @LastEditTime: 2022-04-26 20:01:05
- * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-29 15:01:18
+ * @LastEditors: 李佳修
  * @Description:
  * @FilePath: /bhpmJS/frontend/src/i18n.js
  * Quennel
@@ -32,9 +32,22 @@ i18n
           description: {
             part1: "Login/Register",
             login: "Bowell Login",
+            changePswDesc: 'Set new password with the old password',
+            resetPassword: "Reset Password",
+            oldPassword: 'Old Password',
+            resetPswDesc: 'Reset password with the security code and the registered email',
             part3: "Log in with email & password",
+            forgotPassword: 'Forgot Password',
+            changePassword: 'Change Password',
+            submit: "Submit",
             Login: "Login",
+            sendCode: "Send",
+            reSendCode: 'Re-send',
             Password: "Password",
+            confirm_password: "Confirm Password",
+            verificationCode: "Verification Code",
+            new_password: "New Password",
+            verificationPlaceHolder: "6 digits verification code",
             Email: "Email",
             donthaveaccount: "Don't have account?",
             signup: "Sign Up",
@@ -74,9 +87,22 @@ i18n
             part1: "登錄/註冊",
             login: "寶華 登錄",
             part3: "用賬號&密碼登錄",
+            resetPswDesc: '使用安全驗證碼和註冊郵箱重置密碼',
+            changePswDesc: '使用原密碼驗證更換新密碼',
+            resetPassword: "重置密碼",
+            oldPassword: '原密碼',
             Login: "登錄",
+            submit: "提交",
+            sendCode: '發送',
+            changePassword: '更換密碼',
+            reSendCode: '再次發送',
             Password: "密碼",
+            forgotPassword: '忘記密碼',
             Email: "郵箱",
+            confirm_password: "確認密碼",
+            new_password: "新密碼",
+            verificationCode: "驗證碼",
+            verificationPlaceHolder: "6位數字驗證碼",
             donthaveaccount: "沒有賬號？",
             signup: "註冊",
             bowellsignup: "寶華 註冊",

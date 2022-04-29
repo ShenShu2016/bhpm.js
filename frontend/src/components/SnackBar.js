@@ -1,8 +1,8 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-25 11:15:56
- * @LastEditTime: 2022-04-25 22:21:19
- * @LastEditors: Quennel
+ * @LastEditTime: 2022-04-29 14:17:34
+ * @LastEditors: 李佳修
  * @Description: 
  * 参数形式为
  *   const [alertStatus, setAlertStatus] = useState({
@@ -13,6 +13,7 @@
   用法：
   如果成功 setAlertStatus({ isOpen: true, isSuccess: true, sentence: "收藏成功" });
   如果失败 setAlertStatus({ isOpen: true, isSuccess: false, sentence: "收藏失败"});
+  anchorOrigin: 显示位置
   导入：
   <SnackBar alertStatus={alertStatus}></SnackBar>
   
@@ -31,10 +32,16 @@ const SnackBar = ({ alertStatus }) => {
     if (alertStatus.isOpen === true) dispatch(setSnackBar(alertStatus));
   }, [dispatch, alertStatus]);
 
+  const anchorOrigin = {
+    vertical: 'bottom',
+    horizontal: 'left',
+  }
+
   return (
     <Snackbar
       open={snackBarStatus.isOpen}
       autoHideDuration={3000}
+      anchorOrigin={snackBarStatus.anchorOrigin || anchorOrigin}
       onClose={() =>
         snackBarStatus.isOpen &&
         dispatch(removeSnackBar({ ...snackBarStatus, isOpen: false }))
