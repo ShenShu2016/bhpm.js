@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 20:19:51
+ * @LastEditTime: 2022-04-29 16:14:52
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -148,7 +148,7 @@ export default function Bidding() {
     if (
       isAuthenticated !== null &&
       auctionId &&
-      fetchBidHistoriesStatus !== "succeeded"
+      fetchBidHistoriesStatus === "idle"
     ) {
       dispatch(fetchBidHistories({ isAuthenticated, auctionId }));
     }
