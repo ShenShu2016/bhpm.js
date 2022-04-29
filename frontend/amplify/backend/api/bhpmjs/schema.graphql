@@ -26,7 +26,7 @@ type Profile
   title: String
   phone: String
   phone2: String
-  email: AWSEmail
+  email: String
   owner: ID!
 }
 

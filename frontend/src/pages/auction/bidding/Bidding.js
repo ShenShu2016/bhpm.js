@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 19:10:16
+ * @LastEditTime: 2022-04-28 20:19:51
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -64,7 +64,6 @@ import { useParams } from "react-router-dom";
 import useSubscriptions from "./useSubscriptions";
 
 function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
-  //console.log(auction, maxBidPriceByCurrentLot, lotInProgress);
   const tempMin =
     auction &&
     maxBidPriceByCurrentLot &&
@@ -77,6 +76,8 @@ function getNextBid(auction, maxBidPriceByCurrentLot, lotInProgress) {
     return lotInProgress?.startingPrice;
   } else if (maxBidPriceByCurrentLot.bidPrice < lotInProgress?.startingPrice) {
     return lotInProgress?.startingPrice;
+  } else if (maxBidPriceByCurrentLot?.bidPrice >= 200000) {
+    return maxBidPriceByCurrentLot?.bidPrice + 10000;
   } else {
     return tempMin;
   }
