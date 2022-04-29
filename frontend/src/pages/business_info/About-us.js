@@ -2,7 +2,7 @@
  * @Author: Yang Liu
  * @Date: 2022-03-24 23:18:13
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-29 13:59:59
+ * @LastEditTime: 2022-04-29 14:03:26
  * @FilePath: \bhpmJS\frontend\src\pages\business_info\About-us.js
  * @Description:
  *
@@ -11,7 +11,6 @@
 
 import { Box, Container, styled } from "@mui/material";
 
-import BackToPrePageButton from "../../components/BackToPrePageButton";
 import Navbar from "../../components/navbar/Navbar";
 import React from "react";
 import { useSelector } from "react-redux";

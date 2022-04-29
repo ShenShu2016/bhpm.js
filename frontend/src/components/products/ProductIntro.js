@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-29 14:02:15
+ * @LastEditTime: 2022-04-29 14:03:19
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -10,7 +10,6 @@
 
 import { Box, Button, Container, Grid, IconButton } from "@mui/material";
 import { H3, H4, H6 } from "../../components/Typography";
-import { Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useState } from "react";
 import {
   postMyFavorite,
@@ -22,6 +21,7 @@ import BackToPrePageButton from "../BackToPrePageButton";
 import BazarAvatar from "../../components/BazarAvatar";
 import FlexBox from "../FlexBox";
 import ImageViewer from "react-simple-image-viewer";
+import { Link } from "react-router-dom";
 import SnackBar from "../SnackBar";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import { useTranslation } from "react-i18next";
