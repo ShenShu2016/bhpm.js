@@ -2,7 +2,7 @@
  * @Author: Yang Liu
  * @Date: 2022-03-24 23:18:13
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-29 13:49:46
+ * @LastEditTime: 2022-04-29 15:42:43
  * @FilePath: \bhpmJS\frontend\src\pages\business_info\Rules.js
  * @Description:
  *
@@ -323,10 +323,10 @@ export default function AboutUs() {
               procedures and pick up the goods.
               <br />
               <br />
-              The buyer may pay by cash, wire transfer, check, debit card
-              (Canadian buyer only) or credit card (maximum 25,000 Canadian
-              dollars). If the buyer pays by check, the auction item can be
-              collected only after the check is cashed.
+              The buyer may pay by cash(maximum 10,000 Canadian dollars), wire
+              transfer, check, debit card (Canadian buyer only) or credit card
+              (maximum 25,000 Canadian dollars). If the buyer pays by check, the
+              auction item can be collected only after the check is cashed.
               <br />
               <br />
               All transactions of our Company shall be denominated in Canadian

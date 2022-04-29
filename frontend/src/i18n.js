@@ -1,10 +1,10 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-12 15:35:29
- * @LastEditTime: 2022-04-29 15:01:18
- * @LastEditors: 李佳修
+ * @LastEditTime: 2022-04-29 15:37:32
+ * @LastEditors: Shen Shu
  * @Description:
- * @FilePath: /bhpmJS/frontend/src/i18n.js
+ * @FilePath: \bhpmJS\frontend\src\i18n.js
  * Quennel
  */
 //import LanguageDetector from "i18next-browser-languagedetector";
@@ -32,17 +32,18 @@ i18n
           description: {
             part1: "Login/Register",
             login: "Bowell Login",
-            changePswDesc: 'Set new password with the old password',
+            changePswDesc: "Set new password with the old password",
             resetPassword: "Reset Password",
-            oldPassword: 'Old Password',
-            resetPswDesc: 'Reset password with the security code and the registered email',
+            oldPassword: "Old Password",
+            resetPswDesc:
+              "Reset password with the security code and the registered email",
             part3: "Log in with email & password",
-            forgotPassword: 'Forgot Password',
-            changePassword: 'Change Password',
+            forgotPassword: "Forgot Password",
+            changePassword: "Change Password",
             submit: "Submit",
             Login: "Login",
             sendCode: "Send",
-            reSendCode: 'Re-send',
+            reSendCode: "Re-send",
             Password: "Password",
             confirm_password: "Confirm Password",
             verificationCode: "Verification Code",
@@ -87,17 +88,17 @@ i18n
             part1: "登錄/註冊",
             login: "寶華 登錄",
             part3: "用賬號&密碼登錄",
-            resetPswDesc: '使用安全驗證碼和註冊郵箱重置密碼',
-            changePswDesc: '使用原密碼驗證更換新密碼',
+            resetPswDesc: "使用安全驗證碼和註冊郵箱重置密碼",
+            changePswDesc: "使用原密碼驗證更換新密碼",
             resetPassword: "重置密碼",
-            oldPassword: '原密碼',
+            oldPassword: "原密碼",
             Login: "登錄",
             submit: "提交",
-            sendCode: '發送',
-            changePassword: '更換密碼',
-            reSendCode: '再次發送',
+            sendCode: "發送",
+            changePassword: "更換密碼",
+            reSendCode: "再次發送",
             Password: "密碼",
-            forgotPassword: '忘記密碼',
+            forgotPassword: "忘記密碼",
             Email: "郵箱",
             confirm_password: "確認密碼",
             new_password: "新密碼",
@@ -109,6 +110,11 @@ i18n
             Phone: "手機",
             AlreadyHaveAccount: "已經有賬戶了？",
             Logout: "退出登錄",
+            寶華介紹: "寶華介紹",
+            團隊介紹: "團隊介紹",
+            服務項目: "服務項目",
+            服務規則: "服務規則",
+            隱私條款: "隱私條款",
             Profile: "个人资料",
             ProductDescription: "藏品簡介",
             ProductTitle: "藏品標題",
