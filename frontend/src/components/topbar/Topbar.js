@@ -1,9 +1,9 @@
 /*
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
- * @LastEditors: 李佳修
- * @LastEditTime: 2022-04-29 14:52:17
- * @FilePath: /bhpmJS/frontend/src/components/topbar/Topbar.js
+ * @LastEditors: Shen Shu
+ * @LastEditTime: 2022-04-30 01:59:46
+ * @FilePath: \bhpmJS\frontend\src\components\topbar\Topbar.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
@@ -124,7 +124,7 @@ const Topbar = () => {
               <img
                 display="block"
                 height="40px"
-                src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
+                src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0144251-prod.s3.us-west-1.amazonaws.com/public/logo/bhpm_logo_black.jpg"
                 alt="logo"
                 style={{ borderRadius: "10px" }}
               />
