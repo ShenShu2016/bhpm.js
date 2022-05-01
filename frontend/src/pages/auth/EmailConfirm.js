@@ -94,7 +94,7 @@ export default function EmailConfirm(props) {
     // 进入组件时 验证码应该已经发送了 直接开始倒计时
     startCount(5);
     // 检查是否是登录时由于没有验证邮箱跳转到这个页面的 如果是显示提示
-    if (location.state.status === "UserNotConfirmedException") {
+    if (location?.state?.status === "UserNotConfirmedException") {
       setAlertStatus({
         isOpen: true,
         isSuccess: false,
