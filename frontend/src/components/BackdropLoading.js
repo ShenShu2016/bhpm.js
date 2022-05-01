@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-04-24 22:55:36
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-24 22:58:17
+ * @LastEditTime: 2022-04-30 01:53:26
  * @FilePath: \bhpmJS\frontend\src\components\BackdropLoading.js
  * @Description:
  *
@@ -39,7 +39,7 @@ export default function BackdropLoading({ open = true }) {
         <Box
           component="img"
           src={
-            "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
+            "https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0144251-prod.s3.us-west-1.amazonaws.com/public/logo/bhpm_logo_black.jpg"
           }
           maxHeight="150px"
           maxWidth="150px"

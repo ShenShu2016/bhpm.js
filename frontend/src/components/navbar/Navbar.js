@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-23 15:11:44
+ * @LastEditTime: 2022-04-30 01:59:51
  * @FilePath: \bhpmJS\frontend\src\components\navbar\Navbar.js
  * @Description:
  *
@@ -217,7 +217,7 @@ const Navbar = () => {
         <Box className={classes.selections}>
           <img
             height={130}
-            src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0215255-dev.s3.us-west-1.amazonaws.com/public/logo-black.jpeg"
+            src="https://bhpmjsaa65d4d2254e4b41a89df0d66c611dc0144251-prod.s3.us-west-1.amazonaws.com/public/logo/bhpm_logo_black.jpg"
             alt="logo"
             style={{ borderRadius: "10px" }}
           />
