@@ -1,7 +1,7 @@
 /*
  * @Author: 李佳修
  * @Date: 2022-04-28 15:12:28
- * @LastEditTime: 2022-04-29 17:25:48
+ * @LastEditTime: 2022-05-01 08:30:32
  * @LastEditors: 李佳修
  * @FilePath: /bhpmJS/frontend/src/components/sessions/Forgot.js
  */
@@ -24,8 +24,7 @@ import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import {
     forgotPassword,
-    forgotPassWordSubmit,
-    resendConfirmationCode
+    forgotPassWordSubmit
 } from '../../redux/slice/authSlice.js'
 import SnackBar from '../SnackBar';
 
@@ -82,8 +81,6 @@ const Forgot = () => {
   const [isSendWait, setIsSendWait] = useState(false);
   // 发送验证码请求时候的按钮loading状态
   const [sendLoading, setSendLoading] = useState(false)
-  // 是否已经发送过第一次验证码
-  const [hasSent, setHasSent] = useState(false);
   const [count, setCount] = useState(0);
   
   const [alertStatus, setAlertStatus] = useState({
@@ -109,6 +106,7 @@ const Forgot = () => {
                 sentence: "Password set successfully",
                 anchorOrigin
             });
+            endCount();
             navigate('/auth/Login');
         } else {
             throw response.error.message;
@@ -123,12 +121,7 @@ const Forgot = () => {
     try {
         // 发送验证码
         setSendLoading(() => true);
-        let response = null;
-        if (!hasSent) {
-            response = await dispatch(forgotPassword({username: values.username}));
-        } else {
-            response = await dispatch(resendConfirmationCode({username: values.username}));
-        }
+        const response = await dispatch(forgotPassword({username: values.username}));
         setSendLoading(() => false);
         // 验证码发送成功
         if (response.meta.requestStatus === "fulfilled") {
@@ -138,7 +131,6 @@ const Forgot = () => {
                 sentence: "code sent successfully",
                 anchorOrigin
             });
-            setHasSent(true);
             startCount(60);
         } else { // 发送验证码失败
            throw response.error.message;
@@ -228,9 +220,7 @@ const Forgot = () => {
                 sx={{height: '44px', width: '100px'}}
                 onClick={handleSendSecurityCode}
             >
-                { !count ? 
-                    (hasSent ? t("description.reSendCode") : t("description.sendCode"))
-                     : count}
+                { !count ? t("description.sendCode") : count}
                 {sendLoading && (
                     <CircularProgress
                         size={24}
