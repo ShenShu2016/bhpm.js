@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 13:34:52
+ * @LastEditTime: 2022-05-03 20:10:22
  * @FilePath: \bhpmJS\frontend\src\components\bidding\AdminActions.js
  * @Description:
  *
@@ -13,11 +13,12 @@ import {
   Box,
   CircularProgress,
   FormControl,
+  FormControlLabel,
   InputAdornment,
   InputLabel,
-  MenuItem,
   OutlinedInput,
-  Select,
+  Radio,
+  RadioGroup,
   Stack,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -72,11 +73,11 @@ export default function AdminActions({ auctionId, nextBid }) {
     if (response.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
-      alert("bid成功");
+      // alert("bid成功");
     } else {
       setLoading(false);
       setUserNumber(0);
-      alert("bid失敗");
+      // alert("bid失敗");
     }
   };
 
@@ -208,8 +209,7 @@ export default function AdminActions({ auctionId, nextBid }) {
             />
           </FormControl>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">BidForm</InputLabel>
-            <Select
+            {/* <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={bidForm}
@@ -219,7 +219,24 @@ export default function AdminActions({ auctionId, nextBid }) {
               <MenuItem value={"Room"}>Room</MenuItem>
               <MenuItem value={"Internet"}>Internet</MenuItem>
               <MenuItem value={"Phone"}>Phone</MenuItem>
-            </Select>
+            </Select> */}
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              name="radio-buttons-group"
+              onChange={(event) => setBidForm(event.target.value)}
+            >
+              <FormControlLabel value="Room" control={<Radio />} label="Room" />
+              <FormControlLabel
+                value="Internet"
+                control={<Radio />}
+                label="Internet"
+              />
+              <FormControlLabel
+                value="Phone"
+                control={<Radio />}
+                label="Phone"
+              />
+            </RadioGroup>
           </FormControl>
         </Stack>
         <BazarButton
