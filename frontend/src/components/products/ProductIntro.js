@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-04-29 14:03:19
+ * @LastEditTime: 2022-05-03 22:24:40
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
@@ -194,10 +194,11 @@ const ProductIntro = ({ product }) => {
                 <H4>{t("description.ProductTitle")}:</H4>
               </Box>
               <H3 ml={1}>
-                {language.currentLanguage === "zh_hk" &&
+                {product.auctionItem.titleEng} | {product.auctionItem.title}
+                {/* {language.currentLanguage === "zh_hk" &&
                   product.auctionItem.title}
                 {language.currentLanguage === "en_us" &&
-                  product.auctionItem.titleEng}
+                  product.auctionItem.titleEng} */}
               </H3>
             </FlexBox>
             <FlexBox alignItems="center" justifyContent="space-between" mb={4}>
