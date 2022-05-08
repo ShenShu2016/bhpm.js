@@ -8,7 +8,7 @@ type UserInfo
   @model(subscriptions: null)
   @auth(rules: [{ allow: groups, groups: ["admin"] }]) {
   id: ID!
-  email: AWSEmail
+  email: String
   userName: String
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
