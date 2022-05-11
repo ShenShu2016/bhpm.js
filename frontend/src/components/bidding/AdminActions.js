@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-05-03 20:10:22
+ * @LastEditTime: 2022-05-10 22:10:09
  * @FilePath: \bhpmJS\frontend\src\components\bidding\AdminActions.js
  * @Description:
  *
@@ -200,6 +200,7 @@ export default function AdminActions({ auctionId, nextBid }) {
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-amount"
+              disabled={true}
               value={userNumber}
               onChange={(event) => setUserNumber(event.target.value)}
               startAdornment={
