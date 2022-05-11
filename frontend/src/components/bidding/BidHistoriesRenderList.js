@@ -2,14 +2,25 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 15:53:13
+ * @LastEditTime: 2022-05-10 22:08:53
  * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
 
-import { Box, Card, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { H3, H4 } from "../Typography";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -27,7 +38,27 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
   const { username } = useSelector((state) => state.userAuth.user);
   const { cognitoGroup } = useSelector((state) => state.userAuth);
   const [loading, setLoading] = useState(false);
+  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const [pendingHistory, setPendingHistory] = useState(false);
+
+  const [userNumber, setUserNumber] = useState(0);
   const lotInProgress = useSelector(selectLotByInProgress());
+  //console.log(userNumber, pendingHistory);
+
+  const handleClickOpen = (history) => {
+    setUserNumber(0);
+    setPendingHistory(history);
+
+    if (history.userNumber === 0) {
+      setSuccessDialogOpen(true);
+    } else if (history.userNumber !== 0) {
+      handleBidSuccess(history);
+    }
+  };
+
+  const handleClose = () => {
+    setSuccessDialogOpen(false);
+  };
 
   const isLotSucceed = useSelector(
     isLotSucceedByLotId({
@@ -37,20 +68,22 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
 
   const messageRef = useRef();
   useEffect(() => {
-    if (messageRef.current) {
+    if (messageRef.current && !cognitoGroup.includes("admin")) {
       messageRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
         inline: "nearest",
       });
     }
-  }, [bitItemHistories]);
+  }, [bitItemHistories, cognitoGroup]);
+
   const handleBidSuccess = async (history) => {
     setLoading(true);
     console.log(history);
     const updateBidHistoryDetailInput = {
       id: history.id,
       bidHistoryStatus: "Success",
+      userNumber: history.userNumber === 0 ? userNumber : history.userNumber,
     };
     console.log(updateBidHistoryDetailInput);
     const response = await dispatch(
@@ -163,9 +196,9 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
                           color="primary"
                           variant="contained"
                           size="small"
-                          disabled={loading || isLotSucceed}
+                          disabled={loading || !!isLotSucceed}
                           onClick={() => {
-                            handleBidSuccess(history);
+                            handleClickOpen(history);
                           }}
                         >
                           成功交易
@@ -177,6 +210,36 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
             );
           })}
       </Stack>
+      <div>
+        <Dialog open={successDialogOpen} onClose={handleClose}>
+          <DialogTitle>User Number?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>手里举着的号码牌是多少？</DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="User Number"
+              type="number"
+              value={userNumber}
+              fullWidth
+              variant="standard"
+              onChange={(event) => setUserNumber(event.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={() => {
+                handleBidSuccess(pendingHistory);
+                handleClose();
+              }}
+            >
+              提交
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
   );
 }

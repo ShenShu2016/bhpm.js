@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-29 16:14:52
+ * @LastEditTime: 2022-05-10 21:04:26
  * @FilePath: \bhpmJS\frontend\src\pages\auction\bidding\Bidding.js
  * @Description:
  *
@@ -33,8 +33,8 @@ import {
   fetchBidHistories,
   isLotSucceedByLotId,
   postBidHistory,
-  selectAllBidHistories,
   selectMaxBidPriceByCurrentLot,
+  selectRecent20BidHistories,
 } from "../../../redux/slice/bidHistorySlice";
 import {
   fetchLots,
@@ -103,7 +103,7 @@ export default function Bidding() {
 
   const lots = useSelector(selectAllLots);
   const lotInProgress = useSelector(selectLotByInProgress());
-  const bitItemHistories = useSelector(selectAllBidHistories);
+  const bitItemHistories = useSelector(selectRecent20BidHistories());
   const myLimitation = useSelector(
     selectMyAuctionLimitation({ auctionId, username })
   );
