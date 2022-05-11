@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 17:04:38
+ * @LastEditTime: 2022-05-10 21:02:08
  * @FilePath: \bhpmJS\frontend\src\redux\slice\bidHistorySlice.js
  * @Description:
  *
@@ -194,6 +194,12 @@ export const {
 //       .sort((a, b) => b.leader - a.leader);
 //   }
 // );
+
+export const selectRecent20BidHistories = createSelector(() =>
+  createSelector(selectAllBidHistories, (bidHistory) => {
+    return bidHistory.slice(-20);
+  })
+);
 
 export const selectMaxBidPriceByCurrentLot = ({ lotBidHistoriesId }) =>
   createSelector(selectAllBidHistories, (bidHistory) => {

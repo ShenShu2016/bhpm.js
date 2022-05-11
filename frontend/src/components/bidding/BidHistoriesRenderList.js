@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-28 15:53:13
+ * @LastEditTime: 2022-05-10 21:25:42
  * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
@@ -37,14 +37,14 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
 
   const messageRef = useRef();
   useEffect(() => {
-    if (messageRef.current) {
+    if (messageRef.current && !cognitoGroup.includes("admin")) {
       messageRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
         inline: "nearest",
       });
     }
-  }, [bitItemHistories]);
+  }, [bitItemHistories, cognitoGroup]);
   const handleBidSuccess = async (history) => {
     setLoading(true);
     console.log(history);
