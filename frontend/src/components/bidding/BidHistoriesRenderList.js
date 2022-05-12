@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-05-10 22:08:53
+ * @LastEditTime: 2022-05-12 09:44:45
  * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
@@ -68,7 +68,7 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
 
   const messageRef = useRef();
   useEffect(() => {
-    if (messageRef.current && !cognitoGroup.includes("admin")) {
+    if (messageRef.current) {
       messageRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
@@ -184,8 +184,17 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
                 {history.bidHistoryStatus ? (
                   <> {differentStatus(history)}</>
                 ) : (
-                  <Card sx={{ backgroundColor: "#c8c8c8" }}>
-                    <H4 sx={{ color: "blue" }}>
+                  <Card
+                    sx={{
+                      backgroundColor:
+                        history.userNumber === 0 ? "#c8c8c8" : "blue",
+                    }}
+                  >
+                    <H4
+                      sx={{
+                        color: history.userNumber === 0 ? "blue" : "white",
+                      }}
+                    >
                       ${history.bidPrice} ({history.bidForm}): Competing Bid
                     </H4>
                     {history.owner === username && "You"}
