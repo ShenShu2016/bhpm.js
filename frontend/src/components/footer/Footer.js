@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-30 01:59:54
+ * @LastEditTime: 2022-05-12 09:27:11
  * @FilePath: \bhpmJS\frontend\src\components\footer\Footer.js
  * @Description:
  *
@@ -117,7 +117,7 @@ const Footer = () => {
                   Email: info@bhpm.ca
                 </Box>
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: 416-900-2877
+                  Phone: 647-889-1680
                 </Box>
 
                 <FlexBox className="flex" mx={-0.625}>
