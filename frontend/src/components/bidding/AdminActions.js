@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-05-12 09:44:02
+ * @LastEditTime: 2022-05-12 17:12:17
  * @FilePath: \bhpmJS\frontend\src\components\bidding\AdminActions.js
  * @Description:
  *
@@ -77,7 +77,7 @@ export default function AdminActions({ auctionId, nextBid }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      // alert("bid失敗");
+      alert("bid失敗");
     }
   };
 
@@ -100,7 +100,7 @@ export default function AdminActions({ auctionId, nextBid }) {
     } else {
       setLoading(false);
       setUserNumber(0);
-      //alert(event.target.value, " 失敗");
+      alert(event.target.value, " 失敗");
     }
   };
 
@@ -138,7 +138,7 @@ export default function AdminActions({ auctionId, nextBid }) {
     if (response3.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
-      alert("成功");
+      //alert("成功");
     } else {
       setLoading(false);
       setUserNumber(0);
@@ -166,7 +166,7 @@ export default function AdminActions({ auctionId, nextBid }) {
     if (response3.meta.requestStatus === "fulfilled") {
       setLoading(false);
       setUserNumber(0);
-      alert("成功");
+      //alert("成功");
     } else {
       setLoading(false);
       setUserNumber(0);

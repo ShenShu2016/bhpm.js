@@ -58,3 +58,5 @@ amplifytools.xcconfig
 tools/auctionInfo/*
 
 .env
+
+final_list.xlsx
