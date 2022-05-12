@@ -2,7 +2,7 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-05-12 09:44:45
+ * @LastEditTime: 2022-05-12 17:12:29
  * @FilePath: \bhpmJS\frontend\src\components\bidding\BidHistoriesRenderList.js
  * @Description:
  *
@@ -105,7 +105,7 @@ export default function BidHistoriesRenderList({ bitItemHistories }) {
       response2?.meta?.requestStatus === "fulfilled"
     ) {
       setLoading(false);
-      alert("成功");
+      //alert("成功");
     } else {
       setLoading(false);
       alert("失敗");
