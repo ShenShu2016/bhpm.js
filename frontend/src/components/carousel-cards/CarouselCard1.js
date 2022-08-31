@@ -2,21 +2,21 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 20:11:37
- * @FilePath: \bhpmJS\frontend\src\components\carousel-cards\CarouselCard1.js
+ * @LastEditTime: 2022-08-31 16:25:55
+ * @FilePath: /bhpmJS/frontend/src/components/carousel-cards/CarouselCard1.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
 
 import { Box, Button, Grid, styled } from "@mui/material";
-
+import moment from "moment";
 import BazarImage from "../BazarImage";
 import { Link } from "react-router-dom";
 import { Paragraph } from "../Typography";
 import React from "react"; // component props interface
 import { useSelector } from "react-redux";
-
+import { selectAllAuctions } from "../../redux/slice/auctionSlice";
 // styled component
 const StyledBox = styled(Box)(({ theme }) => ({
   textAlign: "left",
@@ -71,20 +71,25 @@ export default function CarouselCard1({ carousel }) {
     sourceType,
   } = carousel;
 
+  const auctions = useSelector(selectAllAuctions);
+  // console.log(auctions[0], moment(auctions[0]?.auctionStartDate));
+  // console.log(moment().isBefore(auctions[0]?.auctionStartDate));
+  // console.log(moment());
+
   return (
     <StyledBox>
-      <Grid container spacing={3} alignItems="center" justifyContent="center">
-        <Grid item className="grid-item" sm={5} xs={12}>
-          <h1 className="title">
+      <Grid container spacing={3} alignItems='center' justifyContent='center'>
+        <Grid item className='grid-item' sm={5} xs={12}>
+          <h1 className='title'>
             {currentLanguage === "zh_hk" ? title : titleEng}
           </h1>
-          <Paragraph color="secondary.main" mb={2.7}>
+          <Paragraph color='secondary.main' mb={2.7}>
             {description}
           </Paragraph>
           <Button
-            className="button-link"
-            variant="contained"
-            color="primary"
+            className='button-link'
+            variant='contained'
+            color='primary'
             sx={{
               px: "1.75rem",
               height: "44px",
@@ -92,15 +97,18 @@ export default function CarouselCard1({ carousel }) {
             }}
             component={Link}
             to={`/auction/bidding/${homePageCarouseAuctionId}`}
+            disabled={moment().isBefore(auctions[0]?.auctionStartDate)}
           >
-            Bid Now
+            {moment().isBefore(auctions[0]?.auctionStartDate)
+              ? "Coming Soon"
+              : "Bid Now"}
           </Button>
         </Grid>
         <Grid item sm={5} xs={12}>
           {sourceType === "video" ? (
             <video
               src={sourceUrl}
-              type="video/mp4"
+              type='video/mp4'
               controls
               style={{
                 display: "block",
