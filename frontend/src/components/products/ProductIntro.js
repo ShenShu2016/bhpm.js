@@ -1,7 +1,7 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-08-31 16:32:15
+ * @LastEditTime: 2022-09-01 16:29:35
  * @LastEditors: Shen Shu
  * @Description:
  * @FilePath: /bhpmJS/frontend/src/components/products/ProductIntro.js
@@ -224,13 +224,23 @@ const ProductIntro = ({ product }) => {
             {product.auctionItem.condition && (
               <FlexBox alignItems='center' mb={3}>
                 <H3> {t("description.ProductCondition")}: </H3>
-                <H4 ml={1}> {product.auctionItem.condition} </H4>
+                <H4 ml={1}>
+                  {language.currentLanguage === "zh_hk" &&
+                    product.auctionItem.condition}
+                  {language.currentLanguage === "en_us" &&
+                    product.auctionItem.conditionEng}
+                </H4>
               </FlexBox>
             )}
             {product.auctionItem.provenance && (
               <FlexBox alignItems='center' mb={3}>
                 <H3> {t("description.ProductProvenance")}: </H3>
-                <H4 ml={1}> {product.auctionItem.provenance} </H4>
+                <H4 ml={1}>
+                  {language.currentLanguage === "zh_hk" &&
+                    product.auctionItem.provenance}
+                  {language.currentLanguage === "en_us" &&
+                    product.auctionItem.provenanceEng}{" "}
+                </H4>
               </FlexBox>
             )}
             <FlexBox justifyContent='space-between' alignItems='center' mb={2}>
