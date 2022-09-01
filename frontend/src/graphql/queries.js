@@ -167,7 +167,9 @@ export const getCategory = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId
@@ -333,7 +335,9 @@ export const getMyFavorite = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId
@@ -433,7 +437,9 @@ export const getLot = /* GraphQL */ `
         }
         imgUrls
         condition
+        conditionEng
         provenance
+        provenanceEng
         createdAt
         updatedAt
         categoryAuctionItemsId
@@ -504,7 +510,9 @@ export const listLots = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId
@@ -568,7 +576,9 @@ export const lotSortByLotOrder = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId
@@ -607,7 +617,9 @@ export const getAuctionItem = /* GraphQL */ `
       }
       imgUrls
       condition
+      conditionEng
       provenance
+      provenanceEng
       createdAt
       updatedAt
       categoryAuctionItemsId
@@ -636,7 +648,9 @@ export const listAuctionItems = /* GraphQL */ `
         }
         imgUrls
         condition
+        conditionEng
         provenance
+        provenanceEng
         createdAt
         updatedAt
         categoryAuctionItemsId
@@ -702,7 +716,9 @@ export const getBidHistory = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId

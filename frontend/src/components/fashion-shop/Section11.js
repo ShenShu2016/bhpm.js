@@ -2,15 +2,15 @@
  * @Author: Shen Shu
  * @Date: 2022-03-24 23:14:58
  * @LastEditors: Shen Shu
- * @LastEditTime: 2022-04-27 10:45:15
- * @FilePath: \bhpmJS\frontend\src\components\fashion-shop\Section11.js
+ * @LastEditTime: 2022-08-31 15:22:47
+ * @FilePath: /bhpmJS/frontend/src/components/fashion-shop/Section11.js
  * @Description:
  *
  * Copyright (c) 2022 by 用户/公司名, All Rights Reserved.
  */
 
 import { Box, Container, Grid, Pagination } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import CategorySectionHeader from "../CategorySectionHeader";
 import ProductCard1 from "../product-cards/ProductCard1";
@@ -19,14 +19,17 @@ import { trackWindowScroll } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
 
 const Section11 = () => {
+  const myRef = useRef(null);
   const lots = useSelector(selectAllLots);
   const itemPerPage = 32;
   const pageNumber = lots && Math.ceil(lots.length / itemPerPage);
-
+  const executeScroll = () => myRef.current.scrollIntoView();
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
     setPage(value);
+    executeScroll();
   };
+
   return (
     <>
       <Container
@@ -34,7 +37,9 @@ const Section11 = () => {
           mb: "70px",
         }}
       >
-        <CategorySectionHeader title="More For You" seeMoreLink="#" />
+        <div ref={myRef}>
+          <CategorySectionHeader title='More For You' seeMoreLink='#' />
+        </div>
         <Grid container spacing={3}>
           {lots &&
             lots
@@ -48,7 +53,7 @@ const Section11 = () => {
         <Box sx={{ my: "2rem" }}>
           <Pagination
             count={pageNumber}
-            color="primary"
+            color='primary'
             page={page}
             onChange={handleChange}
           />

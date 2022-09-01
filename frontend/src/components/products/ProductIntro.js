@@ -1,10 +1,10 @@
 /*
  * @Author: Quennel
  * @Date: 2022-04-24 10:36:02
- * @LastEditTime: 2022-05-03 22:24:40
+ * @LastEditTime: 2022-09-01 16:29:35
  * @LastEditors: Shen Shu
  * @Description:
- * @FilePath: \bhpmJS\frontend\src\components\products\ProductIntro.js
+ * @FilePath: /bhpmJS/frontend/src/components/products/ProductIntro.js
  * Quennel
  */
 
@@ -102,12 +102,12 @@ const ProductIntro = ({ product }) => {
         my: "2rem",
       }}
     >
-      <Box width="100%">
-        <Grid container spacing={3} justifyContent="space-around">
-          <Grid item md={6} xs={12} alignItems="center">
+      <Box width='100%'>
+        <Grid container spacing={3} justifyContent='space-around'>
+          <Grid item md={6} xs={12} alignItems='center'>
             <Box>
               <BackToPrePageButton />
-              <FlexBox justifyContent="center" mb={6}>
+              <FlexBox justifyContent='center' mb={6}>
                 <img
                   src={product.auctionItem.imgUrls[selectedImage]}
                   onClick={() =>
@@ -118,10 +118,10 @@ const ProductIntro = ({ product }) => {
                     )
                   }
                   alt={title}
-                  height={300}
+                  // height={300}
                   width={300}
-                  loading="eager"
-                  objectfit="contain"
+                  loading='eager'
+                  objectfit='contain'
                 />
                 {isViewerOpen && (
                   <ImageViewer
@@ -136,7 +136,7 @@ const ProductIntro = ({ product }) => {
                   />
                 )}
                 <IconButton
-                  aria-label="Example"
+                  aria-label='Example'
                   onClick={() =>
                     openImageViewer(
                       product.auctionItem.imgUrls.indexOf(
@@ -145,21 +145,21 @@ const ProductIntro = ({ product }) => {
                     )
                   }
                 >
-                  <ZoomInIcon fontSize="large" />
+                  <ZoomInIcon fontSize='large' />
                 </IconButton>
               </FlexBox>
-              <FlexBox overflow="auto">
+              <FlexBox overflow='auto'>
                 {product.auctionItem.imgUrls.map((url, ind) => (
                   <Box
                     height={64}
                     width={64}
                     minWidth={64}
-                    bgcolor="white"
-                    borderRadius="10px"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    border="1px solid"
+                    bgcolor='white'
+                    borderRadius='10px'
+                    display='flex'
+                    justifyContent='center'
+                    alignItems='center'
+                    border='1px solid'
                     style={{
                       cursor: "pointer",
                     }}
@@ -175,22 +175,22 @@ const ProductIntro = ({ product }) => {
                     onClick={handleImageClick(ind)}
                     key={ind}
                   >
-                    <BazarAvatar src={url} variant="square" height={40} />
+                    <BazarAvatar src={url} variant='square' height={40} />
                   </Box>
                 ))}
               </FlexBox>
             </Box>
           </Grid>
 
-          <Grid item md={6} xs={12} alignItems="center">
+          <Grid item md={6} xs={12} alignItems='center'>
             <H3>Lot #{product.lotOrder}</H3>
             <FlexBox
-              alignItems="center"
-              justifyContent="space-between"
+              alignItems='center'
+              justifyContent='space-between'
               mt={2}
               mb={2}
             >
-              <Box alignContent="center">
+              <Box alignContent='center'>
                 <H4>{t("description.ProductTitle")}:</H4>
               </Box>
               <H3 ml={1}>
@@ -201,7 +201,7 @@ const ProductIntro = ({ product }) => {
                   product.auctionItem.titleEng} */}
               </H3>
             </FlexBox>
-            <FlexBox alignItems="center" justifyContent="space-between" mb={4}>
+            <FlexBox alignItems='center' justifyContent='space-between' mb={4}>
               <H4>{t("description.ProductDescription")}:</H4>
               <H3 ml={1}>
                 {language.currentLanguage === "zh_hk" &&
@@ -211,46 +211,56 @@ const ProductIntro = ({ product }) => {
               </H3>
             </FlexBox>
 
-            <FlexBox alignItems="center" justifyContent="space-between" mb={4}>
-              <H6 color="primary" mb={0.5} lineHeight="1">
+            <FlexBox alignItems='center' justifyContent='space-between' mb={4}>
+              <H6 color='primary' mb={0.5} lineHeight='1'>
                 {t("description.ProductEstimatedPrice")}:
               </H6>
-              <H6 color="primary" mb={0.5} lineHeight="1">
+              <H6 color='primary' mb={0.5} lineHeight='1'>
                 ${product.estimatedPriceMin.toFixed(2)} - $
                 {product.estimatedPriceMax.toFixed(2)}
               </H6>
             </FlexBox>
 
             {product.auctionItem.condition && (
-              <FlexBox alignItems="center" mb={3}>
+              <FlexBox alignItems='center' mb={3}>
                 <H3> {t("description.ProductCondition")}: </H3>
-                <H4 ml={1}> {product.auctionItem.condition} </H4>
+                <H4 ml={1}>
+                  {language.currentLanguage === "zh_hk" &&
+                    product.auctionItem.condition}
+                  {language.currentLanguage === "en_us" &&
+                    product.auctionItem.conditionEng}
+                </H4>
               </FlexBox>
             )}
             {product.auctionItem.provenance && (
-              <FlexBox alignItems="center" mb={3}>
+              <FlexBox alignItems='center' mb={3}>
                 <H3> {t("description.ProductProvenance")}: </H3>
-                <H4 ml={1}> {product.auctionItem.provenance} </H4>
+                <H4 ml={1}>
+                  {language.currentLanguage === "zh_hk" &&
+                    product.auctionItem.provenance}
+                  {language.currentLanguage === "en_us" &&
+                    product.auctionItem.provenanceEng}{" "}
+                </H4>
               </FlexBox>
             )}
-            <FlexBox justifyContent="space-between" alignItems="center" mb={2}>
+            <FlexBox justifyContent='space-between' alignItems='center' mb={2}>
               <Button
                 onClick={toggleIsFavorite}
                 variant={isFavorite ? "contained" : "outlined"}
-                color="primary"
+                color='primary'
                 mr={2}
               >
                 {t("description.ProductCollect")}
               </Button>
               {!isAuthenticated && (
                 <Link to={"/auth/signUp"}>
-                  <Button ml={3} variant="outlined">
+                  <Button ml={3} variant='outlined'>
                     Place Bid
                   </Button>
                 </Link>
               )}
             </FlexBox>
-            <FlexBox alignItems="center" mb={2}></FlexBox>
+            <FlexBox alignItems='center' mb={2}></FlexBox>
           </Grid>
         </Grid>
         <SnackBar alertStatus={alertStatus}></SnackBar>

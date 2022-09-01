@@ -49,7 +49,9 @@ export const onCreateLot = /* GraphQL */ `
         }
         imgUrls
         condition
+        conditionEng
         provenance
+        provenanceEng
         createdAt
         updatedAt
         categoryAuctionItemsId
@@ -133,7 +135,9 @@ export const onUpdateLot = /* GraphQL */ `
         }
         imgUrls
         condition
+        conditionEng
         provenance
+        provenanceEng
         createdAt
         updatedAt
         categoryAuctionItemsId
@@ -217,7 +221,9 @@ export const onDeleteLot = /* GraphQL */ `
         }
         imgUrls
         condition
+        conditionEng
         provenance
+        provenanceEng
         createdAt
         updatedAt
         categoryAuctionItemsId
@@ -310,7 +316,9 @@ export const onCreateBidHistory = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId
@@ -392,7 +400,9 @@ export const onUpdateBidHistory = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId
@@ -474,7 +484,9 @@ export const onDeleteBidHistory = /* GraphQL */ `
           descriptionEng
           imgUrls
           condition
+          conditionEng
           provenance
+          provenanceEng
           createdAt
           updatedAt
           categoryAuctionItemsId

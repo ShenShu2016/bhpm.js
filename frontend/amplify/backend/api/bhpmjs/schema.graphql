@@ -168,7 +168,9 @@ type AuctionItem
   category: Category! @belongsTo
   imgUrls: [AWSURL]
   condition: String
+  conditionEng: String
   provenance: String
+  provenanceEng: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
 }
