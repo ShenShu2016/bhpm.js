@@ -114,13 +114,22 @@ export default function AdminActions({ auctionId, nextBid }) {
     setLoading(true);
     const currentLot = lotInProgress;
     const nextLot = nextLotArr[0];
+    console.log(currentLot);
     const response1 = await dispatch(
-      updateLotDetail({ id: currentLot.id, lotStatus: "Finished" })
+      updateLotDetail({
+        id: currentLot.id,
+        lotStatus: "Finished",
+        lotAuctionItemId: currentLot.lotAuctionItemId,
+      })
     );
     console.log(response1);
-
+    console.log(nextLot);
     const response2 = await dispatch(
-      updateLotDetail({ id: nextLot.id, lotStatus: "InProgress" })
+      updateLotDetail({
+        id: nextLot.id,
+        lotStatus: "InProgress",
+        lotAuctionItemId: nextLot.lotAuctionItemId,
+      })
     );
     console.log(response2);
     const createBidHistoryInput = {
@@ -148,8 +157,13 @@ export default function AdminActions({ auctionId, nextBid }) {
 
   const handleStartFirstOne = async (event) => {
     setLoading(true);
+    console.log(lot1);
     const response2 = await dispatch(
-      updateLotDetail({ id: lot1.id, lotStatus: "InProgress" })
+      updateLotDetail({
+        id: lot1.id,
+        lotStatus: "InProgress",
+        lotAuctionItemId: lot1.lotAuctionItemId,
+      })
     );
     console.log(response2);
     const createBidHistoryInput = {
@@ -176,18 +190,18 @@ export default function AdminActions({ auctionId, nextBid }) {
   return (
     <Box sx={{ mx: "2rem" }}>
       <Box sx={{ my: "1rem" }}>
-        <H1 color="primary">
+        <H1 color='primary'>
           Bid Amount
           <FormControl sx={{ mx: 1 }}>
-            <InputLabel htmlFor="outlined-adornment-amount">CAD</InputLabel>
+            <InputLabel htmlFor='outlined-adornment-amount'>CAD</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-amount"
+              id='outlined-adornment-amount'
               value={bidAmount}
               onChange={(event) => setBidAmount(event.target.value)}
               startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
+                <InputAdornment position='start'>$</InputAdornment>
               }
-              label="Amount"
+              label='Amount'
             />
           </FormControl>
         </H1>
@@ -195,18 +209,18 @@ export default function AdminActions({ auctionId, nextBid }) {
       <Box sx={{ display: "flex" }}>
         <Stack spacing={2} sx={{ width: "200px", mr: "2rem" }}>
           <FormControl fullWidth>
-            <InputLabel htmlFor="outlined-adornment-amount">
+            <InputLabel htmlFor='outlined-adornment-amount'>
               UserNumber
             </InputLabel>
             <OutlinedInput
-              id="outlined-adornment-amount"
+              id='outlined-adornment-amount'
               disabled={true}
               value={userNumber}
               onChange={(event) => setUserNumber(event.target.value)}
               startAdornment={
-                <InputAdornment position="start">#</InputAdornment>
+                <InputAdornment position='start'>#</InputAdornment>
               }
-              label="Amount"
+              label='Amount'
             />
           </FormControl>
           <FormControl fullWidth>
@@ -222,28 +236,28 @@ export default function AdminActions({ auctionId, nextBid }) {
               <MenuItem value={"Phone"}>Phone</MenuItem>
             </Select> */}
             <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
+              aria-labelledby='demo-radio-buttons-group-label'
+              name='radio-buttons-group'
               onChange={(event) => setBidForm(event.target.value)}
             >
-              <FormControlLabel value="Room" control={<Radio />} label="Room" />
+              <FormControlLabel value='Room' control={<Radio />} label='Room' />
               <FormControlLabel
-                value="Internet"
+                value='Internet'
                 control={<Radio />}
-                label="Internet"
+                label='Internet'
               />
               <FormControlLabel
-                value="Phone"
+                value='Phone'
                 control={<Radio />}
-                label="Phone"
+                label='Phone'
               />
             </RadioGroup>
           </FormControl>
         </Stack>
         <BazarButton
-          variant="contained"
-          size="large"
-          color="primary"
+          variant='contained'
+          size='large'
+          color='primary'
           disabled={loading}
           sx={{
             width: 200,
@@ -267,11 +281,11 @@ export default function AdminActions({ auctionId, nextBid }) {
           )}
         </BazarButton>
       </Box>
-      <Stack direction="row" spacing={2} sx={{ my: "1rem" }}>
+      <Stack direction='row' spacing={2} sx={{ my: "1rem" }}>
         <BazarButton
-          size="large"
-          color="primary"
-          variant="contained"
+          size='large'
+          color='primary'
+          variant='contained'
           onClick={handleStartFirstOne}
           disabled={loading || !!maxBidPriceByCurrentLot}
         >
@@ -291,11 +305,11 @@ export default function AdminActions({ auctionId, nextBid }) {
           )}
         </BazarButton>
       </Stack>
-      <Stack direction="row" spacing={2} sx={{ my: "1rem" }}>
+      <Stack direction='row' spacing={2} sx={{ my: "1rem" }}>
         <BazarButton
-          size="large"
-          color="primary"
-          variant="contained"
+          size='large'
+          color='primary'
+          variant='contained'
           value={"FirstCall"}
           onClick={handleFirstSecondCall}
           disabled={loading || !maxBidPriceByCurrentLot}
@@ -316,9 +330,9 @@ export default function AdminActions({ auctionId, nextBid }) {
           )}
         </BazarButton>
         <BazarButton
-          size="large"
-          color="primary"
-          variant="contained"
+          size='large'
+          color='primary'
+          variant='contained'
           value={"SecondCall"}
           onClick={handleFirstSecondCall}
           disabled={loading || !maxBidPriceByCurrentLot}
@@ -339,9 +353,9 @@ export default function AdminActions({ auctionId, nextBid }) {
           )}
         </BazarButton>
         <BazarButton
-          size="large"
-          color="primary"
-          variant="contained"
+          size='large'
+          color='primary'
+          variant='contained'
           onClick={handleFinishAndNext}
           disabled={loading || !lotInProgress}
         >
