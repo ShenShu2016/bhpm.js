@@ -15,5 +15,15 @@
   "roleName": "bhpmjs10bca66010bca660PostConfirmation",
   "skipEdit": true,
   "GROUP": "anyone",
-  "enableCors": false
+  "enableCors": false,
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "group",
+      "environmentVariableName": "GROUP"
+    },
+    {
+      "cloudFormationParameterName": "userInfoTableName",
+      "environmentVariableName": "UserInfo_Table_Name"
+    }
+  ]
 }
