@@ -44,10 +44,12 @@ const initialState = mySucceedBidAdapter.getInitialState({
 
 export const fetchMySucceedBids = createAsyncThunk(
   "mySucceedBid/fetchMySucceedBids",
-  async () => {
+  async (username) => {
+    console.log(username);
     try {
       const MySucceedBidsData = await API.graphql({
         query: listMySucceedBids,
+        variables: { owner: username },
       });
       return MySucceedBidsData.data.listMySucceedBids.items;
     } catch (error) {

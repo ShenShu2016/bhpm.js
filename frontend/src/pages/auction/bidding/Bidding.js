@@ -155,12 +155,12 @@ export default function Bidding() {
   }, [dispatch, isAuthenticated, auctionId, fetchBidHistoriesStatus]);
 
   useEffect(() => {
-    if (isAuthenticated === true && auctionId) {
+    if (isAuthenticated === true && auctionId && username) {
       dispatch(fetchAuctionUserLimitations());
       dispatch(fetchAuctionUserNumbers());
-      dispatch(fetchMySucceedBids());
+      dispatch(fetchMySucceedBids(username));
     }
-  }, [dispatch, isAuthenticated, auctionId]);
+  }, [dispatch, isAuthenticated, auctionId, username]);
 
   useEffect(() => {
     if (lotInProgress) {
@@ -214,23 +214,23 @@ export default function Bidding() {
       return false;
     }
   }
-  console.log("==============================");
-  console.log(
-    loading ||
-      !myUserNumber?.number ||
-      isHighestBid() ||
-      !!isLotSucceed ||
-      !(nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids) //剩下的钱要大于nextBid 才行
-  );
-  console.log("loading", loading);
-  console.log("!myUserNumber?.number", !myUserNumber?.number);
-  console.log("isHighestBid() ", isHighestBid());
-  console.log("!!isLotSucceed", !!isLotSucceed);
-  console.log(
-    "nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids",
-    !(nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids)
-  );
-  console.log("==============================");
+  // console.log("==============================");
+  // console.log(
+  //   loading ||
+  //     !myUserNumber?.number ||
+  //     isHighestBid() ||
+  //     !!isLotSucceed ||
+  //     !(nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids) //剩下的钱要大于nextBid 才行
+  // );
+  // console.log("loading", loading);
+  // console.log("!myUserNumber?.number", !myUserNumber?.number);
+  // console.log("isHighestBid() ", isHighestBid());
+  // console.log("!!isLotSucceed", !!isLotSucceed);
+  // console.log(
+  //   "nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids",
+  //   !(nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids)
+  // );
+  // console.log("==============================");
   return (
     <div
       style={{
