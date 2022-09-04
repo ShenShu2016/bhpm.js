@@ -20,7 +20,9 @@
       "function": {
         "bhpmjs10bca66010bca660PostConfirmation": {
           "deploymentBucketName": "amplify-bhpmjs-dev-45214-deployment",
-          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-536f5754577846434174-build.zip"
+          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-377876706447316a4543-build.zip",
+          "group": "anyone",
+          "userInfoTableName": "UserInfo-eihn3n2smrhitovut2ahkwpx3a-dev"
         }
       }
     }
