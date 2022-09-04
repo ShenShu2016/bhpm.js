@@ -1,4 +1,32 @@
 {
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bhpmjs-prod-144251-authRole",
+      "UnauthRoleArn": "arn:aws:iam::852970143715:role/amplify-bhpmjs-prod-144251-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::852970143715:role/amplify-bhpmjs-prod-144251-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-bhpmjs-prod-144251-deployment",
+      "UnauthRoleName": "amplify-bhpmjs-prod-144251-unauthRole",
+      "StackName": "amplify-bhpmjs-prod-144251",
+      "StackId": "arn:aws:cloudformation:us-west-1:852970143715:stack/amplify-bhpmjs-prod-144251/b1da81c0-bc22-11ec-8b37-0649b4dce675",
+      "AmplifyAppId": "d3hqss1dsmmcse",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-bhpmjs-prod-144251-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "userPoolGroups": {},
+        "bhpmjs10bca66010bca660": {}
+      },
+      "function": {
+        "bhpmjs10bca66010bca660PostConfirmation": {
+          "deploymentBucketName": "amplify-bhpmjs-prod-144251-deployment",
+          "s3Key": "amplify-builds/bhpmjs10bca66010bca660PostConfirmation-377876706447316a4543-build.zip",
+          "group": "anyone",
+          "userInfoTableName": "UserInfo-7jzw3fqlhrcuzaarveonxbtczq-prod"
+        }
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-bhpmjs-dev-45214-authRole",
