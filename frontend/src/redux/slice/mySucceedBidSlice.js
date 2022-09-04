@@ -48,7 +48,6 @@ export const fetchMySucceedBids = createAsyncThunk(
     try {
       const MySucceedBidsData = await API.graphql({
         query: listMySucceedBids,
-        variables: { id: 500 },
       });
       return MySucceedBidsData.data.listMySucceedBids.items;
     } catch (error) {
