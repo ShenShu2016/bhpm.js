@@ -100,10 +100,15 @@ export const postLot = createAsyncThunk(
 export const updateLotDetail = createAsyncThunk(
   "lot/updateLotDetail",
   async (updateLotDetail) => {
-    const response = await API.graphql(
-      graphqlOperation(updateLot, { input: updateLotDetail })
-    );
-    return response.data.updateLot;
+    console.log(updateLotDetail);
+    try {
+      const response = await API.graphql(
+        graphqlOperation(updateLot, { input: updateLotDetail })
+      );
+      return response.data.updateLot;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 

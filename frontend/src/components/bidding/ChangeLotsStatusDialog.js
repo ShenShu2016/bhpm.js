@@ -45,8 +45,13 @@ export default function ChangeLotsStatusDialog({
     setRowInfo({ ...statusDialogRowInfo, lotStatus: event.target.value });
   };
   const handleSubmitChange = async () => {
+    console.log({ id: rowInfo.id, lotStatus: rowInfo.lotStatus });
     const response = await dispatch(
-      updateLotDetail({ id: rowInfo.id, lotStatus: rowInfo.lotStatus })
+      updateLotDetail({
+        id: rowInfo.id,
+        lotStatus: rowInfo.lotStatus,
+        lotAuctionItemId: rowInfo.lotAuctionItemId,
+      })
     );
     console.log(response);
     handleStatusDialogClose();
@@ -64,17 +69,17 @@ export default function ChangeLotsStatusDialog({
             Lot: {rowInfo.lot}. {rowInfo.auctionItem.name}
           </DialogTitle>
           <DialogContent>
-            <Box component="form" sx={{ display: "flex", flexWrap: "wrap" }}>
+            <Box component='form' sx={{ display: "flex", flexWrap: "wrap" }}>
               {/* <Typography variant="h4">更改状态: </Typography> */}
               <FormControl sx={{ m: 1, minWidth: 200 }}>
-                <InputLabel id="demo-simple-select-label">
+                <InputLabel id='demo-simple-select-label'>
                   Change Status
                 </InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
                   value={rowInfo && rowInfo.lotStatus}
-                  label="Status"
+                  label='Status'
                   onChange={handleChangeStatus}
                 >
                   <MenuItem value={"ComingSoon"}>ComingSoon</MenuItem>

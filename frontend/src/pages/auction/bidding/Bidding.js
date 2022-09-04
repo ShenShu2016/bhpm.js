@@ -155,12 +155,12 @@ export default function Bidding() {
   }, [dispatch, isAuthenticated, auctionId, fetchBidHistoriesStatus]);
 
   useEffect(() => {
-    if (isAuthenticated === true && auctionId) {
+    if (isAuthenticated === true && auctionId && username) {
       dispatch(fetchAuctionUserLimitations());
       dispatch(fetchAuctionUserNumbers());
-      dispatch(fetchMySucceedBids());
+      dispatch(fetchMySucceedBids(username));
     }
-  }, [dispatch, isAuthenticated, auctionId]);
+  }, [dispatch, isAuthenticated, auctionId, username]);
 
   useEffect(() => {
     if (lotInProgress) {
@@ -214,6 +214,23 @@ export default function Bidding() {
       return false;
     }
   }
+  // console.log("==============================");
+  // console.log(
+  //   loading ||
+  //     !myUserNumber?.number ||
+  //     isHighestBid() ||
+  //     !!isLotSucceed ||
+  //     !(nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids) //剩下的钱要大于nextBid 才行
+  // );
+  // console.log("loading", loading);
+  // console.log("!myUserNumber?.number", !myUserNumber?.number);
+  // console.log("isHighestBid() ", isHighestBid());
+  // console.log("!!isLotSucceed", !!isLotSucceed);
+  // console.log(
+  //   "nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids",
+  //   !(nextBid <= myLimitation?.maxUserBidPrice - myTotalPriceMySucceedBids)
+  // );
+  // console.log("==============================");
   return (
     <div
       style={{
@@ -267,7 +284,7 @@ export default function Bidding() {
               <Box sx={{ textAlign: "center", my: "1rem" }}>
                 <TextPaperContainer>
                   <TextPaper>
-                    <H2 color="secondary.500">
+                    <H2 color='secondary.500'>
                       Current Bid is: $
                       {maxBidPriceByCurrentLot
                         ? Number(maxBidPriceByCurrentLot.bidPrice)
@@ -278,7 +295,7 @@ export default function Bidding() {
                     </H2>
                   </TextPaper>
                   <TextPaper>
-                    <H2 color="secondary.500">
+                    <H2 color='secondary.500'>
                       Next Bid is: $
                       {nextBid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}{" "}
                       (CAD)
@@ -288,10 +305,10 @@ export default function Bidding() {
                 {!cognitoGroup.includes("admin") && (
                   <>
                     <BazarButton
-                      variant="contained"
+                      variant='contained'
                       onClick={handleBitClick}
-                      color="primary"
-                      size="large"
+                      color='primary'
+                      size='large'
                       fullWidth={true}
                       disabled={
                         loading ||
@@ -324,7 +341,7 @@ export default function Bidding() {
                           backgroundColor: "green",
                         }}
                       >
-                        <H1 color="" mb="0.2rem">
+                        <H1 color='' mb='0.2rem'>
                           You are the highest bidder now
                         </H1>
                       </Paper>
